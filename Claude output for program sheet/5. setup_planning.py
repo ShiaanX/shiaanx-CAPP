@@ -426,6 +426,181 @@ def _build_workholding(spindle_dir: np.ndarray,
 
 
 # ---------------------------------------------------------------------------
+# WCS origin computer
+# ---------------------------------------------------------------------------
+
+def _compute_wcs_origin(spindle_dir: np.ndarray, bbox: Dict) -> Dict:
+    """
+    Compute the actual 3D WCS zero point in CAD space for a setup.
+
+    The WCS origin is the point the machinist probes or edges to before
+    running the program. It is always on the surface the spindle hits first
+    (Z=0 in work coordinates), at either the part center or the CAD-origin
+    corner depending on where the bounding box starts.
+
+    Corner zero is used when xmin ≈ 0 (part placed at CAD origin) because
+    all G-code coordinates then stay positive, which is easier to verify
+    on the machine. Center zero is used for parts not aligned to the CAD
+    origin (symmetric travel either side of zero).
+
+    Parameters
+    ----------
+    spindle_dir : np.ndarray  — unit vector: direction tool approaches from
+    bbox        : dict        — bounding box with xmin/xmax/ymin/ymax/zmin/zmax
+
+    Returns
+    -------
+    dict with keys:
+        x_mm      : float|None   CAD X coordinate of WCS X0
+        y_mm      : float|None   CAD Y coordinate of WCS Y0
+        z_mm      : float|None   CAD Z coordinate of WCS Z0 (top face)
+        origin_x  : str          label: 'CENTER', 'CORNER', '+face', '-face'
+        origin_y  : str          label for second in-plane axis
+        origin_z  : str          always 'TOP'
+        note      : str          plain English probe instruction
+    """
+    if not bbox:
+        return {
+            'x_mm': None, 'y_mm': None, 'z_mm': None,
+            'origin_x': 'CENTER', 'origin_y': 'CENTER', 'origin_z': 'TOP',
+            'note': 'No bounding box — set zero at part centre by inspection.',
+        }
+
+    xmin = float(bbox.get('xmin', 0))
+    xmax = float(bbox.get('xmax', 0))
+    ymin = float(bbox.get('ymin', 0))
+    ymax = float(bbox.get('ymax', 0))
+    zmin = float(bbox.get('zmin', 0))
+    zmax = float(bbox.get('zmax', 0))
+
+    x_dim = xmax - xmin
+    y_dim = ymax - ymin
+    z_dim = zmax - zmin
+
+    # Corner zero when the part sits at CAD origin (mins ≈ 0).
+    # Threshold: min < 2% of the dimension (handles floating-point near-zero).
+    def _at_origin(mn, dim):
+        return dim > 0 and abs(mn) < 0.02 * dim
+
+    sd = _unit(spindle_dir)
+
+    # ------------------------------------------------------------------
+    # ±Y spindle — top or bottom setup
+    # Face plane: CAD X (work X) × CAD Z (work Y). Depth axis: CAD Y.
+    # ------------------------------------------------------------------
+    if abs(sd[1]) > 0.9:
+        z_coord = ymax if sd[1] > 0 else ymin   # top face in CAD Y
+        face    = 'top' if sd[1] > 0 else 'bottom'
+
+        x_at_origin = _at_origin(xmin, x_dim)
+        z_at_origin = _at_origin(zmin, z_dim)   # work Y uses CAD Z
+
+        if x_at_origin:
+            x_coord  = xmin
+            origin_x = f'CORNER (xmin={xmin:.3f}mm — all X coords positive)'
+        else:
+            x_coord  = (xmin + xmax) / 2
+            origin_x = f'CENTER (X={x_coord:.3f}mm, {x_coord - xmin:.2f}mm from xmin edge)'
+
+        if z_at_origin:
+            y_coord  = zmin
+            origin_y = f'CORNER (zmin={zmin:.3f}mm — all Y coords positive)'
+        else:
+            y_coord  = (zmin + zmax) / 2
+            origin_y = f'CENTER (Z={y_coord:.3f}mm, {y_coord - zmin:.2f}mm from zmin edge)'
+
+        note = (f'Probe {face} face for Z0 (Y={z_coord:.3f}mm in CAD). '
+                f'X0: {origin_x}. Y0: {origin_y}. '
+                f'Part envelope: {x_dim:.2f} × {z_dim:.2f} × {y_dim:.2f}mm (X × Z × Y).')
+
+        return {
+            'x_mm': round(x_coord, 4), 'y_mm': round(y_coord, 4),
+            'z_mm': round(z_coord, 4),
+            'origin_x': origin_x, 'origin_y': origin_y, 'origin_z': 'TOP',
+            'note': note,
+        }
+
+    # ------------------------------------------------------------------
+    # ±X spindle — left or right side setup
+    # Face plane: CAD Y (work X) × CAD Z (work Y). Depth axis: CAD X.
+    # ------------------------------------------------------------------
+    elif abs(sd[0]) > 0.9:
+        z_coord = xmax if sd[0] > 0 else xmin
+        face    = 'right' if sd[0] > 0 else 'left'
+
+        y_at_origin = _at_origin(ymin, y_dim)
+        z_at_origin = _at_origin(zmin, z_dim)
+
+        if y_at_origin:
+            x_coord  = ymin
+            origin_x = f'CORNER (ymin={ymin:.3f}mm)'
+        else:
+            x_coord  = (ymin + ymax) / 2
+            origin_x = f'CENTER (Y={x_coord:.3f}mm)'
+
+        if z_at_origin:
+            y_coord  = zmin
+            origin_y = f'CORNER (zmin={zmin:.3f}mm)'
+        else:
+            y_coord  = (zmin + zmax) / 2
+            origin_y = f'CENTER (Z={y_coord:.3f}mm)'
+
+        note = (f'Probe {face} face for Z0 (X={z_coord:.3f}mm in CAD). '
+                f'X0: {origin_x}. Y0: {origin_y}. '
+                f'Part envelope: {y_dim:.2f} × {z_dim:.2f} × {x_dim:.2f}mm.')
+
+        return {
+            'x_mm': round(x_coord, 4), 'y_mm': round(y_coord, 4),
+            'z_mm': round(z_coord, 4),
+            'origin_x': origin_x, 'origin_y': origin_y, 'origin_z': 'TOP',
+            'note': note,
+        }
+
+    # ------------------------------------------------------------------
+    # ±Z spindle — front or rear face setup
+    # Face plane: CAD X (work X) × CAD Y (work Y). Depth axis: CAD Z.
+    # ------------------------------------------------------------------
+    elif abs(sd[2]) > 0.9:
+        z_coord = zmax if sd[2] > 0 else zmin
+        face    = 'front' if sd[2] > 0 else 'rear'
+
+        x_at_origin = _at_origin(xmin, x_dim)
+        y_at_origin = _at_origin(ymin, y_dim)
+
+        if x_at_origin:
+            x_coord  = xmin
+            origin_x = f'CORNER (xmin={xmin:.3f}mm)'
+        else:
+            x_coord  = (xmin + xmax) / 2
+            origin_x = f'CENTER (X={x_coord:.3f}mm)'
+
+        if y_at_origin:
+            y_coord  = ymin
+            origin_y = f'CORNER (ymin={ymin:.3f}mm)'
+        else:
+            y_coord  = (ymin + ymax) / 2
+            origin_y = f'CENTER (Y={y_coord:.3f}mm)'
+
+        note = (f'Probe {face} face for Z0 (Z={z_coord:.3f}mm in CAD). '
+                f'X0: {origin_x}. Y0: {origin_y}. '
+                f'Part envelope: {x_dim:.2f} × {y_dim:.2f} × {z_dim:.2f}mm.')
+
+        return {
+            'x_mm': round(x_coord, 4), 'y_mm': round(y_coord, 4),
+            'z_mm': round(z_coord, 4),
+            'origin_x': origin_x, 'origin_y': origin_y, 'origin_z': 'TOP',
+            'note': note,
+        }
+
+    # Fallback
+    return {
+        'x_mm': None, 'y_mm': None, 'z_mm': None,
+        'origin_x': 'CENTER', 'origin_y': 'CENTER', 'origin_z': 'TOP',
+        'note': 'Unusual spindle direction — set zero at part centre by inspection.',
+    }
+
+
+# ---------------------------------------------------------------------------
 # Main planning logic
 # ---------------------------------------------------------------------------
 
@@ -555,28 +730,18 @@ def plan_setups(processes_data: Dict,
         wcs_sequence = ["G54", "G55", "G56", "G57", "G58", "G59"]
         wcs = wcs_sequence[min(setup_id - 1, len(wcs_sequence) - 1)]
 
-        # Origin X/Y based on spindle direction; Z is always TOP
-        sd = spindle_dir  # already a unit vector
-        if abs(sd[1]) > 0.9:          # ±Y (top-down or bottom-up)
-            origin_x = "CENTER"
-            origin_y = "CENTER"
-        elif sd[0] > 0.9:             # +X (right side)
-            origin_x = "+"
-            origin_y = "CENTER"
-        elif sd[0] < -0.9:            # -X (left side)
-            origin_x = "-"
-            origin_y = "CENTER"
-        elif abs(sd[2]) > 0.9:        # ±Z (front/rear)
-            origin_x = "CENTER"
-            origin_y = "CENTER"
-        else:
-            origin_x = "CENTER"
-            origin_y = "CENTER"
-        origin_z = "TOP"
+        wcs_origin = _compute_wcs_origin(
+            spindle_dir,
+            processes_data.get('bounding_box', {}),
+        )
+        origin_x = wcs_origin['origin_x']
+        origin_y = wcs_origin['origin_y']
+        origin_z = wcs_origin['origin_z']
 
         # ------------------------------------------------------------------
         # Bounding box dimensions (§2b)
         # ------------------------------------------------------------------
+        sd   = spindle_dir   # unit vector — used in bbox dimension mapping below
         bbox = processes_data.get('bounding_box', {})
         if bbox:
             xmin = bbox.get('xmin', None)
@@ -645,6 +810,7 @@ def plan_setups(processes_data: Dict,
             'origin_x'              : origin_x,
             'origin_y'              : origin_y,
             'origin_z'              : origin_z,
+            'wcs_origin_mm'         : wcs_origin,
             'setup_face_width'      : face_width,
             'setup_face_height'     : face_height,
             'setup_depth'           : depth,
@@ -767,10 +933,16 @@ def print_setup_summary(data: Dict):
         if rot:
             print(f"    Rotation  : {rot['angle_deg']}° around {rot['rotation_axis_label']}")
 
-        print(f"    WCS       : {s.get('wcs', 'N/A')}  "
-              f"Origin X={s.get('origin_x', '?')}  "
-              f"Y={s.get('origin_y', '?')}  "
-              f"Z={s.get('origin_z', '?')}")
+        print(f"    WCS       : {s.get('wcs', 'N/A')}")
+        wo = s.get('wcs_origin_mm', {})
+        if wo:
+            print(f"    Origin    : X={s.get('origin_x', '?')}")
+            print(f"                Y={s.get('origin_y', '?')}")
+            print(f"                Z={s.get('origin_z', 'TOP')}  "
+                  f"(CAD point: {wo.get('x_mm', 0):.3f}mm, "
+                  f"{wo.get('y_mm', 0):.3f}mm, "
+                  f"{wo.get('z_mm', 0):.3f}mm)")
+            print(f"    Probe note: {wo.get('note', '')}")
 
         fw = s.get('setup_face_width')
         fh = s.get('setup_face_height')
