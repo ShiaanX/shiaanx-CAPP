@@ -1,0 +1,1762 @@
+{
+  "_comment": "CNC Tool Database — metric mm, aluminium-first. Tool specs derived from Sandvik Coromant and Kennametal published catalogues for aluminium alloys (6061, 7075). Vc and feed values are conservative mid-range recommendations. ramp_plunge values are expressed as percentages of the normal cutting feed — parameter_calculation.py multiplies these at runtime. Add entries as new part families are encountered.",
+  "version": "2.0",
+  "units": "metric_mm",
+  "supported_materials": [
+    "aluminium",
+    "mild_steel",
+    "stainless_steel"
+  ],
+  "tools": [
+    {
+      "_section": "SPOT DRILLS",
+      "tool_id": "SPOT_090_3MM",
+      "operation": "spot_drill",
+      "description": "90-degree solid carbide spot drill, 3mm shank",
+      "diameter_mm": 3.0,
+      "locates_holes_up_to_mm": 2.7,
+      "point_angle_deg": 90,
+      "shank_diameter_mm": 3.0,
+      "overall_length_mm": 45.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroDrill SD503",
+      "grade": "H10F",
+      "coating": "uncoated",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 250,
+          "feed_per_rev_mm": 0.05,
+          "notes": "Spot only — no dwell needed"
+        },
+        "mild_steel": {
+          "Vc_mmin": 100,
+          "feed_per_rev_mm": 0.04,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 60,
+          "feed_per_rev_mm": 0.03,
+          "notes": "Use coolant"
+        }
+      }
+    },
+    {
+      "tool_id": "SPOT_090_4MM",
+      "operation": "spot_drill",
+      "description": "90-degree solid carbide spot drill, 4mm shank",
+      "diameter_mm": 4.0,
+      "locates_holes_up_to_mm": 3.6,
+      "point_angle_deg": 90,
+      "shank_diameter_mm": 4.0,
+      "overall_length_mm": 50.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroDrill SD503",
+      "grade": "H10F",
+      "coating": "uncoated",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 250,
+          "feed_per_rev_mm": 0.06,
+          "notes": "Spot only"
+        },
+        "mild_steel": {
+          "Vc_mmin": 100,
+          "feed_per_rev_mm": 0.05,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 60,
+          "feed_per_rev_mm": 0.03,
+          "notes": "Use coolant"
+        }
+      }
+    },
+    {
+      "tool_id": "SPOT_090_6MM",
+      "operation": "spot_drill",
+      "description": "90-degree solid carbide spot drill, 6mm shank",
+      "diameter_mm": 6.0,
+      "locates_holes_up_to_mm": 5.4,
+      "point_angle_deg": 90,
+      "shank_diameter_mm": 6.0,
+      "overall_length_mm": 60.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroDrill SD503",
+      "grade": "H10F",
+      "coating": "uncoated",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 250,
+          "feed_per_rev_mm": 0.08,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 100,
+          "feed_per_rev_mm": 0.06,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 60,
+          "feed_per_rev_mm": 0.04,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "_section": "CENTER DRILLS — 60-degree combined center drills for accurate hole location before twist drilling",
+      "tool_id": "CD_60_2MM",
+      "operation": "center_drill",
+      "description": "60-degree combined center drill, 2mm tip, 5mm body",
+      "diameter_mm": 2.0,
+      "body_diameter_mm": 5.0,
+      "tip_diameter_mm": 1.0,
+      "locates_holes_up_to_mm": 4.0,
+      "point_angle_deg": 60,
+      "shank_diameter_mm": 5.0,
+      "overall_length_mm": 35.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroDrill 800",
+      "grade": "H10F",
+      "coating": "uncoated",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 80,
+          "feed_per_rev_mm": 0.03,
+          "notes": "Short peck recommended — center drill is rigid but tip is fragile"
+        },
+        "mild_steel": {
+          "Vc_mmin": 40,
+          "feed_per_rev_mm": 0.02,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 25,
+          "feed_per_rev_mm": 0.015,
+          "notes": "Use coolant"
+        }
+      }
+    },
+    {
+      "tool_id": "CD_60_4MM",
+      "operation": "center_drill",
+      "description": "60-degree combined center drill, 4mm tip, 8mm body",
+      "diameter_mm": 4.0,
+      "body_diameter_mm": 8.0,
+      "tip_diameter_mm": 2.0,
+      "locates_holes_up_to_mm": 8.0,
+      "point_angle_deg": 60,
+      "shank_diameter_mm": 8.0,
+      "overall_length_mm": 45.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroDrill 800",
+      "grade": "H10F",
+      "coating": "uncoated",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 100,
+          "feed_per_rev_mm": 0.04,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 50,
+          "feed_per_rev_mm": 0.03,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 30,
+          "feed_per_rev_mm": 0.02,
+          "notes": "Use coolant"
+        }
+      }
+    },
+    {
+      "tool_id": "CD_60_6MM",
+      "operation": "center_drill",
+      "description": "60-degree combined center drill, 6mm tip, 12mm body",
+      "diameter_mm": 6.0,
+      "body_diameter_mm": 12.0,
+      "tip_diameter_mm": 3.15,
+      "locates_holes_up_to_mm": 14.0,
+      "point_angle_deg": 60,
+      "shank_diameter_mm": 12.0,
+      "overall_length_mm": 55.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroDrill 800",
+      "grade": "H10F",
+      "coating": "uncoated",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 120,
+          "feed_per_rev_mm": 0.05,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 60,
+          "feed_per_rev_mm": 0.04,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 35,
+          "feed_per_rev_mm": 0.025,
+          "notes": "Use coolant"
+        }
+      }
+    },
+    {
+      "_section": "TWIST DRILLS — solid carbide, metric standard series",
+      "tool_id": "DRILL_1.0MM",
+      "operation": "twist_drill",
+      "description": "Solid carbide jobber drill 1.0mm",
+      "diameter_mm": 1.0,
+      "is_standard_size": true,
+      "cutting_length_mm": 10.0,
+      "overall_length_mm": 38.0,
+      "flute_count": 2,
+      "point_angle_deg": 140,
+      "shank_diameter_mm": 3.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroDrill 460",
+      "grade": "H10F",
+      "coating": "TiAlN",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 80,
+          "feed_per_rev_mm": 0.015,
+          "notes": "Fragile — use peck at DDR > 2"
+        },
+        "mild_steel": {
+          "Vc_mmin": 40,
+          "feed_per_rev_mm": 0.01,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 20,
+          "feed_per_rev_mm": 0.008,
+          "notes": "Flood coolant essential"
+        }
+      }
+    },
+    {
+      "tool_id": "DRILL_1.2MM",
+      "operation": "twist_drill",
+      "description": "Solid carbide jobber drill 1.2mm",
+      "diameter_mm": 1.2,
+      "is_standard_size": true,
+      "cutting_length_mm": 12.0,
+      "overall_length_mm": 40.0,
+      "flute_count": 2,
+      "point_angle_deg": 140,
+      "shank_diameter_mm": 3.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroDrill 460",
+      "grade": "H10F",
+      "coating": "TiAlN",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 90,
+          "feed_per_rev_mm": 0.018,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 45,
+          "feed_per_rev_mm": 0.012,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 22,
+          "feed_per_rev_mm": 0.01,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "tool_id": "DRILL_1.25MM",
+      "operation": "twist_drill",
+      "description": "Solid carbide jobber drill 1.25mm — nearest standard to 1.26mm",
+      "diameter_mm": 1.25,
+      "is_standard_size": true,
+      "cutting_length_mm": 12.0,
+      "overall_length_mm": 40.0,
+      "flute_count": 2,
+      "point_angle_deg": 140,
+      "shank_diameter_mm": 3.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroDrill 460",
+      "grade": "H10F",
+      "coating": "TiAlN",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 90,
+          "feed_per_rev_mm": 0.018,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 45,
+          "feed_per_rev_mm": 0.012,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 22,
+          "feed_per_rev_mm": 0.01,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "tool_id": "DRILL_1.5MM",
+      "operation": "twist_drill",
+      "description": "Solid carbide jobber drill 1.5mm",
+      "diameter_mm": 1.5,
+      "is_standard_size": true,
+      "cutting_length_mm": 15.0,
+      "overall_length_mm": 43.0,
+      "flute_count": 2,
+      "point_angle_deg": 140,
+      "shank_diameter_mm": 3.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroDrill 460",
+      "grade": "H10F",
+      "coating": "TiAlN",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 100,
+          "feed_per_rev_mm": 0.022,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 50,
+          "feed_per_rev_mm": 0.015,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 25,
+          "feed_per_rev_mm": 0.012,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "tool_id": "DRILL_1.6MM",
+      "operation": "twist_drill",
+      "description": "Solid carbide jobber drill 1.6mm",
+      "diameter_mm": 1.6,
+      "is_standard_size": true,
+      "cutting_length_mm": 16.0,
+      "overall_length_mm": 44.0,
+      "flute_count": 2,
+      "point_angle_deg": 140,
+      "shank_diameter_mm": 3.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroDrill 460",
+      "grade": "H10F",
+      "coating": "TiAlN",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 100,
+          "feed_per_rev_mm": 0.024,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 50,
+          "feed_per_rev_mm": 0.016,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 25,
+          "feed_per_rev_mm": 0.013,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "tool_id": "DRILL_1.8MM",
+      "operation": "twist_drill",
+      "description": "Solid carbide jobber drill 1.8mm",
+      "diameter_mm": 1.8,
+      "is_standard_size": true,
+      "cutting_length_mm": 18.0,
+      "overall_length_mm": 46.0,
+      "flute_count": 2,
+      "point_angle_deg": 140,
+      "shank_diameter_mm": 3.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroDrill 460",
+      "grade": "H10F",
+      "coating": "TiAlN",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 110,
+          "feed_per_rev_mm": 0.028,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 55,
+          "feed_per_rev_mm": 0.018,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 28,
+          "feed_per_rev_mm": 0.015,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "tool_id": "DRILL_2.0MM",
+      "operation": "twist_drill",
+      "description": "Solid carbide jobber drill 2.0mm",
+      "diameter_mm": 2.0,
+      "is_standard_size": true,
+      "cutting_length_mm": 20.0,
+      "overall_length_mm": 49.0,
+      "flute_count": 2,
+      "point_angle_deg": 140,
+      "shank_diameter_mm": 3.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroDrill 460",
+      "grade": "H10F",
+      "coating": "TiAlN",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 120,
+          "feed_per_rev_mm": 0.032,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 60,
+          "feed_per_rev_mm": 0.02,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 30,
+          "feed_per_rev_mm": 0.016,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "tool_id": "DRILL_2.5MM",
+      "operation": "twist_drill",
+      "description": "Solid carbide jobber drill 2.5mm",
+      "diameter_mm": 2.5,
+      "is_standard_size": true,
+      "cutting_length_mm": 25.0,
+      "overall_length_mm": 57.0,
+      "flute_count": 2,
+      "point_angle_deg": 140,
+      "shank_diameter_mm": 3.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroDrill 460",
+      "grade": "H10F",
+      "coating": "TiAlN",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 130,
+          "feed_per_rev_mm": 0.038,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 65,
+          "feed_per_rev_mm": 0.025,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 32,
+          "feed_per_rev_mm": 0.02,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "tool_id": "DRILL_3.0MM",
+      "operation": "twist_drill",
+      "description": "Solid carbide jobber drill 3.0mm",
+      "diameter_mm": 3.0,
+      "is_standard_size": true,
+      "cutting_length_mm": 33.0,
+      "overall_length_mm": 61.0,
+      "flute_count": 2,
+      "point_angle_deg": 140,
+      "shank_diameter_mm": 3.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroDrill 460",
+      "grade": "H10F",
+      "coating": "TiAlN",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 140,
+          "feed_per_rev_mm": 0.045,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 70,
+          "feed_per_rev_mm": 0.028,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 35,
+          "feed_per_rev_mm": 0.022,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "tool_id": "DRILL_4.0MM",
+      "operation": "twist_drill",
+      "description": "Solid carbide jobber drill 4.0mm",
+      "diameter_mm": 4.0,
+      "is_standard_size": true,
+      "cutting_length_mm": 43.0,
+      "overall_length_mm": 75.0,
+      "flute_count": 2,
+      "point_angle_deg": 140,
+      "shank_diameter_mm": 4.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroDrill 460",
+      "grade": "H10F",
+      "coating": "TiAlN",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 150,
+          "feed_per_rev_mm": 0.055,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 75,
+          "feed_per_rev_mm": 0.035,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 38,
+          "feed_per_rev_mm": 0.028,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "tool_id": "DRILL_5.0MM",
+      "operation": "twist_drill",
+      "description": "Solid carbide jobber drill 5.0mm",
+      "diameter_mm": 5.0,
+      "is_standard_size": true,
+      "cutting_length_mm": 52.0,
+      "overall_length_mm": 86.0,
+      "flute_count": 2,
+      "point_angle_deg": 140,
+      "shank_diameter_mm": 5.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroDrill 460",
+      "grade": "H10F",
+      "coating": "TiAlN",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 160,
+          "feed_per_rev_mm": 0.065,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 80,
+          "feed_per_rev_mm": 0.042,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 40,
+          "feed_per_rev_mm": 0.033,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "tool_id": "DRILL_6.0MM",
+      "operation": "twist_drill",
+      "description": "Solid carbide jobber drill 6.0mm",
+      "diameter_mm": 6.0,
+      "is_standard_size": true,
+      "cutting_length_mm": 57.0,
+      "overall_length_mm": 94.0,
+      "flute_count": 2,
+      "point_angle_deg": 140,
+      "shank_diameter_mm": 6.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroDrill 460",
+      "grade": "H10F",
+      "coating": "TiAlN",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 180,
+          "feed_per_rev_mm": 0.075,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 90,
+          "feed_per_rev_mm": 0.05,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 45,
+          "feed_per_rev_mm": 0.038,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "tool_id": "DRILL_8.0MM",
+      "operation": "twist_drill",
+      "description": "Solid carbide jobber drill 8.0mm",
+      "diameter_mm": 8.0,
+      "is_standard_size": true,
+      "cutting_length_mm": 75.0,
+      "overall_length_mm": 117.0,
+      "flute_count": 2,
+      "point_angle_deg": 140,
+      "shank_diameter_mm": 8.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroDrill 460",
+      "grade": "H10F",
+      "coating": "TiAlN",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 200,
+          "feed_per_rev_mm": 0.09,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 100,
+          "feed_per_rev_mm": 0.06,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 50,
+          "feed_per_rev_mm": 0.045,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "tool_id": "DRILL_10.0MM",
+      "operation": "twist_drill",
+      "description": "Solid carbide jobber drill 10.0mm",
+      "diameter_mm": 10.0,
+      "is_standard_size": true,
+      "cutting_length_mm": 87.0,
+      "overall_length_mm": 133.0,
+      "flute_count": 2,
+      "point_angle_deg": 140,
+      "shank_diameter_mm": 10.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroDrill 460",
+      "grade": "H10F",
+      "coating": "TiAlN",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 220,
+          "feed_per_rev_mm": 0.11,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 110,
+          "feed_per_rev_mm": 0.07,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 55,
+          "feed_per_rev_mm": 0.055,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "_section": "END MILLS — for contour_mill, counterbore_mill, circular_interp. ramp_plunge percentages are applied to the computed feed rate at runtime.",
+      "tool_id": "EM_2FL_1MM",
+      "operation": [
+        "contour_mill",
+        "counterbore_mill",
+        "circular_interp"
+      ],
+      "description": "2-flute solid carbide end mill 1mm — aluminium geometry",
+      "diameter_mm": 1.0,
+      "flute_count": 2,
+      "cutting_length_mm": 3.0,
+      "overall_length_mm": 38.0,
+      "shank_diameter_mm": 3.0,
+      "corner_radius_mm": 0.0,
+      "helix_angle_deg": 45,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroMill Plura",
+      "grade": "1630",
+      "coating": "uncoated",
+      "ramp_plunge": {
+        "ramp_angle_deg": 2,
+        "vf_ramp_pct_of_feed": 40,
+        "vf_plunge_pct_of_feed": 25
+      },
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 200,
+          "fz_mm": 0.005,
+          "Vc_rough_mmin": 25,
+          "Vc_finish_mmin": 18,
+          "fz_rough_mm": 0.006,
+          "fz_finish_mm": 0.003,
+          "ap_max_mm": 1.0,
+          "ae_max_mm": 0.5,
+          "notes": "Very fragile — low depth of cut"
+        },
+        "mild_steel": {
+          "Vc_mmin": 80,
+          "fz_mm": 0.003,
+          "Vc_rough_mmin": 12,
+          "Vc_finish_mmin": 8,
+          "fz_rough_mm": 0.004,
+          "fz_finish_mm": 0.002,
+          "ap_max_mm": 0.5,
+          "ae_max_mm": 0.2,
+          "notes": "Reduced params for small diameter"
+        },
+        "stainless_steel": {
+          "Vc_mmin": 50,
+          "fz_mm": 0.002,
+          "Vc_rough_mmin": 6,
+          "Vc_finish_mmin": 4,
+          "fz_rough_mm": 0.002,
+          "fz_finish_mm": 0.001,
+          "ap_max_mm": 0.3,
+          "ae_max_mm": 0.15,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "tool_id": "EM_2FL_2MM",
+      "operation": [
+        "contour_mill",
+        "counterbore_mill",
+        "circular_interp"
+      ],
+      "description": "2-flute solid carbide end mill 2mm — aluminium geometry",
+      "diameter_mm": 2.0,
+      "flute_count": 2,
+      "cutting_length_mm": 6.0,
+      "overall_length_mm": 45.0,
+      "shank_diameter_mm": 3.0,
+      "corner_radius_mm": 0.0,
+      "helix_angle_deg": 45,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroMill Plura",
+      "grade": "1630",
+      "coating": "uncoated",
+      "ramp_plunge": {
+        "ramp_angle_deg": 2,
+        "vf_ramp_pct_of_feed": 40,
+        "vf_plunge_pct_of_feed": 25
+      },
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 300,
+          "fz_mm": 0.01,
+          "Vc_rough_mmin": 50,
+          "Vc_finish_mmin": 35,
+          "fz_rough_mm": 0.015,
+          "fz_finish_mm": 0.008,
+          "ap_max_mm": 2.0,
+          "ae_max_mm": 1.0,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 100,
+          "fz_mm": 0.006,
+          "Vc_rough_mmin": 25,
+          "Vc_finish_mmin": 18,
+          "fz_rough_mm": 0.008,
+          "fz_finish_mm": 0.004,
+          "ap_max_mm": 1.0,
+          "ae_max_mm": 0.4,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 60,
+          "fz_mm": 0.004,
+          "Vc_rough_mmin": 12,
+          "Vc_finish_mmin": 8,
+          "fz_rough_mm": 0.005,
+          "fz_finish_mm": 0.003,
+          "ap_max_mm": 0.6,
+          "ae_max_mm": 0.3,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "tool_id": "EM_2FL_3MM",
+      "operation": [
+        "contour_mill",
+        "counterbore_mill",
+        "circular_interp"
+      ],
+      "description": "2-flute solid carbide end mill 3mm — aluminium geometry",
+      "diameter_mm": 3.0,
+      "flute_count": 2,
+      "cutting_length_mm": 9.0,
+      "overall_length_mm": 50.0,
+      "shank_diameter_mm": 3.0,
+      "corner_radius_mm": 0.0,
+      "helix_angle_deg": 45,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroMill Plura",
+      "grade": "1630",
+      "coating": "uncoated",
+      "ramp_plunge": {
+        "ramp_angle_deg": 2,
+        "vf_ramp_pct_of_feed": 45,
+        "vf_plunge_pct_of_feed": 28
+      },
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 350,
+          "fz_mm": 0.015,
+          "Vc_rough_mmin": 75,
+          "Vc_finish_mmin": 50,
+          "fz_rough_mm": 0.025,
+          "fz_finish_mm": 0.012,
+          "ap_max_mm": 3.0,
+          "ae_max_mm": 1.5,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 120,
+          "fz_mm": 0.008,
+          "Vc_rough_mmin": 35,
+          "Vc_finish_mmin": 25,
+          "fz_rough_mm": 0.012,
+          "fz_finish_mm": 0.006,
+          "ap_max_mm": 1.5,
+          "ae_max_mm": 0.6,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 70,
+          "fz_mm": 0.005,
+          "Vc_rough_mmin": 18,
+          "Vc_finish_mmin": 12,
+          "fz_rough_mm": 0.007,
+          "fz_finish_mm": 0.004,
+          "ap_max_mm": 0.9,
+          "ae_max_mm": 0.4,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "tool_id": "EM_2FL_4MM",
+      "operation": [
+        "contour_mill",
+        "counterbore_mill",
+        "circular_interp"
+      ],
+      "description": "2-flute solid carbide end mill 4mm — aluminium geometry",
+      "diameter_mm": 4.0,
+      "flute_count": 2,
+      "cutting_length_mm": 11.0,
+      "overall_length_mm": 57.0,
+      "shank_diameter_mm": 4.0,
+      "corner_radius_mm": 0.0,
+      "helix_angle_deg": 45,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroMill Plura",
+      "grade": "1630",
+      "coating": "uncoated",
+      "ramp_plunge": {
+        "ramp_angle_deg": 3,
+        "vf_ramp_pct_of_feed": 50,
+        "vf_plunge_pct_of_feed": 30
+      },
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 380,
+          "fz_mm": 0.018,
+          "Vc_rough_mmin": 100,
+          "Vc_finish_mmin": 70,
+          "fz_rough_mm": 0.03,
+          "fz_finish_mm": 0.015,
+          "ap_max_mm": 4.0,
+          "ae_max_mm": 2.0,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 130,
+          "fz_mm": 0.01,
+          "Vc_rough_mmin": 45,
+          "Vc_finish_mmin": 32,
+          "fz_rough_mm": 0.015,
+          "fz_finish_mm": 0.008,
+          "ap_max_mm": 2.0,
+          "ae_max_mm": 0.8,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 75,
+          "fz_mm": 0.006,
+          "Vc_rough_mmin": 22,
+          "Vc_finish_mmin": 15,
+          "fz_rough_mm": 0.008,
+          "fz_finish_mm": 0.004,
+          "ap_max_mm": 1.2,
+          "ae_max_mm": 0.5,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "tool_id": "EM_2FL_6MM",
+      "operation": [
+        "contour_mill",
+        "counterbore_mill",
+        "circular_interp"
+      ],
+      "description": "2-flute solid carbide end mill 6mm — aluminium geometry",
+      "diameter_mm": 6.0,
+      "flute_count": 2,
+      "cutting_length_mm": 18.0,
+      "overall_length_mm": 66.0,
+      "shank_diameter_mm": 6.0,
+      "corner_radius_mm": 0.0,
+      "helix_angle_deg": 45,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroMill Plura",
+      "grade": "1630",
+      "coating": "uncoated",
+      "ramp_plunge": {
+        "ramp_angle_deg": 3,
+        "vf_ramp_pct_of_feed": 50,
+        "vf_plunge_pct_of_feed": 30
+      },
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 400,
+          "fz_mm": 0.025,
+          "Vc_rough_mmin": 150,
+          "Vc_finish_mmin": 100,
+          "fz_rough_mm": 0.04,
+          "fz_finish_mm": 0.02,
+          "ap_max_mm": 6.0,
+          "ae_max_mm": 3.0,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 150,
+          "fz_mm": 0.014,
+          "Vc_rough_mmin": 65,
+          "Vc_finish_mmin": 45,
+          "fz_rough_mm": 0.02,
+          "fz_finish_mm": 0.01,
+          "ap_max_mm": 3.0,
+          "ae_max_mm": 1.2,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 85,
+          "fz_mm": 0.008,
+          "Vc_rough_mmin": 32,
+          "Vc_finish_mmin": 22,
+          "fz_rough_mm": 0.012,
+          "fz_finish_mm": 0.006,
+          "ap_max_mm": 1.8,
+          "ae_max_mm": 0.7,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "tool_id": "EM_2FL_8MM",
+      "operation": [
+        "contour_mill",
+        "counterbore_mill",
+        "circular_interp"
+      ],
+      "description": "2-flute solid carbide end mill 8mm — aluminium geometry",
+      "diameter_mm": 8.0,
+      "flute_count": 2,
+      "cutting_length_mm": 22.0,
+      "overall_length_mm": 75.0,
+      "shank_diameter_mm": 8.0,
+      "corner_radius_mm": 0.0,
+      "helix_angle_deg": 45,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroMill Plura",
+      "grade": "1630",
+      "coating": "uncoated",
+      "ramp_plunge": {
+        "ramp_angle_deg": 3,
+        "vf_ramp_pct_of_feed": 55,
+        "vf_plunge_pct_of_feed": 32
+      },
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 420,
+          "fz_mm": 0.03,
+          "Vc_rough_mmin": 200,
+          "Vc_finish_mmin": 140,
+          "fz_rough_mm": 0.045,
+          "fz_finish_mm": 0.023,
+          "ap_max_mm": 8.0,
+          "ae_max_mm": 4.0,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 160,
+          "fz_mm": 0.018,
+          "Vc_rough_mmin": 85,
+          "Vc_finish_mmin": 60,
+          "fz_rough_mm": 0.025,
+          "fz_finish_mm": 0.012,
+          "ap_max_mm": 4.0,
+          "ae_max_mm": 1.6,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 90,
+          "fz_mm": 0.01,
+          "Vc_rough_mmin": 42,
+          "Vc_finish_mmin": 30,
+          "fz_rough_mm": 0.015,
+          "fz_finish_mm": 0.008,
+          "ap_max_mm": 2.4,
+          "ae_max_mm": 1.0,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "tool_id": "EM_2FL_10MM",
+      "operation": [
+        "contour_mill",
+        "counterbore_mill",
+        "circular_interp"
+      ],
+      "description": "2-flute solid carbide end mill 10mm — aluminium geometry",
+      "diameter_mm": 10.0,
+      "flute_count": 2,
+      "cutting_length_mm": 28.0,
+      "overall_length_mm": 83.0,
+      "shank_diameter_mm": 10.0,
+      "corner_radius_mm": 0.0,
+      "helix_angle_deg": 45,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroMill Plura",
+      "grade": "1630",
+      "coating": "uncoated",
+      "ramp_plunge": {
+        "ramp_angle_deg": 4,
+        "vf_ramp_pct_of_feed": 55,
+        "vf_plunge_pct_of_feed": 33
+      },
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 450,
+          "fz_mm": 0.035,
+          "Vc_rough_mmin": 250,
+          "Vc_finish_mmin": 170,
+          "fz_rough_mm": 0.05,
+          "fz_finish_mm": 0.025,
+          "ap_max_mm": 10.0,
+          "ae_max_mm": 5.0,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 170,
+          "fz_mm": 0.022,
+          "Vc_rough_mmin": 100,
+          "Vc_finish_mmin": 70,
+          "fz_rough_mm": 0.028,
+          "fz_finish_mm": 0.014,
+          "ap_max_mm": 5.0,
+          "ae_max_mm": 2.0,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 95,
+          "fz_mm": 0.012,
+          "Vc_rough_mmin": 50,
+          "Vc_finish_mmin": 35,
+          "fz_rough_mm": 0.018,
+          "fz_finish_mm": 0.009,
+          "ap_max_mm": 3.0,
+          "ae_max_mm": 1.2,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "tool_id": "EM_2FL_16MM",
+      "operation": [
+        "contour_mill",
+        "counterbore_mill",
+        "circular_interp"
+      ],
+      "description": "2-flute solid carbide end mill 16mm — aluminium geometry",
+      "diameter_mm": 16.0,
+      "flute_count": 2,
+      "cutting_length_mm": 42.0,
+      "overall_length_mm": 100.0,
+      "shank_diameter_mm": 16.0,
+      "corner_radius_mm": 0.0,
+      "helix_angle_deg": 45,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroMill Plura",
+      "grade": "1630",
+      "coating": "uncoated",
+      "ramp_plunge": {
+        "ramp_angle_deg": 4,
+        "vf_ramp_pct_of_feed": 60,
+        "vf_plunge_pct_of_feed": 35
+      },
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 500,
+          "fz_mm": 0.05,
+          "Vc_rough_mmin": 300,
+          "Vc_finish_mmin": 200,
+          "fz_rough_mm": 0.06,
+          "fz_finish_mm": 0.03,
+          "ap_max_mm": 16.0,
+          "ae_max_mm": 8.0,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 180,
+          "fz_mm": 0.03,
+          "Vc_rough_mmin": 120,
+          "Vc_finish_mmin": 85,
+          "fz_rough_mm": 0.035,
+          "fz_finish_mm": 0.018,
+          "ap_max_mm": 8.0,
+          "ae_max_mm": 3.2,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 100,
+          "fz_mm": 0.016,
+          "Vc_rough_mmin": 60,
+          "Vc_finish_mmin": 42,
+          "fz_rough_mm": 0.022,
+          "fz_finish_mm": 0.011,
+          "ap_max_mm": 4.8,
+          "ae_max_mm": 1.9,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "tool_id": "EM_2FL_20MM",
+      "operation": [
+        "contour_mill",
+        "counterbore_mill",
+        "circular_interp"
+      ],
+      "description": "2-flute solid carbide end mill 20mm — aluminium geometry",
+      "diameter_mm": 20.0,
+      "flute_count": 2,
+      "cutting_length_mm": 50.0,
+      "overall_length_mm": 115.0,
+      "shank_diameter_mm": 20.0,
+      "corner_radius_mm": 0.0,
+      "helix_angle_deg": 45,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroMill Plura",
+      "grade": "1630",
+      "coating": "uncoated",
+      "ramp_plunge": {
+        "ramp_angle_deg": 4,
+        "vf_ramp_pct_of_feed": 60,
+        "vf_plunge_pct_of_feed": 35
+      },
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 500,
+          "fz_mm": 0.06,
+          "Vc_rough_mmin": 350,
+          "Vc_finish_mmin": 240,
+          "fz_rough_mm": 0.065,
+          "fz_finish_mm": 0.033,
+          "ap_max_mm": 20.0,
+          "ae_max_mm": 10.0,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 180,
+          "fz_mm": 0.038,
+          "Vc_rough_mmin": 140,
+          "Vc_finish_mmin": 100,
+          "fz_rough_mm": 0.04,
+          "fz_finish_mm": 0.02,
+          "ap_max_mm": 10.0,
+          "ae_max_mm": 4.0,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 100,
+          "fz_mm": 0.02,
+          "Vc_rough_mmin": 70,
+          "Vc_finish_mmin": 50,
+          "fz_rough_mm": 0.025,
+          "fz_finish_mm": 0.013,
+          "ap_max_mm": 6.0,
+          "ae_max_mm": 2.4,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "_section": "FACE MILLS — indexable insert shell mills",
+      "tool_id": "FACEMILL_50MM",
+      "operation": "face_mill",
+      "description": "50mm indexable face mill / shell mill — 4 inserts",
+      "diameter_mm": 50.0,
+      "covers_feature_up_to_mm": 999.0,
+      "insert_count": 4,
+      "insert_grade_aluminium": "H13A",
+      "insert_grade_steel": "GC4325",
+      "shank_type": "arbor_22mm",
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroMill 245",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 800,
+          "fz_mm": 0.15,
+          "Vc_rough_mmin": 300,
+          "Vc_finish_mmin": 220,
+          "fz_rough_mm": 0.15,
+          "fz_finish_mm": 0.1,
+          "ap_max_mm": 2.0,
+          "ae_fraction": 0.75,
+          "notes": "Polished inserts for aluminium — PCD optional"
+        },
+        "mild_steel": {
+          "Vc_mmin": 250,
+          "fz_mm": 0.15,
+          "Vc_rough_mmin": 120,
+          "Vc_finish_mmin": 85,
+          "fz_rough_mm": 0.1,
+          "fz_finish_mm": 0.06,
+          "ap_max_mm": 2.5,
+          "ae_fraction": 0.75,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 150,
+          "fz_mm": 0.1,
+          "Vc_rough_mmin": 60,
+          "Vc_finish_mmin": 42,
+          "fz_rough_mm": 0.06,
+          "fz_finish_mm": 0.04,
+          "ap_max_mm": 1.5,
+          "ae_fraction": 0.7,
+          "notes": "Positive geometry inserts"
+        }
+      }
+    },
+    {
+      "tool_id": "FACEMILL_63MM",
+      "operation": "face_mill",
+      "description": "63mm indexable face mill / shell mill — 5 inserts",
+      "diameter_mm": 63.0,
+      "covers_feature_up_to_mm": 999.0,
+      "insert_count": 5,
+      "insert_grade_aluminium": "H13A",
+      "insert_grade_steel": "GC4325",
+      "shank_type": "arbor_22mm",
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroMill 245",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 800,
+          "fz_mm": 0.18,
+          "Vc_rough_mmin": 300,
+          "Vc_finish_mmin": 220,
+          "fz_rough_mm": 0.15,
+          "fz_finish_mm": 0.1,
+          "ap_max_mm": 2.0,
+          "ae_fraction": 0.75,
+          "notes": ""
+        },
+        "mild_steel": {
+          "Vc_mmin": 250,
+          "fz_mm": 0.18,
+          "Vc_rough_mmin": 120,
+          "Vc_finish_mmin": 85,
+          "fz_rough_mm": 0.1,
+          "fz_finish_mm": 0.06,
+          "ap_max_mm": 2.5,
+          "ae_fraction": 0.75,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 150,
+          "fz_mm": 0.12,
+          "Vc_rough_mmin": 60,
+          "Vc_finish_mmin": 42,
+          "fz_rough_mm": 0.06,
+          "fz_finish_mm": 0.04,
+          "ap_max_mm": 1.5,
+          "ae_fraction": 0.7,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "_section": "CHAMFER MILLS — 90-degree included angle (45-degree half-angle), for edge chamfering and deburring after milling",
+      "tool_id": "CHAM_90_6MM",
+      "operation": "chamfer_mill",
+      "description": "90-degree solid carbide chamfer mill 6mm, 2-flute",
+      "diameter_mm": 6.0,
+      "flute_count": 2,
+      "included_angle_deg": 90,
+      "half_angle_deg": 45,
+      "cutting_length_mm": 5.0,
+      "overall_length_mm": 60.0,
+      "shank_diameter_mm": 6.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroMill Plura",
+      "grade": "1630",
+      "coating": "uncoated",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 300,
+          "fz_mm": 0.05,
+          "ap_max_mm": 2.0,
+          "notes": "Light contact passes only — do not use as end mill"
+        },
+        "mild_steel": {
+          "Vc_mmin": 120,
+          "fz_mm": 0.03,
+          "ap_max_mm": 1.5,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 70,
+          "fz_mm": 0.02,
+          "ap_max_mm": 1.0,
+          "notes": "Use coolant"
+        }
+      }
+    },
+    {
+      "tool_id": "CHAM_90_8MM",
+      "operation": "chamfer_mill",
+      "description": "90-degree solid carbide chamfer mill 8mm, 2-flute",
+      "diameter_mm": 8.0,
+      "flute_count": 2,
+      "included_angle_deg": 90,
+      "half_angle_deg": 45,
+      "cutting_length_mm": 6.0,
+      "overall_length_mm": 65.0,
+      "shank_diameter_mm": 8.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroMill Plura",
+      "grade": "1630",
+      "coating": "uncoated",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 350,
+          "fz_mm": 0.06,
+          "ap_max_mm": 2.5,
+          "notes": "Light contact passes only"
+        },
+        "mild_steel": {
+          "Vc_mmin": 140,
+          "fz_mm": 0.035,
+          "ap_max_mm": 2.0,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 80,
+          "fz_mm": 0.022,
+          "ap_max_mm": 1.2,
+          "notes": "Use coolant"
+        }
+      }
+    },
+    {
+      "tool_id": "CHAM_90_10MM",
+      "operation": "chamfer_mill",
+      "description": "90-degree solid carbide chamfer mill 10mm, 3-flute",
+      "diameter_mm": 10.0,
+      "flute_count": 3,
+      "included_angle_deg": 90,
+      "half_angle_deg": 45,
+      "cutting_length_mm": 8.0,
+      "overall_length_mm": 75.0,
+      "shank_diameter_mm": 10.0,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroMill Plura",
+      "grade": "1630",
+      "coating": "uncoated",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 380,
+          "fz_mm": 0.07,
+          "ap_max_mm": 3.0,
+          "notes": "Light contact passes only"
+        },
+        "mild_steel": {
+          "Vc_mmin": 160,
+          "fz_mm": 0.04,
+          "ap_max_mm": 2.5,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 90,
+          "fz_mm": 0.025,
+          "ap_max_mm": 1.5,
+          "notes": "Use coolant"
+        }
+      }
+    },
+    {
+      "_section": "SLOT MILLS — 2-flute, short cutting length, optimised for full-width slot cutting (100% radial engagement). Lower feeds than end mills due to full engagement.",
+      "tool_id": "SLOT_4MM",
+      "operation": "slot_mill",
+      "description": "2-flute solid carbide slot mill 4mm — short cut length for rigidity",
+      "diameter_mm": 4.0,
+      "flute_count": 2,
+      "cutting_length_mm": 8.0,
+      "overall_length_mm": 55.0,
+      "shank_diameter_mm": 4.0,
+      "corner_radius_mm": 0.0,
+      "helix_angle_deg": 30,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroMill Plura",
+      "grade": "1630",
+      "coating": "uncoated",
+      "ramp_plunge": {
+        "ramp_angle_deg": 1.5,
+        "vf_ramp_pct_of_feed": 35,
+        "vf_plunge_pct_of_feed": null
+      },
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 300,
+          "fz_mm": 0.01,
+          "fz_rough_mm": 0.012,
+          "fz_finish_mm": 0.007,
+          "ap_max_mm": 4.0,
+          "ae_max_mm": 4.0,
+          "notes": "Full width engagement — reduce feed by 40% vs end mill slotting"
+        },
+        "mild_steel": {
+          "Vc_mmin": 100,
+          "fz_mm": 0.006,
+          "fz_rough_mm": 0.007,
+          "fz_finish_mm": 0.004,
+          "ap_max_mm": 2.0,
+          "ae_max_mm": 4.0,
+          "notes": "Full width — ensure chip clearance"
+        },
+        "stainless_steel": {
+          "Vc_mmin": 60,
+          "fz_mm": 0.004,
+          "fz_rough_mm": 0.004,
+          "fz_finish_mm": 0.002,
+          "ap_max_mm": 1.2,
+          "ae_max_mm": 4.0,
+          "notes": "Flood coolant essential"
+        }
+      }
+    },
+    {
+      "tool_id": "SLOT_6MM",
+      "operation": "slot_mill",
+      "description": "2-flute solid carbide slot mill 6mm — short cut length for rigidity",
+      "diameter_mm": 6.0,
+      "flute_count": 2,
+      "cutting_length_mm": 12.0,
+      "overall_length_mm": 65.0,
+      "shank_diameter_mm": 6.0,
+      "corner_radius_mm": 0.0,
+      "helix_angle_deg": 30,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroMill Plura",
+      "grade": "1630",
+      "coating": "uncoated",
+      "ramp_plunge": {
+        "ramp_angle_deg": 1.5,
+        "vf_ramp_pct_of_feed": 35,
+        "vf_plunge_pct_of_feed": null
+      },
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 350,
+          "fz_mm": 0.015,
+          "fz_rough_mm": 0.018,
+          "fz_finish_mm": 0.01,
+          "ap_max_mm": 6.0,
+          "ae_max_mm": 6.0,
+          "notes": "Full width engagement"
+        },
+        "mild_steel": {
+          "Vc_mmin": 120,
+          "fz_mm": 0.009,
+          "fz_rough_mm": 0.011,
+          "fz_finish_mm": 0.006,
+          "ap_max_mm": 3.0,
+          "ae_max_mm": 6.0,
+          "notes": "Full width — ensure chip clearance"
+        },
+        "stainless_steel": {
+          "Vc_mmin": 70,
+          "fz_mm": 0.005,
+          "fz_rough_mm": 0.006,
+          "fz_finish_mm": 0.003,
+          "ap_max_mm": 1.8,
+          "ae_max_mm": 6.0,
+          "notes": "Flood coolant essential"
+        }
+      }
+    },
+    {
+      "tool_id": "SLOT_8MM",
+      "operation": "slot_mill",
+      "description": "2-flute solid carbide slot mill 8mm — short cut length for rigidity",
+      "diameter_mm": 8.0,
+      "flute_count": 2,
+      "cutting_length_mm": 16.0,
+      "overall_length_mm": 75.0,
+      "shank_diameter_mm": 8.0,
+      "corner_radius_mm": 0.0,
+      "helix_angle_deg": 30,
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroMill Plura",
+      "grade": "1630",
+      "coating": "uncoated",
+      "ramp_plunge": {
+        "ramp_angle_deg": 2,
+        "vf_ramp_pct_of_feed": 40,
+        "vf_plunge_pct_of_feed": null
+      },
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 380,
+          "fz_mm": 0.02,
+          "fz_rough_mm": 0.024,
+          "fz_finish_mm": 0.013,
+          "ap_max_mm": 8.0,
+          "ae_max_mm": 8.0,
+          "notes": "Full width engagement"
+        },
+        "mild_steel": {
+          "Vc_mmin": 140,
+          "fz_mm": 0.012,
+          "fz_rough_mm": 0.014,
+          "fz_finish_mm": 0.008,
+          "ap_max_mm": 4.0,
+          "ae_max_mm": 8.0,
+          "notes": "Full width — ensure chip clearance"
+        },
+        "stainless_steel": {
+          "Vc_mmin": 80,
+          "fz_mm": 0.007,
+          "fz_rough_mm": 0.008,
+          "fz_finish_mm": 0.004,
+          "ap_max_mm": 2.4,
+          "ae_max_mm": 8.0,
+          "notes": "Flood coolant essential"
+        }
+      }
+    },
+    {
+      "_section": "TAPS — metric right-hand, for rigid tapping (G84). feed_per_rev_mm = thread pitch. Pilot hole diameter listed under pilot_hole_mm.",
+      "tool_id": "TAP_M2_RH",
+      "operation": "tap_rh",
+      "description": "M2x0.4 solid carbide tap, right-hand",
+      "diameter_mm": 2.0,
+      "thread_pitch_mm": 0.4,
+      "pilot_hole_mm": 1.6,
+      "thread_standard": "ISO metric",
+      "shank_diameter_mm": 2.0,
+      "overall_length_mm": 40.0,
+      "manufacturer": "Kennametal",
+      "product_line": "Tap-It",
+      "grade": "PM HSS-E",
+      "coating": "TiN",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 8,
+          "feed_per_rev_mm": 0.4,
+          "notes": "Rigid tapping G84 — feed MUST equal pitch. Use tapping fluid."
+        },
+        "mild_steel": {
+          "Vc_mmin": 5,
+          "feed_per_rev_mm": 0.4,
+          "notes": "Rigid tapping G84 — use cutting oil"
+        },
+        "stainless_steel": {
+          "Vc_mmin": 3,
+          "feed_per_rev_mm": 0.4,
+          "notes": "Rigid tapping — very low speed, flood coolant"
+        }
+      }
+    },
+    {
+      "tool_id": "TAP_M3_RH",
+      "operation": "tap_rh",
+      "description": "M3x0.5 solid carbide tap, right-hand",
+      "diameter_mm": 3.0,
+      "thread_pitch_mm": 0.5,
+      "pilot_hole_mm": 2.5,
+      "thread_standard": "ISO metric",
+      "shank_diameter_mm": 3.0,
+      "overall_length_mm": 45.0,
+      "manufacturer": "Kennametal",
+      "product_line": "Tap-It",
+      "grade": "PM HSS-E",
+      "coating": "TiN",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 10,
+          "feed_per_rev_mm": 0.5,
+          "notes": "Rigid tapping G84 — use tapping fluid"
+        },
+        "mild_steel": {
+          "Vc_mmin": 6,
+          "feed_per_rev_mm": 0.5,
+          "notes": "Rigid tapping G84 — use cutting oil"
+        },
+        "stainless_steel": {
+          "Vc_mmin": 4,
+          "feed_per_rev_mm": 0.5,
+          "notes": "Rigid tapping — flood coolant"
+        }
+      }
+    },
+    {
+      "tool_id": "TAP_M4_RH",
+      "operation": "tap_rh",
+      "description": "M4x0.7 solid carbide tap, right-hand",
+      "diameter_mm": 4.0,
+      "thread_pitch_mm": 0.7,
+      "pilot_hole_mm": 3.3,
+      "thread_standard": "ISO metric",
+      "shank_diameter_mm": 4.0,
+      "overall_length_mm": 50.0,
+      "manufacturer": "Kennametal",
+      "product_line": "Tap-It",
+      "grade": "PM HSS-E",
+      "coating": "TiN",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 12,
+          "feed_per_rev_mm": 0.7,
+          "notes": "Rigid tapping G84 — use tapping fluid"
+        },
+        "mild_steel": {
+          "Vc_mmin": 8,
+          "feed_per_rev_mm": 0.7,
+          "notes": "Rigid tapping G84 — use cutting oil"
+        },
+        "stainless_steel": {
+          "Vc_mmin": 5,
+          "feed_per_rev_mm": 0.7,
+          "notes": "Rigid tapping — flood coolant"
+        }
+      }
+    },
+    {
+      "tool_id": "TAP_M5_RH",
+      "operation": "tap_rh",
+      "description": "M5x0.8 solid carbide tap, right-hand",
+      "diameter_mm": 5.0,
+      "thread_pitch_mm": 0.8,
+      "pilot_hole_mm": 4.2,
+      "thread_standard": "ISO metric",
+      "shank_diameter_mm": 5.0,
+      "overall_length_mm": 55.0,
+      "manufacturer": "Kennametal",
+      "product_line": "Tap-It",
+      "grade": "PM HSS-E",
+      "coating": "TiN",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 12,
+          "feed_per_rev_mm": 0.8,
+          "notes": "Rigid tapping G84 — use tapping fluid"
+        },
+        "mild_steel": {
+          "Vc_mmin": 8,
+          "feed_per_rev_mm": 0.8,
+          "notes": "Rigid tapping G84 — use cutting oil"
+        },
+        "stainless_steel": {
+          "Vc_mmin": 5,
+          "feed_per_rev_mm": 0.8,
+          "notes": "Rigid tapping — flood coolant"
+        }
+      }
+    },
+    {
+      "tool_id": "TAP_M6_RH",
+      "operation": "tap_rh",
+      "description": "M6x1.0 solid carbide tap, right-hand",
+      "diameter_mm": 6.0,
+      "thread_pitch_mm": 1.0,
+      "pilot_hole_mm": 5.0,
+      "thread_standard": "ISO metric",
+      "shank_diameter_mm": 6.0,
+      "overall_length_mm": 60.0,
+      "manufacturer": "Kennametal",
+      "product_line": "Tap-It",
+      "grade": "PM HSS-E",
+      "coating": "TiN",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 15,
+          "feed_per_rev_mm": 1.0,
+          "notes": "Rigid tapping G84 — use tapping fluid"
+        },
+        "mild_steel": {
+          "Vc_mmin": 10,
+          "feed_per_rev_mm": 1.0,
+          "notes": "Rigid tapping G84 — use cutting oil"
+        },
+        "stainless_steel": {
+          "Vc_mmin": 6,
+          "feed_per_rev_mm": 1.0,
+          "notes": "Rigid tapping — flood coolant"
+        }
+      }
+    }
+  ],
+  "material_aliases": {
+    "al": "aluminium",
+    "aluminum": "aluminium",
+    "6061": "aluminium",
+    "7075": "aluminium",
+    "steel": "mild_steel",
+    "ms": "mild_steel",
+    "ss": "stainless_steel",
+    "304": "stainless_steel",
+    "316": "stainless_steel"
+  },
+  "standard_drill_sizes_mm": [
+    0.5, 0.6, 0.7, 0.8, 0.9,
+    1.0, 1.1, 1.2, 1.25, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9,
+    2.0, 2.1, 2.2, 2.5,
+    3.0, 3.5, 4.0, 4.5, 5.0, 5.5,
+    6.0, 6.5, 7.0, 8.0, 9.0, 10.0,
+    11.0, 12.0, 13.0, 14.0, 16.0, 18.0, 20.0
+  ],
+  "standard_endmill_sizes_mm": [
+    1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0,
+    6.0, 8.0, 10.0, 12.0, 16.0, 20.0, 25.0, 32.0
+  ],
+  "standard_tap_sizes": {
+    "M2":  { "pitch_mm": 0.4, "pilot_hole_mm": 1.6 },
+    "M2.5": { "pitch_mm": 0.45, "pilot_hole_mm": 2.05 },
+    "M3":  { "pitch_mm": 0.5, "pilot_hole_mm": 2.5 },
+    "M4":  { "pitch_mm": 0.7, "pilot_hole_mm": 3.3 },
+    "M5":  { "pitch_mm": 0.8, "pilot_hole_mm": 4.2 },
+    "M6":  { "pitch_mm": 1.0, "pilot_hole_mm": 5.0 },
+    "M8":  { "pitch_mm": 1.25, "pilot_hole_mm": 6.75 },
+    "M10": { "pitch_mm": 1.5, "pilot_hole_mm": 8.5 },
+    "M12": { "pitch_mm": 1.75, "pilot_hole_mm": 10.25 }
+  }
+}
