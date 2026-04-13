@@ -601,6 +601,61 @@ def _compute_wcs_origin(spindle_dir: np.ndarray, bbox: Dict) -> Dict:
 
 
 # ---------------------------------------------------------------------------
+# Stock state tracker
+# ---------------------------------------------------------------------------
+
+_ALL_FACES = ['+X', '-X', '+Y', '-Y', '+Z', '-Z']
+
+
+def _compute_stock(setups: List[Dict], setup_index: int) -> Dict:
+    """
+    Compute the stock state when a setup begins.
+
+    Parameters
+    ----------
+    setups      : list of setup dicts built so far (in order, with workholding)
+    setup_index : 0-based index of the setup whose stock we are computing
+
+    Returns
+    -------
+    dict with keys:
+        type             : 'raw_billet' | 'previous_setup'
+        source_setup_id  : int | None   — which setup produced this stock
+        remaining_faces  : [str]        — faces not yet machined
+        machined_faces   : [str]        — faces machined in earlier setups
+
+    Logic
+    -----
+    Each setup machines the faces listed in its workholding 'clearance_faces'
+    (those are the faces the spindle accessed). We accumulate all clearance
+    faces from setups 0 … (setup_index-1) to find what is already machined.
+    """
+    if setup_index == 0:
+        return {
+            'type'            : 'raw_billet',
+            'source_setup_id' : None,
+            'remaining_faces' : list(_ALL_FACES),
+            'machined_faces'  : [],
+        }
+
+    machined = []
+    for s in setups[:setup_index]:
+        wh = s.get('workholding', {})
+        for face in wh.get('clearance_faces', []):
+            if face not in machined:
+                machined.append(face)
+
+    remaining = [f for f in _ALL_FACES if f not in machined]
+
+    return {
+        'type'            : 'previous_setup',
+        'source_setup_id' : setups[setup_index - 1]['setup_id'],
+        'remaining_faces' : remaining,
+        'machined_faces'  : machined,
+    }
+
+
+# ---------------------------------------------------------------------------
 # Main planning logic
 # ---------------------------------------------------------------------------
 
@@ -877,7 +932,13 @@ def plan_setups(processes_data: Dict,
             })
 
     # ------------------------------------------------------------------
-    # Step 5: Write setup_id back onto each cluster for traceability
+    # Step 5: Attach stock state to each setup (second pass)
+    # ------------------------------------------------------------------
+    for i, s in enumerate(setups):
+        s['stock'] = _compute_stock(setups, i)
+
+    # ------------------------------------------------------------------
+    # Step 6: Write setup_id back onto each cluster for traceability
     # ------------------------------------------------------------------
     cluster_to_setup = {}
     for s in setups:
@@ -919,6 +980,13 @@ def print_setup_summary(data: Dict):
         print(f"    Clusters  : {cids}")
         print(f"    Operations: {ops} total")
         print(f"    Fixture   : {s['fixture_note']}")
+
+        stk = s.get('stock')
+        if stk:
+            src = f" (from setup {stk['source_setup_id']})" if stk.get('source_setup_id') else ''
+            print(f"    Stock     : {stk['type']}{src}")
+            print(f"                machined so far : {stk['machined_faces'] or 'none'}")
+            print(f"                remaining faces : {stk['remaining_faces']}")
 
         wh = s.get('workholding')
         if wh:
