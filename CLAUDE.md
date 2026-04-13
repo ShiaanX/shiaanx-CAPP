@@ -5,13 +5,13 @@ This file provides permanent context about ShiaanX for Claude Code. Read this be
 
 ## What ShiaanX Is
 
-ShiaanX is an AI-driven intelligent manufacturing company building software to automate the end-to-end journey from CAD file to finished precision part. The vision is a single platform where a STEP file comes in and the system handles everything downstream — process planning, CAM, execution tracking, inspection, shipping — with humans in the loop for exceptions only.
+ShiaanX is an AI-driven intelligent manufacturing company building software to automate the end-to-end journey from CAD file to finished precision part. The vision is a single platform where a STEP file comes in and the system handles everything downstream — process planning, CAM, execution tracking, inspection, shipping — with humans in the loop for exceptions or supervision only.
 
-Think Hadrian or Daedalus, built for India, starting with software-defined process intelligence before owning machines.
+Think Hadrian, Daedalus, Isembard, built for India, starting with software-defined process intelligence before owning machines.
 
 **Company Details:**
 - Stage: MVP / Early product
-- Target sectors: Aerospace, Drones (starting point)
+- Target sectors: Energy, Defense, Aerospace, Drones (starting point)
 - Geography: India-first, with international clients in scope from Phase 1
 - Revenue model: Manufacturing-led (not software-led); partner-based operations in Phase 1, moving to hybrid ownership
 
@@ -23,18 +23,20 @@ Think Hadrian or Daedalus, built for India, starting with software-defined proce
 
 ## The Problem Being Solved
 
-Precision manufacturing for advanced industries (aerospace, drones, defence) is bottlenecked by manual, knowledge-intensive process planning. Getting from a CAD file to a correct first part requires experienced engineers making hundreds of decisions — machine selection, tooling, setup sequence, feeds and speeds, fixturing — most of which live in people's heads, not systems. This causes slow quotes, long lead times, high scrap rates, and inconsistent quality. ShiaanX is automating these decisions.
+Precision manufacturing for advanced industries (aerospace, drones, defence) is bottlenecked by manual, knowledge-intensive process planning. Getting from a CAD file to a correct first part requires experienced engineers making hundreds of decisions — machine selection, tooling, setup sequence, feeds and speeds, fixturing — most of which live in people's heads, not systems. This causes slow quotes, long lead times, high scrap rates, and inconsistent quality. ShiaanX is creating a closed loop to learn from every cut and automate many of these decisions.
 
 
 ## Product — The Pipeline
 
-The core technical system is an automated CAD-to-part process planning pipeline.
+We will be building many core technical systems like automating process planning, building a factory OS, building closed loop system, instant quotation, Scheduling, Digital Twin of factory and supply chain integration.  
+In this project, the system we are building is an automated CAD-to-part process planning pipeline.
 
 - Target materials (priority): Aluminium 6061
 - Target machine type (initial): 3-axis VMC
 
 All pipeline scripts live in: `Claude output for program sheet/`
-Python environment: `occ` conda env — `C:\Users\Siddhant Gupta\miniconda3\envs\occ\python.exe`
+Python environment: conda env named `occ` (create from `environment.yml`)
+Run example (PowerShell): `conda run -n occ python "10. run_pipeline.py" "<path-to.step>"`
 Git repo: `https://github.com/siddhantg2311/shiaanx-CAPP` (branch: main)
 
 **Important:** Script filenames contain spaces and numbers (e.g. `4. process_selection.py`).
@@ -158,7 +160,7 @@ MFCAD++ dataset: `Claude output for program sheet/Dataset/MFCAD_dataset/MFCAD++_
 
 ## Competitors to Be Aware Of
 
-Hadrian, Daedalus, CloudNC (CAM Assist), Forge Automation, Jeh Aerospace, Limitless CNC
+Hadrian, Daedalus, Isembard, CloudNC (CAM Assist), Forge Automation, Jeh Aerospace, Limitless CNC
 
 
 ## Architectural Decisions

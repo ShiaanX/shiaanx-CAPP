@@ -14,7 +14,7 @@ C:\Users\Siddhant Gupta\Documents\ShiaanX\Claude output for program sheet\
 
 Git repo: https://github.com/siddhantg2311/shiaanx-CAPP (branch: main)
 
-Python environment: `occ` conda env at `C:\Users\Siddhant Gupta\miniconda3\envs\occ\python.exe`
+Python environment: conda env named `occ` (create from `environment.yml`)
 
 Note: scripts have numbered filenames (e.g. `1. extract_features.py`) — use `importlib.util.spec_from_file_location` to import them in Python, not normal imports.
 
@@ -25,21 +25,20 @@ Full pipeline capabilities and module descriptions are in CLAUDE.md — read tha
 ## How to Run a Part Through the Pipeline
 
 ```bash
-PYTHON="C:/Users/Siddhant Gupta/miniconda3/envs/occ/python.exe"
 DIR="C:/Users/Siddhant Gupta/Documents/ShiaanX/Claude output for program sheet"
 STEP="Dataset/MFCAD_dataset/MFCAD++_dataset/step/test/25.step"
 
 cd "$DIR"
-"$PYTHON" "10. run_pipeline.py" "$STEP"
+conda run -n occ python "10. run_pipeline.py" "$STEP"
 # Or stage by stage:
-"$PYTHON" "1. extract_features.py" "$STEP"
-"$PYTHON" "2. cluster_features.py" "${STEP%.step}_features.json"
-"$PYTHON" "3. classify_features.py" "${STEP%.step}_features_clustered.json"
-"$PYTHON" "4. process_selection.py" "${STEP%.step}_features_clustered_classified.json"
-"$PYTHON" "5. setup_planning.py"    "..._processes.json"
-"$PYTHON" "7. tool_selection.py"    "...and so on"
-"$PYTHON" "8. parameter_calculation.py" "..."
-"$PYTHON" "9. program_sheet.py"     "..."
+conda run -n occ python "1. extract_features.py" "$STEP"
+conda run -n occ python "2. cluster_features.py" "${STEP%.step}_features.json"
+conda run -n occ python "3. classify_features.py" "${STEP%.step}_features_clustered.json"
+conda run -n occ python "4. process_selection.py" "${STEP%.step}_features_clustered_classified.json"
+conda run -n occ python "5. setup_planning.py"    "..._processes.json"
+conda run -n occ python "7. tool_selection.py"    "...and so on"
+conda run -n occ python "8. parameter_calculation.py" "..."
+conda run -n occ python "9. program_sheet.py"     "..."
 ```
 
 tool_selection and parameter_calculation default to `7a. tool_database.json` in the same directory — no `--db` flag needed unless overriding.
