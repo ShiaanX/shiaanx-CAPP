@@ -196,8 +196,38 @@ RF_SPLIT_OPS = {'contour_mill', 'pocket_mill', 'counterbore_mill'}
 
 # Drilling operations — emitted as-is with pass_type = None
 DRILL_OPS = {'spot_drill', 'micro_drill', 'twist_drill', 'pilot_drill',
-             'core_drill', 'boring_bar', 'circular_interp', 'tap', 'reamer',
-             'chamfer_mill'}
+             'core_drill', 'boring_bar', 'circular_interp', 'tap', 'tap_rh',
+             'reamer', 'chamfer_mill'}
+
+# Metric tap drill diameters (pilot hole sizes).
+# Key   = nominal thread diameter (mm)
+# Value = recommended pilot hole diameter (mm)
+# Source: ISO 68-1 / Machinery's Handbook 29th ed., Table of Tap Drill Sizes
+TAP_DRILL_TABLE = {
+    2.0:  1.6,    # M2  × 0.4
+    2.5:  2.05,   # M2.5 × 0.45
+    3.0:  2.5,    # M3  × 0.5
+    4.0:  3.3,    # M4  × 0.7
+    5.0:  4.2,    # M5  × 0.8
+    6.0:  5.0,    # M6  × 1.0
+    8.0:  6.75,   # M8  × 1.25
+    10.0: 8.5,    # M10 × 1.5
+    12.0: 10.25,  # M12 × 1.75
+}
+
+
+def _tap_drill_diameter(thread_dia: float) -> float:
+    """
+    Return the pilot hole (tap drill) diameter for a given metric thread diameter.
+    Looks up TAP_DRILL_TABLE; falls back to thread_dia × 0.8 for non-standard sizes.
+    """
+    if thread_dia in TAP_DRILL_TABLE:
+        return TAP_DRILL_TABLE[thread_dia]
+    nearest = min(TAP_DRILL_TABLE.keys(), key=lambda k: abs(k - thread_dia))
+    if abs(nearest - thread_dia) <= 0.5:
+        return TAP_DRILL_TABLE[nearest]
+    return round(thread_dia * 0.8, 2)
+
 
 # Feature types that support CORNER_R pass when internal_corner_radius is present.
 # 'slot' and 'pocket' are not yet emitted by classify_features.py but are listed
@@ -693,6 +723,58 @@ def _process_chamfer(cluster: Dict) -> Tuple[str, List[Dict]]:
     ]
 
 
+def _process_tapped_hole(cluster: Dict) -> Tuple[str, List[Dict]]:
+    """
+    Tapped hole: center drill → drill pilot hole → tap (rigid tapping G84).
+
+    Process sequence (Machinery's Handbook §Tapping, metric):
+      1. spot_drill  — locate with center drill to prevent tap from wandering
+      2. twist_drill — drill pilot hole to tap drill diameter
+      3. tap_rh      — rigid right-hand tap (G84 canned cycle)
+
+    Thread diameter is taken from cluster radii (2 × radius).
+    Pilot hole diameter is looked up from TAP_DRILL_TABLE.
+    """
+    radius     = cluster['radii'][0]
+    thread_dia = round(2 * radius, 4)
+    tap_drill  = _tap_drill_diameter(thread_dia)
+    depth      = cluster.get('depth')
+    ddr        = round(depth / tap_drill, 3) if (depth and tap_drill) else None
+    cycle      = _drill_cycle(ddr)
+
+    return 'milling', [
+        {
+            'step'        : 1,
+            'operation'   : 'spot_drill',
+            'machine'     : 'milling',
+            'diameter_mm' : thread_dia,
+            'depth_mm'    : None,
+            'drill_cycle' : None,
+            'reason'      : f'Locate for M{thread_dia:.0f} tap — prevents wandering',
+        },
+        {
+            'step'        : 2,
+            'operation'   : 'twist_drill',
+            'machine'     : 'milling',
+            'diameter_mm' : tap_drill,
+            'depth_mm'    : depth,
+            'drill_cycle' : cycle,
+            'reason'      : (f'Pilot hole d={tap_drill}mm for M{thread_dia:.0f} tap '
+                             f'(ISO 68-1 tap drill size)'),
+        },
+        {
+            'step'        : 3,
+            'operation'   : 'tap_rh',
+            'machine'     : 'milling',
+            'diameter_mm' : thread_dia,
+            'depth_mm'    : depth,
+            'drill_cycle' : None,
+            'reason'      : (f'M{thread_dia:.0f} right-hand tap, rigid tapping G84 '
+                             f'— feed rate must equal thread pitch'),
+        },
+    ]
+
+
 # ---------------------------------------------------------------------------
 # Angled feature note
 # ---------------------------------------------------------------------------
@@ -846,6 +928,15 @@ def select_process(cluster: Dict, machine_preference: str = None,
     elif ft in ('chamfer', 'chamfer_angled'):
         machine_type, process_sequence = _process_chamfer(cluster)
         machine_selected = 'milling — chamfer mill along edge'
+        if is_ang:
+            process_sequence = _add_angled_note(process_sequence, axis)
+
+    # ------------------------------------------------------------------
+    # Tapped hole — spot drill + pilot drill + rigid tap
+    # ------------------------------------------------------------------
+    elif ft in ('tapped_hole', 'tapped_hole_angled'):
+        machine_type, process_sequence = _process_tapped_hole(cluster)
+        machine_selected = 'milling — center drill + pilot drill + rigid tap G84'
         if is_ang:
             process_sequence = _add_angled_note(process_sequence, axis)
 

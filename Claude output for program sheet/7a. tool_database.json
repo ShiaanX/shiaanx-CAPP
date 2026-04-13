@@ -1726,15 +1726,21 @@
     }
   ],
   "material_aliases": {
-    "al": "aluminium",
-    "aluminum": "aluminium",
-    "6061": "aluminium",
-    "7075": "aluminium",
-    "steel": "mild_steel",
-    "ms": "mild_steel",
-    "ss": "stainless_steel",
-    "304": "stainless_steel",
-    "316": "stainless_steel"
+    "al":               "aluminium",
+    "aluminum":         "aluminium",
+    "6061":             "aluminium",
+    "aluminium_6061":   "aluminium",
+    "aluminium_6063":   "aluminium",
+    "aluminium_6082":   "aluminium",
+    "7075":             "aluminium",
+    "aluminium_7075":   "aluminium",
+    "aluminium_7050":   "aluminium",
+    "steel":            "mild_steel",
+    "ms":               "mild_steel",
+    "mild_steel":       "mild_steel",
+    "ss":               "stainless_steel",
+    "304":              "stainless_steel",
+    "316":              "stainless_steel"
   },
   "standard_drill_sizes_mm": [
     0.5, 0.6, 0.7, 0.8, 0.9,

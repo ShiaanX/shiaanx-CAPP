@@ -355,7 +355,7 @@ def _query_tool(operation: str, tool_diameter_mm: float,
     # For drills and spot/center drills: find closest diameter match
     if operation in ('twist_drill', 'micro_drill', 'pilot_drill',
                      'core_drill', 'spot_drill', 'center_drill', 'boring_bar',
-                     'chamfer_mill'):
+                     'chamfer_mill', 'tap_rh'):
         exact = [t for t in candidates
                  if abs(t['diameter_mm'] - tool_diameter_mm) <= DRILL_EXACT_TOL]
         if exact:
@@ -486,6 +486,13 @@ def _assign_tool_to_step(step: Dict, cluster: Dict,
         fitting = [t for t in slot_tools if t['diameter_mm'] >= (req_dia or 0) - 0.01]
         tool_dia = fitting[0]['diameter_mm'] if fitting else (slot_tools[-1]['diameter_mm'] if slot_tools else (req_dia or 4.0))
         tool_notes += f'Slot mill selected for width={req_dia}mm'
+
+    elif op == 'tap_rh':
+        # req_dia is the nominal thread diameter — exact match to tap size
+        tool_dia = req_dia or 0
+        tool_notes = (f'Rigid tap M{round(tool_dia, 1):.0f} — '
+                      f'feed rate MUST equal thread pitch (G84 canned cycle). '
+                      f'Use tapping fluid or through-spindle coolant.')
 
     elif op == 'boring_bar':
         tool_dia = req_dia or 0

@@ -6,6 +6,8 @@ All functions operate on plain dicts matching the PythonOCC JSON output format.
 No assumptions are made about part geometry, orientation, or feature types.
 """
 
+import zlib
+import os
 import numpy as np
 
 
@@ -335,3 +337,101 @@ def get_radii_sorted(cluster_faces):
         if face['surface_type'] == 'Cylinder':
             radii.add(round(face['cylinder']['radius'], 4))
     return sorted(radii)
+
+
+# ---------------------------------------------------------------------------
+# STEP file compression utilities (zlib)
+# ---------------------------------------------------------------------------
+# Used for API/cloud submission. Toolpath.ai sends zlib-compressed STEP bytes
+# in its upload payload; we match that convention so our pipeline is
+# API-ready without extra conversion at upload time.
+# ---------------------------------------------------------------------------
+
+def compress_step_bytes(step_path: str) -> bytes:
+    """
+    Read a STEP file and return its zlib-compressed bytes.
+    Use this for in-memory API uploads — no file written to disk.
+
+    Parameters
+    ----------
+    step_path : str  path to the .step or .stp file
+
+    Returns
+    -------
+    bytes  zlib-compressed STEP data (level 9 — maximum compression)
+    """
+    with open(step_path, 'rb') as f:
+        raw = f.read()
+    return zlib.compress(raw, level=9)
+
+
+def compress_step_file(step_path: str, output_path: str = None) -> str:
+    """
+    Compress a STEP file with zlib and write it to disk.
+
+    Parameters
+    ----------
+    step_path   : str        path to the source .step file
+    output_path : str|None   destination path; defaults to <step_path>.zlib
+
+    Returns
+    -------
+    str  path to the compressed file
+    """
+    if output_path is None:
+        output_path = step_path + '.zlib'
+    compressed = compress_step_bytes(step_path)
+    with open(output_path, 'wb') as f:
+        f.write(compressed)
+    ratio = len(compressed) / os.path.getsize(step_path) * 100
+    print(f"Compressed: {step_path} -> {output_path}  "
+          f"({os.path.getsize(step_path)//1024} KB -> {len(compressed)//1024} KB, "
+          f"{ratio:.1f}% of original)")
+    return output_path
+
+
+def decompress_step_file(zlib_path: str, output_path: str = None) -> str:
+    """
+    Decompress a zlib-compressed STEP file and write it to disk.
+
+    Parameters
+    ----------
+    zlib_path   : str        path to the .step.zlib file
+    output_path : str|None   destination path; defaults to stripping '.zlib'
+                             suffix, or adding '.step' if no suffix to strip
+
+    Returns
+    -------
+    str  path to the decompressed STEP file
+    """
+    if output_path is None:
+        output_path = (zlib_path[:-5] if zlib_path.endswith('.zlib')
+                       else zlib_path + '.step')
+    with open(zlib_path, 'rb') as f:
+        compressed = f.read()
+    raw = zlib.decompress(compressed)
+    with open(output_path, 'wb') as f:
+        f.write(raw)
+    print(f"Decompressed: {zlib_path} -> {output_path}  "
+          f"({len(compressed)//1024} KB -> {len(raw)//1024} KB)")
+    return output_path
+
+
+# ---------------------------------------------------------------------------
+# CLI entry point for standalone compression
+# ---------------------------------------------------------------------------
+
+if __name__ == '__main__':
+    import sys
+    if len(sys.argv) < 3 or sys.argv[1] not in ('compress', 'decompress'):
+        print("Usage:")
+        print("  python geometry_utils.py compress   <file.step> [out.step.zlib]")
+        print("  python geometry_utils.py decompress <file.step.zlib> [out.step]")
+        sys.exit(1)
+    cmd  = sys.argv[1]
+    src  = sys.argv[2]
+    dest = sys.argv[3] if len(sys.argv) > 3 else None
+    if cmd == 'compress':
+        compress_step_file(src, dest)
+    else:
+        decompress_step_file(src, dest)
