@@ -33,6 +33,128 @@ The core technical system is an automated CAD-to-part process planning pipeline.
 - Target materials (priority): Aluminium 6061
 - Target machine type (initial): 3-axis VMC
 
+All pipeline scripts live in: `Claude output for program sheet/`
+Python environment: `occ` conda env — `C:\Users\Siddhant Gupta\miniconda3\envs\occ\python.exe`
+Git repo: `https://github.com/siddhantg2311/shiaanx-CAPP` (branch: main)
+
+**Important:** Script filenames contain spaces and numbers (e.g. `4. process_selection.py`).
+Import them with `importlib.util.spec_from_file_location`, not normal imports.
+
+---
+
+### Pipeline Stage Map
+
+| # | Script | Input | Output | Status |
+|---|--------|-------|--------|--------|
+| 1 | `1. extract_features.py` | `.step` file | `*_features.json` | Done |
+| 2 | `2. cluster_features.py` | `*_features.json` | `*_clustered.json` | Done |
+| 3 | `3. classify_features.py` | `*_clustered.json` | `*_classified.json` | Done |
+| 4 | `4. process_selection.py` | `*_classified.json` | `*_processes.json` | Done |
+| 5 | `5. setup_planning.py` | `*_processes.json` | `*_setups.json` | Done |
+| 6 | `7. tool_selection.py` | `*_setups.json` | `*_tools.json` | Done |
+| 7 | `8. parameter_calculation.py` | `*_tools.json` | `*_params.json` | Done |
+| 8 | `9. program_sheet.py` | `*_params.json` | `*_program_sheet.pdf` | Done |
+| — | `10. run_pipeline.py` | `.step` file | PDF (end-to-end runner) | Done |
+
+Helper modules: `coord_system.py`, `feature_graph.py`, `geometry_utils.py`
+Tool database: `7a. tool_database.json` (v2.0, 42 tools)
+
+---
+
+### What Each Module Does (Current Capabilities)
+
+**`1. extract_features.py`**
+Parses a STEP file with PythonOCC. Extracts every face with its surface type (Plane, Cylinder, Cone, Torus, BSpline), geometry parameters, area, normal/axis, and adjacency graph. Outputs `bounding_box`, `mass_properties`, `topology_counts`.
+
+**`2. cluster_features.py`**
+Groups adjacent faces into feature clusters using the adjacency graph. Passes through `bounding_box`, `mass_properties`, `topology_counts` so downstream stages have full part geometry.
+
+**`3. classify_features.py`**
+Assigns a feature type to each cluster from 25 MFCAD++ classes (through_hole, blind_hole, chamfer, pocket, boss, counterbore, large_bore, planar_face, etc.) using geometry heuristics. Currently rule-based — candidate for ML replacement.
+
+**`4. process_selection.py`**
+Maps each feature type + dimensions to an ordered operation sequence. Rules sourced from Machinery's Handbook (29th ed.) and Chang & Wysk.
+- Holes (d < 1mm): micro_drill
+- Holes (1–13mm): spot_drill → twist_drill
+- Holes (13–32mm): spot_drill → pilot_drill → core_drill
+- Holes (> 32mm): circular_interp or boring_bar
+- DDR ≤ 3: standard cycle / 3–5: peck / > 5: deep peck
+- Tapped holes: spot_drill → twist_drill (ISO 68-1 pilot size) → tap_rh
+- Chamfer: single chamfer_mill pass
+- Boss: contour_mill (RF + FINISH)
+- Pocket/slot: pocket_mill (RF + FINISH + optional CORNER_R)
+- Face: face_mill (single pass or RF + FINISH if depth > max_ap)
+- Material stock-to-leave table for RF passes (aluminium, steel, titanium, brass)
+
+**`5. setup_planning.py`**
+Groups clusters into machine setups by feature axis direction (principal axis heuristic). For each setup produces:
+- Spindle direction, axis label, WCS assignment (G54–G59)
+- WCS origin: CORNER zero (when part at CAD origin) or CENTER zero
+- Workholding config: type (vise/step_jaw_vise/angle_plate/sine_plate/fixture_plate), clamp_faces, rest_face, clearance_faces, jaw_opening_mm, datum_from_setup
+- Stock state: raw_billet (setup 1) or previous_setup with remaining_faces tracking
+- Rotation info for angled setups
+
+**`7. tool_selection.py`**
+Assigns a tool from `7a. tool_database.json` to every operation step.
+- Spot/center drill: smallest center drill that covers the hole diameter
+- Twist/pilot/core drill: nearest standard metric size with substitution warning
+- End mills: smallest tool >= required diameter
+- Face mills: smallest face mill >= feature diameter
+- Chamfer mills: smallest chamfer mill >= feature diameter
+- Slot mills: smallest slot mill >= slot width
+- Taps: exact match by thread diameter
+- Boring bar: exact diameter match
+- All lookups: material-specific Vc and fz from tool_database
+
+**`8. parameter_calculation.py`**
+Computes RPM, Vf (feed rate mm/min), ap (axial depth), ae (radial depth) for every operation. Caps RPM at machine max (default 10,000). Applies ramp/plunge feed reductions from tool ramp_plunge data.
+
+**`9. program_sheet.py`**
+Generates a PDF program sheet. Includes:
+- Job header (part name, material, date, programmer)
+- Per-setup pages with WCS, workholding, stock state, tool list
+- Operation sequence table with toolpath names in format: `[MATERIAL] [DIA] [TOOL TYPE] [FEATURE] [PASS TYPE]`
+  e.g. `ALU 6 ENDMILL OUTER PROFILE RF`
+- Warnings for substituted drill sizes, RPM caps, manual review items
+
+**`10. run_pipeline.py`**
+End-to-end runner: takes a STEP file path, runs all 8 stages in sequence, writes timestamped log to `logs/pipeline_YYYYMMDD_HHMMSS.log` with per-stage timing.
+
+**`geometry_utils.py`**
+Geometric helpers (face adjacency, cylinder depth, radius extraction). Also contains:
+- `compress_step_bytes(path)` → zlib bytes for API upload
+- `compress_step_file()` / `decompress_step_file()` for disk-based compression
+- CLI: `python geometry_utils.py compress <file.step>`
+
+---
+
+### Tool Database (`7a. tool_database.json`) — v2.0
+
+42 tools across these types:
+
+| Type | Operation key | Count | Notes |
+|---|---|---|---|
+| End mills (2-flute, carbide) | `contour_mill` / `pocket_mill` | 15 | 1–25mm, with ramp_plunge data |
+| Face mills (indexable) | `face_mill` | 3 | 50/63/80mm |
+| Spot / center drills | `center_drill` | 3 | 90°, 4/6/10mm shank |
+| Jobber drills (carbide) | `twist_drill` | 12 | 0.5–20mm standard sizes |
+| Chamfer mills | `chamfer_mill` | 3 | 90°, 6/8/10mm |
+| Slot mills | `slot_mill` | 3 | 4/6/8mm |
+| Taps (rigid, RH) | `tap_rh` | 5 | M2–M6, feed_per_rev = pitch |
+
+All tools: metric, Sandvik Coromant / Kennametal sourced, aluminium material_params with Vc_rough, Vc_finish, fz_rough, fz_finish.
+Material aliases: `aluminium_6061/6063/6082/7075/7050` → `aluminium`.
+
+---
+
+### Dataset
+
+MFCAD++ dataset: `Claude output for program sheet/Dataset/MFCAD_dataset/MFCAD++_dataset/`
+- 8,949 STEP files in `step/test/`
+- 25 feature classes defined in `feature_labels.txt`
+- Excluded from git (too large — see AD-008)
+- Test parts processed so far: `step/test/21/`, `step/test/25/`
+
 
 ## Competitors to Be Aware Of
 
