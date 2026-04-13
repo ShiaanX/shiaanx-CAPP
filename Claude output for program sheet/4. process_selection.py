@@ -196,7 +196,8 @@ RF_SPLIT_OPS = {'contour_mill', 'pocket_mill', 'counterbore_mill'}
 
 # Drilling operations — emitted as-is with pass_type = None
 DRILL_OPS = {'spot_drill', 'micro_drill', 'twist_drill', 'pilot_drill',
-             'core_drill', 'boring_bar', 'circular_interp', 'tap', 'reamer'}
+             'core_drill', 'boring_bar', 'circular_interp', 'tap', 'reamer',
+             'chamfer_mill'}
 
 # Feature types that support CORNER_R pass when internal_corner_radius is present.
 # 'slot' and 'pocket' are not yet emitted by classify_features.py but are listed
@@ -670,6 +671,28 @@ def _process_planar_face(cluster: Dict) -> Tuple[str, List[Dict]]:
     ]
 
 
+def _process_chamfer(cluster: Dict) -> Tuple[str, List[Dict]]:
+    """
+    Chamfer — single chamfer_mill pass.
+    Diameter for tool selection = 2 × max radius if radii available, else None.
+    """
+    radii = cluster.get('radii') or []
+    diameter = round(2 * max(radii), 4) if radii else None
+    depth    = cluster.get('depth')
+    return 'milling', [
+        {
+            'step'        : 1,
+            'operation'   : 'chamfer_mill',
+            'machine'     : 'milling',
+            'diameter_mm' : diameter,
+            'depth_mm'    : depth,
+            'drill_cycle' : None,
+            'reason'      : (f'Chamfer mill — single pass along chamfer edge'
+                             + (f', d={diameter}mm' if diameter else '')),
+        }
+    ]
+
+
 # ---------------------------------------------------------------------------
 # Angled feature note
 # ---------------------------------------------------------------------------
@@ -816,6 +839,15 @@ def select_process(cluster: Dict, machine_preference: str = None,
             machine_selected = 'both sequences generated — setup planning will decide'
             process_sequence = milling_seq
             cluster['process_sequence_turning'] = turning_seq
+
+    # ------------------------------------------------------------------
+    # Chamfer
+    # ------------------------------------------------------------------
+    elif ft in ('chamfer', 'chamfer_angled'):
+        machine_type, process_sequence = _process_chamfer(cluster)
+        machine_selected = 'milling — chamfer mill along edge'
+        if is_ang:
+            process_sequence = _add_angled_note(process_sequence, axis)
 
     # ------------------------------------------------------------------
     # Fallback

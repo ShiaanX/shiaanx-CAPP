@@ -110,7 +110,7 @@ VF_ROUND_TO = 1   # round to nearest 1 mm/min
 
 # Path to tool database (same directory as this script)
 _DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                        'tool_database.json')
+                        '7a. tool_database.json')
 
 # ---------------------------------------------------------------------------
 # Cycle time estimation

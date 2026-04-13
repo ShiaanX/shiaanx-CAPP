@@ -164,12 +164,30 @@ def _feature_short_name(feature: dict) -> str:
         return ftype.upper().replace('_', ' ')
 
 
-def generate_toolpath_name(step: dict, cluster: dict, tool_dia: float) -> str:
+def generate_toolpath_name(step: dict, cluster: dict, tool_dia: float,
+                           material: str = '') -> str:
     """
     Generate a vendor-style descriptive toolpath name.
-    Examples: "6 ENDMILL OUTER PROFILE RF", "3 ENDMILL 5 SLOT FINISH",
-              "1.2 DRILL", "CENTER DRILL"
+    Examples: "ALU 6 ENDMILL OUTER PROFILE RF", "6 ENDMILL OUTER PROFILE RF",
+              "3 ENDMILL 5 SLOT FINISH", "1.2 DRILL", "CENTER DRILL"
     """
+    # Material prefix (abbreviate to keep names concise)
+    MATERIAL_PREFIX = {
+        'aluminium':           'ALU',
+        'aluminium_6061':      'ALU',
+        'aluminium_6063':      'ALU',
+        'aluminium_6082':      'ALU',
+        'aluminium_7075':      'ALU7075',
+        'aluminium_7050':      'ALU7050',
+        'mild_steel':          'STL',
+        'steel':               'STL',
+        'stainless_steel':     'SS',
+        'stainless_steel_316': 'SS316',
+        'titanium':            'TI',
+        'brass':               'BRASS',
+    }
+    mat_prefix = MATERIAL_PREFIX.get(material.lower(), '') if material else ''
+
     op        = step.get('operation', '')
     pass_type = step.get('pass_type')  # 'RF' | 'FINISH' | 'CORNER_R' | None
 
@@ -205,7 +223,7 @@ def generate_toolpath_name(step: dict, cluster: dict, tool_dia: float) -> str:
         None:       '',
     }.get(pass_type, '')
 
-    parts = [p for p in [prefix, feat_name, pass_suffix] if p]
+    parts = [p for p in [mat_prefix, prefix, feat_name, pass_suffix] if p]
     return ' '.join(parts)
 
 
@@ -531,7 +549,8 @@ def _build_setup_page(setup: Dict, data: Dict,
             est_time = step.get('estimated_time_s', 0)
             pass_type = step.get('pass_type')
 
-            tp_name = generate_toolpath_name(step, cluster, tool_dia or 0)
+            tp_name = generate_toolpath_name(step, cluster, tool_dia or 0,
+                                             material=data.get('material', ''))
 
             rows.append([
                 str(global_step),

@@ -42,7 +42,28 @@ import sys
 import os
 import subprocess
 import argparse
+import logging
+import time
+from datetime import datetime
 from pathlib import Path
+
+
+def _setup_logging(log_dir: str) -> str:
+    """Set up file + console logging. Returns log file path."""
+    os.makedirs(log_dir, exist_ok=True)
+    ts = datetime.now().strftime('%Y%m%d_%H%M%S')
+    log_path = os.path.join(log_dir, f'pipeline_{ts}.log')
+
+    fmt = '%(asctime)s  %(levelname)-8s  %(message)s'
+    logging.basicConfig(
+        level=logging.INFO,
+        format=fmt,
+        handlers=[
+            logging.FileHandler(log_path, encoding='utf-8'),
+            logging.StreamHandler(),   # also print to console
+        ]
+    )
+    return log_path
 
 
 # ---------------------------------------------------------------------------
@@ -91,7 +112,12 @@ _PYTHON = _find_python()
 # ---------------------------------------------------------------------------
 
 def _run(cmd: list, label: str, dry_run: bool = False) -> bool:
-    """Run a command, print progress, return True on success."""
+    """Run a command, log progress and timing, return True on success."""
+    log = logging.getLogger(__name__)
+
+    log.info(f"Starting: {label}")
+    log.info(f"  CMD: {' '.join(str(c) for c in cmd)}")
+
     print(f"\n{'='*60}")
     print(f"  {label}")
     print(f"  {' '.join(str(c) for c in cmd)}")
@@ -99,19 +125,30 @@ def _run(cmd: list, label: str, dry_run: bool = False) -> bool:
 
     if dry_run:
         print("  [DRY RUN] -- skipping execution")
+        log.info(f"[DRY RUN] Skipped: {label}")
         return True
 
-    result = subprocess.run(
-        cmd,
-        cwd=str(SCRIPT_DIR),
-        capture_output=False,  # let output stream to terminal
-    )
+    t0 = time.time()
+    try:
+        result = subprocess.run(
+            cmd,
+            cwd=str(SCRIPT_DIR),
+            capture_output=False,  # let output stream to terminal
+        )
+    except Exception:
+        import traceback
+        log.error(f"Exception running {label}:\n{traceback.format_exc()}")
+        return False
+
+    elapsed = time.time() - t0
 
     if result.returncode != 0:
         print(f"\n  [FAILED] {label} exited with code {result.returncode}")
+        log.error(f"FAILED: {label} — exit code {result.returncode} — {elapsed:.1f}s")
         return False
 
     print(f"  [OK] {label}")
+    log.info(f"Done in {elapsed:.1f}s: {label}")
     return True
 
 
@@ -239,27 +276,42 @@ def main():
         ]),
     ]
 
+    # Initialise logging
+    log_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logs')
+    log_path = _setup_logging(log_dir)
+    log = logging.getLogger(__name__)
+    log.info(f'Pipeline log: {log_path}')
+
     print(f"\nCNC Pipeline -- {base}")
     print(f"  STEP       : {step_path}")
     print(f"  Output dir : {out_dir}")
     print(f"  Material   : {args.material}")
     print(f"  Starting at step {args.from_step}")
+    log.info(f"Pipeline start — part: {base} | material: {args.material} | "
+             f"from_step: {args.from_step}")
+
+    pipeline_t0 = time.time()
 
     for step_num, label, cmd in steps:
         if step_num < args.from_step:
             print(f"  [SKIP] {label}")
+            log.info(f"Skipped (--from-step {args.from_step}): {label}")
             continue
 
         ok = _run(cmd, label, dry_run=args.dry_run)
         if not ok:
             print(f"\nPipeline aborted at {label}.")
             print(f"Fix the issue above, then resume with:  --from-step {step_num}")
+            log.error(f"Pipeline ABORTED at: {label} — total elapsed: "
+                      f"{time.time()-pipeline_t0:.1f}s")
             sys.exit(1)
 
+    total_elapsed = time.time() - pipeline_t0
     print(f"\n{'='*60}")
     print(f"  PIPELINE COMPLETE")
     print(f"  PDF: {f_pdf}")
     print(f"{'='*60}\n")
+    log.info(f"Pipeline COMPLETE — PDF: {f_pdf} — total time: {total_elapsed:.1f}s")
 
 
 if __name__ == '__main__':

@@ -78,7 +78,7 @@ DEFAULT_MATERIAL = 'aluminium'
 
 # Path to tool database — same directory as this script
 _DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                        'tool_database.json')
+                        '7a. tool_database.json')
 
 # For circular interpolation: tool diameter = bore_diameter * this fraction
 # Then round to nearest standard end mill size.
@@ -123,17 +123,20 @@ def _resolve_material(material: str, db: Dict) -> str:
 
 def _resolve_spot_drill_diameter(required_dia: float, db: Dict) -> Tuple[float, str]:
     """
-    Find the smallest spot drill whose locates_holes_up_to_mm >= required_dia.
+    Find the smallest spot/center drill whose locates_holes_up_to_mm >= required_dia.
     Returns (tool_diameter, note).
+    DB tools may be stored as 'center_drill' (metric Sandvik/Kennametal naming) or
+    'spot_drill' — accept both.
     """
     candidates = [
         t for t in db['tools']
-        if t.get('operation') == 'spot_drill'
+        if t.get('operation') in ('spot_drill', 'center_drill')
         and t.get('locates_holes_up_to_mm', 0) >= required_dia
     ]
     if not candidates:
-        # Fall back to largest available spot drill
-        all_spots = [t for t in db['tools'] if t.get('operation') == 'spot_drill']
+        # Fall back to largest available spot/center drill
+        all_spots = [t for t in db['tools']
+                     if t.get('operation') in ('spot_drill', 'center_drill')]
         if all_spots:
             best = max(all_spots, key=lambda t: t['diameter_mm'])
             return best['diameter_mm'], f'WARNING: no spot drill covers dia={required_dia}mm, using largest available {best["diameter_mm"]}mm'
@@ -317,17 +320,26 @@ def _query_tool(operation: str, tool_diameter_mm: float,
     2. diameter must be within DRILL_EXACT_TOL for drills,
        or >= required for mills (use smallest that fits)
     3. material_params must contain the requested material
+
+    Special alias: 'spot_drill' also matches DB tools with operation='center_drill'
+    (metric catalogues use 'center_drill' for the same tool class).
     """
     material = _resolve_material(material, db)
+
+    # Alias: process_selection emits 'spot_drill'; DB stores tools as 'center_drill'
+    db_op_aliases = {
+        'spot_drill': ('spot_drill', 'center_drill'),
+    }
+    accepted_ops = db_op_aliases.get(operation, (operation,))
 
     candidates = []
     for tool in db['tools']:
         # Check operation match
         tool_op = tool.get('operation', '')
         if isinstance(tool_op, list):
-            op_match = operation in tool_op
+            op_match = any(a in tool_op for a in accepted_ops)
         else:
-            op_match = tool_op == operation
+            op_match = tool_op in accepted_ops
         if not op_match:
             continue
 
@@ -340,9 +352,10 @@ def _query_tool(operation: str, tool_diameter_mm: float,
     if not candidates:
         return None
 
-    # For drills and spot drills: find closest diameter match
+    # For drills and spot/center drills: find closest diameter match
     if operation in ('twist_drill', 'micro_drill', 'pilot_drill',
-                     'core_drill', 'spot_drill', 'boring_bar'):
+                     'core_drill', 'spot_drill', 'center_drill', 'boring_bar',
+                     'chamfer_mill'):
         exact = [t for t in candidates
                  if abs(t['diameter_mm'] - tool_diameter_mm) <= DRILL_EXACT_TOL]
         if exact:
@@ -449,6 +462,30 @@ def _assign_tool_to_step(step: Dict, cluster: Dict,
         # req_dia may be None (planar face) or feature diameter
         tool_dia, note = _resolve_facemill_diameter(req_dia, db)
         tool_notes += note
+
+    elif op == 'chamfer_mill':
+        # req_dia is the feature diameter; pick smallest chamfer mill that covers it
+        tool_dia = req_dia or 6.0   # default to 6mm if no diameter info
+        # round up to nearest available chamfer mill diameter
+        chamfer_tools = sorted(
+            [t for t in db['tools'] if t.get('operation') == 'chamfer_mill'],
+            key=lambda t: t['diameter_mm']
+        )
+        fitting = [t for t in chamfer_tools if t['diameter_mm'] >= tool_dia - 0.01]
+        tool_dia = fitting[0]['diameter_mm'] if fitting else (chamfer_tools[-1]['diameter_mm'] if chamfer_tools else tool_dia)
+        tool_notes += f'Chamfer mill selected for d={req_dia}mm feature'
+
+    elif op == 'slot_mill':
+        # req_dia is the slot width; pick smallest slot mill >= slot width
+        tool_dia, note = _resolve_endmill_for_counterbore(req_dia or 4.0, db)
+        # Override: look for slot_mill specifically, not end mill
+        slot_tools = sorted(
+            [t for t in db['tools'] if t.get('operation') == 'slot_mill'],
+            key=lambda t: t['diameter_mm']
+        )
+        fitting = [t for t in slot_tools if t['diameter_mm'] >= (req_dia or 0) - 0.01]
+        tool_dia = fitting[0]['diameter_mm'] if fitting else (slot_tools[-1]['diameter_mm'] if slot_tools else (req_dia or 4.0))
+        tool_notes += f'Slot mill selected for width={req_dia}mm'
 
     elif op == 'boring_bar':
         tool_dia = req_dia or 0

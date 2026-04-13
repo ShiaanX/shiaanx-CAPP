@@ -1,5 +1,8 @@
 # Dataset — STEP files and raw data (too large for git)
 Claude output for program sheet/Dataset/
+
+# Pipeline run logs
+Claude output for program sheet/logs/
 Toolpath/requests_history/
 Toolpath/persistent_state/
 Toolpath/bug_reports/
