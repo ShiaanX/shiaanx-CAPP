@@ -99,6 +99,7 @@ DDR Breakpoints (Chang & Wysk Ch.5)
 import json
 import sys
 import copy
+import os
 from typing import Dict, List, Tuple, Optional
 
 
@@ -233,6 +234,137 @@ def _tap_drill_diameter(thread_dia: float) -> float:
 # 'slot' and 'pocket' are not yet emitted by classify_features.py but are listed
 # here so that CORNER_R logic activates automatically once those types are added.
 CORNER_R_FEATURE_TYPES = {'slot', 'pocket', 'slot_angled', 'pocket_angled'}
+
+
+# ---------------------------------------------------------------------------
+# Rule sheet loader (Sheet 2: 02_process_selection.json)
+# ---------------------------------------------------------------------------
+#
+# This file captures the same rules as the hardcoded constants above, but in JSON:
+#   rule_sheets/02_process_selection.json
+#
+# Until other pipeline stages are wired, this module is the first place where
+# editing a rule sheet can immediately change pipeline outputs.
+
+_RULE_SHEET_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'rule_sheets')
+_PROCESS_RULE_SHEET_PATH = os.path.join(_RULE_SHEET_DIR, '02_process_selection.json')
+
+
+def _coerce_float_keyed_dict(d: dict) -> dict:
+    """Convert JSON object keys like '6.0' -> float(6.0)."""
+    out = {}
+    for k, v in (d or {}).items():
+        if k in ('comment', '_comment'):
+            continue
+        try:
+            out[float(k)] = float(v)
+        except Exception:
+            out[k] = v
+    return out
+
+
+def load_process_selection_rule_sheet(path: str = None) -> Optional[Dict]:
+    """
+    Load Sheet 2 rule sheet (JSON). Returns dict or None if missing/unreadable.
+
+    Safe-by-default: if the sheet is absent or invalid, keep hardcoded defaults.
+    """
+    p = path or _PROCESS_RULE_SHEET_PATH
+    if not os.path.exists(p):
+        return None
+    try:
+        with open(p, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except Exception:
+        return None
+
+
+def _apply_process_selection_rules(rules: Dict) -> None:
+    """
+    Apply rule-sheet values to this module's global constants.
+    Only overwrites values that exist in the JSON.
+    """
+    global PREFERRED_MACHINE
+    global MICRO_DRILL_MAX_DIA, TWIST_DRILL_MAX_DIA, CORE_DRILL_MAX_DIA
+    global DDR_STANDARD_MAX, DDR_PECK_MAX
+    global BOSS_TURNING_MIN_DIA
+    global MATERIAL_STOCK_TABLE, STOCK_TO_LEAVE_DEFAULT
+    global FACE_MILL_MAX_AP, FACE_MILL_MAX_AP_DEFAULT
+    global RF_SPLIT_OPS, DRILL_OPS
+    global TAP_DRILL_TABLE, CORNER_R_FEATURE_TYPES
+
+    if not isinstance(rules, dict):
+        return
+
+    # Preferred machine
+    pref = (rules.get('preferred_machine') or {}).get('value')
+    if pref in ('milling', 'turning', 'both'):
+        PREFERRED_MACHINE = pref
+
+    # Drill diameter bands
+    bands = rules.get('drill_diameter_bands_mm') or {}
+    if 'micro_drill_max_exclusive' in bands:
+        MICRO_DRILL_MAX_DIA = float(bands['micro_drill_max_exclusive'])
+    if 'twist_drill_max_inclusive' in bands:
+        TWIST_DRILL_MAX_DIA = float(bands['twist_drill_max_inclusive'])
+    if 'core_drill_max_inclusive' in bands:
+        CORE_DRILL_MAX_DIA = float(bands['core_drill_max_inclusive'])
+
+    # DDR thresholds
+    ddr = rules.get('ddr_drill_cycle') or {}
+    if 'ddr_standard_max_inclusive' in ddr:
+        DDR_STANDARD_MAX = float(ddr['ddr_standard_max_inclusive'])
+    if 'ddr_peck_max_inclusive' in ddr:
+        DDR_PECK_MAX = float(ddr['ddr_peck_max_inclusive'])
+
+    # Boss turning threshold
+    if 'boss_turning_min_diameter_mm' in rules:
+        BOSS_TURNING_MIN_DIA = float(rules['boss_turning_min_diameter_mm'])
+
+    # Stock to leave tables
+    stock = rules.get('material_stock_to_leave_mm') or {}
+    per_material = stock.get('per_material')
+    if isinstance(per_material, dict) and per_material:
+        MATERIAL_STOCK_TABLE = per_material
+    if ('default_xy' in stock) or ('default_z' in stock):
+        STOCK_TO_LEAVE_DEFAULT = {
+            'xy': float(stock.get('default_xy', STOCK_TO_LEAVE_DEFAULT.get('xy', 0.1))),
+            'z': float(stock.get('default_z', STOCK_TO_LEAVE_DEFAULT.get('z', 0.1))),
+        }
+
+    # Face mill max ap table
+    face = rules.get('face_mill_max_ap_mm') or {}
+    per_mat_face = face.get('per_material')
+    if isinstance(per_mat_face, dict) and per_mat_face:
+        FACE_MILL_MAX_AP = {k: float(v) for k, v in per_mat_face.items()}
+    if 'default' in face:
+        FACE_MILL_MAX_AP_DEFAULT = float(face['default'])
+
+    # RF split op set
+    rf_ops = rules.get('rf_split_operations')
+    if isinstance(rf_ops, list) and rf_ops:
+        RF_SPLIT_OPS = set(rf_ops)
+
+    # Drill-like ops set (used in _expand_rf_passes)
+    drill_ops = rules.get('drill_like_operations_no_rf_split')
+    if isinstance(drill_ops, list) and drill_ops:
+        DRILL_OPS = set(drill_ops)
+
+    # Tap drill table: JSON uses string keys
+    tap_tbl = rules.get('tap_drill_table_mm')
+    if isinstance(tap_tbl, dict) and tap_tbl:
+        TAP_DRILL_TABLE = _coerce_float_keyed_dict(tap_tbl)
+
+    # CORNER_R feature types list
+    cr = rules.get('corner_r_feature_types')
+    if isinstance(cr, list) and cr:
+        CORNER_R_FEATURE_TYPES = set(cr)
+
+
+# Apply rule sheet at import time (best-effort).
+_rules = load_process_selection_rule_sheet()
+if _rules is not None:
+    _apply_process_selection_rules(_rules)
 
 
 # ---------------------------------------------------------------------------

@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "ruleset_id": "process_selection_v1",
+  "updated_at": "2026-04-14",
+  "description": "Diameter bands, DDR→drill cycle, stock-to-leave, RF/FINISH split, and tap drill table — mirrors 4. process_selection.py until a loader is wired.",
+  "pipeline_stage": "4. process_selection.py",
+  "preferred_machine": {
+    "value": "milling",
+    "allowed": ["milling", "turning", "both"],
+    "notes": "Boss and large_bore use this for primary vs alternate sequences; holes and planar_face always milling."
+  },
+  "drill_diameter_bands_mm": {
+    "micro_drill_max_exclusive": 1.0,
+    "twist_drill_max_inclusive": 13.0,
+    "core_drill_max_inclusive": 32.0,
+    "above_core_drill": "boring_bar_milling",
+    "micro_drill_rule": "d < micro_drill_max_exclusive → micro_drill only (no spot_drill)",
+    "twist_band_rule": "micro_drill_max_exclusive ≤ d ≤ twist_drill_max_inclusive → spot_drill then twist_drill",
+    "core_band_rule": "twist_drill_max_inclusive < d ≤ core_drill_max_inclusive → spot_drill, pilot_drill (60% of final D), core_drill",
+    "pilot_diameter_fraction_of_final": 0.6
+  },
+  "ddr_drill_cycle": {
+    "ddr_standard_max_inclusive": 3.0,
+    "ddr_peck_max_inclusive": 5.0,
+    "rules": [
+      "ddr is None or ddr ≤ ddr_standard_max_inclusive → standard",
+      "ddr ≤ ddr_peck_max_inclusive → peck",
+      "else → deep_peck"
+    ],
+    "ddr_definition": "depth / nominal_hole_diameter (through/blind inner bore)"
+  },
+  "boss_turning_min_diameter_mm": 6.0,
+  "boss_turning_note": "Below this diameter, milling contour is preferred when PREFERRED_MACHINE is milling.",
+  "material_stock_to_leave_mm": {
+    "default_xy": 0.1,
+    "default_z": 0.1,
+    "per_material": {
+      "aluminium_6061": { "xy": 0.1, "z": 0.1 },
+      "aluminium_6063": { "xy": 0.1, "z": 0.1 },
+      "aluminium_6082": { "xy": 0.1, "z": 0.1 },
+      "aluminium_7075": { "xy": 0.15, "z": 0.1 },
+      "aluminium_7050": { "xy": 0.15, "z": 0.1 },
+      "aluminium": { "xy": 0.1, "z": 0.1 },
+      "mild_steel": { "xy": 0.2, "z": 0.15 },
+      "steel": { "xy": 0.2, "z": 0.15 },
+      "stainless_steel": { "xy": 0.25, "z": 0.2 },
+      "stainless_steel_316": { "xy": 0.3, "z": 0.2 },
+      "titanium": { "xy": 0.15, "z": 0.1 },
+      "brass": { "xy": 0.1, "z": 0.1 }
+    },
+    "finish_passes": {
+      "stock_to_leave_xy": 0.0,
+      "stock_to_leave_z": 0.0
+    }
+  },
+  "face_mill_max_ap_mm": {
+    "default": 1.0,
+    "per_material": {
+      "aluminium": 2.0,
+      "aluminium_6061": 2.0,
+      "aluminium_6063": 2.0,
+      "aluminium_6082": 2.0,
+      "aluminium_7075": 1.5,
+      "aluminium_7050": 1.5,
+      "mild_steel": 1.0,
+      "steel": 1.0,
+      "stainless_steel": 0.5,
+      "stainless_steel_316": 0.5,
+      "titanium": 0.5,
+      "brass": 2.0
+    },
+    "rule": "If feature depth > max_ap for material, emit RF then FINISH face_mill passes."
+  },
+  "rf_split_operations": [
+    "contour_mill",
+    "pocket_mill",
+    "counterbore_mill"
+  ],
+  "drill_like_operations_no_rf_split": [
+    "spot_drill",
+    "micro_drill",
+    "twist_drill",
+    "pilot_drill",
+    "core_drill",
+    "boring_bar",
+    "circular_interp",
+    "tap",
+    "tap_rh",
+    "reamer",
+    "chamfer_mill"
+  ],
+  "corner_r_feature_types": [
+    "slot",
+    "pocket",
+    "slot_angled",
+    "pocket_angled"
+  ],
+  "tap_drill_table_mm": {
+    "comment": "Key = nominal metric thread diameter; value = ISO 68-1 tap drill diameter. Non-table: nearest within 0.5mm else thread_dia * 0.8",
+    "2.0": 1.6,
+    "2.5": 2.05,
+    "3.0": 2.5,
+    "4.0": 3.3,
+    "5.0": 4.2,
+    "6.0": 5.0,
+    "8.0": 6.75,
+    "10.0": 8.5,
+    "12.0": 10.25
+  },
+  "warnings": [
+    "Slot/pocket process branches may still fall through to manual_review in select_process() until those feature types are fully wired.",
+    "LIVE (applied at import): all drill bands, DDR thresholds, boss_turning_min_diameter, stock_to_leave tables, face_mill_max_ap, rf_split_operations, drill_like_operations, tap_drill_table, corner_r_feature_types."
+  ]
+}

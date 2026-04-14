@@ -100,6 +100,7 @@ import json
 import sys
 import copy
 import math
+import os
 import numpy as np
 from typing import Dict, List, Optional, Tuple
 
@@ -121,6 +122,86 @@ VMC_DEFAULT_SPINDLE = np.array([0.0, -1.0, 0.0])
 
 # Tolerance for deciding two axes are parallel/anti-parallel
 AXIS_PARALLEL_TOL = 1e-3
+
+# WCS corner-origin heuristic (AD-006): min is treated as CAD origin if
+# |min| < frac * (max - min). Default is 2%.
+WCS_CORNER_ORIGIN_FRAC = 0.02
+
+# WCS register assignment (setup_id 1 -> G54, etc.)
+WCS_SEQUENCE = ["G54", "G55", "G56", "G57", "G58", "G59"]
+
+
+# ---------------------------------------------------------------------------
+# Rule sheet loaders (Sheet 5: 05_setup_planning.json, Sheet 6: 06_workholding.json)
+# ---------------------------------------------------------------------------
+_RULE_SHEET_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'rule_sheets')
+_SETUP_RULE_SHEET_PATH = os.path.join(_RULE_SHEET_DIR, '05_setup_planning.json')
+_WORKHOLD_RULE_SHEET_PATH = os.path.join(_RULE_SHEET_DIR, '06_workholding.json')
+
+
+def _load_json_if_exists(path: str) -> Optional[Dict]:
+    if not os.path.exists(path):
+        return None
+    try:
+        with open(path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except Exception:
+        return None
+
+
+def load_setup_planning_rule_sheet(path: str = None) -> Optional[Dict]:
+    """Load Sheet 5 (setup planning) JSON. Safe-by-default if missing/invalid."""
+    return _load_json_if_exists(path or _SETUP_RULE_SHEET_PATH)
+
+
+def load_workholding_rule_sheet(path: str = None) -> Optional[Dict]:
+    """Load Sheet 6 (workholding) JSON. Safe-by-default if missing/invalid."""
+    return _load_json_if_exists(path or _WORKHOLD_RULE_SHEET_PATH)
+
+
+def _apply_setup_planning_rules(rules: Dict) -> None:
+    global VMC_DEFAULT_SPINDLE, AXIS_PARALLEL_TOL
+    global WCS_CORNER_ORIGIN_FRAC, WCS_SEQUENCE
+    global _ALL_FACES
+
+    if not isinstance(rules, dict):
+        return
+
+    vmc = rules.get('vmc_convention') or {}
+    if 'default_spindle_direction_cad' in vmc:
+        try:
+            VMC_DEFAULT_SPINDLE = np.array(vmc['default_spindle_direction_cad'], dtype=float)
+        except Exception:
+            pass
+
+    if 'axis_parallel_tolerance' in rules:
+        try:
+            AXIS_PARALLEL_TOL = float(rules['axis_parallel_tolerance'])
+        except Exception:
+            pass
+
+    wcs = rules.get('wcs') or {}
+    seq = wcs.get('sequence')
+    if isinstance(seq, list) and seq:
+        WCS_SEQUENCE = [str(x) for x in seq]
+
+    corner = rules.get('wcs_origin_corner_heuristic') or {}
+    if 'fraction_of_dimension' in corner:
+        try:
+            WCS_CORNER_ORIGIN_FRAC = float(corner['fraction_of_dimension'])
+        except Exception:
+            pass
+
+    stock = rules.get('stock_state') or {}
+    faces = stock.get('all_part_faces')
+    if isinstance(faces, list) and faces:
+        _ALL_FACES = [str(f) for f in faces]
+
+
+_SETUP_RULES = load_setup_planning_rule_sheet()
+_WORKHOLD_RULES = load_workholding_rule_sheet()
+if _SETUP_RULES is not None:
+    _apply_setup_planning_rules(_SETUP_RULES)
 
 
 # ---------------------------------------------------------------------------
@@ -336,6 +417,84 @@ def _build_workholding(spindle_dir: np.ndarray,
 
     datum_from_setup = setup_index - 1 if setup_index > 1 else None
 
+    # ------------------------------------------------------------------
+    # Rule-sheet driven workholding (Sheet 6) — best-effort, safe fallback
+    # ------------------------------------------------------------------
+    if isinstance(_WORKHOLD_RULES, dict):
+        try:
+            # Angled setup template
+            if setup_type == 'angled' and rotation is not None:
+                t = ((_WORKHOLD_RULES.get('angled_setup') or {}).get('template')) or {}
+                angle = rotation.get('angle_deg')
+                ax_label = rotation.get('rotation_axis_label')
+                notes = t.get('notes_pattern') or ''
+                if notes:
+                    notes = (f'{notes} '
+                             f'(angle={angle}°, axis={ax_label})').strip()
+                else:
+                    notes = (f'Sine plate set to {angle}° around {ax_label}. '
+                             f'Verify angle with dial indicator before machining.')
+                return {
+                    'type': t.get('type', 'sine_plate'),
+                    'clamp_faces': t.get('clamp_faces', ['+X', '-X']),
+                    'rest_face': t.get('rest_face', '-Y'),
+                    'clearance_faces': t.get('clearance_faces', ['+Y']),
+                    'jaw_opening_mm': x_dim,
+                    'datum_from_setup': datum_from_setup,
+                    'notes': notes,
+                }
+
+            # Principal templates: choose by dominant spindle component (same logic as hardcoded path)
+            templates = _WORKHOLD_RULES.get('principal_spindle_templates') or []
+            chosen = None
+            if abs(sd[1]) > 0.9:
+                # +Y or -Y
+                if sd[1] > 0:
+                    # first template is expected to be +Y
+                    chosen = templates[0] if len(templates) > 0 else None
+                else:
+                    chosen = templates[1] if len(templates) > 1 else None
+            elif abs(sd[0]) > 0.9:
+                chosen = templates[2] if len(templates) > 2 else None
+            elif abs(sd[2]) > 0.9:
+                chosen = templates[3] if len(templates) > 3 else None
+
+            if isinstance(chosen, dict) and chosen:
+                wh_type = chosen.get('type')
+                if wh_type is None and abs(sd[1]) > 0.9 and sd[1] > 0:
+                    wh_type = chosen.get('type_setup_1') if setup_index == 1 else chosen.get('type_later')
+                clearance_faces = chosen.get('clearance_faces')
+                # Resolve dynamic clearance face for side setups
+                if isinstance(clearance_faces, list) and clearance_faces and isinstance(clearance_faces[0], str):
+                    if 'spindle_x' in clearance_faces[0]:
+                        clearance_faces = ['+X' if sd[0] > 0 else '-X']
+                    if 'spindle_z' in clearance_faces[0]:
+                        clearance_faces = ['+Z' if sd[2] > 0 else '-Z']
+
+                # jaw_opening mapping
+                jaw = None
+                jaw_src = chosen.get('jaw_opening_mm_from_bbox')
+                if jaw_src == 'x_dim':
+                    jaw = x_dim
+                elif jaw_src == 'y_dim':
+                    jaw = y_dim
+                elif jaw_src == 'z_dim':
+                    jaw = z_dim
+
+                return {
+                    'type': wh_type or 'custom_fixture',
+                    'clamp_faces': chosen.get('clamp_faces', []),
+                    'rest_face': chosen.get('rest_face'),
+                    'clearance_faces': clearance_faces or [],
+                    'jaw_opening_mm': jaw,
+                    'datum_from_setup': datum_from_setup,
+                    'notes': (chosen.get('notes')
+                              or 'Workholding from rule sheet (Sheet 6). Verify clamp and clearance faces.'),
+                }
+        except Exception:
+            # If anything goes wrong, fall back to the hardcoded logic below.
+            pass
+
     # --- Angled setup ---
     if setup_type == 'angled' and rotation is not None:
         angle    = rotation['angle_deg']
@@ -478,9 +637,9 @@ def _compute_wcs_origin(spindle_dir: np.ndarray, bbox: Dict) -> Dict:
     z_dim = zmax - zmin
 
     # Corner zero when the part sits at CAD origin (mins ≈ 0).
-    # Threshold: min < 2% of the dimension (handles floating-point near-zero).
+    # Threshold: min < WCS_CORNER_ORIGIN_FRAC of the dimension (handles floating-point near-zero).
     def _at_origin(mn, dim):
-        return dim > 0 and abs(mn) < 0.02 * dim
+        return dim > 0 and abs(mn) < WCS_CORNER_ORIGIN_FRAC * dim
 
     sd = _unit(spindle_dir)
 
@@ -782,8 +941,7 @@ def plan_setups(processes_data: Dict,
         # ------------------------------------------------------------------
         # WCS assignment (§2a)
         # ------------------------------------------------------------------
-        wcs_sequence = ["G54", "G55", "G56", "G57", "G58", "G59"]
-        wcs = wcs_sequence[min(setup_id - 1, len(wcs_sequence) - 1)]
+        wcs = WCS_SEQUENCE[min(setup_id - 1, len(WCS_SEQUENCE) - 1)]
 
         wcs_origin = _compute_wcs_origin(
             spindle_dir,

@@ -20,5 +20,8 @@ Thumbs.db
 ~$*.xlsx
 ~$*.docx
 
+# Internal docs (keep local, not in repo)
+ShiaanX Vision.docx
+
 # Large binary files
 *.zip

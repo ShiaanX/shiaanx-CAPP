@@ -93,6 +93,7 @@ The key signals used, in order of priority:
 import copy
 import json
 import sys
+import os
 from collections import defaultdict
 from pathlib import Path
 from typing import Dict, Tuple
@@ -129,6 +130,67 @@ POCKET_MAX_AREA_MM2 = 500.0
 # exceeds this, the whole feature requires a boring bar — classify as large_bore.
 # (Distinct from LARGE_BORE_RADIUS_MM which guards single-step bores.)
 DRILL_MAX_RADIUS_MM = 8.0
+
+
+# ---------------------------------------------------------------------------
+# Rule sheet loader (Sheet 1: 01_feature_classification.json)
+# ---------------------------------------------------------------------------
+_RULE_SHEET_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'rule_sheets')
+_CLASSIFY_RULE_SHEET_PATH = os.path.join(_RULE_SHEET_DIR, '01_feature_classification.json')
+
+
+def load_feature_classification_rule_sheet(path: str = None) -> Dict:
+    """
+    Load Sheet 1 classification rules (JSON).
+
+    Safe-by-default: if missing/invalid, returns {} and hardcoded constants stay.
+    """
+    p = path or _CLASSIFY_RULE_SHEET_PATH
+    if not os.path.exists(p):
+        return {}
+    try:
+        with open(p, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        return data if isinstance(data, dict) else {}
+    except Exception:
+        return {}
+
+
+def _apply_feature_classification_rules(rules: Dict) -> None:
+    global LARGE_BORE_RADIUS_MM
+    global SINGLE_FACE_THROUGH_HOLE_DDR_MAX
+    global POCKET_MAX_AREA_MM2
+    global DRILL_MAX_RADIUS_MM
+
+    thresholds = (rules.get('thresholds_mm') or {}) if isinstance(rules, dict) else {}
+
+    def _get_value(key: str):
+        v = thresholds.get(key)
+        if isinstance(v, dict) and 'value' in v:
+            return v['value']
+        return None
+
+    v = _get_value('large_bore_radius_mm')
+    if v is not None:
+        LARGE_BORE_RADIUS_MM = float(v)
+
+    v = _get_value('single_face_through_hole_ddr_max')
+    if v is not None:
+        SINGLE_FACE_THROUGH_HOLE_DDR_MAX = float(v)
+
+    v = _get_value('pocket_max_area_mm2')
+    if v is not None:
+        POCKET_MAX_AREA_MM2 = float(v)
+
+    v = _get_value('drill_max_radius_mm')
+    if v is not None:
+        DRILL_MAX_RADIUS_MM = float(v)
+
+
+# Apply rule sheet at import time (best-effort).
+_classify_rules = load_feature_classification_rule_sheet()
+if _classify_rules:
+    _apply_feature_classification_rules(_classify_rules)
 
 
 # ---------------------------------------------------------------------------

@@ -118,6 +118,93 @@ _DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
 
 TOOL_CHANGE_TIME_S = 8.0  # seconds per ATC tool change
 
+
+# ---------------------------------------------------------------------------
+# Rule sheet loader (Sheet 4: 04_cutting_parameters.json)
+# ---------------------------------------------------------------------------
+_RULE_SHEET_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'rule_sheets')
+_CUT_PARAMS_SHEET_PATH = os.path.join(_RULE_SHEET_DIR, '04_cutting_parameters.json')
+
+
+def load_cutting_parameter_rule_sheet(path: str = None) -> Optional[Dict]:
+    """
+    Load Sheet 4 cutting parameter rules (JSON). Returns dict or None.
+
+    Safe-by-default: if missing/invalid, keep hardcoded defaults.
+    """
+    p = path or _CUT_PARAMS_SHEET_PATH
+    if not os.path.exists(p):
+        return None
+    try:
+        with open(p, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except Exception:
+        return None
+
+
+def _apply_cutting_parameter_rules(rules: Dict) -> None:
+    """
+    Apply rule-sheet values to this module's global defaults.
+    CLI args / function args can still override at runtime.
+    """
+    global MAX_SPINDLE_RPM, COOLANT
+    global PECK_FRACTIONS
+    global TSC_VC_BOOST_SMALL_DRILL
+    global MIN_VF_MMPM, RPM_ROUND_TO, VF_ROUND_TO
+    global TOOL_CHANGE_TIME_S
+
+    if not isinstance(rules, dict):
+        return
+
+    # Machine defaults
+    machine = rules.get('machine_defaults') or {}
+    if 'max_spindle_rpm' in machine:
+        MAX_SPINDLE_RPM = int(machine['max_spindle_rpm'])
+    if 'coolant_default' in machine:
+        coolant = str(machine['coolant_default'])
+        if coolant in ('through_spindle', 'flood', 'mist', 'dry'):
+            COOLANT = coolant
+
+    # Peck fractions
+    peck = rules.get('peck_fractions_of_tool_diameter') or {}
+    if isinstance(peck, dict) and peck:
+        cleaned = {}
+        for coolant, cycles in peck.items():
+            if coolant == 'comment':
+                continue
+            if not isinstance(cycles, dict):
+                continue
+            cleaned[coolant] = {
+                'peck': float(cycles.get('peck', PECK_FRACTIONS.get(coolant, {}).get('peck', 0.5))),
+                'deep_peck': float(cycles.get('deep_peck', PECK_FRACTIONS.get(coolant, {}).get('deep_peck', 0.3))),
+            }
+        if cleaned:
+            PECK_FRACTIONS = cleaned
+
+    # TSC small drill boost
+    tsc = rules.get('tsc_small_drill_boost') or {}
+    if 'vc_multiplier' in tsc:
+        TSC_VC_BOOST_SMALL_DRILL = float(tsc['vc_multiplier'])
+
+    # Safety + rounding
+    sr = rules.get('safety_and_rounding') or {}
+    if 'min_vf_mm_per_min' in sr:
+        MIN_VF_MMPM = float(sr['min_vf_mm_per_min'])
+    if 'rpm_round_to' in sr:
+        RPM_ROUND_TO = int(sr['rpm_round_to'])
+    if 'vf_round_to' in sr:
+        VF_ROUND_TO = int(sr['vf_round_to'])
+
+    # Cycle time estimation
+    cte = rules.get('cycle_time_estimation_s') or {}
+    if 'tool_change_per_unique_tool' in cte:
+        TOOL_CHANGE_TIME_S = float(cte['tool_change_per_unique_tool'])
+
+
+_cut_rules = load_cutting_parameter_rule_sheet()
+if _cut_rules is not None:
+    _apply_cutting_parameter_rules(_cut_rules)
+
 # ---------------------------------------------------------------------------
 # Tool database lookup (for fields not carried forward by tool_selection)
 # ---------------------------------------------------------------------------

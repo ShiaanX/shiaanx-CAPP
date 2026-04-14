@@ -91,6 +91,62 @@ CONTOUR_MILL_TOOL_FRACTION = 0.80
 # Tolerance for "exact" diameter match on drills (mm)
 DRILL_EXACT_TOL = 0.01
 
+# Tolerance for counterbore end-mill "exact" match (mm)
+COUNTERBORE_ENDMILL_EXACT_TOL = 0.05
+
+
+# ---------------------------------------------------------------------------
+# Rule sheet loader (Sheet 3: 03_tool_matching_policy.json)
+# ---------------------------------------------------------------------------
+_RULE_SHEET_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'rule_sheets')
+_TOOL_POLICY_SHEET_PATH = os.path.join(_RULE_SHEET_DIR, '03_tool_matching_policy.json')
+
+
+def load_tool_matching_policy_sheet(path: str = None) -> Optional[Dict]:
+    """
+    Load Sheet 3 tool matching policy (JSON). Returns dict or None.
+
+    Safe-by-default: if missing/invalid, keep hardcoded defaults.
+    """
+    p = path or _TOOL_POLICY_SHEET_PATH
+    if not os.path.exists(p):
+        return None
+    try:
+        with open(p, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except Exception:
+        return None
+
+
+def _apply_tool_matching_policy(policy: Dict) -> None:
+    global CIRC_INTERP_TOOL_FRACTION
+    global CONTOUR_MILL_TOOL_FRACTION
+    global DRILL_EXACT_TOL
+    global COUNTERBORE_ENDMILL_EXACT_TOL
+
+    if not isinstance(policy, dict):
+        return
+
+    tol = policy.get('tolerances_mm') or {}
+    if 'drill_exact_match' in tol:
+        DRILL_EXACT_TOL = float(tol['drill_exact_match'])
+    if 'counterbore_endmill_exact' in tol:
+        COUNTERBORE_ENDMILL_EXACT_TOL = float(tol['counterbore_endmill_exact'])
+
+    dia = policy.get('diameter_resolution') or {}
+    circ = dia.get('circular_interp') or {}
+    if 'target_fraction_of_bore_diameter' in circ:
+        CIRC_INTERP_TOOL_FRACTION = float(circ['target_fraction_of_bore_diameter'])
+
+    contour = dia.get('contour_mill_boss') or {}
+    if 'target_fraction_of_boss_diameter' in contour:
+        CONTOUR_MILL_TOOL_FRACTION = float(contour['target_fraction_of_boss_diameter'])
+
+
+_tool_policy = load_tool_matching_policy_sheet()
+if _tool_policy is not None:
+    _apply_tool_matching_policy(_tool_policy)
+
 
 # ---------------------------------------------------------------------------
 # Database loader
@@ -237,7 +293,7 @@ def _resolve_endmill_for_counterbore(cb_dia: float, db: Dict) -> Tuple[float, st
     standard_sizes = db.get('standard_endmill_sizes_mm', [])
 
     # Prefer exact match
-    exact_candidates = [s for s in standard_sizes if abs(s - cb_dia) <= 0.05]
+    exact_candidates = [s for s in standard_sizes if abs(s - cb_dia) <= COUNTERBORE_ENDMILL_EXACT_TOL]
     if exact_candidates:
         return exact_candidates[0], ''
 
