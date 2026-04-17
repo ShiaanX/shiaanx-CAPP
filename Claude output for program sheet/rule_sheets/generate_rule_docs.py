@@ -22,13 +22,13 @@ import pandas as pd
 SHEET_DIR = Path(__file__).parent
 
 SHEETS = [
-    ("07_label_taxonomy.json",         "07", "Label / Taxonomy Map"),
     ("01_feature_classification.json", "01", "Feature Classification"),
     ("02_process_selection.json",      "02", "Process Selection"),
     ("03_tool_matching_policy.json",   "03", "Tool Matching Policy"),
     ("04_cutting_parameters.json",     "04", "Cutting Parameters"),
     ("05_setup_planning.json",         "05", "Setup Planning"),
     ("06_workholding.json",            "06", "Workholding / Fixtures"),
+    ("07_label_taxonomy.json",         "07", "Label / Taxonomy Map"),
 ]
 
 # ── shared data helpers ───────────────────────────────────────────────────────
@@ -180,27 +180,8 @@ def run_dashboard():
     tab_labels = [f"{num} · {name}" for _, num, name in SHEETS]
     tabs = st.tabs(tab_labels)
 
-    # ── Sheet 07: Taxonomy ────────────────────────────────────────────────────
-    with tabs[0]:
-        d = all_data["07_label_taxonomy.json"]
-        st.subheader("Label / Taxonomy Map — MFCAD++ bridge")
-        st.caption(d.get("description", ""))
-
-        df = taxonomy_df(d)
-        # Colour ✓ green, ✗ red
-        def colour_check(val):
-            if val == "✓": return "color: green; font-weight: bold"
-            if val == "✗": return "color: #cc0000"
-            return ""
-        styled = df.style.applymap(colour_check, subset=["Classifier emits", "Process rule"])
-        st.dataframe(styled, use_container_width=True, hide_index=True)
-
-        with st.expander("Warnings / notes from rule sheet"):
-            for w in (d.get("warnings") or []):
-                st.warning(w)
-
     # ── Sheet 01: Classification ──────────────────────────────────────────────
-    with tabs[1]:
+    with tabs[0]:
         d = all_data["01_feature_classification.json"]
         st.subheader("Feature Classification Rules")
         st.caption(d.get("description", ""))
@@ -224,7 +205,7 @@ def run_dashboard():
                 st.warning(w)
 
     # ── Sheet 02: Process selection ───────────────────────────────────────────
-    with tabs[2]:
+    with tabs[1]:
         d = all_data["02_process_selection.json"]
         st.subheader("Process Selection Rules")
         st.caption(d.get("description", ""))
@@ -247,7 +228,7 @@ def run_dashboard():
                 st.warning(w)
 
     # ── Sheet 03: Tool matching ───────────────────────────────────────────────
-    with tabs[3]:
+    with tabs[2]:
         d = all_data["03_tool_matching_policy.json"]
         st.subheader("Tool Matching Policy")
         st.caption(d.get("description", ""))
@@ -269,7 +250,7 @@ def run_dashboard():
                 st.warning(w)
 
     # ── Sheet 04: Cutting params ──────────────────────────────────────────────
-    with tabs[4]:
+    with tabs[3]:
         d = all_data["04_cutting_parameters.json"]
         st.subheader("Cutting Parameter Rules")
         st.caption(d.get("description", ""))
@@ -298,7 +279,7 @@ def run_dashboard():
                 st.warning(w)
 
     # ── Sheet 05: Setup planning ──────────────────────────────────────────────
-    with tabs[5]:
+    with tabs[4]:
         d = all_data["05_setup_planning.json"]
         st.subheader("Setup Planning Rules")
         st.caption(d.get("description", ""))
@@ -327,7 +308,7 @@ def run_dashboard():
                 st.warning(w)
 
     # ── Sheet 06: Workholding ─────────────────────────────────────────────────
-    with tabs[6]:
+    with tabs[5]:
         d = all_data["06_workholding.json"]
         st.subheader("Workholding / Fixture Rules")
         st.caption(d.get("description", ""))
@@ -349,6 +330,24 @@ def run_dashboard():
         st.warning(f"Fallback: `{fb.get('type')}` — {fb.get('notes', '')}")
 
         with st.expander("Warnings / notes"):
+            for w in (d.get("warnings") or []):
+                st.warning(w)
+
+    # ── Sheet 07: Taxonomy ────────────────────────────────────────────────────
+    with tabs[6]:
+        d = all_data["07_label_taxonomy.json"]
+        st.subheader("Label / Taxonomy Map — MFCAD++ bridge")
+        st.caption(d.get("description", ""))
+
+        df = taxonomy_df(d)
+        def colour_check(val):
+            if val == "✓": return "color: green; font-weight: bold"
+            if val == "✗": return "color: #cc0000"
+            return ""
+        styled = df.style.applymap(colour_check, subset=["Classifier emits", "Process rule"])
+        st.dataframe(styled, use_container_width=True, hide_index=True)
+
+        with st.expander("Warnings / notes from rule sheet"):
             for w in (d.get("warnings") or []):
                 st.warning(w)
 
@@ -509,13 +508,13 @@ def _html_workholding(d):
 def generate_html():
     all_data = load_all()
     renderers = [
-        ("07_label_taxonomy.json",         _html_taxonomy),
         ("01_feature_classification.json", _html_classification),
         ("02_process_selection.json",      _html_process),
         ("03_tool_matching_policy.json",   _html_tool_policy),
         ("04_cutting_parameters.json",     _html_cutting),
         ("05_setup_planning.json",         _html_setup),
         ("06_workholding.json",            _html_workholding),
+        ("07_label_taxonomy.json",         _html_taxonomy),
     ]
     nav = "".join(f'<a href="#s{num}">{num} · {name}</a>' for _, num, name in SHEETS)
     today = date.today().isoformat()
