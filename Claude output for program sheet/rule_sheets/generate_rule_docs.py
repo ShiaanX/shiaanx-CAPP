@@ -540,6 +540,17 @@ def generate_html():
     docs_out.write_text(html, encoding="utf-8")
     print(f"Written: {docs_out}  (GitHub Pages copy)")
 
+    import subprocess, os
+    repo_root = SHEET_DIR.parent.parent
+    files = [
+        str(out.relative_to(repo_root)),
+        str(docs_out.relative_to(repo_root)),
+    ]
+    subprocess.run(["git", "add"] + files, cwd=repo_root, check=True)
+    subprocess.run(["git", "commit", "-m", f"Update RULES.html [{date.today().isoformat()}]"], cwd=repo_root, check=True)
+    subprocess.run(["git", "push"], cwd=repo_root, check=True)
+    print("Pushed to GitHub Pages.")
+
 
 # ── entry point ───────────────────────────────────────────────────────────────
 
