@@ -25,3 +25,6 @@ ShiaanX Vision.docx
 
 # Large binary files
 *.zip
+
+# Separate independent repo (AD-007)
+shiaanx-backend/
