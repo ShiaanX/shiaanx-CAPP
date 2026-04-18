@@ -535,6 +535,11 @@ def generate_html():
     print(f"Written: {out}  ({len(html):,} bytes)")
     print(f"Open:    file:///{out.as_posix()}")
 
+    docs_out = SHEET_DIR.parent.parent / "docs" / "RULES.html"
+    docs_out.parent.mkdir(exist_ok=True)
+    docs_out.write_text(html, encoding="utf-8")
+    print(f"Written: {docs_out}  (GitHub Pages copy)")
+
 
 # ── entry point ───────────────────────────────────────────────────────────────
 
