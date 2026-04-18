@@ -105,6 +105,15 @@ import numpy as np
 from typing import Dict, List, Optional, Tuple
 
 try:
+    from observability import PipelineTracer
+except ImportError:
+    from types import SimpleNamespace
+    PipelineTracer = SimpleNamespace(from_env=lambda: SimpleNamespace(
+        start_stage=lambda *a,**k: None, end_stage=lambda *a,**k: None,
+        decision=lambda *a,**k: None, metric=lambda *a,**k: None,
+        warning=lambda *a,**k: None))
+
+try:
     from coord_system import CoordSystem, apply_coord_system
     _COORD_SYSTEM_AVAILABLE = True
 except ImportError:
@@ -1254,6 +1263,36 @@ if __name__ == '__main__':
         print("      Pass --features <features_json> to apply coordinate transform.")
         print()
 
+    tracer = PipelineTracer.from_env()
+    tracer.start_stage("setup_planning", input_path=input_path)
+
     result = plan_setups(data, coord_sys=coord_sys)
     print_setup_summary(result)
+
+    # Emit tracing metrics
+    setups = result.get('setups', [])
+    total_ops = sum(s.get('operation_count', 0) for s in setups)
+    tracer.metric("setup_count", len(setups))
+    tracer.metric("total_operations", total_ops)
+    for s in setups:
+        sid = s.get('setup_id', '?')
+        wh_type = s.get('workholding', {}).get('type', 'unknown')
+        wcs = s.get('wcs_origin', {})
+        tracer.decision(
+            signal="workholding_assignment",
+            value={"spindle_direction": s.get('spindle_direction'),
+                   "setup_type": s.get('setup_type')},
+            outcome=wh_type,
+            notes=f"setup_id={sid}",
+        )
+        if wcs:
+            tracer.decision(
+                signal="wcs_origin_type",
+                value=wcs,
+                outcome=wcs.get('type', 'unknown'),
+                notes=f"setup_id={sid}",
+            )
+
     save_setups(result, output_path)
+    tracer.end_stage(output_path=output_path,
+                     counts={"setups": len(setups), "operations": total_ops})

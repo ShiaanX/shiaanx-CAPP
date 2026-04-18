@@ -22,6 +22,15 @@ from typing import List, Dict, Any, Optional
 
 import networkx as nx
 
+try:
+    from observability import PipelineTracer
+except ImportError:
+    from types import SimpleNamespace
+    PipelineTracer = SimpleNamespace(from_env=lambda: SimpleNamespace(
+        start_stage=lambda *a,**k: None, end_stage=lambda *a,**k: None,
+        decision=lambda *a,**k: None, metric=lambda *a,**k: None,
+        warning=lambda *a,**k: None))
+
 from feature_graph import build_face_graph, graph_summary
 from geometry_utils import (
     axes_are_collinear,
@@ -783,8 +792,31 @@ if __name__ == '__main__':
     input_path  = sys.argv[1]
     output_path = sys.argv[2] if len(sys.argv) > 2 else input_path.replace('.json', '_clustered.json')
 
+    tracer = PipelineTracer.from_env()
+    tracer.start_stage("cluster_features", input_path=input_path)
+
     with open(input_path) as f:
         data = json.load(f)
 
     clusters = cluster_features(data, verbose=True)
+
+    # Emit tracing metrics
+    seed_type_counts: dict = {}
+    bg_count = 0
+    for c in clusters:
+        st = c.get('seed_type', 'unknown')
+        seed_type_counts[st] = seed_type_counts.get(st, 0) + 1
+        if st == 'background':
+            bg_count += 1
+    slot_count = sum(1 for c in clusters if c.get('seed_type') == 'slot')
+
+    tracer.metric("cluster_count", len(clusters))
+    tracer.metric("seed_type_distribution", seed_type_counts)
+    if slot_count:
+        tracer.metric("slot_clusters_detected", slot_count)
+    if bg_count:
+        tracer.warning("faces assigned to background cluster (unclaimed)",
+                       {"background_cluster_count": bg_count})
+
     save_clusters(clusters, output_path, source_data=data)
+    tracer.end_stage(output_path=output_path, counts={"clusters": len(clusters)})

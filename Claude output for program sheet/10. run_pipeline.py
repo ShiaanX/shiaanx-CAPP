@@ -47,12 +47,20 @@ import time
 from datetime import datetime
 from pathlib import Path
 
+# Import observability — optional; silently skipped if module missing
+try:
+    from observability import PipelineTracer
+    _TRACER_AVAILABLE = True
+except ImportError:
+    _TRACER_AVAILABLE = False
 
-def _setup_logging(log_dir: str) -> str:
-    """Set up file + console logging. Returns log file path."""
+
+def _setup_logging(log_dir: str) -> tuple:
+    """Set up file + console logging. Returns (log_path, trace_path)."""
     os.makedirs(log_dir, exist_ok=True)
     ts = datetime.now().strftime('%Y%m%d_%H%M%S')
     log_path = os.path.join(log_dir, f'pipeline_{ts}.log')
+    trace_path = os.path.join(log_dir, f'pipeline_{ts}_trace.jsonl')
 
     fmt = '%(asctime)s  %(levelname)-8s  %(message)s'
     logging.basicConfig(
@@ -63,7 +71,7 @@ def _setup_logging(log_dir: str) -> str:
             logging.StreamHandler(),   # also print to console
         ]
     )
-    return log_path
+    return log_path, trace_path
 
 
 # ---------------------------------------------------------------------------
@@ -111,7 +119,7 @@ _PYTHON = _find_python()
 # Helpers
 # ---------------------------------------------------------------------------
 
-def _run(cmd: list, label: str, dry_run: bool = False) -> bool:
+def _run(cmd: list, label: str, dry_run: bool = False, trace_file: str | None = None) -> bool:
     """Run a command, log progress and timing, return True on success."""
     log = logging.getLogger(__name__)
 
@@ -128,12 +136,18 @@ def _run(cmd: list, label: str, dry_run: bool = False) -> bool:
         log.info(f"[DRY RUN] Skipped: {label}")
         return True
 
+    # Propagate trace file to subprocess via env var
+    env = os.environ.copy()
+    if trace_file:
+        env["PIPELINE_TRACE_FILE"] = trace_file
+
     t0 = time.time()
     try:
         result = subprocess.run(
             cmd,
             cwd=str(SCRIPT_DIR),
             capture_output=False,  # let output stream to terminal
+            env=env,
         )
     except Exception:
         import traceback
@@ -150,6 +164,45 @@ def _run(cmd: list, label: str, dry_run: bool = False) -> bool:
     print(f"  [OK] {label}")
     log.info(f"Done in {elapsed:.1f}s: {label}")
     return True
+
+
+# ---------------------------------------------------------------------------
+# Observability summary
+# ---------------------------------------------------------------------------
+
+def _print_summary(trace_path: str, total_elapsed: float):
+    """Read the JSONL trace and print a human-readable summary."""
+    try:
+        summary = PipelineTracer.summarize(trace_path)
+    except Exception:
+        return
+
+    w = summary.get("total_warnings", 0)
+    lc = summary.get("low_confidence_classifications", 0)
+    rpm = summary.get("rpm_caps", 0)
+    subs = summary.get("tool_substitutions", 0)
+
+    feat_dist = summary.get("feature_distribution", {})
+    feat_str = ", ".join(f"{k}×{v}" for k, v in sorted(feat_dist.items())) if feat_dist else "—"
+
+    timings = summary.get("stage_timings_ms", {})
+    timing_str = "  ".join(f"{s.split('_')[0]}:{ms}ms" for s, ms in timings.items()) if timings else "—"
+
+    bar = "─" * 60
+    print(f"\n{bar}")
+    print(f"  Pipeline Summary")
+    print(f"{bar}")
+    print(f"  Stages completed : {summary.get('stages_completed', '?')}")
+    print(f"  Features         : {summary.get('total_clusters', '?')} "
+          f"({lc} low-confidence)")
+    print(f"  Setups           : {summary.get('total_setups', '?')}  "
+          f"Operations: {summary.get('total_operations', '?')}")
+    print(f"  Feature types    : {feat_str}")
+    print(f"  Warnings         : {w} total  "
+          f"(RPM caps: {rpm}, tool substitutions: {subs})")
+    print(f"  Total time       : {total_elapsed:.1f}s")
+    print(f"  Trace file       : {trace_path}")
+    print(f"{bar}\n")
 
 
 # ---------------------------------------------------------------------------
@@ -276,11 +329,13 @@ def main():
         ]),
     ]
 
-    # Initialise logging
+    # Initialise logging + trace
     log_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logs')
-    log_path = _setup_logging(log_dir)
+    log_path, trace_path = _setup_logging(log_dir)
     log = logging.getLogger(__name__)
     log.info(f'Pipeline log: {log_path}')
+    if _TRACER_AVAILABLE:
+        log.info(f'Pipeline trace: {trace_path}')
 
     print(f"\nCNC Pipeline -- {base}")
     print(f"  STEP       : {step_path}")
@@ -298,7 +353,8 @@ def main():
             log.info(f"Skipped (--from-step {args.from_step}): {label}")
             continue
 
-        ok = _run(cmd, label, dry_run=args.dry_run)
+        ok = _run(cmd, label, dry_run=args.dry_run,
+                  trace_file=trace_path if _TRACER_AVAILABLE else None)
         if not ok:
             print(f"\nPipeline aborted at {label}.")
             print(f"Fix the issue above, then resume with:  --from-step {step_num}")
@@ -312,6 +368,10 @@ def main():
     print(f"  PDF: {f_pdf}")
     print(f"{'='*60}\n")
     log.info(f"Pipeline COMPLETE — PDF: {f_pdf} — total time: {total_elapsed:.1f}s")
+
+    # Print observability summary
+    if _TRACER_AVAILABLE:
+        _print_summary(trace_path, total_elapsed)
 
 
 if __name__ == '__main__':

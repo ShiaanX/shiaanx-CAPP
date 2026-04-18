@@ -102,6 +102,15 @@ import copy
 import os
 from typing import Dict, List, Tuple, Optional
 
+try:
+    from observability import PipelineTracer
+except ImportError:
+    from types import SimpleNamespace
+    PipelineTracer = SimpleNamespace(from_env=lambda: SimpleNamespace(
+        start_stage=lambda *a,**k: None, end_stage=lambda *a,**k: None,
+        decision=lambda *a,**k: None, metric=lambda *a,**k: None,
+        warning=lambda *a,**k: None))
+
 
 # ---------------------------------------------------------------------------
 # Thresholds — adjust here without touching logic
@@ -1219,6 +1228,9 @@ if __name__ == '__main__':
         known = ', '.join(sorted(MATERIAL_STOCK_TABLE))
         print(f"Warning: --material '{cli_material}' not in table. Known: {known}. Using default stock values.")
 
+    tracer = PipelineTracer.from_env()
+    tracer.start_stage("process_selection", input_path=input_path)
+
     with open(input_path) as f:
         data = json.load(f)
 
@@ -1226,4 +1238,28 @@ if __name__ == '__main__':
                               material=cli_material)
     effective = cli_machine or PREFERRED_MACHINE
     print_process_summary(result, effective_preference=effective)
+
+    # Emit tracing metrics
+    total_ops = 0
+    op_counts: dict = {}
+    for c in result.get('clusters', []):
+        for step in c.get('process_sequence', []):
+            total_ops += 1
+            op = step.get('operation', 'unknown')
+            op_counts[op] = op_counts.get(op, 0) + 1
+            drill_cycle = step.get('drill_cycle')
+            if drill_cycle:
+                tracer.decision(
+                    signal="drill_cycle",
+                    value={"ddr": step.get('depth_mm', 0) / max(step.get('diameter_mm', 1), 1e-6)},
+                    outcome=drill_cycle,
+                    notes=f"cluster={c['cluster_id']} op={step['step']}",
+                )
+
+    tracer.metric("total_operations", total_ops)
+    tracer.metric("operation_type_counts", op_counts)
+
     save_processes(result, output_path)
+    tracer.end_stage(output_path=output_path,
+                     counts={"clusters": len(result.get('clusters', [])),
+                             "operations": total_ops})

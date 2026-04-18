@@ -7,6 +7,14 @@ import sys
 import os
 import json
 import math
+try:
+    from observability import PipelineTracer
+except ImportError:
+    from types import SimpleNamespace
+    PipelineTracer = SimpleNamespace(from_env=lambda: SimpleNamespace(
+        start_stage=lambda *a,**k: None, end_stage=lambda *a,**k: None,
+        decision=lambda *a,**k: None, metric=lambda *a,**k: None,
+        warning=lambda *a,**k: None))
 from OCC.Core.STEPControl import STEPControl_Reader
 from OCC.Core.IFSelect import IFSelect_RetDone
 from OCC.Core.TopExp import TopExp_Explorer, topexp
@@ -387,6 +395,11 @@ def main():
         print(f"ERROR: File not found: {step_file}")
         sys.exit(1)
 
+    tracer = PipelineTracer.from_env()
+    out_path_preview = (os.path.abspath(sys.argv[2]) if len(sys.argv) >= 3
+                        else os.path.splitext(step_file)[0] + "_features.json")
+    tracer.start_stage("extract_features", input_path=step_file)
+
     print("=" * 60)
     print("CAD Feature Extractor - PythonOCC")
     print("=" * 60)
@@ -442,11 +455,24 @@ def main():
     print("\n[9] Shape Validity")
     valid = check_validity(shape)
     print(f"    Valid: {valid}")
+    tracer.decision("step_validity", value=valid, outcome="ok" if valid else "invalid")
+    if not valid:
+        tracer.warning("STEP shape failed validity check", {"file": step_file})
 
     print("\n[10] Face Adjacency")
     adjacency = extract_face_adjacency(shape)
     for face_idx, neighbors in adjacency.items():
         print(f"    Face {face_idx}: adjacent to {neighbors}")
+
+    # Emit observability metrics
+    tracer.metric("topology_counts", counts)
+    tracer.metric("surface_type_distribution", face_data["surface_type_counts"])
+    tracer.metric("bounding_box_mm", {
+        "x": bbox["length_x"], "y": bbox["length_y"], "z": bbox["length_z"]
+    })
+    tracer.metric("volume_mm3", mass["volume"])
+    tracer.metric("total_faces", face_data["total_faces"])
+    tracer.metric("cylindrical_features_detected", len(holes))
 
     output = {
         "file": step_file,
@@ -471,6 +497,8 @@ def main():
         json.dump(output, f, indent=2)
     print(f"\n[DONE] Full results saved to: {out_path}")
     print("=" * 60)
+    tracer.end_stage(output_path=out_path, counts={"faces": face_data["total_faces"],
+                                                    "edges": edge_data["total_edges"]})
 
 
 if __name__ == "__main__":

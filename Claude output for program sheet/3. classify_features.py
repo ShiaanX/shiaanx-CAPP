@@ -98,6 +98,15 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Dict, Tuple
 
+try:
+    from observability import PipelineTracer
+except ImportError:
+    from types import SimpleNamespace
+    PipelineTracer = SimpleNamespace(from_env=lambda: SimpleNamespace(
+        start_stage=lambda *a,**k: None, end_stage=lambda *a,**k: None,
+        decision=lambda *a,**k: None, metric=lambda *a,**k: None,
+        warning=lambda *a,**k: None))
+
 
 # ---------------------------------------------------------------------------
 # Thresholds — adjust here if working with a different part family
@@ -351,7 +360,7 @@ def classify_cluster(cluster: Dict) -> Tuple[str, str]:
 # Batch classification
 # ---------------------------------------------------------------------------
 
-def classify_clusters(clustered_data: Dict) -> Dict:
+def classify_clusters(clustered_data: Dict, tracer=None) -> Dict:
     """
     Classify all clusters in the clustered JSON.
 
@@ -370,12 +379,46 @@ def classify_clusters(clustered_data: Dict) -> Dict:
         Same structure with 'feature_type' and 'confidence' added to
         each cluster dict.
     """
+    if tracer is None:
+        from types import SimpleNamespace
+        tracer = SimpleNamespace(decision=lambda *a,**k: None,
+                                 metric=lambda *a,**k: None,
+                                 warning=lambda *a,**k: None)
+
     result = copy.deepcopy(clustered_data)
 
     for cluster in result['clusters']:
         feature_type, confidence = classify_cluster(cluster)
         cluster['feature_type'] = feature_type
         cluster['confidence']   = confidence
+
+        # Trace per-cluster classification decision
+        tracer.decision(
+            signal="classify_cluster",
+            value={
+                "seed_type": cluster.get("seed_type"),
+                "radii": cluster.get("radii"),
+                "face_count": cluster.get("face_count"),
+                "depth": cluster.get("depth"),
+                "is_principal_axis": cluster.get("is_principal_axis"),
+            },
+            outcome=feature_type,
+            confidence=confidence,
+            notes=f"cluster_id={cluster.get('cluster_id')}",
+        )
+        if confidence == 'low':
+            tracer.warning(
+                "low-confidence classification — recommend manual review",
+                {"cluster_id": cluster.get("cluster_id"), "feature_type": feature_type,
+                 "radii": cluster.get("radii"), "depth": cluster.get("depth")},
+            )
+
+    # Emit distribution metric
+    dist: dict = {}
+    for c in result['clusters']:
+        ft = c.get('feature_type', 'unknown')
+        dist[ft] = dist.get(ft, 0) + 1
+    tracer.metric("feature_type_distribution", dist)
 
     return result
 
@@ -471,9 +514,17 @@ if __name__ == '__main__':
     output_path = (sys.argv[2] if len(sys.argv) > 2
                    else str(Path(input_path).with_suffix('')) + '_classified.json')
 
+    tracer = PipelineTracer.from_env()
+    tracer.start_stage("classify_features", input_path=input_path)
+
     with open(input_path) as f:
         data = json.load(f)
 
-    classified = classify_clusters(data)
+    classified = classify_clusters(data, tracer=tracer)
     print_classification_summary(classified)
     save_classified(classified, output_path)
+
+    low_conf_count = sum(1 for c in classified['clusters'] if c.get('confidence') == 'low')
+    tracer.end_stage(output_path=output_path,
+                     counts={"clusters": len(classified['clusters']),
+                             "low_confidence": low_conf_count})

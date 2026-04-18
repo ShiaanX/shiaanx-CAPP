@@ -80,6 +80,15 @@ import copy
 import os
 from typing import Dict, List, Optional, Tuple
 
+try:
+    from observability import PipelineTracer
+except ImportError:
+    from types import SimpleNamespace
+    PipelineTracer = SimpleNamespace(from_env=lambda: SimpleNamespace(
+        start_stage=lambda *a,**k: None, end_stage=lambda *a,**k: None,
+        decision=lambda *a,**k: None, metric=lambda *a,**k: None,
+        warning=lambda *a,**k: None))
+
 # ---------------------------------------------------------------------------
 # Machine configuration — override via CLI or function args
 # ---------------------------------------------------------------------------
@@ -833,9 +842,49 @@ if __name__ == '__main__':
     if output_path is None:
         output_path = input_path.replace('.json', '_params.json')
 
+    tracer = PipelineTracer.from_env()
+    tracer.start_stage("parameter_calculation", input_path=input_path)
+
     with open(input_path) as f:
         data = json.load(f)
 
     result = calculate_parameters(data, max_rpm=max_rpm, coolant=coolant)
     print_param_summary(result)
+
+    # Emit tracing metrics
+    total_ops = 0
+    rpm_cap_count = 0
+    for c in result.get('clusters', []):
+        if c.get('feature_type') == 'background':
+            continue
+        for step in c.get('process_sequence', []):
+            total_ops += 1
+            rpm = step.get('rpm')
+            capped = step.get('rpm_capped', False)
+            if rpm is not None:
+                tracer.decision(
+                    signal="rpm_calculation",
+                    value={"Vc_mmin": step.get('actual_Vc_mmin'),
+                           "tool_dia_mm": step.get('tool_diameter_mm'),
+                           "rpm": rpm,
+                           "vf_mmpm": step.get('vf_mmpm')},
+                    outcome="capped" if capped else "ok",
+                    notes=f"cluster={c['cluster_id']} op={step.get('operation')}",
+                )
+            if capped:
+                rpm_cap_count += 1
+                tracer.warning(
+                    "RPM capped at machine max",
+                    {"cluster_id": c['cluster_id'],
+                     "operation": step.get('operation'),
+                     "rpm": rpm,
+                     "max_rpm": max_rpm,
+                     "actual_Vc_mmin": step.get('actual_Vc_mmin')},
+                )
+
+    tracer.metric("total_operations", total_ops)
+    tracer.metric("rpm_capped_count", rpm_cap_count)
+
     save_params(result, output_path)
+    tracer.end_stage(output_path=output_path,
+                     counts={"operations": total_ops, "rpm_caps": rpm_cap_count})

@@ -68,6 +68,15 @@ import math
 import os
 from typing import Dict, List, Optional, Tuple
 
+try:
+    from observability import PipelineTracer
+except ImportError:
+    from types import SimpleNamespace
+    PipelineTracer = SimpleNamespace(from_env=lambda: SimpleNamespace(
+        start_stage=lambda *a,**k: None, end_stage=lambda *a,**k: None,
+        decision=lambda *a,**k: None, metric=lambda *a,**k: None,
+        warning=lambda *a,**k: None))
+
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -748,9 +757,50 @@ if __name__ == '__main__':
     if output_path is None:
         output_path = input_path.replace('.json', '_tools.json')
 
+    tracer = PipelineTracer.from_env()
+    tracer.start_stage("tool_selection", input_path=input_path)
+
     with open(input_path) as f:
         data = json.load(f)
 
     result = select_tools(data, material=material, db_path=db_path)
     print_tool_summary(result)
+
+    # Emit tracing metrics and per-tool decisions
+    total_ops = 0
+    subs_count = 0
+    no_tool_count = 0
+    for c in result.get('clusters', []):
+        if c.get('feature_type') == 'background':
+            continue
+        for step in c.get('process_sequence', []):
+            total_ops += 1
+            tid = step.get('tool_id')
+            notes = step.get('tool_notes', '')
+            tracer.decision(
+                signal="tool_assignment",
+                value={"operation": step.get('operation'),
+                       "diameter_mm": step.get('tool_diameter_mm')},
+                outcome=tid or 'none',
+                notes=f"cluster={c['cluster_id']} notes={notes[:80]}" if notes else f"cluster={c['cluster_id']}",
+            )
+            if 'SUBSTITUTION' in notes:
+                subs_count += 1
+                tracer.warning("tool size substituted",
+                               {"cluster_id": c['cluster_id'],
+                                "operation": step.get('operation'),
+                                "notes": notes})
+            if 'ADD TO DATABASE' in notes or not tid:
+                no_tool_count += 1
+                tracer.warning("no matching tool in database",
+                               {"cluster_id": c['cluster_id'],
+                                "operation": step.get('operation')})
+
+    tracer.metric("total_operations", total_ops)
+    tracer.metric("tool_substitutions", subs_count)
+    tracer.metric("missing_tools", no_tool_count)
+
     save_tools(result, output_path)
+    tracer.end_stage(output_path=output_path,
+                     counts={"operations": total_ops,
+                             "substitutions": subs_count})
