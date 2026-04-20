@@ -30,6 +30,10 @@ Bore family:
                         Requires two tools (drill + counterbore cutter).
     large_bore          Diameter too large for a drill. Requires turning
                         or boring bar operation.
+    tapped_hole         Threaded bore. Emitted when cluster has is_tapped=true.
+                        Process: spot_drill → twist_drill → tap_rh (G84).
+                        Set is_tapped on the cluster to activate this path;
+                        automatic STEP thread geometry detection is future work.
 
 Slot family:
     slot                Channel cut into the part with a slot mill.
@@ -94,9 +98,16 @@ import copy
 import json
 import sys
 import os
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
-from typing import Dict, Tuple
+from typing import Dict, Optional, Tuple
+
+try:
+    import numpy as np
+    from scipy.sparse import csr_matrix
+    _ML_DEPS_AVAILABLE = True
+except ImportError:
+    _ML_DEPS_AVAILABLE = False
 
 
 # ---------------------------------------------------------------------------
@@ -124,6 +135,12 @@ SINGLE_FACE_THROUGH_HOLE_DDR_MAX = 0.5
 # top stock surface) may have perpendicular neighbour walls but is NOT a
 # pocket -- its area exceeds this threshold.
 POCKET_MAX_AREA_MM2 = 500.0
+
+# Maximum number of perpendicular walls a plane cluster can have and still
+# be classified as a pocket.  Real machined pockets have 2–6 walls at most.
+# A stock face or complex datum face may have many more adjacent walls
+# (e.g. 15) — capping here prevents those from being called pockets.
+POCKET_MAX_PERP_WALLS = 8
 
 # Maximum radius (mm) of the narrowest bore step that can still be drilled
 # with a standard twist drill.  If even the pilot step of a counterbore
@@ -161,6 +178,7 @@ def _apply_feature_classification_rules(rules: Dict) -> None:
     global SINGLE_FACE_THROUGH_HOLE_DDR_MAX
     global POCKET_MAX_AREA_MM2
     global DRILL_MAX_RADIUS_MM
+    global POCKET_MAX_PERP_WALLS
 
     thresholds = (rules.get('thresholds_mm') or {}) if isinstance(rules, dict) else {}
 
@@ -185,6 +203,10 @@ def _apply_feature_classification_rules(rules: Dict) -> None:
     v = _get_value('drill_max_radius_mm')
     if v is not None:
         DRILL_MAX_RADIUS_MM = float(v)
+
+    v = _get_value('pocket_max_perp_walls')
+    if v is not None:
+        POCKET_MAX_PERP_WALLS = int(v)
 
 
 # Apply rule sheet at import time (best-effort).
@@ -233,6 +255,7 @@ def classify_cluster(cluster: Dict) -> Tuple[str, str]:
 
         if (has_perp
                 and perp_count >= 2
+                and perp_count <= POCKET_MAX_PERP_WALLS
                 and face_area is not None
                 and face_area < POCKET_MAX_AREA_MM2):
             if is_principal is False:
@@ -266,6 +289,14 @@ def classify_cluster(cluster: Dict) -> Tuple[str, str]:
     # Bore clusters — main classification tree
     # ------------------------------------------------------------------
     if seed_type == 'bore':
+
+        # Tapped hole check — highest priority within bore family.
+        # Set is_tapped=true on the cluster to activate this path.
+        # (Automatic detection requires STEP thread geometry parsing — future work.)
+        if cluster.get('is_tapped'):
+            feature_type = 'tapped_hole_angled' if is_principal is False else 'tapped_hole'
+            return feature_type, 'high'
+
 
         feature_type = None
         confidence   = 'high'
@@ -347,37 +378,6 @@ def classify_cluster(cluster: Dict) -> Tuple[str, str]:
     return 'unknown', 'low'
 
 
-# ---------------------------------------------------------------------------
-# Batch classification
-# ---------------------------------------------------------------------------
-
-def classify_clusters(clustered_data: Dict) -> Dict:
-    """
-    Classify all clusters in the clustered JSON.
-
-    Takes the full parsed JSON dict from cluster_features.py output.
-    Returns a new dict with 'feature_type' and 'confidence' added to
-    every cluster. All original fields are preserved unchanged.
-
-    Parameters
-    ----------
-    clustered_data : dict
-        Parsed JSON from cluster_features.py. Must have a 'clusters' key.
-
-    Returns
-    -------
-    dict
-        Same structure with 'feature_type' and 'confidence' added to
-        each cluster dict.
-    """
-    result = copy.deepcopy(clustered_data)
-
-    for cluster in result['clusters']:
-        feature_type, confidence = classify_cluster(cluster)
-        cluster['feature_type'] = feature_type
-        cluster['confidence']   = confidence
-
-    return result
 
 
 # ---------------------------------------------------------------------------
@@ -459,21 +459,251 @@ def save_classified(classified_data: Dict, output_path: str):
 
 
 # ---------------------------------------------------------------------------
+# ML classification (--mode ml)
+# ---------------------------------------------------------------------------
+
+# OCC GeomAbs_SurfaceType integer encoding, normalised by 11 (same as H5 training data)
+_SURF_TYPE_INT = {'Plane': 0, 'Cylinder': 1, 'Cone': 2, 'Sphere': 3,
+                  'Torus': 4, 'BSpline': 6}
+_SURF_TYPE_NORM_FACTOR = 11.0
+
+
+def _get_face_centroid(face: Dict) -> Tuple[float, float, float]:
+    st = face.get('surface_type', '')
+    if st == 'Cylinder' and 'cylinder' in face:
+        loc = face['cylinder']['axis_location']
+        return loc['x'], loc['y'], loc['z']
+    if st == 'Plane' and 'plane' in face:
+        orig = face['plane']['origin']
+        return orig['x'], orig['y'], orig['z']
+    if st == 'Cone' and 'cone' in face:
+        d = face['cone']
+        pt = d.get('apex', d.get('axis_location', {}))
+        return pt.get('x', 0.0), pt.get('y', 0.0), pt.get('z', 0.0)
+    if st == 'Torus' and 'torus' in face:
+        c = face['torus'].get('center', {})
+        return c.get('x', 0.0), c.get('y', 0.0), c.get('z', 0.0)
+    return 0.0, 0.0, 0.0
+
+
+def _extract_ml_features(features_data: Dict) -> 'np.ndarray':
+    """Build (n_faces, 15) feature matrix matching the v2 RF training schema."""
+    faces = features_data['faces']['faces']
+    n = len(faces)
+    bb = features_data.get('bounding_box', {})
+    bb_min = np.array([bb.get('xmin', 0), bb.get('ymin', 0), bb.get('zmin', 0)], dtype=np.float32)
+    bb_size = np.array([
+        bb.get('length_x', 1) or 1,
+        bb.get('length_y', 1) or 1,
+        bb.get('length_z', 1) or 1,
+    ], dtype=np.float32)
+
+    # --- V_1: area (normalised), cx/cy/cz (normalised), surf_type (normalised) ---
+    areas_raw = np.array([f.get('area', 0.0) for f in faces], dtype=np.float32)
+    max_area = areas_raw.max() if areas_raw.max() > 0 else 1.0
+    areas = areas_raw / max_area
+
+    centroids = np.zeros((n, 3), dtype=np.float32)
+    surf_types = np.zeros(n, dtype=np.float32)
+    for i, face in enumerate(faces):
+        cx, cy, cz = _get_face_centroid(face)
+        centroids[i] = [
+            (cx - bb_min[0]) / bb_size[0],
+            (cy - bb_min[1]) / bb_size[1],
+            (cz - bb_min[2]) / bb_size[2],
+        ]
+        st_int = _SURF_TYPE_INT.get(face.get('surface_type', ''), 5)
+        surf_types[i] = st_int / _SURF_TYPE_NORM_FACTOR
+
+    # --- Adjacency matrix from features JSON ---
+    adj_raw = features_data.get('face_adjacency', {})
+    rows, cols, vals = [], [], []
+    for k, neighbours in adj_raw.items():
+        i = int(k)
+        for j in neighbours:
+            if 0 <= i < n and 0 <= j < n:
+                rows.append(i); cols.append(j); vals.append(1.0)
+    if rows:
+        A = csr_matrix((vals, (rows, cols)), shape=(n, n), dtype=np.float32)
+    else:
+        A = csr_matrix((n, n), dtype=np.float32)
+
+    # --- 1-hop neighbourhood features ---
+    degree = np.array(A.sum(axis=1)).flatten()
+    safe_deg = np.where(degree > 0, degree, 1.0)
+    neigh_area_mean = A.dot(areas) / safe_deg
+    neigh_type_mean = A.dot(surf_types) / safe_deg
+    neigh_area_std  = np.sqrt(np.maximum(A.dot(areas**2)      / safe_deg - neigh_area_mean**2, 0))
+    neigh_type_std  = np.sqrt(np.maximum(A.dot(surf_types**2) / safe_deg - neigh_type_mean**2, 0))
+
+    # --- two_hop_degree ---
+    two_hop = np.array((A @ A).sum(axis=1)).flatten().astype(np.float32)
+
+    # --- Component features using B-Rep connected components (matches training) ---
+    from scipy.sparse.csgraph import connected_components as _connected_components
+    n_comp, comp_ids = _connected_components(A, directed=False)
+
+    comp_size         = np.zeros(n, dtype=np.float32)
+    comp_type_div     = np.zeros(n, dtype=np.float32)
+    comp_area_ratio   = np.ones(n,  dtype=np.float32)
+    comp_aspect_ratio = np.ones(n,  dtype=np.float32)
+
+    for c in range(n_comp):
+        mask = comp_ids == c
+        idx  = np.where(mask)[0]
+        size = idx.shape[0]
+        comp_size[mask] = float(size)
+        t = surf_types[idx]
+        comp_type_div[mask] = float(t.std()) if size > 1 else 0.0
+        a = areas[idx]
+        mean_a = a.mean()
+        comp_area_ratio[mask] = a / mean_a if mean_a > 0 else np.ones(size)
+        if size > 1:
+            rng = centroids[idx].max(axis=0) - centroids[idx].min(axis=0)
+            rng_sorted = np.sort(rng)
+            mn, mx = rng_sorted[0], rng_sorted[-1]
+            comp_aspect_ratio[mask] = float(mx / mn) if mn > 1e-9 else 1.0
+
+    V1    = np.stack([areas, centroids[:, 0], centroids[:, 1], centroids[:, 2], surf_types], axis=1)
+    neigh = np.stack([degree, neigh_type_mean, neigh_type_std, neigh_area_mean, neigh_area_std], axis=1)
+    comp  = np.stack([comp_size, comp_type_div, comp_area_ratio, two_hop, comp_aspect_ratio], axis=1)
+    return np.concatenate([V1, neigh, comp], axis=1).astype(np.float32)
+
+
+def _load_ml_resources():
+    """Load RF v2 model + MFCAD-id → internal_feature_type map."""
+    import joblib
+    base = Path(__file__).parent
+    model = joblib.load(base / 'models' / 'rf_classifier_v2.pkl')
+    with open(base / 'rule_sheets' / '07_label_taxonomy.json') as f:
+        taxonomy_data = json.load(f)
+    mfcad_to_internal = {m['mfcad_id']: m['internal_feature_type']
+                         for m in taxonomy_data['mappings']}
+    return model, mfcad_to_internal
+
+
+def classify_clusters_ml(clustered_data: Dict, features_data: Dict) -> Dict:
+    """
+    ML-based cluster classification using the v2 Random Forest model.
+
+    Each face is scored independently; the majority MFCAD++ class across a
+    cluster's face_indices becomes that cluster's prediction.  The MFCAD++
+    class is then translated to an internal feature_type via the taxonomy.
+    The _angled modifier is still applied from is_principal_axis.
+    """
+    if not _ML_DEPS_AVAILABLE:
+        raise RuntimeError("numpy/scipy not available — cannot use --mode ml")
+
+    model, mfcad_to_internal = _load_ml_resources()
+    X = _extract_ml_features(features_data)
+    y_pred = model.predict(X)
+
+    result = copy.deepcopy(clustered_data)
+    n_faces = X.shape[0]
+
+    for cluster in result['clusters']:
+        face_indices = [i for i in cluster.get('face_indices', []) if i < n_faces]
+        if face_indices:
+            preds = [int(y_pred[i]) for i in face_indices]
+            majority_id = Counter(preds).most_common(1)[0][0]
+            vote_counts = dict(Counter(preds))
+        else:
+            majority_id = 24  # Stock → background
+            vote_counts = {}
+
+        internal_type = mfcad_to_internal.get(majority_id, 'unknown')
+
+        # Apply _angled modifier (ML model has no setup-axis knowledge)
+        is_principal = cluster.get('is_principal_axis')
+        if (is_principal is False
+                and internal_type not in ('background', 'unknown')
+                and not internal_type.endswith('_angled')):
+            internal_type = internal_type + '_angled'
+
+        cluster['feature_type']    = internal_type
+        cluster['confidence']      = 'medium'
+        cluster['ml_mfcad_id']     = majority_id
+        cluster['ml_vote_counts']  = vote_counts
+
+    return result
+
+
+# ---------------------------------------------------------------------------
+# Batch classification (rule or ml)
+# ---------------------------------------------------------------------------
+
+def classify_clusters(clustered_data: Dict,
+                      mode: str = 'rule',
+                      features_data: Optional[Dict] = None) -> Dict:
+    """
+    Classify all clusters in the clustered JSON.
+
+    Parameters
+    ----------
+    clustered_data : dict
+        Parsed JSON from cluster_features.py.
+    mode : str
+        'rule' (default) — rule-based heuristics.
+        'ml'             — Random Forest v2 model (requires features_data).
+    features_data : dict, optional
+        Parsed features JSON from extract_features.py.  Required when mode='ml'.
+
+    Returns
+    -------
+    dict  Same structure with 'feature_type' and 'confidence' added to each cluster.
+    """
+    if mode == 'ml':
+        if features_data is None:
+            raise ValueError("features_data must be provided when mode='ml'")
+        return classify_clusters_ml(clustered_data, features_data)
+
+    # --- rule mode (original behaviour) ---
+    result = copy.deepcopy(clustered_data)
+    for cluster in result['clusters']:
+        feature_type, confidence = classify_cluster(cluster)
+        cluster['feature_type'] = feature_type
+        cluster['confidence']   = confidence
+    return result
+
+
+# ---------------------------------------------------------------------------
 # Entry point for standalone use
 # ---------------------------------------------------------------------------
 
 if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        print("Usage: python classify_features.py <clustered_json> [output_json]")
-        sys.exit(1)
+    import argparse
+    parser = argparse.ArgumentParser(description='Classify clustered features.')
+    parser.add_argument('input',  help='*_clustered.json from cluster_features.py')
+    parser.add_argument('output', nargs='?',
+                        help='Output JSON path (default: input + _classified.json)')
+    parser.add_argument('--mode', choices=['rule', 'ml'], default='rule',
+                        help='rule (default) or ml (RF v2 model)')
+    parser.add_argument('--features',
+                        help='*_features.json required for --mode ml; '
+                             'inferred from input path if omitted')
+    args = parser.parse_args()
 
-    input_path  = sys.argv[1]
-    output_path = (sys.argv[2] if len(sys.argv) > 2
-                   else str(Path(input_path).with_suffix('')) + '_classified.json')
+    input_path  = args.input
+    output_path = args.output or (str(Path(input_path).with_suffix('')) + '_classified.json')
 
     with open(input_path) as f:
         data = json.load(f)
 
-    classified = classify_clusters(data)
+    features_data = None
+    if args.mode == 'ml':
+        features_path = args.features
+        if not features_path:
+            stem = Path(input_path).stem
+            features_path = str(Path(input_path).parent /
+                                 (stem.replace('_clustered', '') + '_features.json'))
+        if not os.path.exists(features_path):
+            print(f"ERROR: features file not found: {features_path}")
+            print("Pass --features <path> to specify it explicitly.")
+            sys.exit(1)
+        with open(features_path) as f:
+            features_data = json.load(f)
+        print(f"ML mode — features: {features_path}")
+
+    classified = classify_clusters(data, mode=args.mode, features_data=features_data)
     print_classification_summary(classified)
     save_classified(classified, output_path)
