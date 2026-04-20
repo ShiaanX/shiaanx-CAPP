@@ -173,6 +173,35 @@ MATERIAL_STOCK_TABLE = {
 }
 STOCK_TO_LEAVE_DEFAULT = {'xy': 0.1, 'z': 0.1}
 
+# Face mill subtype → entry method mapping.
+# Source: ShiaanX_Strategy_Rules_Final for face.xlsx (Gaurav, 2024-05-01).
+# 'interrupted' faces use helical entry to avoid shock load on tool re-entry.
+FACE_ENTRY_METHOD = {
+    'full_surface': 'outside',
+    'boss_surface': 'outside',
+    'interrupted':  'helical',
+}
+
+# Z-axis stock to leave after face_mill RF pass (axial facing — XY stock not relevant).
+# Different from MATERIAL_STOCK_TABLE which targets contour/pocket XY stock.
+# Source: strategy rules sheet R-001 Notes (Gaurav): "Leave 0.3mm for finish pass R-002."
+# (Excel shows 0.2mm consistently across all width bands.)
+FACE_MILL_STOCK_Z = {
+    'aluminium':          0.2,
+    'aluminium_6061':     0.2,
+    'aluminium_6063':     0.2,
+    'aluminium_6082':     0.2,
+    'aluminium_7075':     0.2,
+    'aluminium_7050':     0.2,
+    'mild_steel':         0.15,
+    'steel':              0.15,
+    'stainless_steel':    0.2,
+    'stainless_steel_316':0.2,
+    'titanium':           0.15,
+    'brass':              0.2,
+}
+FACE_MILL_STOCK_Z_DEFAULT = 0.2
+
 # Face mill: maximum axial depth of cut per pass (mm).
 # If total feature depth exceeds this, a roughing pass is emitted first.
 # Values are conservative — override per machine if spindle power allows more.
@@ -231,7 +260,7 @@ def _tap_drill_diameter(thread_dia: float) -> float:
 
 
 # Feature types that support CORNER_R pass when internal_corner_radius is present.
-# 'slot' and 'pocket' are not yet emitted by classify_features.py but are listed
+# 'slot' and 'pocket' are emitted by classify_features.py and are listed
 # here so that CORNER_R logic activates automatically once those types are added.
 CORNER_R_FEATURE_TYPES = {'slot', 'pocket', 'slot_angled', 'pocket_angled'}
 
@@ -360,6 +389,21 @@ def _apply_process_selection_rules(rules: Dict) -> None:
     if isinstance(cr, list) and cr:
         CORNER_R_FEATURE_TYPES = set(cr)
 
+    # Face mill subtype entry methods
+    global FACE_ENTRY_METHOD
+    entry = (rules.get('face_mill_subtypes') or {}).get('entry_method_by_subtype')
+    if isinstance(entry, dict) and entry:
+        FACE_ENTRY_METHOD = {k: v for k, v in entry.items()}
+
+    # Face mill z stock-to-leave
+    global FACE_MILL_STOCK_Z, FACE_MILL_STOCK_Z_DEFAULT
+    fz_stock = rules.get('face_mill_stock_to_leave_z_mm')
+    if isinstance(fz_stock, dict) and fz_stock:
+        default = fz_stock.get('default')
+        if default is not None:
+            FACE_MILL_STOCK_Z_DEFAULT = float(default)
+        FACE_MILL_STOCK_Z = {k: float(v) for k, v in fz_stock.items() if k != 'default'}
+
 
 # Apply rule sheet at import time (best-effort).
 _rules = load_process_selection_rule_sheet()
@@ -448,8 +492,8 @@ def _expand_rf_passes(steps: List[Dict], material: str = 'aluminium',
             # radius data and the corner is tighter than the primary tool radius.
             # Condition: feature_type in CORNER_R_FEATURE_TYPES (slot, pocket)
             #            AND internal_corner_radius < step diameter_mm / 2
-            # Note: slot/pocket feature types are not yet emitted by
-            # classify_features.py; this triggers automatically once they are.
+            # slot/pocket feature types are emitted by classify_features.py;
+            # CORNER_R triggers automatically when internal_corner_radius is set.
             if cluster is not None:
                 ft       = cluster.get('feature_type', '')
                 corner_r = cluster.get('internal_corner_radius')
@@ -474,12 +518,13 @@ def _expand_rf_passes(steps: List[Dict], material: str = 'aluminium',
         # Face mill — split only when depth exceeds single-pass capability
         # ----------------------------------------------------------------
         elif op == 'face_mill':
+            face_stock_z = FACE_MILL_STOCK_Z.get(material, FACE_MILL_STOCK_Z_DEFAULT)
             if depth is not None and depth > max_ap:
                 # Depth exceeds one-pass limit — roughing pass required
                 rough = copy.copy(step)
                 rough['pass_type']         = 'RF'
-                rough['stock_to_leave_xy'] = stock['xy']
-                rough['stock_to_leave_z']  = stock['z']
+                rough['stock_to_leave_xy'] = 0.0          # facing is axial only
+                rough['stock_to_leave_z']  = face_stock_z
                 rough['reason']            = (step['reason'] +
                     f' — roughing pass (RF, depth={depth}mm > max_ap={max_ap}mm)')
                 expanded.append(rough)
@@ -488,7 +533,7 @@ def _expand_rf_passes(steps: List[Dict], material: str = 'aluminium',
                 finish['pass_type']         = 'FINISH'
                 finish['stock_to_leave_xy'] = 0.0
                 finish['stock_to_leave_z']  = 0.0
-                finish['reason']            = step['reason'] + ' — spring/finish pass'
+                finish['reason']            = step['reason'] + ' — finish pass'
                 expanded.append(finish)
             else:
                 # Depth within single-pass capability — one FINISH pass only
@@ -818,17 +863,56 @@ def _process_boss_turning(cluster: Dict) -> List[Dict]:
     ]
 
 
-def _process_planar_face(cluster: Dict) -> Tuple[str, List[Dict]]:
-    """Flat face — face milling on a milling machine."""
+def _detect_face_subtype(cluster: Dict, all_clusters: List[Dict] = None) -> str:
+    """
+    Classify a planar_face cluster into one of three subtypes:
+      'boss_surface'  — face sits on top of an adjacent boss cluster
+      'interrupted'   — face contains holes/slots/pockets breaking the surface
+      'full_surface'  — neither of the above
+
+    Uses adjacency data from the cluster dict and (optionally) the full
+    cluster list to check neighbour feature types.
+    """
+    # Check for interrupted: any adjacent cluster that is a hole/pocket/slot type
+    INTERRUPTING_TYPES = {'through_hole', 'blind_hole', 'counterbore', 'large_bore',
+                          'tapped_hole', 'pocket', 'slot',
+                          'through_hole_angled', 'blind_hole_angled'}
+    # Check for boss surface: any adjacent cluster that is a boss type
+    BOSS_TYPES = {'boss', 'boss_angled'}
+
+    adj_ids = set(cluster.get('adjacent_cluster_ids') or [])
+
+    if all_clusters and adj_ids:
+        adj_types = {c['feature_type'] for c in all_clusters
+                     if c.get('cluster_id') in adj_ids}
+        if adj_types & INTERRUPTING_TYPES:
+            return 'interrupted'
+        if adj_types & BOSS_TYPES:
+            return 'boss_surface'
+
+    return 'full_surface'
+
+
+def _process_planar_face(cluster: Dict, all_clusters: List[Dict] = None) -> Tuple[str, List[Dict]]:
+    """Flat face — face milling on a milling machine.
+
+    Emits a face_mill step tagged with face_subtype and entry_method
+    derived from the programmer's strategy rules sheet.
+    """
+    subtype = _detect_face_subtype(cluster, all_clusters)
+    entry   = FACE_ENTRY_METHOD.get(subtype, 'outside')
     return 'milling', [
         {
-            'step'        : 1,
-            'operation'   : 'face_mill',
-            'machine'     : 'milling',
-            'diameter_mm' : None,   # face mill cutter size chosen at tool selection
-            'depth_mm'    : None,
-            'drill_cycle' : None,
-            'reason'      : 'Face mill flat datum/planar surface'
+            'step'         : 1,
+            'operation'    : 'face_mill',
+            'machine'      : 'milling',
+            'diameter_mm'  : None,   # face mill cutter size chosen at tool selection
+            'depth_mm'     : None,
+            'drill_cycle'  : None,
+            'face_subtype' : subtype,
+            'entry_method' : entry,
+            'reason'       : (f'Face mill flat planar surface '
+                              f'(subtype={subtype}, entry={entry})')
         }
     ]
 
@@ -851,6 +935,59 @@ def _process_chamfer(cluster: Dict) -> Tuple[str, List[Dict]]:
             'drill_cycle' : None,
             'reason'      : (f'Chamfer mill — single pass along chamfer edge'
                              + (f', d={diameter}mm' if diameter else '')),
+        }
+    ]
+
+
+def _process_slot(cluster: Dict) -> Tuple[str, List[Dict]]:
+    """
+    Slot (keyway / channel) — slot mill in a single plunge-and-traverse pass.
+
+    Slot width  = internal_corner_radius * 2  (set by detect_slots in cluster_features.py).
+    Slot depth  = cluster depth.
+    Tool selection picks the nearest slot mill <= slot width.
+    No RF/FINISH split — slot mills run full depth in one pass.
+    """
+    corner_r  = cluster.get('internal_corner_radius')
+    slot_width = round(corner_r * 2, 4) if corner_r else None
+    depth      = cluster.get('depth')
+    return 'milling', [
+        {
+            'step'        : 1,
+            'operation'   : 'slot_mill',
+            'machine'     : 'milling',
+            'diameter_mm' : slot_width,
+            'depth_mm'    : depth,
+            'drill_cycle' : None,
+            'reason'      : (f'Slot mill — full depth traverse'
+                             + (f', width={slot_width}mm' if slot_width else '')
+                             + (f', depth={depth}mm' if depth else '')),
+        }
+    ]
+
+
+def _process_pocket(cluster: Dict) -> Tuple[str, List[Dict]]:
+    """
+    Pocket (flat-floored enclosed recess) — pocket mill with RF + FINISH passes.
+
+    diameter_mm is left None so tool_selection picks the largest end mill that
+    fits the pocket (based on bounding box / internal_corner_radius).
+    internal_corner_radius is carried through so _expand_rf_passes can emit a
+    CORNER_R pass if the corner is tighter than the primary tool radius.
+    Depth = cluster depth.
+    RF + FINISH split is applied automatically (pocket_mill is in RF_SPLIT_OPS).
+    """
+    depth = cluster.get('depth')
+    return 'milling', [
+        {
+            'step'        : 1,
+            'operation'   : 'pocket_mill',
+            'machine'     : 'milling',
+            'diameter_mm' : None,
+            'depth_mm'    : depth,
+            'drill_cycle' : None,
+            'reason'      : (f'Pocket mill — RF + FINISH passes'
+                             + (f', depth={depth}mm' if depth else '')),
         }
     ]
 
@@ -939,7 +1076,8 @@ def _add_angled_note(steps: List[Dict], axis: List[float]) -> List[Dict]:
 # ---------------------------------------------------------------------------
 
 def select_process(cluster: Dict, machine_preference: str = None,
-                   material: str = 'aluminium') -> Dict:
+                   material: str = 'aluminium',
+                   all_clusters: List[Dict] = None) -> Dict:
     """
     Select the process sequence for a single classified cluster.
 
@@ -977,7 +1115,7 @@ def select_process(cluster: Dict, machine_preference: str = None,
         process_sequence = []
 
     elif ft == 'planar_face':
-        machine_type, process_sequence = _process_planar_face(cluster)
+        machine_type, process_sequence = _process_planar_face(cluster, all_clusters)
         machine_selected = 'milling — only option for planar faces'
 
     # ------------------------------------------------------------------
@@ -1064,6 +1202,24 @@ def select_process(cluster: Dict, machine_preference: str = None,
             process_sequence = _add_angled_note(process_sequence, axis)
 
     # ------------------------------------------------------------------
+    # Slot — slot mill (single full-depth traverse pass)
+    # ------------------------------------------------------------------
+    elif ft in ('slot', 'slot_angled'):
+        machine_type, process_sequence = _process_slot(cluster)
+        machine_selected = 'milling — slot mill traverse'
+        if is_ang:
+            process_sequence = _add_angled_note(process_sequence, axis)
+
+    # ------------------------------------------------------------------
+    # Pocket — pocket mill (RF + FINISH, optional CORNER_R)
+    # ------------------------------------------------------------------
+    elif ft in ('pocket', 'pocket_angled'):
+        machine_type, process_sequence = _process_pocket(cluster)
+        machine_selected = 'milling — pocket mill RF + FINISH'
+        if is_ang:
+            process_sequence = _add_angled_note(process_sequence, axis)
+
+    # ------------------------------------------------------------------
     # Tapped hole — spot drill + pilot drill + rigid tap
     # ------------------------------------------------------------------
     elif ft in ('tapped_hole', 'tapped_hole_angled'):
@@ -1132,9 +1288,10 @@ def select_processes(classified_data: Dict,
     """
     mat = material or classified_data.get('material', 'aluminium')
     result = copy.deepcopy(classified_data)
-    for cluster in result['clusters']:
+    all_clusters = result['clusters']
+    for cluster in all_clusters:
         select_process(cluster, machine_preference=machine_preference,
-                       material=mat)
+                       material=mat, all_clusters=all_clusters)
     return result
 
 

@@ -71,6 +71,51 @@
     },
     "rule": "If feature depth > max_ap for material, emit RF then FINISH face_mill passes."
   },
+  "face_mill_subtypes": {
+    "description": "Subtypes for planar_face features, classified by surface context. Source: ShiaanX_Strategy_Rules_Final for face.xlsx (Gaurav, 2024-05-01).",
+    "subtypes": {
+      "full_surface": "Unobstructed flat surface — no bosses, holes, or slots breaking the face. Entry from outside the part boundary.",
+      "boss_surface": "Flat face sitting on top of a boss cluster — adjacent to boss walls on one or more sides. Use end mill rather than face mill for narrow widths.",
+      "interrupted": "Face broken by holes, slots, or pockets — tool crosses interrupted material. Use helical entry to avoid impact on re-entry."
+    },
+    "entry_method_by_subtype": {
+      "full_surface": "outside",
+      "boss_surface": "outside",
+      "interrupted": "helical"
+    },
+    "detection_rules": {
+      "boss_surface": "cluster is adjacent (shares edge) to one or more boss-type clusters",
+      "interrupted": "cluster has one or more hole/pocket/slot child features breaking the face plane",
+      "full_surface": "neither boss_surface nor interrupted conditions met"
+    }
+  },
+  "face_mill_width_bands_mm": {
+    "description": "Width-based tool selection for face features. Width = largest bounding box extent in the machined plane. Source: strategy rules sheet (Gaurav).",
+    "bands": [
+      { "width_max_exclusive": 10,  "tool_type": "end_mill", "diameter_mm": 5,  "flutes": 3, "note": "Narrow face — end mill preferred, face mill too wide" },
+      { "width_max_exclusive": 150, "tool_type": "end_mill", "diameter_mm": 10, "flutes": 4, "note": "Medium face — 10mm end mill standard" },
+      { "width_max_exclusive": 300, "tool_type": "face_mill", "diameter_mm": 25, "flutes": 4, "note": "Large face — switch to face mill cutter" },
+      { "width_max_exclusive": null, "tool_type": "face_mill", "diameter_mm": 50, "flutes": 6, "note": "Very large face — 50mm face mill, may require multiple passes" }
+    ],
+    "boss_surface_overrides": [
+      { "width_max_exclusive": 20,  "tool_type": "end_mill", "diameter_mm": 10, "flutes": 4 },
+      { "width_max_exclusive": 100, "tool_type": "end_mill", "diameter_mm": 15, "flutes": 4 },
+      { "width_max_exclusive": null, "tool_type": "face_mill", "diameter_mm": 25, "flutes": 4 }
+    ]
+  },
+  "face_mill_stock_to_leave_z_mm": {
+    "description": "Z-axis stock to leave after face_mill RF pass (before FINISH). Different from general MATERIAL_STOCK_TABLE — facing is axial so XY stock is irrelevant. Source: strategy rules sheet (Gaurav, R-001 Notes).",
+    "aluminium_6061": 0.2,
+    "aluminium_6063": 0.2,
+    "aluminium_6082": 0.2,
+    "aluminium_7075": 0.2,
+    "aluminium": 0.2,
+    "mild_steel": 0.15,
+    "steel": 0.15,
+    "stainless_steel": 0.2,
+    "titanium": 0.15,
+    "default": 0.2
+  },
   "rf_split_operations": [
     "contour_mill",
     "pocket_mill",

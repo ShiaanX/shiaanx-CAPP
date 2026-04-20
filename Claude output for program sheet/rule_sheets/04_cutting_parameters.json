@@ -53,6 +53,12 @@
   "radial_depth_ae": {
     "drills": null,
     "face_mill": "ae = ae_fraction × tool_dia if set; else ae_max; else 0.75 × tool_dia",
+    "face_mill_by_pass": {
+      "description": "Stepover percentages for face milling by pass type. Source: ShiaanX_Strategy_Rules_Final for face.xlsx (Gaurav). Overrides generic ae_fraction from tool DB when op is face_mill.",
+      "RF": 0.60,
+      "FINISH": 0.40,
+      "default": 0.60
+    },
     "counterbore_mill": "ae = tool_dia / 2",
     "circular_interp": "ae = ae_max or 0.5 × tool_dia",
     "contour_mill_by_pass": {
@@ -69,6 +75,29 @@
       "default": 0.5
     }
   },
+  "axial_depth_ap_by_pass": {
+    "description": "Explicit ap (DOC) values for face milling by pass type. Source: strategy rules sheet (Gaurav). Overrides tool DB ap_max when op is face_mill.",
+    "face_mill": {
+      "RF": 1.0,
+      "FINISH": 0.5,
+      "default": 1.0
+    }
+  },
+  "coolant_by_operation": {
+    "description": "Operation-type coolant overrides — takes precedence over machine global default. Source: strategy rules sheet (all face rules use flood, not through_spindle).",
+    "face_mill": "flood",
+    "contour_mill": "flood",
+    "pocket_mill": "flood",
+    "chamfer_mill": "flood",
+    "slot_mill": "flood",
+    "twist_drill": "through_spindle",
+    "micro_drill": "through_spindle",
+    "pilot_drill": "through_spindle",
+    "core_drill": "through_spindle",
+    "boring_bar": "through_spindle",
+    "tap_rh": "flood"
+  },
+  "spring_pass_note": "A spring pass is a repeat of the finish pass at zero additional DOC. It recovers elastic deflection of the tool and workpiece that occurred on the first finish pass. For aluminium facing, the strategy sheet marks Is_Finishing=TRUE rules with Spring_Pass=TRUE. In practice: emit a third face_mill step with pass_type=SPRING, identical parameters to FINISH, zero stock_to_leave. Not yet implemented in process_selection.py — tracked for future addition.",
   "ramp_plunge": {
     "location": "7a. tool_database.json per tool entry ramp_plunge",
     "rule": "vf_ramp / vf_plunge as percent of cutting Vf at runtime (AD-004); not duplicated here."
