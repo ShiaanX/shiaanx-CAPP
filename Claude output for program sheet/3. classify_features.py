@@ -571,10 +571,21 @@ def _extract_ml_features(features_data: Dict) -> 'np.ndarray':
 
 
 def _load_ml_resources():
-    """Load RF v2 model + MFCAD-id → internal_feature_type map."""
+    """Load the best available RF model + MFCAD-id → internal_feature_type map.
+
+    Prefers rf_classifier_v3.pkl (pipeline-native features, no train/inference gap)
+    over rf_classifier_v2.pkl (H5-based features).
+    """
     import joblib
     base = Path(__file__).parent
-    model = joblib.load(base / 'models' / 'rf_classifier_v2.pkl')
+    for model_name in ('rf_classifier_v3.pkl', 'rf_classifier_v2.pkl'):
+        model_path = base / 'models' / model_name
+        if model_path.exists():
+            model = joblib.load(model_path)
+            break
+    else:
+        raise FileNotFoundError(
+            "No RF model found in models/.  Run ml_train_classifier_v3.py first.")
     with open(base / 'rule_sheets' / '07_label_taxonomy.json') as f:
         taxonomy_data = json.load(f)
     mfcad_to_internal = {m['mfcad_id']: m['internal_feature_type']
