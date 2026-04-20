@@ -24,12 +24,9 @@ STEP_TEST = BASE / "Dataset/MFCAD_dataset/MFCAD++_dataset/step/test"
 
 
 def features_path_for(step_path: Path) -> Path:
+    """Always put *_features.json inside a stem/ subdirectory."""
     stem = step_path.stem
-    # If STEP is inside a stem/ subdirectory (e.g. test/1000/1000.step), put JSON there
-    if step_path.parent.name == stem:
-        return step_path.parent / f"{stem}_features.json"
-    # Otherwise put JSON alongside the STEP file
-    return step_path.parent / f"{stem}_features.json"
+    return step_path.parent / stem / f"{stem}_features.json"
 
 
 
