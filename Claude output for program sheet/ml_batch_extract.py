@@ -14,6 +14,8 @@ Usage:
 """
 
 import argparse
+import multiprocessing
+import os
 import subprocess
 import sys
 import time
@@ -29,13 +31,34 @@ def features_path_for(step_path: Path) -> Path:
     return step_path.parent / stem / f"{stem}_features.json"
 
 
+def _extract_worker(args):
+    """Worker function for multiprocessing — extracts one STEP file."""
+    python_exe, extract_script, step_path_str, out_path_str = args
+    out_path = Path(out_path_str)
+    if out_path.exists():
+        return "skip"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        result = subprocess.run(
+            [python_exe, extract_script, step_path_str, out_path_str],
+            capture_output=True, timeout=60,
+        )
+        if result.returncode == 0 and out_path.exists():
+            return "ok"
+        return f"fail:{result.stderr.decode()[:100]}"
+    except subprocess.TimeoutExpired:
+        return "timeout"
+    except Exception as e:
+        return f"error:{e}"
+
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--limit", type=int, default=None,
                         help="Process at most N STEP files (for quick testing)")
-    parser.add_argument("--workers", type=int, default=1,
-                        help="Parallel workers (experimental; 1 = serial)")
+    parser.add_argument("--workers", type=int,
+                        default=max(1, os.cpu_count() - 1),
+                        help="Parallel workers (default: CPU count - 1)")
     args = parser.parse_args()
 
     extract_script = str(BASE / "1. extract_features.py")
@@ -52,47 +75,40 @@ def main():
     print(f"  Total STEP files : {len(all_steps)}")
     print(f"  Already extracted: {already_done}")
     print(f"  To process       : {len(todo)}")
+    print(f"  Workers          : {args.workers}")
 
     if not todo:
         print("  Nothing to do.")
         return
 
+    worker_args = [
+        (python_exe, extract_script, str(p), str(features_path_for(p)))
+        for p in todo
+    ]
+
     t0 = time.time()
-    ok = 0
-    fail = 0
+    ok = fail = 0
 
-    for i, step_path in enumerate(todo):
-        elapsed = time.time() - t0
-        rate = (i + 1) / elapsed if elapsed > 0 else 0
-        eta = (len(todo) - i - 1) / rate if rate > 0 else 0
-        print(f"  {i+1}/{len(todo)} | {step_path.name:30s} | "
-              f"{elapsed:.0f}s elapsed | ETA {eta:.0f}s", end="\r")
-
-        out_path = str(features_path_for(step_path))
-        try:
-            result = subprocess.run(
-                [python_exe, extract_script, str(step_path), out_path],
-                capture_output=True, timeout=60,
-            )
-            if result.returncode == 0 and Path(out_path).exists():
+    with multiprocessing.Pool(processes=args.workers) as pool:
+        for i, status in enumerate(pool.imap_unordered(_extract_worker, worker_args)):
+            if status in ("ok", "skip"):
                 ok += 1
             else:
                 fail += 1
-                if fail <= 5:  # only print first few errors
-                    print(f"\n  [FAIL] {step_path.name}: {result.stderr.decode()[:200]}")
-        except subprocess.TimeoutExpired:
-            fail += 1
-            if fail <= 5:
-                print(f"\n  [TIMEOUT] {step_path.name}")
-        except Exception as e:
-            fail += 1
-            if fail <= 5:
-                print(f"\n  [ERROR] {step_path.name}: {e}")
+                if fail <= 5:
+                    print(f"\n  [WARN] {status}")
+            if (i + 1) % 10 == 0 or (i + 1) == len(todo):
+                elapsed = time.time() - t0
+                rate = (i + 1) / elapsed if elapsed > 0 else 0
+                eta = (len(todo) - i - 1) / rate if rate > 0 else 0
+                print(f"  {i+1}/{len(todo)} | {elapsed:.0f}s elapsed | "
+                      f"ETA {eta:.0f}s | {rate:.1f} parts/s", end="\r")
 
     total = time.time() - t0
-    print(f"\nDone: {ok} extracted, {fail} failed, {total:.1f}s total "
-          f"({total/max(ok,1):.2f}s/part)")
+    print(f"\nDone: {ok} ok, {fail} failed, {total:.1f}s total "
+          f"({total/max(ok,1):.2f}s/part, {args.workers} workers)")
 
 
 if __name__ == "__main__":
+    multiprocessing.freeze_support()
     main()

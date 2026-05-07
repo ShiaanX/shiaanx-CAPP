@@ -2,3 +2,6 @@ date,model,n_train_faces,n_test_faces,overall_accuracy,notes
 2026-04-18,rf_mfcad_baseline,1207577,259128,0.6604,RandomForest n_estimators=200 face-level 10-feat
 2026-04-20,rf_mfcad_v2,1207577,259128,0.6917,RandomForest n_estimators=200 15-feat comp+2hop
 2026-04-20,rf_mfcad_v3,8759,2202,0.5899,RandomForest 15-feat pipeline-features 356-parts
+2026-04-20,rf_mfcad_v3,211387,52776,0.6620,RandomForest 15-feat pipeline-features 8789-parts
+2026-05-02,rf_mfcad_v4,211387,52776,0.6582,RandomForest 18-feat cluster-proxy 8789-parts
+2026-05-07,rf_mfcad_agent_20260507_092303,241264,,0.9646,Auto-promoted by agent — beat 69.17%

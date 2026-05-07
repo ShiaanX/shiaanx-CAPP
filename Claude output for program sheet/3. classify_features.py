@@ -570,15 +570,83 @@ def _extract_ml_features(features_data: Dict) -> 'np.ndarray':
     return np.concatenate([V1, neigh, comp], axis=1).astype(np.float32)
 
 
+def _extract_ml_features_v4(features_data: Dict) -> 'np.ndarray':
+    """Build (n_faces, 18) feature matrix: v3 15 features + 3 cluster-proxy features.
+
+    New features (per B-Rep connected component):
+      comp_cyl_radius_mean  — mean cylinder radius in component (0 for non-cyl components)
+      comp_plane_frac       — fraction of faces that are planes (wall-count proxy)
+      comp_bbox_ddr         — component z-range / (2 * comp_cyl_radius_mean), capped at 10
+                              High values = deep slots/passages; low = shallow pockets/holes
+    """
+    base15 = _extract_ml_features(features_data)  # (n, 15)
+    faces = features_data['faces']['faces']
+    n = len(faces)
+
+    cyl_radii = np.zeros(n, dtype=np.float32)
+    is_plane  = np.zeros(n, dtype=np.float32)
+    centroids_z = np.zeros(n, dtype=np.float32)
+    for i, face in enumerate(faces):
+        st = face.get('surface_type', '')
+        if st == 'Cylinder' and 'cylinder' in face:
+            cyl_radii[i] = float(face['cylinder'].get('radius', 0.0))
+        if st == 'Plane':
+            is_plane[i] = 1.0
+        _, _, cz = _get_face_centroid(face)
+        centroids_z[i] = cz
+
+    adj_raw = features_data.get('face_adjacency', {})
+    rows, cols, vals = [], [], []
+    for k, neighbours in adj_raw.items():
+        ii = int(k)
+        for j in neighbours:
+            if 0 <= ii < n and 0 <= j < n:
+                rows.append(ii); cols.append(j); vals.append(1.0)
+    if rows:
+        A = csr_matrix((vals, (rows, cols)), shape=(n, n), dtype=np.float32)
+    else:
+        A = csr_matrix((n, n), dtype=np.float32)
+
+    from scipy.sparse.csgraph import connected_components as _cc
+    n_comp, comp_ids = _cc(A, directed=False)
+
+    comp_cyl_radius_mean = np.zeros(n, dtype=np.float32)
+    comp_plane_frac      = np.zeros(n, dtype=np.float32)
+    comp_bbox_ddr        = np.zeros(n, dtype=np.float32)
+
+    for c in range(n_comp):
+        mask = comp_ids == c
+        idx  = np.where(mask)[0]
+        r    = cyl_radii[idx]
+        cyl_mask = r > 0
+        mean_r = float(r[cyl_mask].mean()) if cyl_mask.any() else 0.0
+        comp_cyl_radius_mean[mask] = mean_r
+
+        plane_frac = float(is_plane[idx].mean())
+        comp_plane_frac[mask] = plane_frac
+
+        z_range = float(centroids_z[idx].max() - centroids_z[idx].min()) if len(idx) > 1 else 0.0
+        ddr = min(z_range / (2.0 * mean_r), 10.0) if mean_r > 0 else 0.0
+        comp_bbox_ddr[mask] = ddr
+
+    extra = np.stack([comp_cyl_radius_mean, comp_plane_frac, comp_bbox_ddr], axis=1)
+    return np.concatenate([base15, extra], axis=1).astype(np.float32)
+
+
 def _load_ml_resources():
     """Load the best available RF model + MFCAD-id → internal_feature_type map.
 
-    Prefers rf_classifier_v3.pkl (pipeline-native features, no train/inference gap)
-    over rf_classifier_v2.pkl (H5-based features).
+    Prefers v4 (18 features, cluster-proxy) → v3 (15 features) → v2 (H5-based).
+    Returns (model, mfcad_to_internal, extractor_fn).
     """
     import joblib
     base = Path(__file__).parent
-    for model_name in ('rf_classifier_v3.pkl', 'rf_classifier_v2.pkl'):
+    model_priority = [
+        ('rf_classifier_v4.pkl', _extract_ml_features_v4),
+        ('rf_classifier_v3.pkl', _extract_ml_features),
+        ('rf_classifier_v2.pkl', _extract_ml_features),
+    ]
+    for model_name, extractor in model_priority:
         model_path = base / 'models' / model_name
         if model_path.exists():
             model = joblib.load(model_path)
@@ -590,7 +658,7 @@ def _load_ml_resources():
         taxonomy_data = json.load(f)
     mfcad_to_internal = {m['mfcad_id']: m['internal_feature_type']
                          for m in taxonomy_data['mappings']}
-    return model, mfcad_to_internal
+    return model, mfcad_to_internal, extractor
 
 
 def classify_clusters_ml(clustered_data: Dict, features_data: Dict) -> Dict:
@@ -605,8 +673,8 @@ def classify_clusters_ml(clustered_data: Dict, features_data: Dict) -> Dict:
     if not _ML_DEPS_AVAILABLE:
         raise RuntimeError("numpy/scipy not available — cannot use --mode ml")
 
-    model, mfcad_to_internal = _load_ml_resources()
-    X = _extract_ml_features(features_data)
+    model, mfcad_to_internal, extractor = _load_ml_resources()
+    X = extractor(features_data)
     y_pred = model.predict(X)
 
     result = copy.deepcopy(clustered_data)

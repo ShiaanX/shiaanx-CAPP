@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "name": "Aluminum (Metric)",
+  "advancedMode": false,
+  "stockAssetUuid": "395fto32",
+  "estimatePresetAssetUuid": "0f6ta75n",
+  "materialAssetUuid": "alum6000",
+  "machiningSettings": {
+    "unit": "in",
+    "drillMaxOversize": 0.001,
+    "maxToolsPerSetup": 50,
+    "adaptiveSmoothing": 0,
+    "adaptiveTolerance": 0.002,
+    "drillMinUndersize": -0.001,
+    "preferPreDrilling": false,
+    "preferSpotDrilling": false,
+    "majorDeviationLimit": 0.005,
+    "minorDeviationLimit": 0.001,
+    "adaptiveAxialStockToLeave": 0.01,
+    "adaptiveRadialStockToLeave": 0.01,
+    "allowBullnoseAsFlatEndmill": false,
+    "maxBullnoseEndmillRoughingRadius": null,
+    "maxBullnoseEndmillFinishingRadius": null
+  },
+  "presetGenerationSettings": null,
+  "roles": {},
+  "userLibraries": [
+    {
+      "uuid": "10xb9bn4",
+      "priority": 2
+    },
+    {
+      "uuid": "m0hsra8u",
+      "priority": 2
+    },
+    {
+      "uuid": "q4hlbkba",
+      "priority": 2
+    },
+    {
+      "uuid": "gm4srp6r",
+      "priority": 2
+    },
+    {
+      "uuid": "0atmc6xv",
+      "priority": 1
+    }
+  ],
+  "recommendationLibraries": [
+    {
+      "uuid": "sp0koch0",
+      "priority": 1
+    },
+    {
+      "uuid": "fsrl0697",
+      "priority": 1
+    }
+  ]
+}

@@ -15,7 +15,27 @@
       "Bash(\"/c/Users/Siddhant Gupta/miniconda3/envs/occ/python.exe\" \"7. tool_selection.py\" \"Dataset/MFCAD_dataset/MFCAD++_dataset/step/test/25/25_features_clustered_classified_processes.json\" --db \"7a. tool_database.json\")",
       "Bash(\"/c/Users/Siddhant Gupta/miniconda3/envs/occ/python.exe\" \"5. setup_planning.py\" \"Dataset/MFCAD_dataset/MFCAD++_dataset/step/test/25/25_features_clustered_classified_processes_tools.json\")",
       "Bash(\"/c/Users/Siddhant Gupta/miniconda3/envs/occ/python.exe\" \"8. parameter_calculation.py\" \"Dataset/MFCAD_dataset/MFCAD++_dataset/step/test/25/25_features_clustered_classified_processes_tools_setups.json\")",
-      "Bash(\"/c/Users/Siddhant Gupta/miniconda3/envs/occ/python.exe\" \"9. program_sheet.py\" \"Dataset/MFCAD_dataset/MFCAD++_dataset/step/test/25/25_features_clustered_classified_processes_tools_setups_params.json\")"
+      "Bash(\"/c/Users/Siddhant Gupta/miniconda3/envs/occ/python.exe\" \"9. program_sheet.py\" \"Dataset/MFCAD_dataset/MFCAD++_dataset/step/test/25/25_features_clustered_classified_processes_tools_setups_params.json\")",
+      "Bash(/c/Users/\"Siddhant Gupta\"/miniconda3/envs/occ/python:*)",
+      "Bash('/c/Users/Siddhant Gupta/miniconda3/envs/occ/python' -c ' *)",
+      "Bash(powershell -Command \"& 'C:/Users/Siddhant Gupta/miniconda3/Scripts/conda.exe' run -n occ python 'C:/Users/Siddhant Gupta/Documents/ShiaanX/Claude output for program sheet/rule_sheets/generate_rule_docs.py'\")",
+      "Bash(python -c ' *)",
+      "Bash(powershell -Command '& '\\\\''C:/Users/Siddhant Gupta/miniconda3/Scripts/conda.exe'\\\\'' run -n occ python -c \" *)",
+      "Bash(powershell -Command \"& 'C:/Users/Siddhant Gupta/miniconda3/Scripts/conda.exe' run -n occ python 'C:/Users/Siddhant Gupta/Documents/ShiaanX/Claude output for program sheet/inspect_clusters.py'\")",
+      "Bash(powershell -Command \"& 'C:/Users/Siddhant Gupta/miniconda3/Scripts/conda.exe' run -n occ python 'C:/Users/Siddhant Gupta/Documents/ShiaanX/Claude output for program sheet/explore_h5.py'\")",
+      "Bash(/c/Users/\"Siddhant Gupta\"/miniconda3/envs/occ/python.exe \"3. classify_features.py\" \"Dataset/MFCAD_dataset/MFCAD++_dataset/step/test/1000/1000_clustered.json\" --mode ml)",
+      "Bash(/c/Users/\"Siddhant Gupta\"/miniconda3/envs/occ/python.exe \"3. classify_features.py\" \"Dataset/MFCAD_dataset/MFCAD++_dataset/step/test/1000/1000_clustered.json\" --mode rule)",
+      "PowerShell(conda run -n occ python -c \"import fitz; print\\('pymupdf ok'\\)\" 2>&1)",
+      "PowerShell(& \"$env:USERPROFILE\\\\miniconda3\\\\Scripts\\\\conda.exe\" run -n occ python -c \"import fitz; print\\('PyMuPDF version:', fitz.__version__\\)\")",
+      "Bash(gh repo *)",
+      "Bash(gh api *)",
+      "Bash(python -c \"import sys,json; t=json.load\\(sys.stdin\\); [print\\(i['path']\\) for i in t['tree'] if i['type']=='blob' and not 'node_modules' in i['path']]\")",
+      "Bash(gh.exe repo *)",
+      "Bash(git ls-remote *)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:api.github.com)",
+      "Bash(curl -s \"https://api.github.com/repos/ShiaanX/shiaanx-frontend-admin/contents/\")",
+      "Bash(curl -s \"https://api.github.com/repos/ShiaanX/shiaanx-frontend-admin\")"
     ]
   }
 }

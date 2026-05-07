@@ -1,0 +1,5097 @@
+{
+  "uuid": "0atmc6xv",
+  "name": "Aluminium Metric Tools",
+  "shared": false,
+  "version": 33,
+  "data": [
+    {
+      "BMC": "carbide",
+      "description": "40mm 6F Face ",
+      "geometry": {
+        "CSP": false,
+        "DC": 40,
+        "DCX": 40,
+        "HAND": true,
+        "LB": 50,
+        "LCF": 6,
+        "NOF": 6,
+        "OAL": 130,
+        "RE": 0,
+        "SFDM": 35,
+        "TA": 0,
+        "assemblyGaugeLength": 108.89500799999999,
+        "shoulder-diameter": 35,
+        "shoulder-length": 15
+      },
+      "guid": "b2724ef4-c0cf-43d8-94a0-05e63bbc65e7",
+      "holder": {
+        "description": "BT40 - FACE MILL HOLDER",
+        "gaugeLength": 58.895008,
+        "guid": "a9b8fad9-d332-4128-a8f4-81b2a99b596d",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 0.254,
+            "lower-diameter": 46.482,
+            "upper-diameter": 46.99
+          },
+          {
+            "height": 15.22001,
+            "lower-diameter": 46.99,
+            "upper-diameter": 46.99
+          },
+          {
+            "height": 0.399999,
+            "lower-diameter": 46.99,
+            "upper-diameter": 46.482
+          },
+          {
+            "height": 0.254,
+            "lower-diameter": 44.958,
+            "upper-diameter": 44.45
+          },
+          {
+            "height": 15.367,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          },
+          {
+            "height": 0.399999,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.958
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 1,
+        "length-offset": 1,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 1,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "https://toolpath.com/?source=fusion-tool-definition",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "2.4 millimeters",
+              "tool_stepover": "34 millimeters"
+            },
+            "f_n": 0.6283185307179586,
+            "f_z": 0.1,
+            "guid": "e150b771-d965-4acd-8e53-221b19e3fe0e",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 2425.521332720485,
+            "n_ramp": 2425.521332720485,
+            "name": "AluWrought_Face_Rough",
+            "ramp-angle": 2,
+            "stepdown": 2.4,
+            "stepover": 34,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8,
+            "v_f": 1455.312799632291,
+            "v_f_leadIn": 1455.312799632291,
+            "v_f_leadOut": 1455.312799632291,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1455.312799632291,
+            "v_f_transition": 1455.312799632291
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1 millimeters",
+              "tool_stepover": "34 millimeters"
+            },
+            "f_n": 0.6283185307179586,
+            "f_z": 0.1,
+            "guid": "a4b513dc-5fde-4524-bfee-1c9b03fc6566",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 2425.521332720485,
+            "n_ramp": 2425.521332720485,
+            "name": "AluWrought_Face_Finish",
+            "ramp-angle": 2,
+            "stepdown": 1,
+            "stepover": 34,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8,
+            "v_f": 1455.312799632291,
+            "v_f_leadIn": 1455.312799632291,
+            "v_f_leadOut": 1455.312799632291,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1455.312799632291,
+            "v_f_transition": 1455.312799632291
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "face mill",
+      "unit": "millimeters",
+      "vendor": "Toolpath"
+    },
+    {
+      "BMC": "carbide",
+      "description": "12mm 3F Bull  R0.75",
+      "geometry": {
+        "CSP": false,
+        "DC": 12,
+        "HAND": true,
+        "LB": 45,
+        "LCF": 25,
+        "NOF": 3,
+        "OAL": 70,
+        "RE": 0.75,
+        "SFDM": 12,
+        "assemblyGaugeLength": 146.58710000000002,
+        "shoulder-diameter": 12,
+        "shoulder-length": 30
+      },
+      "guid": "8e8e0459-b5d0-4c89-a134-1803b99d26a0",
+      "holder": {
+        "description": "BT40 ER25 COLLET CHUCK X 102MM GAGE LENGTH",
+        "gaugeLength": 101.5871,
+        "guid": "385a7b3e-49a1-41ca-8b35-6d0dd986c244",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 3.7084,
+            "lower-diameter": 29.10840000000001,
+            "upper-diameter": 42.0116
+          },
+          {
+            "height": 15.2654,
+            "lower-diameter": 42.0116,
+            "upper-diameter": 42.0116
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 42.0116,
+            "upper-diameter": 39.97960000000001
+          },
+          {
+            "height": 9.7282,
+            "lower-diameter": 31.877,
+            "upper-diameter": 31.877
+          },
+          {
+            "height": 4.7625,
+            "lower-diameter": 31.877,
+            "upper-diameter": 41.402
+          },
+          {
+            "height": 30.45460000000001,
+            "lower-diameter": 41.402,
+            "upper-diameter": 41.402
+          },
+          {
+            "height": 9.652,
+            "lower-diameter": 41.402,
+            "upper-diameter": 60.706
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 2,
+        "length-offset": 2,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 2,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "https://toolpath.com/?source=fusion-tool-definition",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "25 millimeters",
+              "tool_stepover": "2.29614239396546 millimeters"
+            },
+            "f_n": 0.18849555921538763,
+            "f_z": 0.14355753324952028,
+            "guid": "7ff43722-645f-4167-a311-ed2c0e1b50cb",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 8085.071109068282,
+            "n_ramp": 8085.071109068282,
+            "name": "AluWrought_Adaptive_Rough",
+            "ramp-angle": 2,
+            "stepdown": 25,
+            "stepover": 2.29614239396546,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.79999999999995,
+            "v_f": 3482.018593694417,
+            "v_f_leadIn": 3482.018593694417,
+            "v_f_leadOut": 3482.018593694417,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 3482.018593694417,
+            "v_f_transition": 3482.018593694417
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "3.525 millimeters",
+              "tool_stepover": "7.875 millimeters"
+            },
+            "f_n": 0.18849555921538763,
+            "f_z": 0.10874999999999996,
+            "guid": "8e90ee2d-5956-423e-98e6-2218970d74d6",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 8085.071109068282,
+            "n_ramp": 8085.071109068282,
+            "name": "AluWrought_Traditional_Rough",
+            "ramp-angle": 2,
+            "stepdown": 3.525,
+            "stepover": 7.875,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.79999999999995,
+            "v_f": 2637.754449333526,
+            "v_f_leadIn": 2637.754449333526,
+            "v_f_leadOut": 2637.754449333526,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2637.754449333526,
+            "v_f_transition": 2637.754449333526
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "3.525 millimeters",
+              "tool_stepover": "12 millimeters"
+            },
+            "f_n": 0.18849555921538763,
+            "f_z": 0.10874999999999996,
+            "guid": "95e51af4-5502-48d2-802f-0dd51e670d31",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 8085.071109068282,
+            "n_ramp": 8085.071109068282,
+            "name": "AluWrought_Bore_Rough",
+            "ramp-angle": 2,
+            "stepdown": 3.525,
+            "stepover": 12,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.79999999999995,
+            "v_f": 2637.754449333526,
+            "v_f_leadIn": 2637.754449333526,
+            "v_f_leadOut": 2637.754449333526,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2637.754449333526,
+            "v_f_transition": 2637.754449333526
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "10 millimeters",
+              "tool_stepover": "8.924999999999999 millimeters"
+            },
+            "f_n": 0.18849555921538763,
+            "f_z": 0.10000000000000002,
+            "guid": "5a6ab94d-ea1c-4a23-b0df-9c27d4453aee",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 8085.071109068282,
+            "n_ramp": 8085.071109068282,
+            "name": "AluWrought_Face_Rough",
+            "ramp-angle": 2,
+            "stepdown": 10,
+            "stepover": 8.924999999999999,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.79999999999995,
+            "v_f": 2425.521332720485,
+            "v_f_leadIn": 2425.521332720485,
+            "v_f_leadOut": 2425.521332720485,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2425.521332720485,
+            "v_f_transition": 2425.521332720485
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1.570502216634685 millimeters",
+              "tool_stepover": "10.2 millimeters"
+            },
+            "f_n": 0.18849555921538763,
+            "f_z": 0.12000000000000002,
+            "guid": "cb3571b3-2623-4391-8023-c21808d67d36",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 8085.071109068282,
+            "n_ramp": 8085.071109068282,
+            "name": "AluWrought_Face_Finish",
+            "ramp-angle": 2,
+            "stepdown": 1.570502216634685,
+            "stepover": 10.2,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.79999999999995,
+            "v_f": 2910.625599264582,
+            "v_f_leadIn": 2910.625599264582,
+            "v_f_leadOut": 2910.625599264582,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2910.625599264582,
+            "v_f_transition": 2910.625599264582
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "3.525 millimeters",
+              "tool_stepover": "12 millimeters"
+            },
+            "f_n": 0.18849555921538763,
+            "f_z": 0.10874999999999996,
+            "guid": "ff8aea3a-7fa6-43c8-acf7-5c3b2c8f97e2",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 8085.071109068282,
+            "n_ramp": 8085.071109068282,
+            "name": "AluWrought_Bore_Finish",
+            "ramp-angle": 2,
+            "stepdown": 3.525,
+            "stepover": 12,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.79999999999995,
+            "v_f": 2637.754449333526,
+            "v_f_leadIn": 2637.754449333526,
+            "v_f_leadOut": 2637.754449333526,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2637.754449333526,
+            "v_f_transition": 2637.754449333526
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "25 millimeters",
+              "tool_stepover": "9.45 millimeters"
+            },
+            "f_n": 0.18849555921538763,
+            "f_z": 0.08550000000000003,
+            "guid": "ae6f3d4a-4040-4d09-8432-d2e9659ac1a5",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 8085.071109068282,
+            "n_ramp": 8085.071109068282,
+            "name": "AluWrought_Wall_Finish",
+            "ramp-angle": 2,
+            "stepdown": 25,
+            "stepover": 9.45,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.79999999999995,
+            "v_f": 2073.820739476015,
+            "v_f_leadIn": 2073.820739476015,
+            "v_f_leadOut": 2073.820739476015,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2073.820739476015,
+            "v_f_transition": 2073.820739476015
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "25 millimeters",
+              "tool_stepover": "9.45 millimeters"
+            },
+            "f_n": 0.18849555921538763,
+            "f_z": 0.08550000000000003,
+            "guid": "1831f061-d780-48e3-86b2-820970632bb2",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 8085.071109068282,
+            "n_ramp": 8085.071109068282,
+            "name": "AluWrought_Floor_Finish",
+            "ramp-angle": 2,
+            "stepdown": 25,
+            "stepover": 9.45,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.79999999999995,
+            "v_f": 2073.820739476015,
+            "v_f_leadIn": 2073.820739476015,
+            "v_f_leadOut": 2073.820739476015,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2073.820739476015,
+            "v_f_transition": 2073.820739476015
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepover": "0.3903844259188627 millimeters"
+            },
+            "f_n": 0.18849555921538763,
+            "f_z": 0.08550000000000003,
+            "guid": "41f5bfd8-60b7-4dd6-8362-52ac043c212a",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 8085.071109068282,
+            "n_ramp": 8085.071109068282,
+            "name": "AluWrought_Surface",
+            "ramp-angle": 2,
+            "stepover": 0.3903844259188627,
+            "tool-coolant": "flood",
+            "use-stepdown": false,
+            "use-stepover": true,
+            "v_c": 304.79999999999995,
+            "v_f": 2073.820739476015,
+            "v_f_leadIn": 2073.820739476015,
+            "v_f_leadOut": 2073.820739476015,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2073.820739476015,
+            "v_f_transition": 2073.820739476015
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "3.525 millimeters",
+              "tool_stepover": "12 millimeters"
+            },
+            "f_n": 0.18849555921538763,
+            "f_z": 0.10874999999999996,
+            "guid": "8b6f17b1-fec3-4c95-b3d4-b77d44059f41",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 8085.071109068282,
+            "n_ramp": 8085.071109068282,
+            "name": "AluWrought_Slot",
+            "ramp-angle": 2,
+            "stepdown": 3.525,
+            "stepover": 12,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.79999999999995,
+            "v_f": 2637.754449333526,
+            "v_f_leadIn": 2637.754449333526,
+            "v_f_leadOut": 2637.754449333526,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2637.754449333526,
+            "v_f_transition": 2637.754449333526
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "bull nose end mill",
+      "unit": "millimeters",
+      "vendor": "Toolpath"
+    },
+    {
+      "BMC": "carbide",
+      "description": "12mm 5F Flat  ",
+      "geometry": {
+        "CSP": false,
+        "DC": 12,
+        "HAND": true,
+        "LB": 60,
+        "LCF": 50,
+        "NOF": 5,
+        "OAL": 102,
+        "SFDM": 12,
+        "assemblyGaugeLength": 161.58710000000002,
+        "shoulder-diameter": 12,
+        "shoulder-length": 52
+      },
+      "guid": "a29fbadf-c6db-4477-af2c-4b3e82b388bc",
+      "holder": {
+        "description": "BT40 ER25 COLLET CHUCK X 102MM GAGE LENGTH",
+        "gaugeLength": 101.5871,
+        "guid": "385a7b3e-49a1-41ca-8b35-6d0dd986c244",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 3.7084,
+            "lower-diameter": 29.10840000000001,
+            "upper-diameter": 42.0116
+          },
+          {
+            "height": 15.2654,
+            "lower-diameter": 42.0116,
+            "upper-diameter": 42.0116
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 42.0116,
+            "upper-diameter": 39.97960000000001
+          },
+          {
+            "height": 9.7282,
+            "lower-diameter": 31.877,
+            "upper-diameter": 31.877
+          },
+          {
+            "height": 4.7625,
+            "lower-diameter": 31.877,
+            "upper-diameter": 41.402
+          },
+          {
+            "height": 30.45460000000001,
+            "lower-diameter": 41.402,
+            "upper-diameter": 41.402
+          },
+          {
+            "height": 9.652,
+            "lower-diameter": 41.402,
+            "upper-diameter": 60.706
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 3,
+        "length-offset": 3,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 3,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "https://toolpath.com/?source=fusion-tool-definition",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "50 millimeters",
+              "tool_stepover": "1.292304638390789 millimeters"
+            },
+            "f_n": 0.18849555921538763,
+            "f_z": 0.12000000000000001,
+            "guid": "54a31091-4aee-49ad-b2c5-3969d891075d",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 8085.071109068282,
+            "n_ramp": 8085.071109068282,
+            "name": "AluWrought_Adaptive_Rough",
+            "ramp-angle": 2,
+            "stepdown": 50,
+            "stepover": 1.292304638390789,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.79999999999995,
+            "v_f": 4851.042665440969,
+            "v_f_leadIn": 4851.042665440969,
+            "v_f_leadOut": 4851.042665440969,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 4851.042665440969,
+            "v_f_transition": 4851.042665440969
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "2.4 millimeters",
+              "tool_stepover": "9 millimeters"
+            },
+            "f_n": 0.18849555921538763,
+            "f_z": 0.09000000000000001,
+            "guid": "95e2d105-9a63-48fd-b8f8-5bdde83e360f",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 8085.071109068282,
+            "n_ramp": 8085.071109068282,
+            "name": "AluWrought_Traditional_Rough",
+            "ramp-angle": 2,
+            "stepdown": 2.4,
+            "stepover": 9,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.79999999999995,
+            "v_f": 3638.281999080727,
+            "v_f_leadIn": 3638.281999080727,
+            "v_f_leadOut": 3638.281999080727,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 3638.281999080727,
+            "v_f_transition": 3638.281999080727
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "2.4 millimeters",
+              "tool_stepover": "12 millimeters"
+            },
+            "f_n": 0.18849555921538763,
+            "f_z": 0.09000000000000001,
+            "guid": "f9b9b4a7-cd1b-45d3-a9b6-f80ae5570a30",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 8085.071109068282,
+            "n_ramp": 8085.071109068282,
+            "name": "AluWrought_Bore_Rough",
+            "ramp-angle": 2,
+            "stepdown": 2.4,
+            "stepover": 12,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.79999999999995,
+            "v_f": 3638.281999080727,
+            "v_f_leadIn": 3638.281999080727,
+            "v_f_leadOut": 3638.281999080727,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 3638.281999080727,
+            "v_f_transition": 3638.281999080727
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "20 millimeters",
+              "tool_stepover": "10.2 millimeters"
+            },
+            "f_n": 0.18849555921538763,
+            "f_z": 0.1,
+            "guid": "713ff2c3-74f1-45eb-b35c-4b32d3cccc04",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 8085.071109068282,
+            "n_ramp": 8085.071109068282,
+            "name": "AluWrought_Face_Rough",
+            "ramp-angle": 2,
+            "stepdown": 20,
+            "stepover": 10.2,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.79999999999995,
+            "v_f": 4042.535554534141,
+            "v_f_leadIn": 4042.535554534141,
+            "v_f_leadOut": 4042.535554534141,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 4042.535554534141,
+            "v_f_transition": 4042.535554534141
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "3.14100443326937 millimeters",
+              "tool_stepover": "10.2 millimeters"
+            },
+            "f_n": 0.18849555921538763,
+            "f_z": 0.12000000000000001,
+            "guid": "9280ff17-1806-4793-aea9-e2c3179251b0",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 8085.071109068282,
+            "n_ramp": 8085.071109068282,
+            "name": "AluWrought_Face_Finish",
+            "ramp-angle": 2,
+            "stepdown": 3.14100443326937,
+            "stepover": 10.2,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.79999999999995,
+            "v_f": 4851.042665440969,
+            "v_f_leadIn": 4851.042665440969,
+            "v_f_leadOut": 4851.042665440969,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 4851.042665440969,
+            "v_f_transition": 4851.042665440969
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "2.4 millimeters",
+              "tool_stepover": "12 millimeters"
+            },
+            "f_n": 0.18849555921538763,
+            "f_z": 0.09000000000000001,
+            "guid": "6bbdaecc-58ca-4a29-a61e-79f78e77768b",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 8085.071109068282,
+            "n_ramp": 8085.071109068282,
+            "name": "AluWrought_Bore_Finish",
+            "ramp-angle": 2,
+            "stepdown": 2.4,
+            "stepover": 12,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.79999999999995,
+            "v_f": 3638.281999080727,
+            "v_f_leadIn": 3638.281999080727,
+            "v_f_leadOut": 3638.281999080727,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 3638.281999080727,
+            "v_f_transition": 3638.281999080727
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "50 millimeters",
+              "tool_stepover": "10.8 millimeters"
+            },
+            "f_n": 0.18849555921538763,
+            "f_z": 0.07800000000000003,
+            "guid": "7b5d86d6-3fc4-412d-81b9-709920428218",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 8085.071109068282,
+            "n_ramp": 8085.071109068282,
+            "name": "AluWrought_Wall_Finish",
+            "ramp-angle": 2,
+            "stepdown": 50,
+            "stepover": 10.8,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.79999999999995,
+            "v_f": 3153.177732536631,
+            "v_f_leadIn": 3153.177732536631,
+            "v_f_leadOut": 3153.177732536631,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 3153.177732536631,
+            "v_f_transition": 3153.177732536631
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "50 millimeters",
+              "tool_stepover": "10.8 millimeters"
+            },
+            "f_n": 0.18849555921538763,
+            "f_z": 0.07800000000000003,
+            "guid": "57dab1f2-5040-440c-8f0f-156366cdd240",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 8085.071109068282,
+            "n_ramp": 8085.071109068282,
+            "name": "AluWrought_Floor_Finish",
+            "ramp-angle": 2,
+            "stepdown": 50,
+            "stepover": 10.8,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.79999999999995,
+            "v_f": 3153.177732536631,
+            "v_f_leadIn": 3153.177732536631,
+            "v_f_leadOut": 3153.177732536631,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 3153.177732536631,
+            "v_f_transition": 3153.177732536631
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "2.4 millimeters",
+              "tool_stepover": "12 millimeters"
+            },
+            "f_n": 0.18849555921538763,
+            "f_z": 0.09000000000000001,
+            "guid": "77c40f06-2002-4b0f-a74b-aeacef88a69e",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 8085.071109068282,
+            "n_ramp": 8085.071109068282,
+            "name": "AluWrought_Slot",
+            "ramp-angle": 2,
+            "stepdown": 2.4,
+            "stepover": 12,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.79999999999995,
+            "v_f": 3638.281999080727,
+            "v_f_leadIn": 3638.281999080727,
+            "v_f_leadOut": 3638.281999080727,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 3638.281999080727,
+            "v_f_transition": 3638.281999080727
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "flat end mill",
+      "unit": "millimeters",
+      "vendor": "Toolpath"
+    },
+    {
+      "BMC": "carbide",
+      "description": "8mm 3F Bull  R0.5",
+      "geometry": {
+        "CSP": false,
+        "DC": 8,
+        "HAND": true,
+        "LB": 35,
+        "LCF": 22,
+        "NOF": 3,
+        "OAL": 70,
+        "RE": 0.5,
+        "SFDM": 8,
+        "assemblyGaugeLength": 108.2026,
+        "shoulder-diameter": 8,
+        "shoulder-length": 22
+      },
+      "guid": "ac37112d-92a7-49d1-b9f9-ded817573aee",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 4,
+        "length-offset": 4,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 4,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "https://toolpath.com/?source=fusion-tool-definition",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "22 millimeters",
+              "tool_stepover": "1.38869847151459 millimeters"
+            },
+            "f_n": 0.12566370614359168,
+            "f_z": 0.08950671607225566,
+            "guid": "1b0e4c17-3040-4f5a-ab02-49309f67160f",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12127.60666360243,
+            "n_ramp": 12127.60666360243,
+            "name": "AluWrought_Adaptive_Rough",
+            "ramp-angle": 2,
+            "stepdown": 22,
+            "stepover": 1.38869847151459,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8000000000001,
+            "v_f": 3256.506738825175,
+            "v_f_leadIn": 3256.506738825175,
+            "v_f_leadOut": 3256.506738825175,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 3256.506738825175,
+            "v_f_transition": 3256.506738825175
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1.975 millimeters",
+              "tool_stepover": "5.25 millimeters"
+            },
+            "f_n": 0.12566370614359168,
+            "f_z": 0.06624999999999998,
+            "guid": "45f9ad07-5e1a-46ad-8e19-38c78c231ea7",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12127.60666360243,
+            "n_ramp": 12127.60666360243,
+            "name": "AluWrought_Traditional_Rough",
+            "ramp-angle": 2,
+            "stepdown": 1.975,
+            "stepover": 5.25,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8000000000001,
+            "v_f": 2410.361824390982,
+            "v_f_leadIn": 2410.361824390982,
+            "v_f_leadOut": 2410.361824390982,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2410.361824390982,
+            "v_f_transition": 2410.361824390982
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1.975 millimeters",
+              "tool_stepover": "8 millimeters"
+            },
+            "f_n": 0.12566370614359168,
+            "f_z": 0.06624999999999998,
+            "guid": "fb19b362-5493-4e67-b712-c4a6db53c183",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12127.60666360243,
+            "n_ramp": 12127.60666360243,
+            "name": "AluWrought_Bore_Rough",
+            "ramp-angle": 2,
+            "stepdown": 1.975,
+            "stepover": 8,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8000000000001,
+            "v_f": 2410.361824390982,
+            "v_f_leadIn": 2410.361824390982,
+            "v_f_leadOut": 2410.361824390982,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2410.361824390982,
+            "v_f_transition": 2410.361824390982
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "8.8 millimeters",
+              "tool_stepover": "5.95 millimeters"
+            },
+            "f_n": 0.12566370614359168,
+            "f_z": 0.09999999999999996,
+            "guid": "dafeb35d-a616-4c77-99be-d6f0a7cecea3",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12127.60666360243,
+            "n_ramp": 12127.60666360243,
+            "name": "AluWrought_Face_Rough",
+            "ramp-angle": 2,
+            "stepdown": 8.8,
+            "stepover": 5.95,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8000000000001,
+            "v_f": 3638.281999080727,
+            "v_f_leadIn": 3638.281999080727,
+            "v_f_leadOut": 3638.281999080727,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 3638.281999080727,
+            "v_f_transition": 3638.281999080727
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1.673182028716999 millimeters",
+              "tool_stepover": "6.800000000000002 millimeters"
+            },
+            "f_n": 0.12566370614359168,
+            "f_z": 0.07999999999999997,
+            "guid": "7166a99f-9ae6-483e-8e38-72b3a42cbfdc",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12127.60666360243,
+            "n_ramp": 12127.60666360243,
+            "name": "AluWrought_Face_Finish",
+            "ramp-angle": 2,
+            "stepdown": 1.673182028716999,
+            "stepover": 6.800000000000002,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8000000000001,
+            "v_f": 2910.625599264582,
+            "v_f_leadIn": 2910.625599264582,
+            "v_f_leadOut": 2910.625599264582,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2910.625599264582,
+            "v_f_transition": 2910.625599264582
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1.975 millimeters",
+              "tool_stepover": "8 millimeters"
+            },
+            "f_n": 0.12566370614359168,
+            "f_z": 0.06624999999999998,
+            "guid": "f298b0e6-4d38-4331-ad29-b27e9aca9bc8",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12127.60666360243,
+            "n_ramp": 12127.60666360243,
+            "name": "AluWrought_Bore_Finish",
+            "ramp-angle": 2,
+            "stepdown": 1.975,
+            "stepover": 8,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8000000000001,
+            "v_f": 2410.361824390982,
+            "v_f_leadIn": 2410.361824390982,
+            "v_f_leadOut": 2410.361824390982,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2410.361824390982,
+            "v_f_transition": 2410.361824390982
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "22 millimeters",
+              "tool_stepover": "6.3 millimeters"
+            },
+            "f_n": 0.12566370614359168,
+            "f_z": 0.0545,
+            "guid": "97a40c80-a386-4e63-af27-ae5bb1bf2384",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12127.60666360243,
+            "n_ramp": 12127.60666360243,
+            "name": "AluWrought_Wall_Finish",
+            "ramp-angle": 2,
+            "stepdown": 22,
+            "stepover": 6.3,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8000000000001,
+            "v_f": 1982.863689498997,
+            "v_f_leadIn": 1982.863689498997,
+            "v_f_leadOut": 1982.863689498997,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1982.863689498997,
+            "v_f_transition": 1982.863689498997
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "22 millimeters",
+              "tool_stepover": "6.3 millimeters"
+            },
+            "f_n": 0.12566370614359168,
+            "f_z": 0.0545,
+            "guid": "f07ad7c2-ab5e-443b-951e-6b68a1e87dca",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12127.60666360243,
+            "n_ramp": 12127.60666360243,
+            "name": "AluWrought_Floor_Finish",
+            "ramp-angle": 2,
+            "stepdown": 22,
+            "stepover": 6.3,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8000000000001,
+            "v_f": 1982.863689498997,
+            "v_f_leadIn": 1982.863689498997,
+            "v_f_leadOut": 1982.863689498997,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1982.863689498997,
+            "v_f_transition": 1982.863689498997
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepover": "0.3187475490101845 millimeters"
+            },
+            "f_n": 0.12566370614359168,
+            "f_z": 0.0545,
+            "guid": "6b72a10e-614a-4170-af32-05abf8050d41",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12127.60666360243,
+            "n_ramp": 12127.60666360243,
+            "name": "AluWrought_Surface",
+            "ramp-angle": 2,
+            "stepover": 0.3187475490101845,
+            "tool-coolant": "flood",
+            "use-stepdown": false,
+            "use-stepover": true,
+            "v_c": 304.8000000000001,
+            "v_f": 1982.863689498997,
+            "v_f_leadIn": 1982.863689498997,
+            "v_f_leadOut": 1982.863689498997,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1982.863689498997,
+            "v_f_transition": 1982.863689498997
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1.975 millimeters",
+              "tool_stepover": "8 millimeters"
+            },
+            "f_n": 0.12566370614359168,
+            "f_z": 0.06624999999999998,
+            "guid": "0aa73663-d565-44af-a1e9-aec6cb281d17",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12127.60666360243,
+            "n_ramp": 12127.60666360243,
+            "name": "AluWrought_Slot",
+            "ramp-angle": 2,
+            "stepdown": 1.975,
+            "stepover": 8,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8000000000001,
+            "v_f": 2410.361824390982,
+            "v_f_leadIn": 2410.361824390982,
+            "v_f_leadOut": 2410.361824390982,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2410.361824390982,
+            "v_f_transition": 2410.361824390982
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "bull nose end mill",
+      "unit": "millimeters",
+      "vendor": "Toolpath"
+    },
+    {
+      "BMC": "carbide",
+      "description": "8mm 5F Flat  ",
+      "geometry": {
+        "CSP": false,
+        "DC": 8,
+        "HAND": true,
+        "LB": 35,
+        "LCF": 20,
+        "NOF": 5,
+        "OAL": 70,
+        "SFDM": 8,
+        "assemblyGaugeLength": 108.2026,
+        "shoulder-diameter": 8,
+        "shoulder-length": 20
+      },
+      "guid": "75ad0ea6-da6a-40c3-9cc0-152086dd6083",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 5,
+        "length-offset": 5,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 5,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "https://toolpath.com/?source=fusion-tool-definition",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "20 millimeters",
+              "tool_stepover": "1.266245947197777 millimeters"
+            },
+            "f_n": 0.12566370614359168,
+            "f_z": 0.09010537285780452,
+            "guid": "c6f56935-e32c-42cf-8b92-aa30e727d433",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12127.60666360243,
+            "n_ramp": 12127.60666360243,
+            "name": "AluWrought_Adaptive_Rough",
+            "ramp-angle": 2,
+            "stepdown": 20,
+            "stepover": 1.266245947197777,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8000000000001,
+            "v_f": 5463.812601483459,
+            "v_f_leadIn": 5463.812601483459,
+            "v_f_leadOut": 5463.812601483459,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 5463.812601483459,
+            "v_f_transition": 5463.812601483459
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1.975 millimeters",
+              "tool_stepover": "6 millimeters"
+            },
+            "f_n": 0.12566370614359168,
+            "f_z": 0.06624999999999998,
+            "guid": "c149a96b-c566-470d-bc84-9cc8bcbecba9",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12127.60666360243,
+            "n_ramp": 12127.60666360243,
+            "name": "AluWrought_Traditional_Rough",
+            "ramp-angle": 2,
+            "stepdown": 1.975,
+            "stepover": 6,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8000000000001,
+            "v_f": 4017.269707318304,
+            "v_f_leadIn": 4017.269707318304,
+            "v_f_leadOut": 4017.269707318304,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 4017.269707318304,
+            "v_f_transition": 4017.269707318304
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1.975 millimeters",
+              "tool_stepover": "8 millimeters"
+            },
+            "f_n": 0.12566370614359168,
+            "f_z": 0.06624999999999998,
+            "guid": "658c1825-8d36-40a2-b0f4-4b68a6031d0f",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12127.60666360243,
+            "n_ramp": 12127.60666360243,
+            "name": "AluWrought_Bore_Rough",
+            "ramp-angle": 2,
+            "stepdown": 1.975,
+            "stepover": 8,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8000000000001,
+            "v_f": 4017.269707318304,
+            "v_f_leadIn": 4017.269707318304,
+            "v_f_leadOut": 4017.269707318304,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 4017.269707318304,
+            "v_f_transition": 4017.269707318304
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "8 millimeters",
+              "tool_stepover": "6.8 millimeters"
+            },
+            "f_n": 0.12566370614359168,
+            "f_z": 0.09999999999999996,
+            "guid": "e598ed78-2d96-431d-9ed6-4a4fde169524",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12127.60666360243,
+            "n_ramp": 12127.60666360243,
+            "name": "AluWrought_Face_Rough",
+            "ramp-angle": 2,
+            "stepdown": 8,
+            "stepover": 6.8,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8000000000001,
+            "v_f": 6063.803331801213,
+            "v_f_leadIn": 6063.803331801213,
+            "v_f_leadOut": 6063.803331801213,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 6063.803331801213,
+            "v_f_transition": 6063.803331801213
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1.521074571560908 millimeters",
+              "tool_stepover": "6.800000000000002 millimeters"
+            },
+            "f_n": 0.12566370614359168,
+            "f_z": 0.07999999999999999,
+            "guid": "d7ad9a64-525b-45e1-8810-a5a34572ee20",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12127.60666360243,
+            "n_ramp": 12127.60666360243,
+            "name": "AluWrought_Face_Finish",
+            "ramp-angle": 2,
+            "stepdown": 1.521074571560908,
+            "stepover": 6.800000000000002,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8000000000001,
+            "v_f": 4851.042665440971,
+            "v_f_leadIn": 4851.042665440971,
+            "v_f_leadOut": 4851.042665440971,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 4851.042665440971,
+            "v_f_transition": 4851.042665440971
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1.975 millimeters",
+              "tool_stepover": "8 millimeters"
+            },
+            "f_n": 0.12566370614359168,
+            "f_z": 0.06624999999999998,
+            "guid": "9df0afc4-f5a4-4cd0-9507-8a522bba4b44",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12127.60666360243,
+            "n_ramp": 12127.60666360243,
+            "name": "AluWrought_Bore_Finish",
+            "ramp-angle": 2,
+            "stepdown": 1.975,
+            "stepover": 8,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8000000000001,
+            "v_f": 4017.269707318304,
+            "v_f_leadIn": 4017.269707318304,
+            "v_f_leadOut": 4017.269707318304,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 4017.269707318304,
+            "v_f_transition": 4017.269707318304
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "20 millimeters",
+              "tool_stepover": "7.2 millimeters"
+            },
+            "f_n": 0.12566370614359168,
+            "f_z": 0.05449999999999998,
+            "guid": "71c7a573-bc82-4eb1-99c0-6801da708ee3",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12127.60666360243,
+            "n_ramp": 12127.60666360243,
+            "name": "AluWrought_Wall_Finish",
+            "ramp-angle": 2,
+            "stepdown": 20,
+            "stepover": 7.2,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8000000000001,
+            "v_f": 3304.772815831661,
+            "v_f_leadIn": 3304.772815831661,
+            "v_f_leadOut": 3304.772815831661,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 3304.772815831661,
+            "v_f_transition": 3304.772815831661
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "20 millimeters",
+              "tool_stepover": "7.2 millimeters"
+            },
+            "f_n": 0.12566370614359168,
+            "f_z": 0.05449999999999998,
+            "guid": "02a0d282-387b-4b69-beaa-e40ffdff7f9a",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12127.60666360243,
+            "n_ramp": 12127.60666360243,
+            "name": "AluWrought_Floor_Finish",
+            "ramp-angle": 2,
+            "stepdown": 20,
+            "stepover": 7.2,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8000000000001,
+            "v_f": 3304.772815831661,
+            "v_f_leadIn": 3304.772815831661,
+            "v_f_leadOut": 3304.772815831661,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 3304.772815831661,
+            "v_f_transition": 3304.772815831661
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1.975 millimeters",
+              "tool_stepover": "8 millimeters"
+            },
+            "f_n": 0.12566370614359168,
+            "f_z": 0.06624999999999998,
+            "guid": "bc3100d2-f8df-48e2-91c4-2d8c1c2de4fb",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12127.60666360243,
+            "n_ramp": 12127.60666360243,
+            "name": "AluWrought_Slot",
+            "ramp-angle": 2,
+            "stepdown": 1.975,
+            "stepover": 8,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8000000000001,
+            "v_f": 4017.269707318304,
+            "v_f_leadIn": 4017.269707318304,
+            "v_f_leadOut": 4017.269707318304,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 4017.269707318304,
+            "v_f_transition": 4017.269707318304
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "flat end mill",
+      "unit": "millimeters",
+      "vendor": "Toolpath"
+    },
+    {
+      "BMC": "carbide",
+      "description": "5mm 3F Bull  R0.25",
+      "geometry": {
+        "CSP": false,
+        "DC": 5,
+        "HAND": true,
+        "LB": 20,
+        "LCF": 12,
+        "NOF": 3,
+        "OAL": 50,
+        "RE": 0.25,
+        "SFDM": 5,
+        "assemblyGaugeLength": 93.2026,
+        "shoulder-diameter": 5,
+        "shoulder-length": 15
+      },
+      "guid": "4610116e-7081-4fe4-9570-cf9249faa470",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 6,
+        "length-offset": 6,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 6,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "https://toolpath.com/?source=fusion-tool-definition",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "12 millimeters",
+              "tool_stepover": "1.109789585125389 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.06074736981406736,
+            "guid": "a1e9c902-e15f-4f9e-a098-ac086a9bf3d4",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Adaptive_Rough",
+            "ramp-angle": 2,
+            "stepdown": 12,
+            "stepover": 1.109789585125389,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 235.61944901923448,
+            "v_f": 2733.631641633031,
+            "v_f_leadIn": 2733.631641633031,
+            "v_f_leadOut": 2733.631641633031,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2733.631641633031,
+            "v_f_transition": 2733.631641633031
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1.375 millimeters",
+              "tool_stepover": "3.375 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.04375,
+            "guid": "c635d472-f18f-48f4-a46e-40e2716d361b",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Traditional_Rough",
+            "ramp-angle": 2,
+            "stepdown": 1.375,
+            "stepover": 3.375,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 235.61944901923448,
+            "v_f": 1968.75,
+            "v_f_leadIn": 1968.75,
+            "v_f_leadOut": 1968.75,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1968.75,
+            "v_f_transition": 1968.75
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1.375 millimeters",
+              "tool_stepover": "5 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.04375,
+            "guid": "7aa50240-afd1-4bbe-9f65-91d189711635",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Bore_Rough",
+            "ramp-angle": 2,
+            "stepdown": 1.375,
+            "stepover": 5,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 235.61944901923448,
+            "v_f": 1968.75,
+            "v_f_leadIn": 1968.75,
+            "v_f_leadOut": 1968.75,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1968.75,
+            "v_f_transition": 1968.75
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "4.800000000000001 millimeters",
+              "tool_stepover": "3.825 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.1,
+            "guid": "840433a7-ead7-472a-a4c7-5461ab6fdbd3",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Face_Rough",
+            "ramp-angle": 2,
+            "stepdown": 4.800000000000001,
+            "stepover": 3.825,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 235.61944901923448,
+            "v_f": 4500,
+            "v_f_leadIn": 4500,
+            "v_f_leadOut": 4500,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 4500,
+            "v_f_transition": 4500
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1.031747502150466 millimeters",
+              "tool_stepover": "4.250000000000001 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.05,
+            "guid": "f420348b-9835-46f2-b004-515ad78d3f5a",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Face_Finish",
+            "ramp-angle": 2,
+            "stepdown": 1.031747502150466,
+            "stepover": 4.250000000000001,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 235.61944901923448,
+            "v_f": 2250,
+            "v_f_leadIn": 2250,
+            "v_f_leadOut": 2250,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2250,
+            "v_f_transition": 2250
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1.375 millimeters",
+              "tool_stepover": "5 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.04375,
+            "guid": "76ada4cd-64f6-4ff5-a7d7-ef036703ea63",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Bore_Finish",
+            "ramp-angle": 2,
+            "stepdown": 1.375,
+            "stepover": 5,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 235.61944901923448,
+            "v_f": 1968.75,
+            "v_f_leadIn": 1968.75,
+            "v_f_leadOut": 1968.75,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1968.75,
+            "v_f_transition": 1968.75
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "12 millimeters",
+              "tool_stepover": "4.05 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.035,
+            "guid": "85705f6a-b72a-405a-9eb1-8cf2eba6388b",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Wall_Finish",
+            "ramp-angle": 2,
+            "stepdown": 12,
+            "stepover": 4.05,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 235.61944901923448,
+            "v_f": 1575,
+            "v_f_leadIn": 1575,
+            "v_f_leadOut": 1575,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1575,
+            "v_f_transition": 1575
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "12 millimeters",
+              "tool_stepover": "4.05 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.035,
+            "guid": "483e1d4d-6197-41c4-9768-c8964a55d1bc",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Floor_Finish",
+            "ramp-angle": 2,
+            "stepdown": 12,
+            "stepover": 4.05,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 235.61944901923448,
+            "v_f": 1575,
+            "v_f_leadIn": 1575,
+            "v_f_leadOut": 1575,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1575,
+            "v_f_transition": 1575
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepover": "0.2253885533916929 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.035,
+            "guid": "dda7be88-b1bb-49e7-a7f4-03642f021ece",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Surface",
+            "ramp-angle": 2,
+            "stepover": 0.2253885533916929,
+            "tool-coolant": "flood",
+            "use-stepdown": false,
+            "use-stepover": true,
+            "v_c": 235.61944901923448,
+            "v_f": 1575,
+            "v_f_leadIn": 1575,
+            "v_f_leadOut": 1575,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1575,
+            "v_f_transition": 1575
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1.375 millimeters",
+              "tool_stepover": "5 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.04375,
+            "guid": "bbfa2fad-1b42-4942-a78a-9b1e62f8c2c4",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Slot",
+            "ramp-angle": 2,
+            "stepdown": 1.375,
+            "stepover": 5,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 235.61944901923448,
+            "v_f": 1968.75,
+            "v_f_leadIn": 1968.75,
+            "v_f_leadOut": 1968.75,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1968.75,
+            "v_f_transition": 1968.75
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "bull nose end mill",
+      "unit": "millimeters",
+      "vendor": "Toolpath"
+    },
+    {
+      "BMC": "carbide",
+      "description": "5mm 4F Flat  ",
+      "geometry": {
+        "CSP": false,
+        "DC": 5,
+        "HAND": true,
+        "LB": 25,
+        "LCF": 16,
+        "NOF": 4,
+        "OAL": 50,
+        "SFDM": 5,
+        "assemblyGaugeLength": 98.2026,
+        "shoulder-diameter": 5,
+        "shoulder-length": 16
+      },
+      "guid": "da7114f0-bffa-49ca-979f-6d29ea9660f1",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 7,
+        "length-offset": 7,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 7,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "https://toolpath.com/?source=fusion-tool-definition",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "16 millimeters",
+              "tool_stepover": "0.6079368755376167 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.05,
+            "guid": "6e827eec-613f-47d2-92ec-6c89ae03e188",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Adaptive_Rough",
+            "ramp-angle": 2,
+            "stepdown": 16,
+            "stepover": 0.6079368755376167,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 235.61944901923448,
+            "v_f": 3000,
+            "v_f_leadIn": 3000,
+            "v_f_leadOut": 3000,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 3000,
+            "v_f_transition": 3000
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1 millimeters",
+              "tool_stepover": "3.75 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.0375,
+            "guid": "4fee615e-20c5-40e9-836f-4f825fc6fb7b",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Traditional_Rough",
+            "ramp-angle": 2,
+            "stepdown": 1,
+            "stepover": 3.75,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 235.61944901923448,
+            "v_f": 2250,
+            "v_f_leadIn": 2250,
+            "v_f_leadOut": 2250,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2250,
+            "v_f_transition": 2250
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1 millimeters",
+              "tool_stepover": "5 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.0375,
+            "guid": "287dcee7-b609-4e47-8202-600c6efea97a",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Bore_Rough",
+            "ramp-angle": 2,
+            "stepdown": 1,
+            "stepover": 5,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 235.61944901923448,
+            "v_f": 2250,
+            "v_f_leadIn": 2250,
+            "v_f_leadOut": 2250,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2250,
+            "v_f_transition": 2250
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "6.4 millimeters",
+              "tool_stepover": "4.25 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.1,
+            "guid": "baa6d101-a054-4b0f-b78e-c821a7e3d436",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Face_Rough",
+            "ramp-angle": 2,
+            "stepdown": 6.4,
+            "stepover": 4.25,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 235.61944901923448,
+            "v_f": 6000,
+            "v_f_leadIn": 6000,
+            "v_f_leadOut": 6000,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 6000,
+            "v_f_transition": 6000
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1.375663336200622 millimeters",
+              "tool_stepover": "4.250000000000001 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.05,
+            "guid": "7c2db22a-c2c9-4553-9bf6-20714ec43834",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Face_Finish",
+            "ramp-angle": 2,
+            "stepdown": 1.375663336200622,
+            "stepover": 4.250000000000001,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 235.61944901923448,
+            "v_f": 3000,
+            "v_f_leadIn": 3000,
+            "v_f_leadOut": 3000,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 3000,
+            "v_f_transition": 3000
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1 millimeters",
+              "tool_stepover": "5 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.0375,
+            "guid": "c14f43ec-fdec-4b2c-8d7a-568a4f0a11d9",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Bore_Finish",
+            "ramp-angle": 2,
+            "stepdown": 1,
+            "stepover": 5,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 235.61944901923448,
+            "v_f": 2250,
+            "v_f_leadIn": 2250,
+            "v_f_leadOut": 2250,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2250,
+            "v_f_transition": 2250
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "16 millimeters",
+              "tool_stepover": "4.5 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.0325,
+            "guid": "8a18ddc2-bfab-4363-8071-8d4055f49182",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Wall_Finish",
+            "ramp-angle": 2,
+            "stepdown": 16,
+            "stepover": 4.5,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 235.61944901923448,
+            "v_f": 1950,
+            "v_f_leadIn": 1950,
+            "v_f_leadOut": 1950,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1950,
+            "v_f_transition": 1950
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "16 millimeters",
+              "tool_stepover": "4.5 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.0325,
+            "guid": "77283330-4e7e-412b-8955-83648efee371",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Floor_Finish",
+            "ramp-angle": 2,
+            "stepdown": 16,
+            "stepover": 4.5,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 235.61944901923448,
+            "v_f": 1950,
+            "v_f_leadIn": 1950,
+            "v_f_leadOut": 1950,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1950,
+            "v_f_transition": 1950
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1 millimeters",
+              "tool_stepover": "5 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.0375,
+            "guid": "56aa1664-8ce6-409b-aa45-5d47ea1173cd",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Slot",
+            "ramp-angle": 2,
+            "stepdown": 1,
+            "stepover": 5,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 235.61944901923448,
+            "v_f": 2250,
+            "v_f_leadIn": 2250,
+            "v_f_leadOut": 2250,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2250,
+            "v_f_transition": 2250
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "flat end mill",
+      "unit": "millimeters",
+      "vendor": "Toolpath"
+    },
+    {
+      "BMC": "carbide",
+      "description": "3mm 3F Flat  ",
+      "geometry": {
+        "CSP": false,
+        "DC": 3,
+        "HAND": true,
+        "LB": 15,
+        "LCF": 8,
+        "NOF": 3,
+        "OAL": 35,
+        "SFDM": 3,
+        "assemblyGaugeLength": 88.2026,
+        "shoulder-diameter": 3,
+        "shoulder-length": 10
+      },
+      "guid": "5a19f135-6813-4848-b213-c234b5132308",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 8,
+        "length-offset": 8,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 8,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "https://toolpath.com/?source=fusion-tool-definition",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "8 millimeters",
+              "tool_stepover": "0.4277873354066036 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.03,
+            "guid": "f0d4d546-ab76-47ff-b788-af002077adc5",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Adaptive_Rough",
+            "ramp-angle": 2,
+            "stepdown": 8,
+            "stepover": 0.4277873354066036,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 141.3716694115407,
+            "v_f": 1350,
+            "v_f_leadIn": 1350,
+            "v_f_leadOut": 1350,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1350,
+            "v_f_transition": 1350
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "0.6000000000000001 millimeters",
+              "tool_stepover": "2.25 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.0225,
+            "guid": "82c6e497-d16a-459f-af87-36b9df076308",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Traditional_Rough",
+            "ramp-angle": 2,
+            "stepdown": 0.6000000000000001,
+            "stepover": 2.25,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 141.3716694115407,
+            "v_f": 1012.5,
+            "v_f_leadIn": 1012.5,
+            "v_f_leadOut": 1012.5,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1012.5,
+            "v_f_transition": 1012.5
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "0.6000000000000001 millimeters",
+              "tool_stepover": "3 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.0225,
+            "guid": "4bf1ac35-f884-4c5c-ab5b-399dcd1314d4",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Bore_Rough",
+            "ramp-angle": 2,
+            "stepdown": 0.6000000000000001,
+            "stepover": 3,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 141.3716694115407,
+            "v_f": 1012.5,
+            "v_f_leadIn": 1012.5,
+            "v_f_leadOut": 1012.5,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1012.5,
+            "v_f_transition": 1012.5
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "3.2 millimeters",
+              "tool_stepover": "2.55 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.1,
+            "guid": "c422dac6-009a-4b5b-a25c-cc4ae1bc3066",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Face_Rough",
+            "ramp-angle": 2,
+            "stepdown": 3.2,
+            "stepover": 2.55,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 141.3716694115407,
+            "v_f": 4500,
+            "v_f_leadIn": 4500,
+            "v_f_leadOut": 4500,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 4500,
+            "v_f_transition": 4500
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "0.7407662277509431 millimeters",
+              "tool_stepover": "2.550000000000001 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.03,
+            "guid": "0df03b11-84ec-48f4-a8e8-ecb8059dd457",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Face_Finish",
+            "ramp-angle": 2,
+            "stepdown": 0.7407662277509431,
+            "stepover": 2.550000000000001,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 141.3716694115407,
+            "v_f": 1350,
+            "v_f_leadIn": 1350,
+            "v_f_leadOut": 1350,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1350,
+            "v_f_transition": 1350
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "0.6000000000000001 millimeters",
+              "tool_stepover": "3 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.0225,
+            "guid": "1560da7a-11a5-4825-820d-891119ec7390",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Bore_Finish",
+            "ramp-angle": 2,
+            "stepdown": 0.6000000000000001,
+            "stepover": 3,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 141.3716694115407,
+            "v_f": 1012.5,
+            "v_f_leadIn": 1012.5,
+            "v_f_leadOut": 1012.5,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1012.5,
+            "v_f_transition": 1012.5
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "8 millimeters",
+              "tool_stepover": "2.7 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.0195,
+            "guid": "90b2bd73-d31c-4616-870f-fd0f6fe757a2",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Wall_Finish",
+            "ramp-angle": 2,
+            "stepdown": 8,
+            "stepover": 2.7,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 141.3716694115407,
+            "v_f": 877.5,
+            "v_f_leadIn": 877.5,
+            "v_f_leadOut": 877.5,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 877.5,
+            "v_f_transition": 877.5
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "8 millimeters",
+              "tool_stepover": "2.7 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.0195,
+            "guid": "72fbac6e-4c1f-4eb1-ae48-e546c31c5cf1",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Floor_Finish",
+            "ramp-angle": 2,
+            "stepdown": 8,
+            "stepover": 2.7,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 141.3716694115407,
+            "v_f": 877.5,
+            "v_f_leadIn": 877.5,
+            "v_f_leadOut": 877.5,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 877.5,
+            "v_f_transition": 877.5
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "0.6000000000000001 millimeters",
+              "tool_stepover": "3 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.0225,
+            "guid": "6e5d7f0f-33b8-4052-8500-4d91b7c19e0e",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Slot",
+            "ramp-angle": 2,
+            "stepdown": 0.6000000000000001,
+            "stepover": 3,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 141.3716694115407,
+            "v_f": 1012.5,
+            "v_f_leadIn": 1012.5,
+            "v_f_leadOut": 1012.5,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1012.5,
+            "v_f_transition": 1012.5
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "flat end mill",
+      "unit": "millimeters",
+      "vendor": "Toolpath"
+    },
+    {
+      "BMC": "carbide",
+      "description": "1.5mm 2F Flat  ",
+      "geometry": {
+        "CSP": false,
+        "DC": 1.5,
+        "HAND": true,
+        "LB": 10,
+        "LCF": 3,
+        "NOF": 2,
+        "OAL": 40,
+        "SFDM": 3,
+        "assemblyGaugeLength": 83.2026,
+        "shoulder-diameter": 3,
+        "shoulder-length": 4
+      },
+      "guid": "2a38a02a-aaab-4723-97af-56717d009386",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 9,
+        "length-offset": 9,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 9,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "https://toolpath.com/?source=fusion-tool-definition",
+      "shaft": {
+        "segments": [
+          {
+            "height": 2,
+            "lower-diameter": 1.5,
+            "upper-diameter": 3
+          }
+        ],
+        "type": "shaft"
+      },
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "3 millimeters",
+              "tool_stepover": "0.2213375901541719 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.014999999999999996,
+            "guid": "d9506bfd-ab34-4830-b68f-a8bce5a60c88",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Adaptive_Rough",
+            "ramp-angle": 2,
+            "stepdown": 3,
+            "stepover": 0.2213375901541719,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 70.68583470577035,
+            "v_f": 449.9999999999999,
+            "v_f_leadIn": 449.9999999999999,
+            "v_f_leadOut": 449.9999999999999,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 449.9999999999999,
+            "v_f_transition": 449.9999999999999
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "0.3 millimeters",
+              "tool_stepover": "1.125 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.011249999999999996,
+            "guid": "70c84639-f430-454c-b219-02ce3c419de5",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Traditional_Rough",
+            "ramp-angle": 2,
+            "stepdown": 0.3,
+            "stepover": 1.125,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 70.68583470577035,
+            "v_f": 337.4999999999999,
+            "v_f_leadIn": 337.4999999999999,
+            "v_f_leadOut": 337.4999999999999,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 337.4999999999999,
+            "v_f_transition": 337.4999999999999
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "0.3 millimeters",
+              "tool_stepover": "1.5 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.011249999999999996,
+            "guid": "81c50e12-2dad-4c93-9d1c-d2fa5fae5159",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Bore_Rough",
+            "ramp-angle": 2,
+            "stepdown": 0.3,
+            "stepover": 1.5,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 70.68583470577035,
+            "v_f": 337.4999999999999,
+            "v_f_leadIn": 337.4999999999999,
+            "v_f_leadOut": 337.4999999999999,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 337.4999999999999,
+            "v_f_transition": 337.4999999999999
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1.2 millimeters",
+              "tool_stepover": "1.275 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.1,
+            "guid": "cccaa3ad-8c55-4361-a1b8-e603152d0410",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Face_Rough",
+            "ramp-angle": 2,
+            "stepdown": 1.2,
+            "stepover": 1.275,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 70.68583470577035,
+            "v_f": 3000,
+            "v_f_leadIn": 3000,
+            "v_f_leadOut": 3000,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 3000,
+            "v_f_transition": 3000
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "0.2926751803083438 millimeters",
+              "tool_stepover": "1.275 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.014999999999999996,
+            "guid": "510b421b-5bfc-4142-8913-9e8a21416773",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Face_Finish",
+            "ramp-angle": 2,
+            "stepdown": 0.2926751803083438,
+            "stepover": 1.275,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 70.68583470577035,
+            "v_f": 449.9999999999999,
+            "v_f_leadIn": 449.9999999999999,
+            "v_f_leadOut": 449.9999999999999,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 449.9999999999999,
+            "v_f_transition": 449.9999999999999
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "0.3 millimeters",
+              "tool_stepover": "1.5 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.011249999999999996,
+            "guid": "3365513c-2c36-40c0-acab-c0fce8f9a770",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Bore_Finish",
+            "ramp-angle": 2,
+            "stepdown": 0.3,
+            "stepover": 1.5,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 70.68583470577035,
+            "v_f": 337.4999999999999,
+            "v_f_leadIn": 337.4999999999999,
+            "v_f_leadOut": 337.4999999999999,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 337.4999999999999,
+            "v_f_transition": 337.4999999999999
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "3 millimeters",
+              "tool_stepover": "1.35 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.00975,
+            "guid": "8947cc74-3c65-48ca-95b9-92fad6efd6d9",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Wall_Finish",
+            "ramp-angle": 2,
+            "stepdown": 3,
+            "stepover": 1.35,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 70.68583470577035,
+            "v_f": 292.5,
+            "v_f_leadIn": 292.5,
+            "v_f_leadOut": 292.5,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 292.5,
+            "v_f_transition": 292.5
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "3 millimeters",
+              "tool_stepover": "1.35 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.00975,
+            "guid": "bed2b1b1-7554-489e-9d62-9a86ec955dfa",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Floor_Finish",
+            "ramp-angle": 2,
+            "stepdown": 3,
+            "stepover": 1.35,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 70.68583470577035,
+            "v_f": 292.5,
+            "v_f_leadIn": 292.5,
+            "v_f_leadOut": 292.5,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 292.5,
+            "v_f_transition": 292.5
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "0.3 millimeters",
+              "tool_stepover": "1.5 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.011249999999999996,
+            "guid": "be40f2f5-55aa-4a03-9e76-96881ac88f60",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Slot",
+            "ramp-angle": 2,
+            "stepdown": 0.3,
+            "stepover": 1.5,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 70.68583470577035,
+            "v_f": 337.4999999999999,
+            "v_f_leadIn": 337.4999999999999,
+            "v_f_leadOut": 337.4999999999999,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 337.4999999999999,
+            "v_f_transition": 337.4999999999999
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "flat end mill",
+      "unit": "millimeters",
+      "vendor": "Toolpath"
+    },
+    {
+      "BMC": "carbide",
+      "description": "10mm 3F Ball  ",
+      "geometry": {
+        "CSP": false,
+        "DC": 10,
+        "HAND": true,
+        "LB": 40,
+        "LCF": 20,
+        "NOF": 3,
+        "OAL": 70,
+        "SFDM": 10,
+        "assemblyGaugeLength": 141.58710000000002,
+        "shoulder-diameter": 10,
+        "shoulder-length": 30
+      },
+      "guid": "2985b342-90d9-41f3-87a1-c262f09f2125",
+      "holder": {
+        "description": "BT40 ER25 COLLET CHUCK X 102MM GAGE LENGTH",
+        "gaugeLength": 101.5871,
+        "guid": "385a7b3e-49a1-41ca-8b35-6d0dd986c244",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 3.7084,
+            "lower-diameter": 29.10840000000001,
+            "upper-diameter": 42.0116
+          },
+          {
+            "height": 15.2654,
+            "lower-diameter": 42.0116,
+            "upper-diameter": 42.0116
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 42.0116,
+            "upper-diameter": 39.97960000000001
+          },
+          {
+            "height": 9.7282,
+            "lower-diameter": 31.877,
+            "upper-diameter": 31.877
+          },
+          {
+            "height": 4.7625,
+            "lower-diameter": 31.877,
+            "upper-diameter": 41.402
+          },
+          {
+            "height": 30.45460000000001,
+            "lower-diameter": 41.402,
+            "upper-diameter": 41.402
+          },
+          {
+            "height": 9.652,
+            "lower-diameter": 41.402,
+            "upper-diameter": 60.706
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 10,
+        "length-offset": 10,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 10,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "20 millimeters",
+              "tool_stepover": "1.888738172434328 millimeters"
+            },
+            "f_n": 0.15707963267948966,
+            "f_z": 0.11735922715542908,
+            "guid": "d3d3ee53-2207-40cf-862b-7464c8a46e22",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 9702.08533088194,
+            "n_ramp": 9702.08533088194,
+            "name": "AluWrought_Adaptive_Rough",
+            "ramp-angle": 2,
+            "stepdown": 20,
+            "stepover": 1.888738172434328,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8,
+            "v_f": 3415.88770868499,
+            "v_f_leadIn": 3415.88770868499,
+            "v_f_leadOut": 3415.88770868499,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 3415.88770868499,
+            "v_f_transition": 3415.88770868499
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "2.75 millimeters",
+              "tool_stepover": "10 millimeters"
+            },
+            "f_n": 0.15707963267948966,
+            "f_z": 0.08749999999999998,
+            "guid": "1f84c678-7af4-481e-a65a-1c3212fe49a4",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 9702.08533088194,
+            "n_ramp": 9702.08533088194,
+            "name": "AluWrought_Bore_Rough",
+            "ramp-angle": 2,
+            "stepdown": 2.75,
+            "stepover": 10,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8,
+            "v_f": 2546.797399356509,
+            "v_f_leadIn": 2546.797399356509,
+            "v_f_leadOut": 2546.797399356509,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2546.797399356509,
+            "v_f_transition": 2546.797399356509
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepover": "1.007968253468332 millimeters"
+            },
+            "f_n": 0.15707963267948966,
+            "f_z": 0.07000000000000002,
+            "guid": "0ab2321c-ef43-498e-beb9-4d249a477885",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 9702.08533088194,
+            "n_ramp": 9702.08533088194,
+            "name": "AluWrought_Surface",
+            "ramp-angle": 2,
+            "stepover": 1.007968253468332,
+            "tool-coolant": "flood",
+            "use-stepdown": false,
+            "use-stepover": true,
+            "v_c": 304.8,
+            "v_f": 2037.437919485208,
+            "v_f_leadIn": 2037.437919485208,
+            "v_f_leadOut": 2037.437919485208,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2037.437919485208,
+            "v_f_transition": 2037.437919485208
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "20 millimeters",
+              "tool_stepover": "0.5 millimeters"
+            },
+            "f_n": 0.15707963267948966,
+            "f_z": 0.07000000000000002,
+            "guid": "83d49cff-8f68-480f-9b70-60091c19ac30",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 9702.08533088194,
+            "n_ramp": 9702.08533088194,
+            "name": "AluWrought_Wall_Finish",
+            "ramp-angle": 2,
+            "stepdown": 20,
+            "stepover": 0.5,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 304.8,
+            "v_f": 2037.437919485208,
+            "v_f_leadIn": 2037.437919485208,
+            "v_f_leadOut": 2037.437919485208,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2037.437919485208,
+            "v_f_transition": 2037.437919485208
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "ball end mill",
+      "unit": "millimeters",
+      "vendor": ""
+    },
+    {
+      "BMC": "carbide",
+      "description": "6mm 4F Ball  ",
+      "geometry": {
+        "CSP": false,
+        "DC": 6,
+        "HAND": true,
+        "LB": 25,
+        "LCF": 12,
+        "NOF": 4,
+        "OAL": 42,
+        "SFDM": 6,
+        "assemblyGaugeLength": 98.2026,
+        "shoulder-diameter": 6,
+        "shoulder-length": 15
+      },
+      "guid": "aa1315ed-1615-48c2-94f5-3d6dea7879c0",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 11,
+        "length-offset": 11,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 11,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "https://toolpath.com/?source=fusion-tool-definition",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "12 millimeters",
+              "tool_stepover": "1.081960894594058 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.07076705485343741,
+            "guid": "6c2cf326-3bc5-4249-b40c-62f43c2f46fa",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Adaptive_Rough",
+            "ramp-angle": 2,
+            "stepdown": 12,
+            "stepover": 1.081960894594058,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 282.7433388230814,
+            "v_f": 4246.023291206245,
+            "v_f_leadIn": 4246.023291206245,
+            "v_f_leadOut": 4246.023291206245,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 4246.023291206245,
+            "v_f_transition": 4246.023291206245
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "1.575 millimeters",
+              "tool_stepover": "6 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.05125,
+            "guid": "3e6c9636-fc8b-4483-9d80-ddd5f9dbaf82",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Bore_Rough",
+            "ramp-angle": 2,
+            "stepdown": 1.575,
+            "stepover": 6,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 282.7433388230814,
+            "v_f": 3075,
+            "v_f_leadIn": 3075,
+            "v_f_leadOut": 3075,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 3075,
+            "v_f_transition": 3075
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepover": "0.7807688518377254 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.0415,
+            "guid": "0a792c99-509b-4142-822b-82d7e689b2a7",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Surface",
+            "ramp-angle": 2,
+            "stepover": 0.7807688518377254,
+            "tool-coolant": "flood",
+            "use-stepdown": false,
+            "use-stepover": true,
+            "v_c": 282.7433388230814,
+            "v_f": 2490,
+            "v_f_leadIn": 2490,
+            "v_f_leadOut": 2490,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2490,
+            "v_f_transition": 2490
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "12 millimeters",
+              "tool_stepover": "0.3 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.0415,
+            "guid": "85362d62-4ec1-4476-bfe9-5f80eb71d70c",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Wall_Finish",
+            "ramp-angle": 2,
+            "stepdown": 12,
+            "stepover": 0.3,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 282.7433388230814,
+            "v_f": 2490,
+            "v_f_leadIn": 2490,
+            "v_f_leadOut": 2490,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2490,
+            "v_f_transition": 2490
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "ball end mill",
+      "unit": "millimeters",
+      "vendor": "Toolpath"
+    },
+    {
+      "BMC": "carbide",
+      "description": "3mm 3F Ball  ",
+      "geometry": {
+        "CSP": false,
+        "DC": 3,
+        "HAND": true,
+        "LB": 15,
+        "LCF": 5,
+        "NOF": 3,
+        "OAL": 31,
+        "SFDM": 3,
+        "assemblyGaugeLength": 88.2026,
+        "shoulder-diameter": 3,
+        "shoulder-length": 10
+      },
+      "guid": "44ea45e7-5a04-445e-8099-0500c58ba80c",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 12,
+        "length-offset": 12,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 12,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "https://toolpath.com/?source=fusion-tool-definition",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "5 millimeters",
+              "tool_stepover": "0.4277873354066036 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.03,
+            "guid": "d546edbb-3c6a-4224-a371-5c45d8d44c53",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Adaptive_Rough",
+            "ramp-angle": 2,
+            "stepdown": 5,
+            "stepover": 0.4277873354066036,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 141.3716694115407,
+            "v_f": 1350,
+            "v_f_leadIn": 1350,
+            "v_f_leadOut": 1350,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1350,
+            "v_f_transition": 1350
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "0.6000000000000001 millimeters",
+              "tool_stepover": "3 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.0225,
+            "guid": "b9f5b11e-589e-4fad-ae38-e00d0b3d2135",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Bore_Rough",
+            "ramp-angle": 2,
+            "stepdown": 0.6000000000000001,
+            "stepover": 3,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 141.3716694115407,
+            "v_f": 1012.5,
+            "v_f_leadIn": 1012.5,
+            "v_f_leadOut": 1012.5,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1012.5,
+            "v_f_transition": 1012.5
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepover": "0.5520869496736904 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.0195,
+            "guid": "65e9e1cb-45e8-4070-b5ee-8e9d57b61087",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Surface",
+            "ramp-angle": 2,
+            "stepover": 0.5520869496736904,
+            "tool-coolant": "flood",
+            "use-stepdown": false,
+            "use-stepover": true,
+            "v_c": 141.3716694115407,
+            "v_f": 877.5,
+            "v_f_leadIn": 877.5,
+            "v_f_leadOut": 877.5,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 877.5,
+            "v_f_transition": 877.5
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepdown": "5 millimeters",
+              "tool_stepover": "0.15 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.0195,
+            "guid": "e5ac5991-e3ee-43d2-931a-9d56c1224edf",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Wall_Finish",
+            "ramp-angle": 2,
+            "stepdown": 5,
+            "stepover": 0.15,
+            "tool-coolant": "flood",
+            "use-stepdown": true,
+            "use-stepover": true,
+            "v_c": 141.3716694115407,
+            "v_f": 877.5,
+            "v_f_leadIn": 877.5,
+            "v_f_leadOut": 877.5,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 877.5,
+            "v_f_transition": 877.5
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "ball end mill",
+      "unit": "millimeters",
+      "vendor": "Toolpath"
+    },
+    {
+      "BMC": "ti coated",
+      "description": "6mm 4F Chamfer  41°",
+      "geometry": {
+        "CSP": false,
+        "DC": 6,
+        "HAND": true,
+        "LB": 18,
+        "LCF": 3,
+        "NOF": 4,
+        "OAL": 55,
+        "SFDM": 6,
+        "TA": 41,
+        "assemblyGaugeLength": 91.2026,
+        "shoulder-diameter": 6,
+        "shoulder-length": 3,
+        "tip-diameter": 0.25
+      },
+      "guid": "d6c03d65-4589-4c46-b4d4-dc8b5ea94190",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 13,
+        "length-offset": 13,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 13,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "https://toolpath.com/?source=fusion-tool-definition",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.045,
+            "guid": "1e934a3e-819f-409a-b821-2630e903b1da",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Chamfer",
+            "ramp-angle": 2,
+            "tool-coolant": "flood",
+            "use-stepdown": false,
+            "use-stepover": false,
+            "v_c": 282.7433388230814,
+            "v_f": 2700,
+            "v_f_leadIn": 2700,
+            "v_f_leadOut": 2700,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2700,
+            "v_f_transition": 2700
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepover": "0.5608265025359623 millimeters"
+            },
+            "f_n": 0.1016,
+            "f_z": 0.045,
+            "guid": "b85814bb-52e2-4ec5-bdb4-29a2d5d60bb6",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 15000,
+            "n_ramp": 15000,
+            "name": "AluWrought_Surface",
+            "ramp-angle": 2,
+            "stepover": 0.5608265025359623,
+            "tool-coolant": "flood",
+            "use-stepdown": false,
+            "use-stepover": true,
+            "v_c": 282.7433388230814,
+            "v_f": 2700,
+            "v_f_leadIn": 2700,
+            "v_f_leadOut": 2700,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2700,
+            "v_f_transition": 2700
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "chamfer mill",
+      "unit": "millimeters",
+      "vendor": "Toolpath"
+    },
+    {
+      "BMC": "ti coated",
+      "description": "8mm 4F Chamfer  45°",
+      "geometry": {
+        "CSP": false,
+        "DC": 8,
+        "HAND": true,
+        "LB": 20,
+        "LCF": 4,
+        "NOF": 4,
+        "OAL": 55,
+        "SFDM": 8,
+        "TA": 45,
+        "assemblyGaugeLength": 93.2026,
+        "shoulder-diameter": 8,
+        "shoulder-length": 4,
+        "tip-diameter": 0.5
+      },
+      "guid": "f469ac66-5d9c-49c2-bc98-73b3b2bf7caf",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 14,
+        "length-offset": 14,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 14,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "https://toolpath.com/?source=fusion-tool-definition",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed"
+            },
+            "f_n": 0.12566370614359168,
+            "f_z": 0.05999999999999998,
+            "guid": "81c1f468-5f51-4cea-8de0-0a496e358ed9",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12127.60666360243,
+            "n_ramp": 12127.60666360243,
+            "name": "AluWrought_Chamfer",
+            "ramp-angle": 2,
+            "tool-coolant": "flood",
+            "use-stepdown": false,
+            "use-stepover": false,
+            "v_c": 304.8000000000001,
+            "v_f": 2910.625599264582,
+            "v_f_leadIn": 2910.625599264582,
+            "v_f_leadOut": 2910.625599264582,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2910.625599264582,
+            "v_f_transition": 2910.625599264582
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting",
+              "tool_rampAngle": "2 degrees",
+              "tool_rampSpindleSpeed": "tool_spindleSpeed",
+              "tool_stepover": "0.828426347527841 millimeters"
+            },
+            "f_n": 0.12566370614359168,
+            "f_z": 0.05999999999999998,
+            "guid": "f9730990-9237-4898-b86f-7edcc8c736be",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12127.60666360243,
+            "n_ramp": 12127.60666360243,
+            "name": "AluWrought_Surface",
+            "ramp-angle": 2,
+            "stepover": 0.828426347527841,
+            "tool-coolant": "flood",
+            "use-stepdown": false,
+            "use-stepover": true,
+            "v_c": 304.8000000000001,
+            "v_f": 2910.625599264582,
+            "v_f_leadIn": 2910.625599264582,
+            "v_f_leadOut": 2910.625599264582,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2910.625599264582,
+            "v_f_transition": 2910.625599264582
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "chamfer mill",
+      "unit": "millimeters",
+      "vendor": "Toolpath"
+    }
+  ]
+}

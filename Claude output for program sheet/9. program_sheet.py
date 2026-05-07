@@ -537,7 +537,7 @@ def _build_setup_page(setup: Dict, data: Dict,
                 continue
 
             tid      = step.get('tool_id') or '--'
-            tnum     = f'T{t_numbers.get(tid, "?"):02d}' if tid != '--' else '--'
+            tnum     = (f'T{t_numbers[tid]:02d}' if tid in t_numbers else 'T??') if tid != '--' else '--'
             tool_dia = step.get('tool_diameter_mm')
             corner_r = step.get('corner_radius', 0) or 0
             depth    = step.get('depth_mm')

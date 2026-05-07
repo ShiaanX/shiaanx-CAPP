@@ -36,6 +36,7 @@ In this project, the system we are building is an automated CAD-to-part process 
 
 All pipeline scripts live in: `Claude output for program sheet/`
 Python environment: conda env named `occ` (create from `environment.yml`)
+OCC Python executable (use this instead of `conda run` in subprocesses): `C:\Users\Siddhant Gupta\miniconda3\envs\occ\python.exe`
 Run example (PowerShell): `conda run -n occ python "10. run_pipeline.py" "<path-to.step>"`
 Git repo: `https://github.com/siddhantg2311/shiaanx-CAPP` (branch: main)
 
@@ -152,10 +153,39 @@ Material aliases: `aluminium_6061/6063/6082/7075/7050` → `aluminium`.
 ### Dataset
 
 MFCAD++ dataset: `Claude output for program sheet/Dataset/MFCAD_dataset/MFCAD++_dataset/`
-- 8,949 STEP files in `step/test/`
+- ~60,000 STEP files total across train/test splits (~59,665 confirmed)
 - 25 feature classes defined in `feature_labels.txt`
 - Excluded from git (too large — see AD-008)
 - Test parts processed so far: `step/test/21/`, `step/test/25/`
+
+### ML Classifier (Stage 3)
+
+Trained RF models live in `Claude output for program sheet/models/`.
+Current best: `rf_classifier_v3.pkl` — **66.2% accuracy** on full dataset.
+`classify_features.py` accepts `--mode ml` to use the RF model instead of rules.
+
+| Model | Features | Accuracy | Notes |
+|-------|----------|----------|-------|
+| v1 baseline | 10 | 66.0% | Face-level only, trained on H5 |
+| v2 | 15 | 69.2% | Best H5-trained accuracy |
+| v3 | 15 | 66.2% | Pipeline-native features, production model |
+| v4 | 18 | 65.8% | Cluster-proxy features — marginally worse than v3 |
+
+Weak classes: rectangular_blind_slot (F1=0.04), triangular/rectangular through slots (~0.16–0.21).
+
+### Autonomous Agent
+
+A self-improving loop that searches Kaggle + GitHub for labeled CAD datasets, retrains the RF, and auto-promotes if accuracy improves. Uses Gemini Flash (free tier) for two LLM decisions per cycle.
+
+**Location:** `Claude output for program sheet/Autonomous Agent/`
+**State + setup instructions:** `Claude output for program sheet/Autonomous Agent/AGENT_STATE.md`
+**Status:** Built 2026-05-04. Not yet run — needs Kaggle token + Gemini API key (see AGENT_STATE.md).
+
+Run (single test cycle):
+```powershell
+$env:GEMINI_API_KEY = "AIza..."
+conda run -n occ python "Claude output for program sheet/Autonomous Agent/agent_loop.py" --once
+```
 
 
 ## Competitors to Be Aware Of
@@ -221,4 +251,11 @@ Document every major decision here so future sessions don't relitigate them.
 ### AD-008 — Dataset STEP files excluded from git
 **Date:** 2026-04-11
 **Decision:** `Claude output for program sheet/Dataset/` is in `.gitignore` and not committed.
-**Reason:** 8,949 STEP files are too large for a git repo. The MFCAD++ dataset is a standard public dataset that can be re-downloaded. Only intermediate pipeline outputs for specific tested parts (e.g. `Basic Design/`, `Botlabs Hub/`, `Botlabs Hinge/`) are committed.
+**Reason:** ~60,000 STEP files are too large for a git repo. The MFCAD++ dataset is a standard public dataset that can be re-downloaded. Only intermediate pipeline outputs for specific tested parts (e.g. `Basic Design/`, `Botlabs Hub/`, `Botlabs Hinge/`) are committed.
+
+---
+
+### AD-009 — Helper modules kept as numbered + shim file pairs
+**Date:** 2026-04-28
+**Decision:** Each helper module exists as two files: a numbered implementation file (e.g. `2a. feature_graph.py`) and a clean-named shim (e.g. `feature_graph.py`). The numbered file holds all the code; the shim is 7 lines that load it via `importlib.util` and re-export everything.
+**Reason:** The numbering (2a, 2b, 5a) makes the pipeline stage map immediately readable. Plain-named shims are required because Python cannot `import` filenames containing spaces and numbers directly. Do NOT consolidate these into a single file or remove the shims.

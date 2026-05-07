@@ -1,0 +1,3842 @@
+{
+  "uuid": "10xb9bn4",
+  "name": "Countersinks (Metric)",
+  "shared": true,
+  "version": 33,
+  "data": [
+    {
+      "BMC": "carbide",
+      "description": "16mm Countersink 82°",
+      "geometry": {
+        "CSP": true,
+        "DC": 16,
+        "HAND": true,
+        "LB": 25,
+        "LCF": 6,
+        "NOF": 3,
+        "OAL": 50,
+        "SFDM": 6,
+        "SIG": 82,
+        "assemblyGaugeLength": 98.2026,
+        "shoulder-length": 10,
+        "tip-diameter": 4
+      },
+      "guid": "788dfc1c-2339-43b7-b791-1b1ce6d047c8",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 0,
+        "length-offset": 0,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 0,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.2513274122871834,
+            "f_n_retract": 0.7539822368615503,
+            "f_z": 0.11999999999999997,
+            "guid": "7a0fbb2b-b5dd-4f8a-9ce6-5a1bce24efc5",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 6063.803331801213,
+            "name": "AluWrought_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 304.8,
+            "v_f": 2182.969199448436,
+            "v_f_leadIn": 2182.969199448436,
+            "v_f_leadOut": 2182.969199448436,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2182.969199448436,
+            "v_f_retract": 4572,
+            "v_f_transition": 2182.969199448436
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.418879020478639,
+            "f_n_retract": 1.256637061435917,
+            "f_z": 0.048,
+            "guid": "fbf21c8d-5f28-44de-835b-2bb39e4f5bcc",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 3638.281999080728,
+            "name": "LowCSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 182.88000000000002,
+            "v_f": 523.9126078676248,
+            "v_f_leadIn": 523.9126078676248,
+            "v_f_leadOut": 523.9126078676248,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 523.9126078676248,
+            "v_f_retract": 4572,
+            "v_f_transition": 523.9126078676248
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 1.2566370614359168,
+            "f_n_retract": 3.76991118430775,
+            "f_z": 0.04799999999999997,
+            "guid": "e612cf03-ebfd-4d74-89f8-d8a09af2b3f8",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 1212.760666360243,
+            "name": "StainlessSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 60.96000000000003,
+            "v_f": 174.6375359558749,
+            "v_f_leadIn": 174.6375359558749,
+            "v_f_leadOut": 174.6375359558749,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 174.6375359558749,
+            "v_f_retract": 4572,
+            "v_f_transition": 174.6375359558749
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "counter sink",
+      "unit": "millimeters",
+      "vendor": ""
+    },
+    {
+      "BMC": "carbide",
+      "description": "16mm Countersink 90°",
+      "geometry": {
+        "CSP": true,
+        "DC": 16,
+        "HAND": true,
+        "LB": 25,
+        "LCF": 6,
+        "NOF": 3,
+        "OAL": 50,
+        "SFDM": 6,
+        "SIG": 90,
+        "assemblyGaugeLength": 98.2026,
+        "shoulder-length": 9,
+        "tip-diameter": 4
+      },
+      "guid": "86804113-b067-405b-9fa8-0232e5a19174",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 0,
+        "length-offset": 0,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 0,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.2513274122871834,
+            "f_n_retract": 0.7539822368615503,
+            "f_z": 0.11999999999999997,
+            "guid": "75114a88-945d-4e5f-8a4b-e01c792d896f",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 6063.803331801213,
+            "name": "AluWrought_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 304.8,
+            "v_f": 2182.969199448436,
+            "v_f_leadIn": 2182.969199448436,
+            "v_f_leadOut": 2182.969199448436,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2182.969199448436,
+            "v_f_retract": 4572,
+            "v_f_transition": 2182.969199448436
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.418879020478639,
+            "f_n_retract": 1.256637061435917,
+            "f_z": 0.048,
+            "guid": "390fd0df-d72f-4873-8934-cdb58a1dbc51",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 3638.281999080728,
+            "name": "LowCSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 182.88000000000002,
+            "v_f": 523.9126078676248,
+            "v_f_leadIn": 523.9126078676248,
+            "v_f_leadOut": 523.9126078676248,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 523.9126078676248,
+            "v_f_retract": 4572,
+            "v_f_transition": 523.9126078676248
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 1.2566370614359168,
+            "f_n_retract": 3.76991118430775,
+            "f_z": 0.04799999999999997,
+            "guid": "b8cb1fd0-1fd0-4d8c-964f-086e4882b1bc",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 1212.760666360243,
+            "name": "StainlessSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 60.96000000000003,
+            "v_f": 174.6375359558749,
+            "v_f_leadIn": 174.6375359558749,
+            "v_f_leadOut": 174.6375359558749,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 174.6375359558749,
+            "v_f_retract": 4572,
+            "v_f_transition": 174.6375359558749
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "counter sink",
+      "unit": "millimeters",
+      "vendor": ""
+    },
+    {
+      "BMC": "carbide",
+      "description": "14mm Countersink 90°",
+      "geometry": {
+        "CSP": true,
+        "DC": 14,
+        "HAND": true,
+        "LB": 25,
+        "LCF": 7,
+        "NOF": 4,
+        "OAL": 50,
+        "SFDM": 8,
+        "SIG": 90,
+        "assemblyGaugeLength": 98.2026,
+        "shoulder-length": 14,
+        "tip-diameter": 0
+      },
+      "guid": "36ecdd65-214d-49ee-ae2f-733be90cd150",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 0,
+        "length-offset": 0,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 0,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.21991148575128555,
+            "f_n_retract": 0.6597344572538567,
+            "f_z": 0.10499999999999998,
+            "guid": "6b1a1a3a-d939-4222-ba3d-5e08c40c3535",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 6930.060950629956,
+            "name": "AluWrought_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 304.79999999999995,
+            "v_f": 2910.625599264581,
+            "v_f_leadIn": 2910.625599264581,
+            "v_f_leadOut": 2910.625599264581,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2910.625599264581,
+            "v_f_retract": 4572,
+            "v_f_transition": 2910.625599264581
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.3665191429188093,
+            "f_n_retract": 1.099557428756428,
+            "f_z": 0.042,
+            "guid": "72f19b8c-6455-45dc-9345-307bfb277ef3",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 4158.036570377973,
+            "name": "LowCSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 182.8799999999999,
+            "v_f": 698.5501438234994,
+            "v_f_leadIn": 698.5501438234994,
+            "v_f_leadOut": 698.5501438234994,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 698.5501438234994,
+            "v_f_retract": 4572,
+            "v_f_transition": 698.5501438234994
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 1.0995574287564278,
+            "f_n_retract": 3.2986722862692837,
+            "f_z": 0.042000000000000016,
+            "guid": "f2ee0485-9b7d-4278-90a1-678a671b57c1",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 1386.012190125991,
+            "name": "StainlessSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 60.95999999999999,
+            "v_f": 232.8500479411666,
+            "v_f_leadIn": 232.8500479411666,
+            "v_f_leadOut": 232.8500479411666,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 232.8500479411666,
+            "v_f_retract": 4572,
+            "v_f_transition": 232.8500479411666
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "counter sink",
+      "unit": "millimeters",
+      "vendor": ""
+    },
+    {
+      "BMC": "carbide",
+      "description": "14mm Countersink 90°",
+      "geometry": {
+        "CSP": true,
+        "DC": 14,
+        "HAND": true,
+        "LB": 25,
+        "LCF": 5,
+        "NOF": 3,
+        "OAL": 50,
+        "SFDM": 6,
+        "SIG": 90,
+        "assemblyGaugeLength": 98.2026,
+        "shoulder-length": 7.5,
+        "tip-diameter": 4
+      },
+      "guid": "8fc7e9b5-860e-4b2b-8334-3a6a4f443f1a",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 0,
+        "length-offset": 0,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 0,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.21991148575128555,
+            "f_n_retract": 0.6597344572538567,
+            "f_z": 0.10499999999999998,
+            "guid": "c75838f6-8d0c-47b9-9386-7b0980d040b8",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 6930.060950629956,
+            "name": "AluWrought_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 304.79999999999995,
+            "v_f": 2182.969199448436,
+            "v_f_leadIn": 2182.969199448436,
+            "v_f_leadOut": 2182.969199448436,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2182.969199448436,
+            "v_f_retract": 4572,
+            "v_f_transition": 2182.969199448436
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.3665191429188093,
+            "f_n_retract": 1.099557428756428,
+            "f_z": 0.041999999999999996,
+            "guid": "70664b46-150d-41fd-8626-93ee6468f008",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 4158.036570377973,
+            "name": "LowCSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 182.8799999999999,
+            "v_f": 523.9126078676245,
+            "v_f_leadIn": 523.9126078676245,
+            "v_f_leadOut": 523.9126078676245,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 523.9126078676245,
+            "v_f_retract": 4572,
+            "v_f_transition": 523.9126078676245
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 1.0995574287564278,
+            "f_n_retract": 3.2986722862692837,
+            "f_z": 0.042,
+            "guid": "e4234f48-ea0c-44ad-977a-87073cc9e156",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 1386.012190125991,
+            "name": "StainlessSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 60.95999999999999,
+            "v_f": 174.6375359558749,
+            "v_f_leadIn": 174.6375359558749,
+            "v_f_leadOut": 174.6375359558749,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 174.6375359558749,
+            "v_f_retract": 4572,
+            "v_f_transition": 174.6375359558749
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "counter sink",
+      "unit": "millimeters",
+      "vendor": ""
+    },
+    {
+      "BMC": "carbide",
+      "description": "12mm Countersink 82°",
+      "geometry": {
+        "CSP": true,
+        "DC": 12,
+        "HAND": true,
+        "LB": 25,
+        "LCF": 4,
+        "NOF": 4,
+        "OAL": 50,
+        "SFDM": 8,
+        "SIG": 82,
+        "assemblyGaugeLength": 98.2026,
+        "shoulder-length": 8,
+        "tip-diameter": 0
+      },
+      "guid": "d0dee485-5d3c-4dbe-8279-511e851cafa3",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 0,
+        "length-offset": 0,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 0,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.18849555921538763,
+            "f_n_retract": 0.5654866776461629,
+            "f_z": 0.09,
+            "guid": "d9efab74-1bd3-4956-acd5-71d1f975fada",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 8085.071109068282,
+            "name": "AluWrought_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 304.79999999999995,
+            "v_f": 2910.625599264581,
+            "v_f_leadIn": 2910.625599264581,
+            "v_f_leadOut": 2910.625599264581,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2910.625599264581,
+            "v_f_retract": 4572,
+            "v_f_transition": 2910.625599264581
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.31415926535897937,
+            "f_n_retract": 0.942477796076938,
+            "f_z": 0.03599999999999999,
+            "guid": "a0801b46-04c8-4e1f-9e5b-a1053c606ab7",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 4851.042665440969,
+            "name": "LowCSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 182.87999999999997,
+            "v_f": 698.5501438234994,
+            "v_f_leadIn": 698.5501438234994,
+            "v_f_leadOut": 698.5501438234994,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 698.5501438234994,
+            "v_f_retract": 4572,
+            "v_f_transition": 698.5501438234994
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.9424777960769384,
+            "f_n_retract": 2.827433388230815,
+            "f_z": 0.03600000000000001,
+            "guid": "84b546c9-d81d-4e13-a07f-ecdf52ca4227",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 1617.014221813656,
+            "name": "StainlessSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 60.95999999999997,
+            "v_f": 232.8500479411665,
+            "v_f_leadIn": 232.8500479411665,
+            "v_f_leadOut": 232.8500479411665,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 232.8500479411665,
+            "v_f_retract": 4572,
+            "v_f_transition": 232.8500479411665
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "counter sink",
+      "unit": "millimeters",
+      "vendor": ""
+    },
+    {
+      "BMC": "carbide",
+      "description": "12mm Countersink 90°",
+      "geometry": {
+        "CSP": true,
+        "DC": 12,
+        "HAND": true,
+        "LB": 25,
+        "LCF": 4,
+        "NOF": 3,
+        "OAL": 50,
+        "SFDM": 6,
+        "SIG": 90,
+        "assemblyGaugeLength": 98.2026,
+        "shoulder-length": 6,
+        "tip-diameter": 4
+      },
+      "guid": "fa37b90d-102f-4511-b9e9-f020b3cceae8",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 0,
+        "length-offset": 0,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 0,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.18849555921538763,
+            "f_n_retract": 0.5654866776461629,
+            "f_z": 0.09,
+            "guid": "77e24756-1968-4865-b648-3a8432ac225b",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 8085.071109068282,
+            "name": "AluWrought_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 304.79999999999995,
+            "v_f": 2182.969199448436,
+            "v_f_leadIn": 2182.969199448436,
+            "v_f_leadOut": 2182.969199448436,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2182.969199448436,
+            "v_f_retract": 4572,
+            "v_f_transition": 2182.969199448436
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.31415926535897937,
+            "f_n_retract": 0.942477796076938,
+            "f_z": 0.03599999999999999,
+            "guid": "1dd2bf2b-ecbe-4261-a33f-cc90a163e7c4",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 4851.042665440969,
+            "name": "LowCSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 182.87999999999997,
+            "v_f": 523.9126078676245,
+            "v_f_leadIn": 523.9126078676245,
+            "v_f_leadOut": 523.9126078676245,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 523.9126078676245,
+            "v_f_retract": 4572,
+            "v_f_transition": 523.9126078676245
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.9424777960769384,
+            "f_n_retract": 2.827433388230815,
+            "f_z": 0.03600000000000002,
+            "guid": "2592cf54-2add-48ce-9a24-34d7d9291fbd",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 1617.014221813656,
+            "name": "StainlessSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 60.95999999999997,
+            "v_f": 174.6375359558749,
+            "v_f_leadIn": 174.6375359558749,
+            "v_f_leadOut": 174.6375359558749,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 174.6375359558749,
+            "v_f_retract": 4572,
+            "v_f_transition": 174.6375359558749
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "counter sink",
+      "unit": "millimeters",
+      "vendor": ""
+    },
+    {
+      "BMC": "carbide",
+      "description": "12mm Countersink 120°",
+      "geometry": {
+        "CSP": true,
+        "DC": 12,
+        "HAND": true,
+        "LB": 25,
+        "LCF": 3.4,
+        "NOF": 4,
+        "OAL": 50,
+        "SFDM": 6,
+        "SIG": 120,
+        "assemblyGaugeLength": 98.2026,
+        "shoulder-length": 6.8,
+        "tip-diameter": 0
+      },
+      "guid": "f5054650-a078-4b3c-8f3f-db914a655d2a",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 0,
+        "length-offset": 0,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 0,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.18849555921538763,
+            "f_n_retract": 0.5654866776461629,
+            "f_z": 0.09,
+            "guid": "67196a74-b163-41fc-b9b5-a5def1d95c27",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 8085.071109068282,
+            "name": "AluWrought_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 304.79999999999995,
+            "v_f": 2910.625599264581,
+            "v_f_leadIn": 2910.625599264581,
+            "v_f_leadOut": 2910.625599264581,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2910.625599264581,
+            "v_f_retract": 4572,
+            "v_f_transition": 2910.625599264581
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.31415926535897937,
+            "f_n_retract": 0.942477796076938,
+            "f_z": 0.03599999999999999,
+            "guid": "709b259d-7b55-4564-9b5f-f86df6dfe967",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 4851.042665440969,
+            "name": "LowCSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 182.87999999999997,
+            "v_f": 698.5501438234994,
+            "v_f_leadIn": 698.5501438234994,
+            "v_f_leadOut": 698.5501438234994,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 698.5501438234994,
+            "v_f_retract": 4572,
+            "v_f_transition": 698.5501438234994
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.9424777960769384,
+            "f_n_retract": 2.827433388230815,
+            "f_z": 0.03600000000000001,
+            "guid": "c53b5d9b-4ae0-40ce-88e6-9dee189df1a3",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 1617.014221813656,
+            "name": "StainlessSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 60.95999999999997,
+            "v_f": 232.8500479411665,
+            "v_f_leadIn": 232.8500479411665,
+            "v_f_leadOut": 232.8500479411665,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 232.8500479411665,
+            "v_f_retract": 4572,
+            "v_f_transition": 232.8500479411665
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "counter sink",
+      "unit": "millimeters",
+      "vendor": ""
+    },
+    {
+      "BMC": "carbide",
+      "description": "10mm Countersink 90°",
+      "geometry": {
+        "CSP": true,
+        "DC": 10,
+        "HAND": true,
+        "LB": 25,
+        "LCF": 5,
+        "NOF": 4,
+        "OAL": 50,
+        "SFDM": 6,
+        "SIG": 90,
+        "assemblyGaugeLength": 98.2026,
+        "shoulder-length": 10,
+        "tip-diameter": 0
+      },
+      "guid": "82686a18-3cab-415c-a291-36d1e9b47d25",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 0,
+        "length-offset": 0,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 0,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.15707963267948966,
+            "f_n_retract": 0.47123889803846897,
+            "f_z": 0.075,
+            "guid": "be9fe4e6-d1ce-414d-b78b-2c69bf076e7e",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 9702.08533088194,
+            "name": "AluWrought_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 304.8,
+            "v_f": 2910.625599264582,
+            "v_f_leadIn": 2910.625599264582,
+            "v_f_leadOut": 2910.625599264582,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2910.625599264582,
+            "v_f_retract": 4572,
+            "v_f_transition": 2910.625599264582
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.2617993877991494,
+            "f_n_retract": 0.7853981633974483,
+            "f_z": 0.03,
+            "guid": "4205f130-36c1-401c-8fa0-84da60996fb8",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 5821.251198529164,
+            "name": "LowCSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 182.88,
+            "v_f": 698.5501438234996,
+            "v_f_leadIn": 698.5501438234996,
+            "v_f_leadOut": 698.5501438234996,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 698.5501438234996,
+            "v_f_retract": 4572,
+            "v_f_transition": 698.5501438234996
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.7853981633974483,
+            "f_n_retract": 2.356194490192345,
+            "f_z": 0.029999999999999992,
+            "guid": "21a50236-e1f1-41c2-a937-df1d33903b89",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 1940.417066176388,
+            "name": "StainlessSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 60.96,
+            "v_f": 232.8500479411665,
+            "v_f_leadIn": 232.8500479411665,
+            "v_f_leadOut": 232.8500479411665,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 232.8500479411665,
+            "v_f_retract": 4572,
+            "v_f_transition": 232.8500479411665
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "counter sink",
+      "unit": "millimeters",
+      "vendor": ""
+    },
+    {
+      "BMC": "carbide",
+      "description": "10mm Countersink 90°",
+      "geometry": {
+        "CSP": true,
+        "DC": 10,
+        "HAND": true,
+        "LB": 25,
+        "LCF": 3,
+        "NOF": 3,
+        "OAL": 50,
+        "SFDM": 6,
+        "SIG": 90,
+        "assemblyGaugeLength": 98.2026,
+        "shoulder-length": 4.5,
+        "tip-diameter": 4
+      },
+      "guid": "fe94089e-8dae-4426-a633-e159e544b806",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 0,
+        "length-offset": 0,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 0,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.15707963267948966,
+            "f_n_retract": 0.47123889803846897,
+            "f_z": 0.07499999999999998,
+            "guid": "0e131f83-5841-419d-90db-739de935b856",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 9702.08533088194,
+            "name": "AluWrought_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 304.8,
+            "v_f": 2182.969199448436,
+            "v_f_leadIn": 2182.969199448436,
+            "v_f_leadOut": 2182.969199448436,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2182.969199448436,
+            "v_f_retract": 4572,
+            "v_f_transition": 2182.969199448436
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.2617993877991494,
+            "f_n_retract": 0.7853981633974483,
+            "f_z": 0.03,
+            "guid": "a54361f5-038f-4172-8d82-05c332abd981",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 5821.251198529164,
+            "name": "LowCSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 182.88,
+            "v_f": 523.9126078676247,
+            "v_f_leadIn": 523.9126078676247,
+            "v_f_leadOut": 523.9126078676247,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 523.9126078676247,
+            "v_f_retract": 4572,
+            "v_f_transition": 523.9126078676247
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.7853981633974483,
+            "f_n_retract": 2.356194490192345,
+            "f_z": 0.03,
+            "guid": "950aff1c-fe88-42fa-9b9b-5fa20efa1f8b",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 1940.417066176388,
+            "name": "StainlessSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 60.96,
+            "v_f": 174.6375359558749,
+            "v_f_leadIn": 174.6375359558749,
+            "v_f_leadOut": 174.6375359558749,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 174.6375359558749,
+            "v_f_retract": 4572,
+            "v_f_transition": 174.6375359558749
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "counter sink",
+      "unit": "millimeters",
+      "vendor": ""
+    },
+    {
+      "BMC": "carbide",
+      "description": "10mm Countersink 82°",
+      "geometry": {
+        "CSP": true,
+        "DC": 10,
+        "HAND": true,
+        "LB": 25,
+        "LCF": 5,
+        "NOF": 4,
+        "OAL": 50,
+        "SFDM": 10,
+        "SIG": 82,
+        "assemblyGaugeLength": 126.5871,
+        "shoulder-length": 10,
+        "tip-diameter": 0
+      },
+      "guid": "9d855b3f-e150-4681-9098-4a9a33c24f9a",
+      "holder": {
+        "description": "BT40 ER25 COLLET CHUCK X 102MM GAGE LENGTH",
+        "gaugeLength": 101.5871,
+        "guid": "385a7b3e-49a1-41ca-8b35-6d0dd986c244",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 3.7084,
+            "lower-diameter": 29.10840000000001,
+            "upper-diameter": 42.0116
+          },
+          {
+            "height": 15.2654,
+            "lower-diameter": 42.0116,
+            "upper-diameter": 42.0116
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 42.0116,
+            "upper-diameter": 39.97960000000001
+          },
+          {
+            "height": 9.7282,
+            "lower-diameter": 31.877,
+            "upper-diameter": 31.877
+          },
+          {
+            "height": 4.7625,
+            "lower-diameter": 31.877,
+            "upper-diameter": 41.402
+          },
+          {
+            "height": 30.45460000000001,
+            "lower-diameter": 41.402,
+            "upper-diameter": 41.402
+          },
+          {
+            "height": 9.652,
+            "lower-diameter": 41.402,
+            "upper-diameter": 60.706
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 0,
+        "length-offset": 0,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 0,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.15707963267948966,
+            "f_n_retract": 0.47123889803846897,
+            "f_z": 0.075,
+            "guid": "8a137333-cf23-43d2-88fd-1741b04dd86b",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 9702.08533088194,
+            "name": "AluWrought_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 304.8,
+            "v_f": 2910.625599264582,
+            "v_f_leadIn": 2910.625599264582,
+            "v_f_leadOut": 2910.625599264582,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2910.625599264582,
+            "v_f_retract": 4572,
+            "v_f_transition": 2910.625599264582
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.2617993877991494,
+            "f_n_retract": 0.7853981633974483,
+            "f_z": 0.03,
+            "guid": "92cf14d5-3aff-472c-b722-412679afa66f",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 5821.251198529164,
+            "name": "LowCSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 182.88,
+            "v_f": 698.5501438234996,
+            "v_f_leadIn": 698.5501438234996,
+            "v_f_leadOut": 698.5501438234996,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 698.5501438234996,
+            "v_f_retract": 4572,
+            "v_f_transition": 698.5501438234996
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.7853981633974483,
+            "f_n_retract": 2.356194490192345,
+            "f_z": 0.029999999999999992,
+            "guid": "aaec3658-adae-49e1-8525-de4c98196ae0",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 1940.417066176388,
+            "name": "StainlessSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 60.96,
+            "v_f": 232.8500479411665,
+            "v_f_leadIn": 232.8500479411665,
+            "v_f_leadOut": 232.8500479411665,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 232.8500479411665,
+            "v_f_retract": 4572,
+            "v_f_transition": 232.8500479411665
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "counter sink",
+      "unit": "millimeters",
+      "vendor": ""
+    },
+    {
+      "BMC": "carbide",
+      "description": "10mm Countersink 120°",
+      "geometry": {
+        "CSP": true,
+        "DC": 10,
+        "HAND": true,
+        "LB": 25,
+        "LCF": 2.8,
+        "NOF": 4,
+        "OAL": 50,
+        "SFDM": 6,
+        "SIG": 120,
+        "assemblyGaugeLength": 98.2026,
+        "shoulder-length": 5.6,
+        "tip-diameter": 0
+      },
+      "guid": "69dc1e26-662b-4919-bc49-5143600172b8",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 0,
+        "length-offset": 0,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 0,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.15707963267948966,
+            "f_n_retract": 0.47123889803846897,
+            "f_z": 0.075,
+            "guid": "23b111ef-3a16-4e58-9403-93780810d6a0",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 9702.08533088194,
+            "name": "AluWrought_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 304.8,
+            "v_f": 2910.625599264582,
+            "v_f_leadIn": 2910.625599264582,
+            "v_f_leadOut": 2910.625599264582,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2910.625599264582,
+            "v_f_retract": 4572,
+            "v_f_transition": 2910.625599264582
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.2617993877991494,
+            "f_n_retract": 0.7853981633974483,
+            "f_z": 0.03,
+            "guid": "9145baaa-29fc-4037-afc2-f76889082441",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 5821.251198529164,
+            "name": "LowCSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 182.88,
+            "v_f": 698.5501438234996,
+            "v_f_leadIn": 698.5501438234996,
+            "v_f_leadOut": 698.5501438234996,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 698.5501438234996,
+            "v_f_retract": 4572,
+            "v_f_transition": 698.5501438234996
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.7853981633974483,
+            "f_n_retract": 2.356194490192345,
+            "f_z": 0.029999999999999992,
+            "guid": "40717d53-225a-4445-82e3-04537a07059b",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 1940.417066176388,
+            "name": "StainlessSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 60.96,
+            "v_f": 232.8500479411665,
+            "v_f_leadIn": 232.8500479411665,
+            "v_f_leadOut": 232.8500479411665,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 232.8500479411665,
+            "v_f_retract": 4572,
+            "v_f_transition": 232.8500479411665
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "counter sink",
+      "unit": "millimeters",
+      "vendor": ""
+    },
+    {
+      "BMC": "carbide",
+      "description": "8mm Countersink 90°",
+      "geometry": {
+        "CSP": true,
+        "DC": 8,
+        "HAND": true,
+        "LB": 25,
+        "LCF": 4,
+        "NOF": 4,
+        "OAL": 50,
+        "SFDM": 6,
+        "SIG": 90,
+        "assemblyGaugeLength": 98.2026,
+        "shoulder-length": 8,
+        "tip-diameter": 0
+      },
+      "guid": "f7144aa1-2a61-4091-bc5c-1bd64f893f81",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 0,
+        "length-offset": 0,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 0,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.127,
+            "f_n_retract": 0.381,
+            "f_z": 0.0595,
+            "guid": "7812c5b9-50a9-4221-9e81-acf42e602dae",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12000,
+            "name": "AluWrought_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 301.59289474462014,
+            "v_f": 2856,
+            "v_f_leadIn": 2856,
+            "v_f_leadOut": 2856,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2856,
+            "v_f_retract": 4572,
+            "v_f_transition": 2856
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.2094395102393195,
+            "f_n_retract": 0.6283185307179585,
+            "f_z": 0.024,
+            "guid": "f6149743-1507-425a-8021-e811f74896a6",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 7276.563998161456,
+            "name": "LowCSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 182.88000000000002,
+            "v_f": 698.5501438234998,
+            "v_f_leadIn": 698.5501438234998,
+            "v_f_leadOut": 698.5501438234998,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 698.5501438234998,
+            "v_f_retract": 4572,
+            "v_f_transition": 698.5501438234998
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.6283185307179586,
+            "f_n_retract": 1.8849555921538759,
+            "f_z": 0.024,
+            "guid": "29dfc191-2ac9-4173-97c3-bb6d16fefc4e",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 2425.521332720485,
+            "name": "StainlessSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 60.96,
+            "v_f": 232.8500479411666,
+            "v_f_leadIn": 232.8500479411666,
+            "v_f_leadOut": 232.8500479411666,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 232.8500479411666,
+            "v_f_retract": 4572,
+            "v_f_transition": 232.8500479411666
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "counter sink",
+      "unit": "millimeters",
+      "vendor": ""
+    },
+    {
+      "BMC": "carbide",
+      "description": "8mm Countersink 120°",
+      "geometry": {
+        "CSP": true,
+        "DC": 8,
+        "HAND": true,
+        "LB": 25,
+        "LCF": 2.3,
+        "NOF": 4,
+        "OAL": 50,
+        "SFDM": 6,
+        "SIG": 120,
+        "assemblyGaugeLength": 98.2026,
+        "shoulder-length": 4.6,
+        "tip-diameter": 0
+      },
+      "guid": "dd0490f9-95e6-435b-8bb5-4617f3c1e146",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 0,
+        "length-offset": 0,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 0,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.127,
+            "f_n_retract": 0.381,
+            "f_z": 0.0595,
+            "guid": "8d731d00-1b37-492a-8ca1-b76278da0246",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12000,
+            "name": "AluWrought_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 301.59289474462014,
+            "v_f": 2856,
+            "v_f_leadIn": 2856,
+            "v_f_leadOut": 2856,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 2856,
+            "v_f_retract": 4572,
+            "v_f_transition": 2856
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.2094395102393195,
+            "f_n_retract": 0.6283185307179585,
+            "f_z": 0.024,
+            "guid": "d81042f2-edfc-4d4d-9129-b854bcf162f1",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 7276.563998161456,
+            "name": "LowCSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 182.88000000000002,
+            "v_f": 698.5501438234998,
+            "v_f_leadIn": 698.5501438234998,
+            "v_f_leadOut": 698.5501438234998,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 698.5501438234998,
+            "v_f_retract": 4572,
+            "v_f_transition": 698.5501438234998
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.6283185307179586,
+            "f_n_retract": 1.8849555921538759,
+            "f_z": 0.024,
+            "guid": "d395e15e-ec0c-4f44-9b63-7fd44026444d",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 2425.521332720485,
+            "name": "StainlessSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 60.96,
+            "v_f": 232.8500479411666,
+            "v_f_leadIn": 232.8500479411666,
+            "v_f_leadOut": 232.8500479411666,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 232.8500479411666,
+            "v_f_retract": 4572,
+            "v_f_transition": 232.8500479411666
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "counter sink",
+      "unit": "millimeters",
+      "vendor": ""
+    },
+    {
+      "BMC": "carbide",
+      "description": "6mm Countersink 90°",
+      "geometry": {
+        "CSP": true,
+        "DC": 6,
+        "HAND": true,
+        "LB": 25,
+        "LCF": 3,
+        "NOF": 4,
+        "OAL": 50,
+        "SFDM": 6,
+        "SIG": 90,
+        "assemblyGaugeLength": 98.2026,
+        "shoulder-length": 6,
+        "tip-diameter": 0
+      },
+      "guid": "a5ffa310-a671-49e8-acda-44046b271012",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 0,
+        "length-offset": 0,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 0,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.127,
+            "f_n_retract": 0.381,
+            "f_z": 0.0415,
+            "guid": "30951a7c-54f5-4165-9fa6-258719686b20",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12000,
+            "name": "AluWrought_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 226.1946710584651,
+            "v_f": 1992,
+            "v_f_leadIn": 1992,
+            "v_f_leadOut": 1992,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1992,
+            "v_f_retract": 4572,
+            "v_f_transition": 1992
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.15707963267948966,
+            "f_n_retract": 0.47123889803846897,
+            "f_z": 0.018,
+            "guid": "8b491924-b5f2-4fc8-aad3-a05c20ee5fac",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 9702.08533088194,
+            "name": "LowCSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 182.88,
+            "v_f": 698.5501438234996,
+            "v_f_leadIn": 698.5501438234996,
+            "v_f_leadOut": 698.5501438234996,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 698.5501438234996,
+            "v_f_retract": 4572,
+            "v_f_transition": 698.5501438234996
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.47123889803846897,
+            "f_n_retract": 1.413716694115407,
+            "f_z": 0.017999999999999995,
+            "guid": "bd33f80c-526f-4330-a2cb-0d4f51f4a005",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 3234.028443627313,
+            "name": "StainlessSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 60.96,
+            "v_f": 232.8500479411665,
+            "v_f_leadIn": 232.8500479411665,
+            "v_f_leadOut": 232.8500479411665,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 232.8500479411665,
+            "v_f_retract": 4572,
+            "v_f_transition": 232.8500479411665
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "counter sink",
+      "unit": "millimeters",
+      "vendor": ""
+    },
+    {
+      "BMC": "carbide",
+      "description": "6mm Countersink 82°",
+      "geometry": {
+        "CSP": true,
+        "DC": 6,
+        "HAND": true,
+        "LB": 25,
+        "LCF": 3,
+        "NOF": 4,
+        "OAL": 50,
+        "SFDM": 6,
+        "SIG": 82,
+        "assemblyGaugeLength": 98.2026,
+        "shoulder-length": 3.1,
+        "tip-diameter": 0.1
+      },
+      "guid": "3ba288b0-92ce-4dd9-a9fb-d314ed48b4c9",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 0,
+        "length-offset": 0,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 0,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.127,
+            "f_n_retract": 0.381,
+            "f_z": 0.0415,
+            "guid": "97621733-7829-4b8d-ae70-d2a99b10b627",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12000,
+            "name": "AluWrought_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 226.1946710584651,
+            "v_f": 1992,
+            "v_f_leadIn": 1992,
+            "v_f_leadOut": 1992,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1992,
+            "v_f_retract": 4572,
+            "v_f_transition": 1992
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.15707963267948966,
+            "f_n_retract": 0.47123889803846897,
+            "f_z": 0.018,
+            "guid": "17e46740-d47c-4917-8b8b-dfec962bd7c6",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 9702.08533088194,
+            "name": "LowCSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 182.88,
+            "v_f": 698.5501438234996,
+            "v_f_leadIn": 698.5501438234996,
+            "v_f_leadOut": 698.5501438234996,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 698.5501438234996,
+            "v_f_retract": 4572,
+            "v_f_transition": 698.5501438234996
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.47123889803846897,
+            "f_n_retract": 1.413716694115407,
+            "f_z": 0.017999999999999995,
+            "guid": "f01405d5-21b6-4199-bbea-958b8730a64f",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 3234.028443627313,
+            "name": "StainlessSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 60.96,
+            "v_f": 232.8500479411665,
+            "v_f_leadIn": 232.8500479411665,
+            "v_f_leadOut": 232.8500479411665,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 232.8500479411665,
+            "v_f_retract": 4572,
+            "v_f_transition": 232.8500479411665
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "counter sink",
+      "unit": "millimeters",
+      "vendor": ""
+    },
+    {
+      "BMC": "carbide",
+      "description": "6mm Countersink 120°",
+      "geometry": {
+        "CSP": true,
+        "DC": 6,
+        "HAND": true,
+        "LB": 25,
+        "LCF": 1.7,
+        "NOF": 4,
+        "OAL": 50,
+        "SFDM": 6,
+        "SIG": 120,
+        "assemblyGaugeLength": 98.2026,
+        "shoulder-length": 3.4,
+        "tip-diameter": 0
+      },
+      "guid": "0eef1279-3c13-4822-9c4e-620d2fabc70f",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 0,
+        "length-offset": 0,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 0,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.127,
+            "f_n_retract": 0.381,
+            "f_z": 0.0415,
+            "guid": "9d2460d5-f6f4-4e9b-9b91-816e2295c24e",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12000,
+            "name": "AluWrought_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 226.1946710584651,
+            "v_f": 1992,
+            "v_f_leadIn": 1992,
+            "v_f_leadOut": 1992,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 1992,
+            "v_f_retract": 4572,
+            "v_f_transition": 1992
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.15707963267948966,
+            "f_n_retract": 0.47123889803846897,
+            "f_z": 0.018,
+            "guid": "404314cf-0254-4197-9a48-ca773483380d",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 9702.08533088194,
+            "name": "LowCSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 182.88,
+            "v_f": 698.5501438234996,
+            "v_f_leadIn": 698.5501438234996,
+            "v_f_leadOut": 698.5501438234996,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 698.5501438234996,
+            "v_f_retract": 4572,
+            "v_f_transition": 698.5501438234996
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.47123889803846897,
+            "f_n_retract": 1.413716694115407,
+            "f_z": 0.017999999999999995,
+            "guid": "a2cd143d-f630-484b-ba7b-e68436fd8072",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 3234.028443627313,
+            "name": "StainlessSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 60.96,
+            "v_f": 232.8500479411665,
+            "v_f_leadIn": 232.8500479411665,
+            "v_f_leadOut": 232.8500479411665,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 232.8500479411665,
+            "v_f_retract": 4572,
+            "v_f_transition": 232.8500479411665
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "counter sink",
+      "unit": "millimeters",
+      "vendor": ""
+    },
+    {
+      "BMC": "carbide",
+      "description": "3mm Countersink 90°",
+      "geometry": {
+        "CSP": true,
+        "DC": 3,
+        "HAND": true,
+        "LB": 15,
+        "LCF": 1.5,
+        "NOF": 4,
+        "OAL": 40,
+        "SFDM": 3,
+        "SIG": 90,
+        "assemblyGaugeLength": 88.2026,
+        "shoulder-length": 3,
+        "tip-diameter": 0
+      },
+      "guid": "a91d15a0-f703-4641-8ed2-bbc41fe57c4d",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 0,
+        "length-offset": 0,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 0,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.127,
+            "f_n_retract": 0.381,
+            "f_z": 0.0195,
+            "guid": "f495922b-3885-4f4b-a99c-32e0549b7347",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12000,
+            "name": "AluWrought_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 113.09733552923255,
+            "v_f": 936,
+            "v_f_leadIn": 936,
+            "v_f_leadOut": 936,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 936,
+            "v_f_retract": 4572,
+            "v_f_transition": 936
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.127,
+            "f_n_retract": 0.381,
+            "f_z": 0.009,
+            "guid": "aee9aa65-bcc3-428d-93b7-d7a5000f5e5b",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12000,
+            "name": "LowCSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 113.09733552923255,
+            "v_f": 432,
+            "v_f_leadIn": 432,
+            "v_f_leadOut": 432,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 432,
+            "v_f_retract": 4572,
+            "v_f_transition": 432
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.23561944901923448,
+            "f_n_retract": 0.7068583470577035,
+            "f_z": 0.008999999999999998,
+            "guid": "b898b01b-0160-42ae-b084-ced9515cc4cc",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 6468.056887254626,
+            "name": "StainlessSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 60.96,
+            "v_f": 232.8500479411665,
+            "v_f_leadIn": 232.8500479411665,
+            "v_f_leadOut": 232.8500479411665,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 232.8500479411665,
+            "v_f_retract": 4572,
+            "v_f_transition": 232.8500479411665
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "counter sink",
+      "unit": "millimeters",
+      "vendor": ""
+    },
+    {
+      "BMC": "carbide",
+      "description": "3mm Countersink 82°",
+      "geometry": {
+        "CSP": true,
+        "DC": 3,
+        "HAND": true,
+        "LB": 15,
+        "LCF": 2.5,
+        "NOF": 4,
+        "OAL": 40,
+        "SFDM": 3,
+        "SIG": 82,
+        "assemblyGaugeLength": 88.2026,
+        "shoulder-length": 5,
+        "tip-diameter": 0
+      },
+      "guid": "60542716-308c-4761-af6f-216c6cdec2b5",
+      "holder": {
+        "description": "BT40 ER16 COLLET CHUCK X 73MM GAGE LENGTH",
+        "gaugeLength": 73.2026,
+        "guid": "3c07f94e-6775-4947-a568-18b9ddeb5d38",
+        "product-id": "",
+        "product-link": "",
+        "segments": [
+          {
+            "height": 1.905,
+            "lower-diameter": 20.9804,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 14.6812,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 27.4955
+          },
+          {
+            "height": 1.016,
+            "lower-diameter": 27.4955,
+            "upper-diameter": 25.4
+          },
+          {
+            "height": 7.5692,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 21.8694
+          },
+          {
+            "height": 2.54,
+            "lower-diameter": 21.8694,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 15.3162,
+            "lower-diameter": 26.924,
+            "upper-diameter": 26.924
+          },
+          {
+            "height": 3.175,
+            "lower-diameter": 26.924,
+            "upper-diameter": 33.274
+          },
+          {
+            "height": 1,
+            "lower-diameter": 61,
+            "upper-diameter": 63
+          },
+          {
+            "height": 4.4,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 63,
+            "upper-diameter": 53
+          },
+          {
+            "height": 4.226,
+            "lower-diameter": 53,
+            "upper-diameter": 53
+          },
+          {
+            "height": 2.887,
+            "lower-diameter": 53,
+            "upper-diameter": 63
+          },
+          {
+            "height": 8.6,
+            "lower-diameter": 63,
+            "upper-diameter": 63
+          },
+          {
+            "height": 1,
+            "lower-diameter": 63,
+            "upper-diameter": 61
+          },
+          {
+            "height": 2,
+            "lower-diameter": 44.45,
+            "upper-diameter": 44.45
+          }
+        ],
+        "type": "holder",
+        "unit": "millimeters",
+        "vendor": ""
+      },
+      "post-process": {
+        "break-control": false,
+        "comment": "",
+        "diameter-offset": 0,
+        "length-offset": 0,
+        "live": true,
+        "manual-tool-change": false,
+        "number": 0,
+        "turret": 0
+      },
+      "product-id": "",
+      "product-link": "",
+      "start-values": {
+        "presets": [
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.127,
+            "f_n_retract": 0.381,
+            "f_z": 0.0195,
+            "guid": "cfd7f8e0-d557-487d-9e67-00e1a76c8f7d",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12000,
+            "name": "AluWrought_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 113.09733552923255,
+            "v_f": 936,
+            "v_f_leadIn": 936,
+            "v_f_leadOut": 936,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 936,
+            "v_f_retract": 4572,
+            "v_f_transition": 936
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.127,
+            "f_n_retract": 0.381,
+            "f_z": 0.009,
+            "guid": "ae3624c5-91db-4782-a0de-480890eadaf5",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 12000,
+            "name": "LowCSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 113.09733552923255,
+            "v_f": 432,
+            "v_f_leadIn": 432,
+            "v_f_leadOut": 432,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 432,
+            "v_f_retract": 4572,
+            "v_f_transition": 432
+          },
+          {
+            "description": "",
+            "expressions": {
+              "tool_feedEntry": "tool_feedCutting",
+              "tool_feedExit": "tool_feedEntry",
+              "tool_feedTransition": "tool_feedCutting"
+            },
+            "f_n": 0.23561944901923448,
+            "f_n_retract": 0.7068583470577035,
+            "f_z": 0.008999999999999998,
+            "guid": "bfc05273-13e1-4a71-bdb8-5731f46758bf",
+            "material": {
+              "category": "all",
+              "query": "",
+              "use-hardness": false
+            },
+            "n": 6468.056887254626,
+            "name": "StainlessSteel_Chamfer",
+            "tool-coolant": "flood",
+            "use-feed-per-revolution": false,
+            "v_c": 60.96,
+            "v_f": 232.8500479411665,
+            "v_f_leadIn": 232.8500479411665,
+            "v_f_leadOut": 232.8500479411665,
+            "v_f_plunge": 1524,
+            "v_f_ramp": 232.8500479411665,
+            "v_f_retract": 4572,
+            "v_f_transition": 232.8500479411665
+          }
+        ]
+      },
+      "tool-catalog-product-id": "",
+      "type": "counter sink",
+      "unit": "millimeters",
+      "vendor": ""
+    }
+  ]
+}

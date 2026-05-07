@@ -1723,6 +1723,614 @@
           "notes": "Rigid tapping — flood coolant"
         }
       }
+    },
+    {
+      "_section": "STEEL/STAINLESS FLAT END MILLS — 4-5 flute, higher flute count for harder materials. Sourced from Toolpath Steel/Stainless Metric Tools library geometry, Sandvik/Kennametal catalogue feeds.",
+      "tool_id": "EM_4FL_STEEL_1.5MM",
+      "operation": ["contour_mill", "pocket_mill", "circular_interp"],
+      "description": "4-flute solid carbide flat end mill 1.5mm — steel/stainless geometry",
+      "diameter_mm": 1.5,
+      "flute_count": 4,
+      "cutting_length_mm": 3.0,
+      "overall_length_mm": 10.0,
+      "shank_diameter_mm": 1.5,
+      "corner_radius_mm": 0.0,
+      "helix_angle_deg": 38,
+      "manufacturer": "Kennametal",
+      "product_line": "HarVI III",
+      "grade": "KC640M",
+      "coating": "AlTiN",
+      "ramp_plunge": {
+        "ramp_angle_deg": 2,
+        "vf_ramp_pct_of_feed": 35,
+        "vf_plunge_pct_of_feed": 20
+      },
+      "material_params": {
+        "mild_steel": {
+          "Vc_mmin": 100,
+          "fz_mm": 0.003,
+          "Vc_rough_mmin": 70,
+          "Vc_finish_mmin": 50,
+          "fz_rough_mm": 0.004,
+          "fz_finish_mm": 0.002,
+          "ap_max_mm": 0.75,
+          "ae_max_mm": 0.3,
+          "notes": "Fragile at this diameter — light cuts only"
+        },
+        "stainless_steel": {
+          "Vc_mmin": 60,
+          "fz_mm": 0.002,
+          "Vc_rough_mmin": 40,
+          "Vc_finish_mmin": 28,
+          "fz_rough_mm": 0.002,
+          "fz_finish_mm": 0.001,
+          "ap_max_mm": 0.45,
+          "ae_max_mm": 0.2,
+          "notes": "Flood coolant essential"
+        }
+      }
+    },
+    {
+      "tool_id": "EM_4FL_STEEL_3MM",
+      "operation": ["contour_mill", "pocket_mill", "circular_interp"],
+      "description": "4-flute solid carbide flat end mill 3mm — steel/stainless geometry",
+      "diameter_mm": 3.0,
+      "flute_count": 4,
+      "cutting_length_mm": 8.0,
+      "overall_length_mm": 15.0,
+      "shank_diameter_mm": 3.0,
+      "corner_radius_mm": 0.0,
+      "helix_angle_deg": 38,
+      "manufacturer": "Kennametal",
+      "product_line": "HarVI III",
+      "grade": "KC640M",
+      "coating": "AlTiN",
+      "ramp_plunge": {
+        "ramp_angle_deg": 2,
+        "vf_ramp_pct_of_feed": 40,
+        "vf_plunge_pct_of_feed": 25
+      },
+      "material_params": {
+        "mild_steel": {
+          "Vc_mmin": 120,
+          "fz_mm": 0.006,
+          "Vc_rough_mmin": 85,
+          "Vc_finish_mmin": 60,
+          "fz_rough_mm": 0.008,
+          "fz_finish_mm": 0.004,
+          "ap_max_mm": 1.5,
+          "ae_max_mm": 0.6,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 70,
+          "fz_mm": 0.004,
+          "Vc_rough_mmin": 48,
+          "Vc_finish_mmin": 34,
+          "fz_rough_mm": 0.005,
+          "fz_finish_mm": 0.002,
+          "ap_max_mm": 0.9,
+          "ae_max_mm": 0.35,
+          "notes": "Flood coolant essential"
+        }
+      }
+    },
+    {
+      "tool_id": "EM_4FL_STEEL_5MM",
+      "operation": ["contour_mill", "pocket_mill", "circular_interp"],
+      "description": "4-flute solid carbide flat end mill 5mm — steel/stainless geometry",
+      "diameter_mm": 5.0,
+      "flute_count": 4,
+      "cutting_length_mm": 16.0,
+      "overall_length_mm": 25.0,
+      "shank_diameter_mm": 5.0,
+      "corner_radius_mm": 0.0,
+      "helix_angle_deg": 38,
+      "manufacturer": "Kennametal",
+      "product_line": "HarVI III",
+      "grade": "KC640M",
+      "coating": "AlTiN",
+      "ramp_plunge": {
+        "ramp_angle_deg": 3,
+        "vf_ramp_pct_of_feed": 45,
+        "vf_plunge_pct_of_feed": 28
+      },
+      "material_params": {
+        "mild_steel": {
+          "Vc_mmin": 140,
+          "fz_mm": 0.010,
+          "Vc_rough_mmin": 100,
+          "Vc_finish_mmin": 70,
+          "fz_rough_mm": 0.012,
+          "fz_finish_mm": 0.006,
+          "ap_max_mm": 2.5,
+          "ae_max_mm": 1.0,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 80,
+          "fz_mm": 0.006,
+          "Vc_rough_mmin": 55,
+          "Vc_finish_mmin": 38,
+          "fz_rough_mm": 0.007,
+          "fz_finish_mm": 0.004,
+          "ap_max_mm": 1.5,
+          "ae_max_mm": 0.6,
+          "notes": "Flood coolant essential"
+        }
+      }
+    },
+    {
+      "tool_id": "EM_5FL_STEEL_8MM",
+      "operation": ["contour_mill", "pocket_mill", "circular_interp"],
+      "description": "5-flute solid carbide flat end mill 8mm — steel/stainless geometry",
+      "diameter_mm": 8.0,
+      "flute_count": 5,
+      "cutting_length_mm": 20.0,
+      "overall_length_mm": 35.0,
+      "shank_diameter_mm": 8.0,
+      "corner_radius_mm": 0.0,
+      "helix_angle_deg": 38,
+      "manufacturer": "Kennametal",
+      "product_line": "HarVI III",
+      "grade": "KC640M",
+      "coating": "AlTiN",
+      "ramp_plunge": {
+        "ramp_angle_deg": 3,
+        "vf_ramp_pct_of_feed": 50,
+        "vf_plunge_pct_of_feed": 30
+      },
+      "material_params": {
+        "mild_steel": {
+          "Vc_mmin": 160,
+          "fz_mm": 0.012,
+          "Vc_rough_mmin": 115,
+          "Vc_finish_mmin": 80,
+          "fz_rough_mm": 0.015,
+          "fz_finish_mm": 0.008,
+          "ap_max_mm": 4.0,
+          "ae_max_mm": 1.6,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 90,
+          "fz_mm": 0.008,
+          "Vc_rough_mmin": 62,
+          "Vc_finish_mmin": 44,
+          "fz_rough_mm": 0.010,
+          "fz_finish_mm": 0.005,
+          "ap_max_mm": 2.4,
+          "ae_max_mm": 1.0,
+          "notes": "Flood coolant essential"
+        }
+      }
+    },
+    {
+      "tool_id": "EM_5FL_STEEL_12MM",
+      "operation": ["contour_mill", "pocket_mill", "circular_interp"],
+      "description": "5-flute solid carbide flat end mill 12mm — steel/stainless geometry",
+      "diameter_mm": 12.0,
+      "flute_count": 5,
+      "cutting_length_mm": 50.0,
+      "overall_length_mm": 60.0,
+      "shank_diameter_mm": 12.0,
+      "corner_radius_mm": 0.0,
+      "helix_angle_deg": 38,
+      "manufacturer": "Kennametal",
+      "product_line": "HarVI III",
+      "grade": "KC640M",
+      "coating": "AlTiN",
+      "ramp_plunge": {
+        "ramp_angle_deg": 4,
+        "vf_ramp_pct_of_feed": 55,
+        "vf_plunge_pct_of_feed": 32
+      },
+      "material_params": {
+        "mild_steel": {
+          "Vc_mmin": 170,
+          "fz_mm": 0.018,
+          "Vc_rough_mmin": 120,
+          "Vc_finish_mmin": 85,
+          "fz_rough_mm": 0.022,
+          "fz_finish_mm": 0.011,
+          "ap_max_mm": 6.0,
+          "ae_max_mm": 2.4,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 95,
+          "fz_mm": 0.012,
+          "Vc_rough_mmin": 65,
+          "Vc_finish_mmin": 46,
+          "fz_rough_mm": 0.014,
+          "fz_finish_mm": 0.007,
+          "ap_max_mm": 3.6,
+          "ae_max_mm": 1.4,
+          "notes": "Flood coolant essential"
+        }
+      }
+    },
+    {
+      "_section": "STEEL/STAINLESS BULL NOSE END MILLS — 5 flute with corner radius, for profiling and finishing in harder materials",
+      "tool_id": "BN_5FL_STEEL_5MM_R0.25",
+      "operation": ["contour_mill", "pocket_mill"],
+      "description": "5-flute solid carbide bull nose end mill 5mm R0.25 — steel/stainless geometry",
+      "diameter_mm": 5.0,
+      "flute_count": 5,
+      "cutting_length_mm": 12.0,
+      "overall_length_mm": 20.0,
+      "shank_diameter_mm": 5.0,
+      "corner_radius_mm": 0.25,
+      "helix_angle_deg": 38,
+      "manufacturer": "Kennametal",
+      "product_line": "HarVI III",
+      "grade": "KC640M",
+      "coating": "AlTiN",
+      "ramp_plunge": {
+        "ramp_angle_deg": 3,
+        "vf_ramp_pct_of_feed": 45,
+        "vf_plunge_pct_of_feed": 28
+      },
+      "material_params": {
+        "mild_steel": {
+          "Vc_mmin": 140,
+          "fz_mm": 0.010,
+          "Vc_rough_mmin": 100,
+          "Vc_finish_mmin": 70,
+          "fz_rough_mm": 0.013,
+          "fz_finish_mm": 0.007,
+          "ap_max_mm": 2.5,
+          "ae_max_mm": 1.0,
+          "notes": "Corner radius reduces chipping risk on steel"
+        },
+        "stainless_steel": {
+          "Vc_mmin": 80,
+          "fz_mm": 0.006,
+          "Vc_rough_mmin": 55,
+          "Vc_finish_mmin": 38,
+          "fz_rough_mm": 0.008,
+          "fz_finish_mm": 0.004,
+          "ap_max_mm": 1.5,
+          "ae_max_mm": 0.6,
+          "notes": "Flood coolant essential"
+        }
+      }
+    },
+    {
+      "tool_id": "BN_5FL_STEEL_8MM_R0.5",
+      "operation": ["contour_mill", "pocket_mill"],
+      "description": "5-flute solid carbide bull nose end mill 8mm R0.5 — steel/stainless geometry",
+      "diameter_mm": 8.0,
+      "flute_count": 5,
+      "cutting_length_mm": 22.0,
+      "overall_length_mm": 35.0,
+      "shank_diameter_mm": 8.0,
+      "corner_radius_mm": 0.5,
+      "helix_angle_deg": 38,
+      "manufacturer": "Kennametal",
+      "product_line": "HarVI III",
+      "grade": "KC640M",
+      "coating": "AlTiN",
+      "ramp_plunge": {
+        "ramp_angle_deg": 3,
+        "vf_ramp_pct_of_feed": 50,
+        "vf_plunge_pct_of_feed": 30
+      },
+      "material_params": {
+        "mild_steel": {
+          "Vc_mmin": 160,
+          "fz_mm": 0.012,
+          "Vc_rough_mmin": 115,
+          "Vc_finish_mmin": 80,
+          "fz_rough_mm": 0.016,
+          "fz_finish_mm": 0.008,
+          "ap_max_mm": 4.0,
+          "ae_max_mm": 1.6,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 90,
+          "fz_mm": 0.008,
+          "Vc_rough_mmin": 62,
+          "Vc_finish_mmin": 44,
+          "fz_rough_mm": 0.010,
+          "fz_finish_mm": 0.005,
+          "ap_max_mm": 2.4,
+          "ae_max_mm": 1.0,
+          "notes": "Flood coolant essential"
+        }
+      }
+    },
+    {
+      "tool_id": "BN_5FL_STEEL_12MM_R0.75",
+      "operation": ["contour_mill", "pocket_mill"],
+      "description": "5-flute solid carbide bull nose end mill 12mm R0.75 — steel/stainless geometry",
+      "diameter_mm": 12.0,
+      "flute_count": 5,
+      "cutting_length_mm": 25.0,
+      "overall_length_mm": 45.0,
+      "shank_diameter_mm": 12.0,
+      "corner_radius_mm": 0.75,
+      "helix_angle_deg": 38,
+      "manufacturer": "Kennametal",
+      "product_line": "HarVI III",
+      "grade": "KC640M",
+      "coating": "AlTiN",
+      "ramp_plunge": {
+        "ramp_angle_deg": 4,
+        "vf_ramp_pct_of_feed": 55,
+        "vf_plunge_pct_of_feed": 32
+      },
+      "material_params": {
+        "mild_steel": {
+          "Vc_mmin": 170,
+          "fz_mm": 0.018,
+          "Vc_rough_mmin": 120,
+          "Vc_finish_mmin": 85,
+          "fz_rough_mm": 0.022,
+          "fz_finish_mm": 0.011,
+          "ap_max_mm": 6.0,
+          "ae_max_mm": 2.4,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 95,
+          "fz_mm": 0.012,
+          "Vc_rough_mmin": 65,
+          "Vc_finish_mmin": 46,
+          "fz_rough_mm": 0.014,
+          "fz_finish_mm": 0.007,
+          "ap_max_mm": 3.6,
+          "ae_max_mm": 1.4,
+          "notes": "Flood coolant essential"
+        }
+      }
+    },
+    {
+      "_section": "STEEL/STAINLESS BALL END MILLS — 3-4 flute, for 3D profiling and radius features in harder materials",
+      "tool_id": "BALL_3FL_STEEL_3MM",
+      "operation": ["contour_mill", "pocket_mill"],
+      "description": "3-flute solid carbide ball end mill 3mm — steel/stainless geometry",
+      "diameter_mm": 3.0,
+      "flute_count": 3,
+      "cutting_length_mm": 5.0,
+      "overall_length_mm": 15.0,
+      "shank_diameter_mm": 3.0,
+      "corner_radius_mm": 1.5,
+      "helix_angle_deg": 35,
+      "manufacturer": "Kennametal",
+      "product_line": "HarVI III",
+      "grade": "KC640M",
+      "coating": "AlTiN",
+      "ramp_plunge": {
+        "ramp_angle_deg": 2,
+        "vf_ramp_pct_of_feed": 40,
+        "vf_plunge_pct_of_feed": 25
+      },
+      "material_params": {
+        "mild_steel": {
+          "Vc_mmin": 80,
+          "fz_mm": 0.005,
+          "Vc_rough_mmin": 55,
+          "Vc_finish_mmin": 38,
+          "fz_rough_mm": 0.006,
+          "fz_finish_mm": 0.003,
+          "ap_max_mm": 0.3,
+          "ae_max_mm": 0.15,
+          "notes": "Small stepover for surface finish"
+        },
+        "stainless_steel": {
+          "Vc_mmin": 50,
+          "fz_mm": 0.003,
+          "Vc_rough_mmin": 34,
+          "Vc_finish_mmin": 24,
+          "fz_rough_mm": 0.004,
+          "fz_finish_mm": 0.002,
+          "ap_max_mm": 0.18,
+          "ae_max_mm": 0.09,
+          "notes": "Flood coolant essential"
+        }
+      }
+    },
+    {
+      "tool_id": "BALL_4FL_STEEL_6MM",
+      "operation": ["contour_mill", "pocket_mill"],
+      "description": "4-flute solid carbide ball end mill 6mm — steel/stainless geometry",
+      "diameter_mm": 6.0,
+      "flute_count": 4,
+      "cutting_length_mm": 12.0,
+      "overall_length_mm": 25.0,
+      "shank_diameter_mm": 6.0,
+      "corner_radius_mm": 3.0,
+      "helix_angle_deg": 35,
+      "manufacturer": "Kennametal",
+      "product_line": "HarVI III",
+      "grade": "KC640M",
+      "coating": "AlTiN",
+      "ramp_plunge": {
+        "ramp_angle_deg": 3,
+        "vf_ramp_pct_of_feed": 45,
+        "vf_plunge_pct_of_feed": 28
+      },
+      "material_params": {
+        "mild_steel": {
+          "Vc_mmin": 120,
+          "fz_mm": 0.010,
+          "Vc_rough_mmin": 85,
+          "Vc_finish_mmin": 60,
+          "fz_rough_mm": 0.012,
+          "fz_finish_mm": 0.006,
+          "ap_max_mm": 0.6,
+          "ae_max_mm": 0.3,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 70,
+          "fz_mm": 0.006,
+          "Vc_rough_mmin": 48,
+          "Vc_finish_mmin": 34,
+          "fz_rough_mm": 0.008,
+          "fz_finish_mm": 0.004,
+          "ap_max_mm": 0.36,
+          "ae_max_mm": 0.18,
+          "notes": "Flood coolant essential"
+        }
+      }
+    },
+    {
+      "tool_id": "BALL_4FL_STEEL_10MM",
+      "operation": ["contour_mill", "pocket_mill"],
+      "description": "4-flute solid carbide ball end mill 10mm — steel/stainless geometry",
+      "diameter_mm": 10.0,
+      "flute_count": 4,
+      "cutting_length_mm": 20.0,
+      "overall_length_mm": 40.0,
+      "shank_diameter_mm": 10.0,
+      "corner_radius_mm": 5.0,
+      "helix_angle_deg": 35,
+      "manufacturer": "Kennametal",
+      "product_line": "HarVI III",
+      "grade": "KC640M",
+      "coating": "AlTiN",
+      "ramp_plunge": {
+        "ramp_angle_deg": 4,
+        "vf_ramp_pct_of_feed": 50,
+        "vf_plunge_pct_of_feed": 30
+      },
+      "material_params": {
+        "mild_steel": {
+          "Vc_mmin": 150,
+          "fz_mm": 0.015,
+          "Vc_rough_mmin": 105,
+          "Vc_finish_mmin": 75,
+          "fz_rough_mm": 0.018,
+          "fz_finish_mm": 0.009,
+          "ap_max_mm": 1.0,
+          "ae_max_mm": 0.5,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 85,
+          "fz_mm": 0.010,
+          "Vc_rough_mmin": 58,
+          "Vc_finish_mmin": 42,
+          "fz_rough_mm": 0.012,
+          "fz_finish_mm": 0.006,
+          "ap_max_mm": 0.6,
+          "ae_max_mm": 0.3,
+          "notes": "Flood coolant essential"
+        }
+      }
+    },
+    {
+      "_section": "STEEL/STAINLESS CHAMFER MILLS — 4 flute, for edge chamfering in harder materials",
+      "tool_id": "CHAM_4FL_STEEL_6MM_41DEG",
+      "operation": "chamfer_mill",
+      "description": "4-flute solid carbide chamfer mill 6mm 41-degree — steel/stainless geometry",
+      "diameter_mm": 6.0,
+      "flute_count": 4,
+      "included_angle_deg": 82,
+      "half_angle_deg": 41,
+      "cutting_length_mm": 3.0,
+      "overall_length_mm": 18.0,
+      "shank_diameter_mm": 6.0,
+      "manufacturer": "Kennametal",
+      "product_line": "HarVI III",
+      "grade": "KC640M",
+      "coating": "AlTiN",
+      "material_params": {
+        "mild_steel": {
+          "Vc_mmin": 120,
+          "fz_mm": 0.025,
+          "ap_max_mm": 1.5,
+          "notes": "Light contact passes only"
+        },
+        "stainless_steel": {
+          "Vc_mmin": 70,
+          "fz_mm": 0.015,
+          "ap_max_mm": 1.0,
+          "notes": "Use coolant — light passes only"
+        }
+      }
+    },
+    {
+      "tool_id": "CHAM_4FL_STEEL_8MM_45DEG",
+      "operation": "chamfer_mill",
+      "description": "4-flute solid carbide chamfer mill 8mm 45-degree — steel/stainless geometry",
+      "diameter_mm": 8.0,
+      "flute_count": 4,
+      "included_angle_deg": 90,
+      "half_angle_deg": 45,
+      "cutting_length_mm": 4.0,
+      "overall_length_mm": 20.0,
+      "shank_diameter_mm": 8.0,
+      "manufacturer": "Kennametal",
+      "product_line": "HarVI III",
+      "grade": "KC640M",
+      "coating": "AlTiN",
+      "material_params": {
+        "mild_steel": {
+          "Vc_mmin": 140,
+          "fz_mm": 0.030,
+          "ap_max_mm": 2.0,
+          "notes": "Light contact passes only"
+        },
+        "stainless_steel": {
+          "Vc_mmin": 80,
+          "fz_mm": 0.018,
+          "ap_max_mm": 1.2,
+          "notes": "Use coolant — light passes only"
+        }
+      }
+    },
+    {
+      "_section": "FACE MILL 40MM — smaller face mill for narrow surfaces and smaller parts, all materials",
+      "tool_id": "FACEMILL_40MM",
+      "operation": "face_mill",
+      "description": "40mm indexable face mill — 6 inserts",
+      "diameter_mm": 40.0,
+      "covers_feature_up_to_mm": 999.0,
+      "insert_count": 6,
+      "insert_grade_aluminium": "H13A",
+      "insert_grade_steel": "GC4325",
+      "shank_type": "arbor_16mm",
+      "manufacturer": "Sandvik Coromant",
+      "product_line": "CoroMill 245",
+      "material_params": {
+        "aluminium": {
+          "Vc_mmin": 800,
+          "fz_mm": 0.12,
+          "Vc_rough_mmin": 300,
+          "Vc_finish_mmin": 220,
+          "fz_rough_mm": 0.12,
+          "fz_finish_mm": 0.08,
+          "ap_max_mm": 2.0,
+          "ae_fraction": 0.75,
+          "notes": "Use for narrow faces where 50mm cutter won't fit"
+        },
+        "mild_steel": {
+          "Vc_mmin": 250,
+          "fz_mm": 0.12,
+          "Vc_rough_mmin": 120,
+          "Vc_finish_mmin": 85,
+          "fz_rough_mm": 0.09,
+          "fz_finish_mm": 0.055,
+          "ap_max_mm": 2.5,
+          "ae_fraction": 0.75,
+          "notes": ""
+        },
+        "stainless_steel": {
+          "Vc_mmin": 150,
+          "fz_mm": 0.08,
+          "Vc_rough_mmin": 60,
+          "Vc_finish_mmin": 42,
+          "fz_rough_mm": 0.055,
+          "fz_finish_mm": 0.035,
+          "ap_max_mm": 1.5,
+          "ae_fraction": 0.7,
+          "notes": "Positive geometry inserts — use coolant"
+        }
+      }
     }
   ],
   "material_aliases": {

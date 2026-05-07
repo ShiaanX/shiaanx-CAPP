@@ -345,8 +345,44 @@ Siddhant wants to understand each rule sheet in detail — what the rules mean, 
   - `_angled` suffix still applied from `is_principal_axis`
   - `ml_mfcad_id` and `ml_vote_counts` fields added to each cluster for debugging
   - **Known limitation:** Training used H5 pre-extracted features; inference uses our pipeline's feature extraction → distribution mismatch causes weaker predictions on real parts. Fix: retrain using our pipeline's `*_features.json` as feature source.
-- [ ] Retrain RF using features extracted by our pipeline (not H5) to close training/inference gap
-- [ ] If v2 accuracy plateaus, consider pipeline cluster-level voting (requires running cluster_features.py on all MFCAD++ test parts)
+- [x] **Retrain RF using pipeline-native features (v3)** (2026-04-20) — DONE
+  - Root cause confirmed: H5 has ~25 faces/part; our OCC pipeline extracts ~37 (full STEP ADVANCED_FACE). Not comparable.
+  - Fix: train on `*_features.json` (our pipeline) + STEP ADVANCED_FACE GT labels. 0 mismatches.
+  - **59.0% accuracy** on 356-part subset — lower than v2 (69.2%) because far fewer training faces, but gap is CLOSED.
+  - Verified on part 53133: through_hole, pocket, passages correctly detected (vs v2 predicting all background).
+  - `classify_features.py --mode ml` now auto-selects v3 over v2.
+  - `ml_batch_extract.py` generates `*_features.json` for all 8949 MFCAD++ test parts (was 308 → 630+ and counting).
+- [x] **Run ml_batch_extract.py to exhaustion** (2026-04-20) — 8790 parts extracted; parallelized to 15 workers (12-core machine), ~6 files/sec
+- [x] **Retrain v3 on full 8790-part dataset** (2026-04-20) — **66.2% accuracy**, zero train/inference gap, model saved to `models/rf_classifier_v3.pkl`
+  - Strong (F1 ≥ 0.80): Stock 0.990, Circular end pocket 0.882, Circular blind step 0.870, Through hole 0.854, O-ring 0.835
+  - Weak: Rectangular blind slot 0.044, slots generally — face-level features insufficient; need cluster-level features (DDR, wall count)
+  - `classify_features.py --mode ml` auto-selects v3
+- [x] **Train v4 RF with 18 features (+ cluster-proxy features)** (2026-05-02) — **65.8% accuracy** on 52,776 test faces
+  - Script: `ml_train_classifier_v4.py`; training set 7031/7032 parts (1 skipped), 211,387 faces, 25 classes
+  - New features added: `comp_size`, `comp_area_ratio`, `comp_cyl_radius_mean`, `comp_plane_frac`, `comp_type_diversity`, `comp_bbox_ddr`, `comp_aspect_ratio`, `two_hop_degree`
+  - Top features: `two_hop_degree` (0.095), `area` (0.088), `comp_area_ratio` (0.086), `neigh_area_mean` (0.085)
+  - Strong (F1 ≥ 0.80): Stock 0.991, Circular end pocket 0.880, O-ring 0.843, Through hole 0.851, Circular blind step 0.871, Round 0.751
+  - Still weak: Rectangular blind slot 0.040 (recall=0.021), Triangular through slot 0.158, Rectangular through slot 0.210
+  - v4 marginally lower than v3 overall (65.8% vs 66.2%) — cluster-proxy features helped some classes but hurt others
+  - Model saved: `models/rf_classifier_v4.pkl`, encoder: `models/rf_label_encoder_v4.json`
+
+**Next improvement options:**
+- Investigate why v4 cluster-proxy features didn't beat v3 — check feature distribution for slot/passage classes
+- Try GBM (XGBoost/LightGBM) with same 18 features — often +3–5pp over RF on tabular data
+- Wire `--mode ml` into `10. run_pipeline.py` as an option
+- Start collecting real-part labeled data for the feedback flywheel
+- **Integrate with Autodesk Fusion** — see "Fusion 360 CAM Integration" section below (in progress)
+
+### Autonomous Agent (built 2026-05-04, not yet run)
+
+A thin autonomous improvement loop that searches the internet for labeled CAD datasets, retrains the classifier, and auto-promotes if accuracy improves. Uses Gemini Flash (free) for two decision calls per cycle.
+
+**Full state and setup instructions:** `Claude output for program sheet/Autonomous Agent/AGENT_STATE.md`
+
+**Blockers before first run:**
+1. Place Kaggle API token at `C:\Users\Siddhant Gupta\.kaggle\kaggle.json`
+2. Get free Gemini API key at aistudio.google.com/apikey → set `$env:GEMINI_API_KEY`
+3. Run: `conda run -n occ python "Claude output for program sheet/Autonomous Agent/agent_loop.py" --once`
 
 **Per-class F1 results (2026-04-20) — baseline RF, 10 face-level features:**
 
@@ -384,6 +420,117 @@ Weak (F1 < 0.40) — all slots and passages:
 - Model: RandomForest, 200 trees, all CPU cores, random_state=42
 - Outputs: `models/rf_classifier.pkl`, `models/rf_label_encoder.json`, appends to `metrics_log.csv`
 - Run: `conda run -n occ python "Claude output for program sheet/train_classifier.py"`
+
+---
+
+### Fusion 360 CAM Integration (in progress)
+
+**Goal:** Import ShiaanX process plans directly into Fusion 360 CAM as operations — user selects geometry, then simulates and posts G-code.
+
+**Architecture:** Fusion 360 add-in (local, no backend required for v1).
+
+**Add-in location:**
+```
+%APPDATA%\Autodesk\Autodesk Fusion 360\API\AddIns\ShiaanX\
+  ShiaanX.py          ← entry point, registers "Import ShiaanX Plan" in Manufacture workspace
+  ShiaanX.manifest    ← add-in metadata
+  cam_importer.py     ← core logic: params.json → Fusion CAM setups + operations
+```
+
+**Flow:**
+1. User runs pipeline → gets `*_params.json`
+2. Opens Fusion, switches to Manufacture workspace
+3. Loads add-in via Tools → Add-Ins (Shift+S) → Run ShiaanX
+4. Clicks "Import ShiaanX Plan" → picks `*_params.json` via file dialog
+5. Add-in creates one Fusion CAM setup per ShiaanX setup, one operation per process step (correct strategy, tool, feeds/speeds, depths pre-filled)
+6. User selects geometry for each operation → Generate Toolpaths → Simulate → Post
+
+**Operation → Fusion CAM strategy mapping:**
+- face_mill → facing
+- contour_mill → contour2d
+- pocket_mill → pocket2d
+- twist/spot/center/pilot/core drill / deep_peck → drilling
+- circular_interp / boring_bar → bore
+- chamfer_mill → chamfer2d
+- tap_rh → tapping
+- slot_mill → slot2d
+
+**Status (2026-05-07):** ✅ WORKING. Demo part fully validated (6/6 ops, green toolpaths). Bottom Box pipeline run via frontend; outputs in capp_service/jobs/. Bottom Box imported with 71+36=107 ops after last fix.
+
+**What works:**
+- Add-in loads in Fusion Manufacture workspace — two buttons: "Import ShiaanX Plan" and "ShiaanX: Probe Geometry"
+- Import flow: picks `*_params.json` then optionally `*_features.json` (Cancel skips geometry)
+- Creates correct CAM setups (1 per ShiaanX setup) with spindle direction in name
+- Creates all operations with correct Fusion strategy
+- Feeds/speeds (RPM, Vf, ap, ae, peck depth) pre-filled from pipeline params — **unit conversion confirmed correct** (all lengths converted mm→cm before passing to Fusion API)
+- **Geometry auto-assigned** from features.json — no manual face clicking needed:
+  - `drill` → `holeFaces` (CadObjectParameterValue) ← [cylinder_face]
+  - `bore` → `circularFaces` (CadObjectParameterValue) ← [cylinder_face]
+  - `contour2d`, `chamfer2d`, `pocket2d`, `slot2d` → manual geometry pick required (CadContours2dParameterValue is not settable via API)
+  - `facing` → no geometry param (machines full stock)
+- Operation names set on `op.name` — shows cluster ID, op type, diameter, tool ID
+- Spindle direction labels (+Z Top, -Z Bottom etc.) in setup names; WCS rotation hints in result dialog
+- Duplicate setups auto-deleted on re-import
+- 56-tool ShiaanX library (`shiaanx_tools.hsmlib`) imported into Fusion Local > Library
+- `counterbore_mill` mapped to `pocket2d` (was missing — caused 30+ error popups on Bottom Box import)
+
+**Known limitations:**
+- Tool auto-assignment NOT possible — Fusion API blocks local library access. Must select manually.
+- WCS orientation must be set manually (double-click setup → WCS tab → select face). Spindle direction shown in setup name as guide.
+- `slot_mill` strategy: `slot2d` fails in Fusion API → falls back to `contour2d`
+- `tap_rh` strategy: `tapping` fails → falls back to `drill`
+- `face mill` type rejected from tool library ("Cutting Data not available") — workaround: use 20mm end mill for face_mill ops
+- Contour/pocket geometry requires manual face selection in Geometry tab
+
+**Critical: unit conversion**
+Fusion CAM API uses cm internally for ALL length values. `cam_importer.py` converts with `_cm = lambda mm: mm * 0.1`.
+- RPM: no conversion (stays as-is)
+- Vf (feed rate mm/min): no conversion
+- ap, ae, peck_depth, depth: multiply by 0.1 (mm → cm)
+
+**Geometry param types (from probe):**
+| Strategy | Param | Type | Scriptable? |
+|---|---|---|---|
+| drill | holeFaces | CadObjectParameterValue | ✅ Yes |
+| bore | circularFaces | CadObjectParameterValue | ✅ Yes |
+| contour2d, chamfer2d | contours | CadContours2dParameterValue | ❌ No |
+| pocket2d | pockets | CadContours2dParameterValue | ❌ No |
+| facing | — | no geometry needed | — |
+
+**Frontend + backend stack:**
+- `capp_service/` — FastAPI service (uvicorn on port 8001)
+- `capp-frontend/` — React frontend (npm start, port 3000)
+- Start backend: `& "C:\Users\Siddhant Gupta\miniconda3\envs\occ\python.exe" -m uvicorn main:app --reload --port 8001` (run from capp_service/)
+- Bottom Box outputs: `capp_service/jobs/c31699c4-ef75-4f09-ad31-1cd02b396c05/`
+  - `Bottom_Box_Mod_params.json`, `Bottom_Box_Mod_features.json`, `Bottom_Box_Mod_program_sheet.pdf`
+  - 3 setups, 48 clusters, 107 total operations
+
+**Exact workflow for next Bottom Box Fusion session:**
+1. Reload add-in: Tools → Add-Ins (Shift+S) → ShiaanX → Stop → Run
+2. Import: click "Import ShiaanX Plan" → pick `Bottom_Box_Mod_params.json` → pick `Bottom_Box_Mod_features.json`
+3. Set WCS per setup (3 setups): double-click setup → WCS tab → select face matching spindle direction in setup name
+4. Assign tools: double-click op → Tool tab → Select → Local > Library → pick by type + diameter from op name
+5. Generate toolpaths: right-click setup → Generate All Toolpaths → Simulate → Post Process
+
+**Files:**
+```
+%APPDATA%\Autodesk\Autodesk Fusion 360\API\AddIns\ShiaanX\
+  ShiaanX.py           ← entry point (2 buttons: Import + Probe)
+  ShiaanX.manifest     ← add-in metadata
+  cam_importer.py      ← core: params.json + features.json → CAM + auto-geometry
+  geometry_probe.py    ← API discovery tool (keep for future probing)
+
+Claude output for program sheet\
+  generate_tool_library.py   ← generates shiaanx_tools.hsmlib (56 tools)
+  shiaanx_tools.hsmlib       ← tool library (delete all tools and re-import if duplicates appear)
+```
+
+**Next steps:**
+- [ ] Re-import Bottom Box plan (add-in now has counterbore_mill fix) — should create 107 ops with no error popups
+- [ ] Set WCS for all 3 Bottom Box setups, assign tools, generate toolpaths
+- [ ] Fix `slot_mill` and `tap_rh` strategy IDs — probe correct Fusion strategy names
+- [ ] Fix face mill tool library compatibility (`face mill` type rejected by Fusion)
+- [ ] Phase 2: integrate with shiaanx-backend REST API (STEP upload → pipeline → results back to Fusion)
 
 ---
 

@@ -28,3 +28,8 @@ ShiaanX Vision.docx
 
 # Separate independent repo (AD-007)
 shiaanx-backend/
+shiaanx-backend-fork/
+*.pkl
+
+# Frontend dependencies
+capp-frontend/node_modules/

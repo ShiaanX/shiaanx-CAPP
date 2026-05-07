@@ -134,8 +134,12 @@ def load_dataset(pairs: list) -> tuple:
             skipped_empty += 1
             continue
 
-        with open(feat_path) as f:
-            feat_data = json.load(f)
+        try:
+            with open(feat_path) as f:
+                feat_data = json.load(f)
+        except (json.JSONDecodeError, KeyError):
+            skipped_mismatch += 1
+            continue
 
         n_pipeline = len(feat_data["faces"]["faces"])
         if n_pipeline != len(gt_labels):

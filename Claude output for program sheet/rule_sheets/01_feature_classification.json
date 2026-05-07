@@ -32,6 +32,11 @@
       "value": 8.0,
       "unit": "mm",
       "role": "If smallest radius in a multi-radius bore >= this, classify whole feature as large_bore (cannot drill smallest step)."
+    },
+    "pocket_max_perp_walls": {
+      "value": 8,
+      "unit": "count",
+      "role": "Max perpendicular wall count for a plane cluster to be classified as pocket. Real machined pockets have 2-6 walls. Stock or datum faces with many adjacent walls (e.g. 15) are excluded by this cap."
     }
   },
   "pocket_rules": {

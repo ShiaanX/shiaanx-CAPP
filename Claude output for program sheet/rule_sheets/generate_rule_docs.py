@@ -441,11 +441,52 @@ def _html_process(d):
     stl = d.get("material_stock_to_leave_mm",{})
     stl_h = _th("Material","XY stock (mm)","Z stock (mm)")
     stl_r = [_tr(_esc(m),v["xy"],v["z"]) for m,v in stl.get("per_material",{}).items()]
+
+    # Face milling subtypes (added 2026-04-20, source: Gaurav strategy sheet)
+    face_sub = d.get("face_mill_subtypes",{})
+    face_sub_html = ""
+    if face_sub:
+        entry_map = face_sub.get("entry_method_by_subtype",{})
+        fs_h = _th("Subtype","Description","Entry method")
+        fs_r = [_tr(f"<code>{_esc(k)}</code>", _esc(v), f"<code>{_esc(entry_map.get(k,'—'))}</code>")
+                for k,v in face_sub.get("subtypes",{}).items()]
+        face_sub_html = "<h3>Face Mill Subtypes</h3>" + _tbl(fs_h, fs_r)
+
+    # Face milling width bands (added 2026-04-20, source: Gaurav strategy sheet)
+    width_bands = d.get("face_mill_width_bands_mm",{})
+    width_html = ""
+    if width_bands:
+        wb_h = _th("Width (mm)","Tool type","Diameter","Flutes","Note")
+        wb_r = []
+        for band in width_bands.get("bands",[]):
+            w_max = f"< {band['width_max_exclusive']}" if band.get("width_max_exclusive") else "≥ 300"
+            wb_r.append(_tr(w_max, f"<code>{_esc(band['tool_type'])}</code>",
+                            f"{band['diameter_mm']} mm", band['flutes'], _esc(band.get("note",""))))
+        boss_r = []
+        for band in width_bands.get("boss_surface_overrides",[]):
+            w_max = f"< {band['width_max_exclusive']}" if band.get("width_max_exclusive") else "≥ 100"
+            boss_r.append(_tr(w_max, f"<code>{_esc(band['tool_type'])}</code>",
+                              f"{band['diameter_mm']} mm", band['flutes'], "boss_surface"))
+        width_html = ("<h3>Face Mill Width-Band Tool Selection</h3>"
+                      + "<p><em>full_surface &amp; interrupted:</em></p>" + _tbl(wb_h, wb_r)
+                      + "<p><em>boss_surface overrides:</em></p>" + _tbl(wb_h, boss_r))
+
+    # Face milling Z stock-to-leave (added 2026-04-20)
+    fz_stock = d.get("face_mill_stock_to_leave_z_mm",{})
+    fzstock_html = ""
+    if fz_stock:
+        fz_h = _th("Material","Z stock after RF pass (mm)")
+        fz_r = [_tr(_esc(k), v) for k,v in fz_stock.items() if k not in ("description","default")]
+        fzstock_html = (f"<h3>Face Mill Stock-to-Leave (Z only)</h3>"
+                        f"<p>XY stock = 0 for face ops (facing is axial). Default: {fz_stock.get('default','0.2')} mm</p>"
+                        + _tbl(fz_h, fz_r))
+
     return _sec("s02","Sheet 02 — Process Selection Rules",
                 "<h3>Drill Diameter Bands</h3>" + _tbl(band_h,band_r)
                 + "<h3>DDR → Drill Cycle</h3>" + _tbl(ddr_h,ddr_r)
                 + "<h3>Tap Drill Table (ISO 68-1)</h3>" + _tbl(tap_h,tap_r)
                 + "<h3>Material Stock-to-Leave</h3>" + _tbl(stl_h,stl_r)
+                + face_sub_html + width_html + fzstock_html
                 + _warn(d.get("warnings")))
 
 def _html_tool_policy(d):
@@ -472,11 +513,40 @@ def _html_cutting(d):
     p_r = [_tr(f'<code>{_esc(c)}</code>',f'{f["peck"]} × D',f'{f["deep_peck"]} × D') for c,f in peck.items() if c!="comment"]
     tsc = d.get("tsc_small_drill_boost",{})
     form_rows = "".join(f'<li><strong>{_esc(n)}:</strong> <code>{_esc(e)}</code></li>' for n,e in d.get("formulas",{}).items())
+
+    # Face mill ae by pass (added 2026-04-20, source: Gaurav strategy sheet)
+    face_ae = d.get("radial_depth_ae",{}).get("face_mill_by_pass",{})
+    face_ae_html = ""
+    if face_ae:
+        fa_h = _th("Pass","Stepover (% of tool dia)")
+        fa_r = [_tr(f"<code>{_esc(k)}</code>", f"{int(v*100)}%") for k,v in face_ae.items() if k != "description"]
+        face_ae_html = "<h3>Face Mill Stepover by Pass</h3>" + _tbl(fa_h, fa_r)
+
+    # Face mill ap by pass (added 2026-04-20)
+    face_ap = (d.get("axial_depth_ap_by_pass",{}) or {}).get("face_mill",{})
+    face_ap_html = ""
+    if face_ap:
+        fp_h = _th("Pass","DOC / ap (mm)")
+        fp_r = [_tr(f"<code>{_esc(k)}</code>", f"{v} mm") for k,v in face_ap.items() if k != "description"]
+        face_ap_html = "<h3>Face Mill DOC by Pass</h3>" + _tbl(fp_h, fp_r)
+
+    # Coolant by operation (added 2026-04-20)
+    coolant_ops = d.get("coolant_by_operation",{})
+    coolant_html = ""
+    if coolant_ops:
+        co_h = _th("Operation","Coolant")
+        co_r = [_tr(f"<code>{_esc(k)}</code>", f"<code>{_esc(v)}</code>") for k,v in coolant_ops.items() if k != "description"]
+        coolant_html = "<h3>Coolant by Operation</h3>" + _tbl(co_h, co_r)
+
+    spring = d.get("spring_pass_note","")
+    spring_html = f"<h3>Spring Pass</h3><p>{_esc(spring)}</p>" if spring else ""
+
     return _sec("s04","Sheet 04 — Cutting Parameter Rules",
                 f'<p>Max RPM: <strong>{md.get("max_spindle_rpm")}</strong> &nbsp;|&nbsp; Coolant: <code>{_esc(md.get("coolant_default",""))}</code></p>'
                 + "<h3>Peck Fractions</h3>" + _tbl(p_h,p_r)
                 + f'<h3>TSC Boost</h3><p>Drills &lt; {tsc.get("max_tool_diameter_mm_exclusive")} mm → Vc × <strong>{tsc.get("vc_multiplier")}</strong></p>'
                 + f"<h3>Formulas</h3><ul>{form_rows}</ul>"
+                + face_ae_html + face_ap_html + coolant_html + spring_html
                 + _warn(d.get("warnings")))
 
 def _html_setup(d):

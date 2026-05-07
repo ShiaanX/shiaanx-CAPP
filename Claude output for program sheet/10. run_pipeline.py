@@ -23,6 +23,7 @@ Options
     --machine     milling | turning | both              (default: milling)
     --out-dir     path            (default: same directory as STEP file)
     --from-step   N               (resume from step N, e.g. 3 to re-run from classify)
+    --mode        rule | ml       (classification mode, default: rule)
     --dry-run     print commands without executing
 
 Steps
@@ -184,6 +185,9 @@ def main():
                         help='Output directory (default: same as STEP file)')
     parser.add_argument('--from-step',  type=int, default=1,
                         help='Resume from step N (1-9, default: 1 = full run)')
+    parser.add_argument('--mode',       default='rule',
+                        choices=['rule', 'ml'],
+                        help='Classification mode: rule (default) or ml (RF model)')
     parser.add_argument('--dry-run',    action='store_true',
                         help='Print commands without executing')
 
@@ -221,53 +225,54 @@ def main():
     # Step definitions: (step_number, label, command_list)
     steps = [
         (1, 'Step 1/9 -- extract_features', [
-            py, str(SCRIPT_DIR / 'extract_features.py'),
+            py, str(SCRIPT_DIR / '1. extract_features.py'),
             str(step_path),
             str(f_features),
         ]),
         (2, 'Step 2/9 -- cluster_features', [
-            py, str(SCRIPT_DIR / 'cluster_features.py'),
+            py, str(SCRIPT_DIR / '2. cluster_features.py'),
             str(f_features),
             str(f_clustered),
         ]),
         (3, 'Step 3/9 -- classify_features', [
-            py, str(SCRIPT_DIR / 'classify_features.py'),
+            py, str(SCRIPT_DIR / '3. classify_features.py'),
             str(f_clustered),
             str(f_classified),
-        ]),
+            '--mode', args.mode,
+        ] + (['--features', str(f_features)] if args.mode == 'ml' else [])),
         (4, 'Step 4/9 -- process_selection', [
-            py, str(SCRIPT_DIR / 'process_selection.py'),
+            py, str(SCRIPT_DIR / '4. process_selection.py'),
             str(f_classified),
             str(f_processes),
             '--machine', args.machine,
             '--material', args.material,
         ]),
         (5, 'Step 5/9 -- setup_planning', [
-            py, str(SCRIPT_DIR / 'setup_planning.py'),
+            py, str(SCRIPT_DIR / '5. setup_planning.py'),
             str(f_processes),
             str(f_setups),
         ]),
         (6, 'Step 6/9 -- setup_view_renderer', [
-            py, str(SCRIPT_DIR / 'setup_view_renderer.py'),
+            py, str(SCRIPT_DIR / '6. setup_view_renderer.py'),
             str(step_path),
             str(f_setups),
             str(d_views),
         ]),
         (7, 'Step 7/9 -- tool_selection', [
-            py, str(SCRIPT_DIR / 'tool_selection.py'),
+            py, str(SCRIPT_DIR / '7. tool_selection.py'),
             str(f_setups),
             str(f_tools),
             '--material', args.material,
         ]),
         (8, 'Step 8/9 -- parameter_calculation', [
-            py, str(SCRIPT_DIR / 'parameter_calculation.py'),
+            py, str(SCRIPT_DIR / '8. parameter_calculation.py'),
             str(f_tools),
             str(f_params),
             '--max-rpm', args.max_rpm,
             '--coolant', args.coolant,
         ]),
         (9, 'Step 9/9 -- program_sheet', [
-            py, str(SCRIPT_DIR / 'program_sheet.py'),
+            py, str(SCRIPT_DIR / '9. program_sheet.py'),
             str(f_params),
             str(f_pdf),
             '--part-name', part_name,
@@ -286,9 +291,10 @@ def main():
     print(f"  STEP       : {step_path}")
     print(f"  Output dir : {out_dir}")
     print(f"  Material   : {args.material}")
+    print(f"  Mode       : {args.mode}")
     print(f"  Starting at step {args.from_step}")
     log.info(f"Pipeline start — part: {base} | material: {args.material} | "
-             f"from_step: {args.from_step}")
+             f"mode: {args.mode} | from_step: {args.from_step}")
 
     pipeline_t0 = time.time()
 
@@ -300,6 +306,11 @@ def main():
 
         ok = _run(cmd, label, dry_run=args.dry_run)
         if not ok:
+            # Step 6 (setup view renderer) is optional — cadquery may not be installed
+            if step_num == 6:
+                print(f"  [WARN] {label} failed (cadquery not installed?) — continuing without setup views")
+                log.warning(f"Optional step skipped: {label}")
+                continue
             print(f"\nPipeline aborted at {label}.")
             print(f"Fix the issue above, then resume with:  --from-step {step_num}")
             log.error(f"Pipeline ABORTED at: {label} — total elapsed: "

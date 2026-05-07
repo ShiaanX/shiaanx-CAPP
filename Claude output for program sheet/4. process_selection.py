@@ -402,7 +402,7 @@ def _apply_process_selection_rules(rules: Dict) -> None:
         default = fz_stock.get('default')
         if default is not None:
             FACE_MILL_STOCK_Z_DEFAULT = float(default)
-        FACE_MILL_STOCK_Z = {k: float(v) for k, v in fz_stock.items() if k != 'default'}
+        FACE_MILL_STOCK_Z = {k: float(v) for k, v in fz_stock.items() if k not in ('default', 'description')}
 
 
 # Apply rule sheet at import time (best-effort).
