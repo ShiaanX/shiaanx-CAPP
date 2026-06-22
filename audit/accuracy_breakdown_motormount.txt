@@ -1,0 +1,83 @@
+Motor Mount — Feature Recognition Accuracy Breakdown
+==============================================================================
+
+Feature Type                 | Expected | Detected | Error Type   | Notes
+----------------------------------------------------------------------------------------------------
+face_milling                 |        2 |        5 | EXTRA        | Top face (Setup 1 DYNAMIC) + Bottom face (Set
+pocket                       |        5 |        0 | MISSED       | Q11, SP, SMALL_POCKET, CAVITY (Setup 1) + STE
+step_feature                 |        2 |        0 | MISSED       | STEP-1 (Setup 1) + STEP-2 (Setup 2)
+outer_profile                |        1 |        0 | MISSED       | Outer contour milling (Setup 1 OUTER_PROFILE)
+through_hole_2p5mm           |        4 |        4 | —            | 2.5mm drilled holes, Setup 1 T03
+through_hole_3p2mm           |        7 |        7 | —            | 3.2mm drilled holes, Setup 1 T04
+through_hole_3mm             |        1 |        0 | MISSED       | 3mm drilled hole, Setup 2 T11 (exact count un
+fillet_ballnose              |        4 |       10 | EXTRA        | Ballnose passes: step bottom R2.5 (setups 1/3
+fillet_bull_nose             |        2 |        0 | MISSED       | 8R1 endmill passes (setups 1, 2)
+chamfer                      |        3 |        2 | PARTIAL      | Chamfer ops: setup 1 x2, setup 4 x1
+large_bore_16p1mm            |        1 |        1 | —            | 16.1mm bore, circular interpolation, Setup 4 
+deep_slot_41p5mm             |        1 |        0 | MISSED       | 41.5mm deep 3mm slot, Setup 4 T14
+----------------------------------------------------------------------------------------------------
+TOTALS                       |       33 |        -
+
+Correctly detected:         26/33
+Overall accuracy:           78.8%
+
+Pipeline classification distribution (all 71 clusters):
+  background                    : 15
+  blind_hole                    : 2
+  chamfer                       : 2
+  fillet                        : 33
+  planar_face                   : 5
+  through_hole                  : 14
+
+==============================================================================
+DISCREPANCY LOG
+==============================================================================
+
+[1] GROUPING | cluster=70
+      background cluster id=70 contains 1015 faces — should be broken into pockets, steps,
+     outer profile. Root cause: plane clustering uses single seed per normal direction, merging
+     all Z-parallel faces into one cluster.
+
+[2] TAXONOMY | cluster=22
+      r=8.050mm (dia=16.1mm) bore classified as through_hole — should be large_bore (requires
+     circular interpolation, not drilling). LARGE_BORE_RADIUS_MM threshold is 10.0 but max
+     drillable is ~8.0mm.
+
+[3] TAXONOMY | cluster=33
+      r=1.2645mm hole classified as blind_hole (face_count=1) but same radius as confirmed
+     through_holes — clustering missed the second cylinder arc (exit face). Recommend: manual
+     review or lower DDR threshold.
+
+[4] TAXONOMY | cluster=34
+      r=1.2645mm hole classified as blind_hole (face_count=1) but same radius as confirmed
+     through_holes — clustering missed the second cylinder arc (exit face). Recommend: manual
+     review or lower DDR threshold.
+
+[5] EXTRA | cluster=multiple
+      11 fillets with R<1.0mm classified as fillet → profile_3d_contour operations generated.
+     These are as-machined edge blends (no tool in database with R<1.0mm). Should be
+     background.
+
+[6] EXTRA | cluster=fillet
+      33 fillet clusters detected vs ~4 ballnose + 2 bull-nose passes in ground truth. Pocket
+     corner fillets (R=2.5, R=1.5) are separate clusters but should be sub-features of their
+     parent pocket.
+
+[7] MISSED | cluster=—
+      0 pocket clusters — Q11, SP, SMALL_POCKET, CAVITY (Setup 1) and STEP POCKET (Setup 2) all
+     missed. Root cause: plane merging groups all pocket floors with stock face into one
+     background cluster.
+
+[8] MISSED | cluster=—
+      0 step features — STEP-1 and STEP-2 shoulders missed. Root cause: same plane merging
+     issue as pockets.
+
+[9] MISSED | cluster=—
+      0 boss/outer_profile clusters — outer contour milling operations (OUTER_PROFILE RF +
+     FINISH + CORNER) have no corresponding feature. Root cause: plane merging captures outer
+     wall faces into background.
+
+[10] MISSED | cluster=—
+      Deep slot (41.5mm deep, 3mm endmill, Setup 4) not detected. Slot detection requires two
+     matching semicircle arcs from detect_slots; this slot may lack the arc geometry or the
+     arcs are too deep for detection.

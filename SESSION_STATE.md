@@ -45,6 +45,30 @@ tool_selection and parameter_calculation default to `7a. tool_database.json` in 
 
 ---
 
+## Feature Recognition Audit — Motor Mount (2026-06-22, COMPLETE)
+
+Branch: `audit/feature-recognition-motor-mount`
+
+Full audit of the classify_features.py stage against a real machined Motor Mount part (4 setups, 37 operations, 14 tools). Ground truth extracted from 4 setup sheet PDFs + 4 Siemens MPF G-code files.
+
+**Results:** Pre-fix 78.8% (26/33) → Post-fix 81.8% (27/33)
+
+**Three fixes committed:**
+1. `LARGE_BORE_RADIUS_MM` 10.0 → 8.0 (code + rule sheet `01_feature_classification.json`) — fixes 16.1mm bore classified as through_hole
+2. `FILLET_MIN_RADIUS_MM = 1.0` — R<1mm fillets → background (removes 11 spurious ops)
+3. Depth guard for shallow large-radius bores (depth < 1mm → planar_face)
+
+**Architectural finding (NOT fixed):** All pocket/step/outer-profile features missed because plane clustering uses one seed per normal direction — all Z-facing faces (stock top, pocket floors, step shoulders) merge into one 1015-face background cluster (id=70). Requires Z-level separation in `2. cluster_features.py`.
+
+**Regression found:** chamfer count 2 → 0 after fixes. Likely chamfer seed type overlaps with fillet path. Needs investigation.
+
+**All audit files:** `C:\Users\Siddhant Gupta\Documents\ShiaanX\audit\`
+Key files: `FINDINGS_feature_recognition.md`, `accuracy_breakdown_motormount.txt`, `accuracy_breakdown_motormount_postfix.txt`, `motor_mount_ground_truth.json`
+
+**Note on rule sheet + code changes:** The rule sheet override in `01_feature_classification.json` runs at module import time and overrides Python constants. Code-only changes to classify_features.py constants are silently neutralised. Always update BOTH.
+
+---
+
 ## What Was Completed (as of 2026-04-13)
 
 ### From Toolpath.ai competitive analysis:

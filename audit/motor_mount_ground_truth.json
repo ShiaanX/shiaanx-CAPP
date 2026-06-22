@@ -1,0 +1,114 @@
+{
+  "part": "Motor Mount",
+  "total_setups": 4,
+  "pdf_readability": "MACHINE READABLE",
+  "setups": [
+    {
+      "setup_number": 1,
+      "part_no": "MOTOR_MOUNT_1_SETUP",
+      "wcs_origin": {"X": "CENTER", "Y": "CENTER", "Z": "TOP"},
+      "operations": [
+        {"sequence": 1,  "toolpath_name": "10 ENDMILL DYNAMIC-1 RF",        "tool_number": "T01", "tool_dia_mm": 10,  "tool_radius_mm": 0,   "tool_type": "endmill",      "depth_max_mm": -13.8, "rpm": 3980, "feed_mmpm": 1491, "doc_mm": 0,    "stock_xy": null, "stock_z": null, "feature_hint": "dynamic_roughing_main_body"},
+        {"sequence": 2,  "toolpath_name": "10 ENDMILL STEP-1 BOTTOM FINISH_","tool_number": "T01", "tool_dia_mm": 10,  "tool_radius_mm": 0,   "tool_type": "endmill",      "depth_max_mm": -8,    "rpm": 2800, "feed_mmpm": 800,  "doc_mm": 0,    "stock_xy": 0.1,  "stock_z": 0,    "feature_hint": "step_floor_finish"},
+        {"sequence": 3,  "toolpath_name": "10 ENDMILL OUTER_PROFILE FINISH", "tool_number": "T01", "tool_dia_mm": 10,  "tool_radius_mm": 0,   "tool_type": "endmill",      "depth_max_mm": -13.5, "rpm": 2200, "feed_mmpm": 300,  "doc_mm": 0,    "stock_xy": null, "stock_z": null, "feature_hint": "outer_profile_contour"},
+        {"sequence": 4,  "toolpath_name": "10 ENDMILL STEP-1 FINISH",        "tool_number": "T01", "tool_dia_mm": 10,  "tool_radius_mm": 0,   "tool_type": "endmill",      "depth_max_mm": -8,    "rpm": 2200, "feed_mmpm": 300,  "doc_mm": 0,    "stock_xy": null, "stock_z": null, "feature_hint": "step_wall_finish"},
+        {"sequence": 5,  "toolpath_name": "CENTER DRILL_BS2",                 "tool_number": "T02", "tool_dia_mm": 2,   "tool_radius_mm": 0,   "tool_type": "center_drill", "depth_max_mm": -10,   "rpm": 1000, "feed_mmpm": 80,   "doc_mm": 0,    "stock_xy": null, "stock_z": null, "feature_hint": "spot_drilling_small_holes"},
+        {"sequence": 6,  "toolpath_name": "2.5 DRILL_",                       "tool_number": "T03", "tool_dia_mm": 2.5, "tool_radius_mm": 0,   "tool_type": "twist_drill",  "depth_max_mm": -16,   "rpm": 1500, "feed_mmpm": 70,   "doc_mm": 1.5,  "stock_xy": null, "stock_z": null, "feature_hint": "through_hole_2p5mm"},
+        {"sequence": 7,  "toolpath_name": "3.2 DRILL_",                       "tool_number": "T04", "tool_dia_mm": 3.2, "tool_radius_mm": 0,   "tool_type": "twist_drill",  "depth_max_mm": -14,   "rpm": 1200, "feed_mmpm": 80,   "doc_mm": 1.5,  "stock_xy": null, "stock_z": null, "feature_hint": "through_hole_3p2mm"},
+        {"sequence": 8,  "toolpath_name": "8 ENDMILL Q11 RF",                 "tool_number": "T05", "tool_dia_mm": 8,   "tool_radius_mm": 0,   "tool_type": "endmill",      "depth_max_mm": -11.5, "rpm": 2200, "feed_mmpm": 500,  "doc_mm": 0.25, "stock_xy": 0.1,  "stock_z": 0,    "feature_hint": "pocket_Q11_roughing"},
+        {"sequence": 9,  "toolpath_name": "8 ENDMILL SP RF",                  "tool_number": "T05", "tool_dia_mm": 8,   "tool_radius_mm": 0,   "tool_type": "endmill",      "depth_max_mm": -14,   "rpm": 2200, "feed_mmpm": 500,  "doc_mm": 0.25, "stock_xy": 0.1,  "stock_z": 0,    "feature_hint": "pocket_SP_roughing"},
+        {"sequence": 10, "toolpath_name": "8 ENDMILL Q11 FINISH",             "tool_number": "T05", "tool_dia_mm": 8,   "tool_radius_mm": 0,   "tool_type": "endmill",      "depth_max_mm": -11.5, "rpm": 2200, "feed_mmpm": 200,  "doc_mm": 0,    "stock_xy": 0,    "stock_z": 0,    "feature_hint": "pocket_Q11_finish"},
+        {"sequence": 11, "toolpath_name": "8 ENDMILL SMALL_POCKET FINISH_",   "tool_number": "T05", "tool_dia_mm": 8,   "tool_radius_mm": 0,   "tool_type": "endmill",      "depth_max_mm": -14,   "rpm": 2200, "feed_mmpm": 200,  "doc_mm": 0,    "stock_xy": 0,    "stock_z": 0,    "feature_hint": "small_pocket_finish"},
+        {"sequence": 12, "toolpath_name": "3 ENDMILL CAVITY_ RF",             "tool_number": "T06", "tool_dia_mm": 3,   "tool_radius_mm": 0,   "tool_type": "endmill",      "depth_max_mm": -12.25,"rpm": 3000, "feed_mmpm": 800,  "doc_mm": 0.25, "stock_xy": 0.1,  "stock_z": 0,    "feature_hint": "cavity_roughing"},
+        {"sequence": 13, "toolpath_name": "3 ENDMILL CAVITY_ FINISH",         "tool_number": "T06", "tool_dia_mm": 3,   "tool_radius_mm": 0,   "tool_type": "endmill",      "depth_max_mm": -12.25,"rpm": 2200, "feed_mmpm": 250,  "doc_mm": 0,    "stock_xy": 0,    "stock_z": 0,    "feature_hint": "cavity_finish"},
+        {"sequence": 14, "toolpath_name": "3 ENDMILL SMALL_POCKET CORNER",    "tool_number": "T06", "tool_dia_mm": 3,   "tool_radius_mm": 0,   "tool_type": "endmill",      "depth_max_mm": -14,   "rpm": 3000, "feed_mmpm": 800,  "doc_mm": 0.25, "stock_xy": 0,    "stock_z": 0,    "feature_hint": "pocket_corner_cleanup"},
+        {"sequence": 15, "toolpath_name": "4 ENDMILL OUTER_PROFILE CORNER",   "tool_number": "T07", "tool_dia_mm": 4,   "tool_radius_mm": 0,   "tool_type": "endmill",      "depth_max_mm": -12.5, "rpm": 2200, "feed_mmpm": 500,  "doc_mm": 0.3,  "stock_xy": 0,    "stock_z": 0,    "feature_hint": "outer_profile_corner_cleanup"},
+        {"sequence": 16, "toolpath_name": "8R1 ENDMILL_TOP R FINISH",         "tool_number": "T08", "tool_dia_mm": 8,   "tool_radius_mm": 1,   "tool_type": "bull_endmill",  "depth_max_mm": -4,    "rpm": 4500, "feed_mmpm": 1500, "doc_mm": 0,    "stock_xy": 0,    "stock_z": null, "feature_hint": "fillet_top_edge"},
+        {"sequence": 17, "toolpath_name": "5 BALLNOSE STEP BOTTOM FINISH",    "tool_number": "T09", "tool_dia_mm": 5,   "tool_radius_mm": 2.5, "tool_type": "ballnose",     "depth_max_mm": -8,    "rpm": 2500, "feed_mmpm": 200,  "doc_mm": 0,    "stock_xy": null, "stock_z": null, "feature_hint": "step_floor_radius"},
+        {"sequence": 18, "toolpath_name": "CHAMFER CUTTER 10 X 45",           "tool_number": "T10", "tool_dia_mm": 10,  "tool_radius_mm": 0,   "tool_type": "chamfer_mill", "depth_max_mm": -9.75, "rpm": 900,  "feed_mmpm": 80,   "doc_mm": 0,    "stock_xy": null, "stock_z": null, "feature_hint": "chamfer_holes"},
+        {"sequence": 19, "toolpath_name": "CHAMFER CUTTER 10 X 45_",          "tool_number": "T10", "tool_dia_mm": 10,  "tool_radius_mm": 0,   "tool_type": "chamfer_mill", "depth_max_mm": -9.6,  "rpm": 4500, "feed_mmpm": 700,  "doc_mm": 0,    "stock_xy": null, "stock_z": null, "feature_hint": "chamfer_profile_edge"}
+      ],
+      "total_time": "0:32:04"
+    },
+    {
+      "setup_number": 2,
+      "part_no": "MOTOR_MOUNT_2_SETUP",
+      "wcs_origin": {"X": "CENTER", "Y": "CENTER", "Z": "TOP"},
+      "operations": [
+        {"sequence": 1,  "toolpath_name": "10 ENDMILL DYAMNIC-2RF",            "tool_number": "T01", "tool_dia_mm": 10,  "tool_radius_mm": 0,   "tool_type": "endmill",      "depth_max_mm": -10.8, "rpm": 4065, "feed_mmpm": 1523, "doc_mm": 0,    "stock_xy": null, "stock_z": null, "feature_hint": "dynamic_roughing_bottom_face"},
+        {"sequence": 2,  "toolpath_name": "10 ENDMILL STEP-2 FINISH",          "tool_number": "T01", "tool_dia_mm": 10,  "tool_radius_mm": 0,   "tool_type": "endmill",      "depth_max_mm": -7.5,  "rpm": 2200, "feed_mmpm": 300,  "doc_mm": 0,    "stock_xy": null, "stock_z": null, "feature_hint": "step2_wall_finish"},
+        {"sequence": 3,  "toolpath_name": "10 ENDMILL LENGHT FINISH CUT",      "tool_number": "T01", "tool_dia_mm": 10,  "tool_radius_mm": 0,   "tool_type": "endmill",      "depth_max_mm": -10.3, "rpm": 2200, "feed_mmpm": 300,  "doc_mm": 0,    "stock_xy": null, "stock_z": null, "feature_hint": "outer_length_profile_finish"},
+        {"sequence": 4,  "toolpath_name": "10 ENDMILL STEP BOTTOM FINISH",     "tool_number": "T01", "tool_dia_mm": 10,  "tool_radius_mm": 0,   "tool_type": "endmill",      "depth_max_mm": -11,   "rpm": 2800, "feed_mmpm": 800,  "doc_mm": 0,    "stock_xy": 0.1,  "stock_z": 0,    "feature_hint": "step_floor_finish_bottom"},
+        {"sequence": 5,  "toolpath_name": "3 DRILL",                           "tool_number": "T11", "tool_dia_mm": 3,   "tool_radius_mm": 0,   "tool_type": "twist_drill",  "depth_max_mm": -10.3, "rpm": 1200, "feed_mmpm": 80,   "doc_mm": 1.5,  "stock_xy": null, "stock_z": null, "feature_hint": "through_hole_3mm"},
+        {"sequence": 6,  "toolpath_name": "4 ENDMILL STEP POCKET FINISH",      "tool_number": "T07", "tool_dia_mm": 4,   "tool_radius_mm": 0,   "tool_type": "endmill",      "depth_max_mm": -11,   "rpm": 2200, "feed_mmpm": 500,  "doc_mm": 0,    "stock_xy": null, "stock_z": null, "feature_hint": "step_pocket_finish"},
+        {"sequence": 7,  "toolpath_name": "4 ENDMILL STEP-2 FINISH",           "tool_number": "T07", "tool_dia_mm": 4,   "tool_radius_mm": 0,   "tool_type": "endmill",      "depth_max_mm": -7.5,  "rpm": 2200, "feed_mmpm": 250,  "doc_mm": 0,    "stock_xy": null, "stock_z": null, "feature_hint": "step2_pocket_finish"},
+        {"sequence": 8,  "toolpath_name": "8R1 ENDMILL",                       "tool_number": "T08", "tool_dia_mm": 8,   "tool_radius_mm": 1,   "tool_type": "bull_endmill",  "depth_max_mm": -2.335,"rpm": 4500, "feed_mmpm": 1500, "doc_mm": 0,    "stock_xy": 0,    "stock_z": null, "feature_hint": "fillet_bottom_edge"},
+        {"sequence": 9,  "toolpath_name": "5 BALLNOSE STEP-2 BOTTOM R FINISH", "tool_number": "T09", "tool_dia_mm": 5,   "tool_radius_mm": 2.5, "tool_type": "ballnose",     "depth_max_mm": -7.5,  "rpm": 2500, "feed_mmpm": 200,  "doc_mm": 0,    "stock_xy": null, "stock_z": null, "feature_hint": "step2_floor_radius"},
+        {"sequence": 10, "toolpath_name": "3 BALLNOSE_1",                      "tool_number": "T12", "tool_dia_mm": 3,   "tool_radius_mm": 1.5, "tool_type": "ballnose",     "depth_max_mm": -8.995,"rpm": 4500, "feed_mmpm": 1000, "doc_mm": 0,    "stock_xy": 0.02, "stock_z": null, "feature_hint": "small_fillet_or_radius_1"},
+        {"sequence": 11, "toolpath_name": "3 BALLNOSE",                        "tool_number": "T12", "tool_dia_mm": 3,   "tool_radius_mm": 1.5, "tool_type": "ballnose",     "depth_max_mm": -11,   "rpm": 4500, "feed_mmpm": 1000, "doc_mm": 0,    "stock_xy": 0,    "stock_z": null, "feature_hint": "small_fillet_or_radius_2"}
+      ],
+      "total_time": "0:25:10"
+    },
+    {
+      "setup_number": 3,
+      "part_no": "MOTOR_MOUNT_3_FINISH_SETUP",
+      "wcs_origin": {"X": "CENTER", "Y": "CENTER", "Z": "TOP"},
+      "notes": "Finishing-only setup; same orientation as Setup 1 — re-clamp after Setup 2 to finish Setup 1 step floors",
+      "operations": [
+        {"sequence": 1, "toolpath_name": "10 ENDMILL STEP-1-1 BOTTOM FINISH", "tool_number": "T01", "tool_dia_mm": 10,  "tool_radius_mm": 0,   "tool_type": "endmill",  "depth_max_mm": -8, "rpm": 2800, "feed_mmpm": 800, "doc_mm": 0, "stock_xy": 0.1, "stock_z": 0,    "feature_hint": "step1_floor_finish_final"},
+        {"sequence": 2, "toolpath_name": "10 ENDMILL STEP-1 FINISH_1",        "tool_number": "T01", "tool_dia_mm": 10,  "tool_radius_mm": 0,   "tool_type": "endmill",  "depth_max_mm": -8, "rpm": 2200, "feed_mmpm": 300, "doc_mm": 0, "stock_xy": null,"stock_z": null, "feature_hint": "step1_wall_finish_final"},
+        {"sequence": 3, "toolpath_name": "5 BALLNOSE STEP BOTTOM FINISH_",    "tool_number": "T09", "tool_dia_mm": 5,   "tool_radius_mm": 2.5, "tool_type": "ballnose", "depth_max_mm": -8, "rpm": 2500, "feed_mmpm": 200, "doc_mm": 0, "stock_xy": null,"stock_z": null, "feature_hint": "step_floor_radius_final"}
+      ],
+      "total_time": "0:03:20"
+    },
+    {
+      "setup_number": 4,
+      "part_no": "MOTOR_MOUNT_4_SETUP",
+      "wcs_origin": {"X": "CENTER", "Y": "CENTER", "Z": "TOP"},
+      "notes": "Different orientation — part rotated to access side/angled face with large bore and deep slot",
+      "operations": [
+        {"sequence": 1, "toolpath_name": "10 ENDMILL PROFILE BORE 16.1 RF",     "tool_number": "T13", "tool_dia_mm": 10, "tool_radius_mm": 0, "tool_type": "endmill_long_reach", "depth_max_mm": -37,   "rpm": 2500, "feed_mmpm": 800, "doc_mm": 0.3,  "stock_xy": 0.1,  "stock_z": 0, "feature_hint": "large_bore_16p1mm_roughing"},
+        {"sequence": 2, "toolpath_name": "10 ENDMILL PROFILE BORE 16.1 FINISH", "tool_number": "T13", "tool_dia_mm": 10, "tool_radius_mm": 0, "tool_type": "endmill_long_reach", "depth_max_mm": -37,   "rpm": 2500, "feed_mmpm": 800, "doc_mm": 18.5, "stock_xy": 0,    "stock_z": 0, "feature_hint": "large_bore_16p1mm_finish"},
+        {"sequence": 3, "toolpath_name": "CHAMFER CUTTER 10 X 45_BORE OUTER",   "tool_number": "T10", "tool_dia_mm": 10, "tool_radius_mm": 0, "tool_type": "chamfer_mill",       "depth_max_mm": -1.65, "rpm": 900,  "feed_mmpm": 500, "doc_mm": 0,    "stock_xy": null, "stock_z": null, "feature_hint": "chamfer_bore_outer_edge"},
+        {"sequence": 4, "toolpath_name": "3 ENDMILL LONG POCKET RF",            "tool_number": "T14", "tool_dia_mm": 3,  "tool_radius_mm": 0, "tool_type": "endmill_long_reach", "depth_max_mm": -41.5, "rpm": 2800, "feed_mmpm": 500, "doc_mm": 0.15, "stock_xy": 0,    "stock_z": 0, "feature_hint": "deep_narrow_slot_41p5mm"}
+      ],
+      "total_time": "0:05:55"
+    }
+  ],
+  "total_operations": 37,
+  "unique_tool_numbers": ["T01", "T02", "T03", "T04", "T05", "T06", "T07", "T08", "T09", "T10", "T11", "T12", "T13", "T14"],
+  "unique_tool_count": 14,
+  "unique_tools_detail": [
+    {"tool_number": "T01", "description": "10mm flat endmill (standard reach)", "used_in_setups": [1,2,3]},
+    {"tool_number": "T02", "description": "2mm center/spot drill", "used_in_setups": [1]},
+    {"tool_number": "T03", "description": "2.5mm twist drill", "used_in_setups": [1]},
+    {"tool_number": "T04", "description": "3.2mm twist drill", "used_in_setups": [1]},
+    {"tool_number": "T05", "description": "8mm flat endmill", "used_in_setups": [1]},
+    {"tool_number": "T06", "description": "3mm flat endmill", "used_in_setups": [1]},
+    {"tool_number": "T07", "description": "4mm flat endmill", "used_in_setups": [1,2]},
+    {"tool_number": "T08", "description": "8mm R1 bull-nose endmill (corner radius 1mm)", "used_in_setups": [1,2]},
+    {"tool_number": "T09", "description": "5mm ballnose endmill (R2.5)", "used_in_setups": [1,2,3]},
+    {"tool_number": "T10", "description": "10mm 45-degree chamfer mill", "used_in_setups": [1,4]},
+    {"tool_number": "T11", "description": "3mm twist drill", "used_in_setups": [2]},
+    {"tool_number": "T12", "description": "3mm ballnose endmill (R1.5)", "used_in_setups": [2]},
+    {"tool_number": "T13", "description": "10mm flat endmill long-reach (for 37mm deep bore profile)", "used_in_setups": [4]},
+    {"tool_number": "T14", "description": "3mm flat endmill long-reach (for 41.5mm deep slot)", "used_in_setups": [4]}
+  ],
+  "features_implied_by_ground_truth": {
+    "planar_face": "Large flat surfaces — top face and bottom face; DYNAMIC milling (ops 1, 2 in setup 1; op 1 in setup 2)",
+    "rectangular_pocket": "Pockets Q11, SP, SMALL_POCKET, CAVITY (8mm and 3mm endmill pockets in setup 1)",
+    "through_hole_small": "2.5mm and 3.2mm drilled holes (setup 1 ops 5-7) and 3mm drilled holes (setup 2 op 5)",
+    "outer_profile_boss": "Outer profile contour milling (setup 1 ops 3,15; setup 2 op 3)",
+    "step_feature": "Stepped faces/shoulders machined in both setups 1 and 2 (STEP-1, STEP-2 ops)",
+    "chamfer": "Chamfer features on holes and profile edges (setup 1 ops 18-19; setup 4 op 3)",
+    "fillet_radius": "Internal radii/fillets machined with bull-nose and ballnose tools (ops 16-17 in setup 1; ops 8-11 in setup 2)",
+    "large_bore_circular": "16.1mm diameter bore profiled by circular interpolation (setup 4 ops 1-2) — depth 37mm, accessed from side",
+    "deep_narrow_slot": "41.5mm deep pocket/slot requiring long-reach 3mm endmill (setup 4 op 4)"
+  },
+  "setup_implications": {
+    "setup_1_orientation": "Top face — same Z as CAD origin top, XY center",
+    "setup_2_orientation": "Bottom face — part flipped, machining from below",
+    "setup_3_orientation": "Same as Setup 1 — finishing pass after Setup 2 distortion or stock removal",
+    "setup_4_orientation": "Side/angled face — part rotated to access bore and deep slot on side face"
+  }
+}
