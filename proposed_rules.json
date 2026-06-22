@@ -1,0 +1,997 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "created": "2026-06-22",
+    "author": "Claude Code — overnight rule expansion (Task 4)",
+    "scope": "Al 6061-T6, Al 7075-T6, SS304, Mild Steel EN8",
+    "status": "PROPOSED — do not implement in process_selection.py without review",
+    "total_rules": 22
+  },
+  "operation_rules": [
+    {
+      "rule_id": "PS-AL6061-DYNAMIC-001",
+      "status": "PROPOSED",
+      "material": "Al 6061-T6",
+      "operation": "dynamic_mill_rf",
+      "trigger_condition": "feature_type IN (pocket, slot, boss, contour) AND material IN (aluminium_6061, aluminium_6063, aluminium_6082, aluminium) AND machine_has_dynamic_milling_cycle = true",
+      "operation_sequence": [
+        {
+          "step": 1,
+          "operation": "dynamic_mill_rf",
+          "pass_type": "RF",
+          "notes": "Adaptive/trochoidal roughing — constant chip load, high Vc, high fz. Replaces standard pocket_mill RF for aluminium when CAM supports adaptive clearing (Fusion 360 Adaptive, HSMWorks Adaptive, Mastercam Dynamic).",
+          "radial_engagement_pct_of_dia": 10,
+          "axial_depth_pct_of_dia": 200,
+          "stock_to_leave_xy_mm": 0.1,
+          "stock_to_leave_z_mm": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "pass_type": "FINISH",
+          "notes": "Standard finish pass after dynamic RF to achieve final dimension.",
+          "stock_to_leave_xy_mm": 0,
+          "stock_to_leave_z_mm": 0
+        }
+      ],
+      "cutting_parameters": {
+        "vc_m_per_min": {"min": 120, "max": 180, "recommended": 140, "motor_mount_observed": 140},
+        "fz_mm_tooth": {"min": 0.12, "max": 0.20, "recommended": 0.167, "motor_mount_observed": 0.167},
+        "radial_ae_pct_diameter": {"min": 5, "max": 15, "recommended": 10},
+        "axial_ap_pct_diameter": {"min": 100, "max": 300, "recommended": 200},
+        "coolant": "flood or air blast"
+      },
+      "tool_specification": {
+        "tool_type": "end mill, 2-flute carbide, centre-cutting",
+        "geometry": "high-helix (35–45°) for aluminium",
+        "coating": "uncoated or ZrN/TiB2 for aluminium"
+      },
+      "decision_logic": {
+        "use_dynamic_mill_when": "CAM system supports adaptive clearing AND feature depth > 3× tool diameter (high material volume)",
+        "fall_back_to_standard_pocket_mill_when": "shallow features (depth <= 1.5× tool diameter) OR CAM system lacks adaptive cycle"
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Milling — High-Efficiency Milling (HEM) strategies",
+        "secondary": "Sandvik Coromant 'High-efficiency milling in aluminium', Application Guide 2023",
+        "motor_mount_validation": "Observed in ALL 4 setup sheets as primary RF strategy: MOTOR_MOUNT_1 op1 S=4461 F=1491, MOTOR_MOUNT_2 op1 S=4065 F=1523. Toolpath names explicitly say 'DYNAMIC'.",
+        "notes": "This is the dominant RF strategy used on the real motor mount. Standard pocket_mill at full radial engagement is the fallback. Implement as a feature flag in process_selection.py."
+      },
+      "confidence": "HIGH",
+      "open_issues": [
+        "Requires CAM system to support adaptive/trochoidal cycle — not universally available.",
+        "Dynamic milling for boss/contour (outer profile) is also used but at different engagement."
+      ],
+      "added_by": "Claude Code — overnight rule expansion"
+    },
+    {
+      "rule_id": "PS-AL6061-REAM-001",
+      "status": "PROPOSED",
+      "material": "Al 6061-T6",
+      "operation": "reaming",
+      "trigger_condition": "hole_tolerance <= H7 AND hole_diameter BETWEEN 3 AND 20 AND is_standard_reamer_size = true",
+      "operation_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "notes": "Centre drill to prevent drill wander. Standard — same as any other hole."
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "diameter_offset_mm": -0.2,
+          "notes": "Drill to reaming allowance: nominal minus 0.1–0.3mm for diameters under 10mm, nominal minus 0.2–0.5mm for 10–20mm. Machinery's Handbook: 0.1–0.3mm undersize for HSS reamers in aluminium."
+        },
+        {
+          "step": 3,
+          "operation": "ream",
+          "diameter": "nominal",
+          "notes": "Reaming to H7 tolerance. Use flood coolant. Do not reverse spindle in bore — retract with spindle running."
+        }
+      ],
+      "cutting_parameters": {
+        "vc_m_per_min": {"min": 8, "max": 20, "recommended": 12, "source": "Machinery's Handbook §Reaming"},
+        "feed_per_rev_mm": {
+          "formula": "0.25 * sqrt(diameter_mm)",
+          "example_d6mm": 0.6,
+          "example_d10mm": 0.79,
+          "example_d16mm": 1.0
+        },
+        "coolant": "flood (essential for aluminium — prevents built-up edge on reamer)",
+        "reaming_allowance_mm": {
+          "d_3_to_6": 0.1,
+          "d_6_to_10": 0.15,
+          "d_10_to_20": 0.2
+        }
+      },
+      "tool_specification": {
+        "tool_type": "HSS or carbide chucking reamer",
+        "geometry": "straight flute for through holes, right-hand spiral for blind holes",
+        "tolerance": "h6 reamer for H7 hole — reamer is 0.01mm undersized from nominal"
+      },
+      "decision_logic": {
+        "prefer_reaming_over_boring_when": "hole_diameter < 20mm AND tolerance H7 or coarser AND standard reamer size available",
+        "prefer_boring_over_reaming_when": "hole_diameter >= 20mm OR tolerance H6 or tighter OR non-standard diameter"
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Reaming — Speeds and Feeds for Reaming, Allowances for Reaming",
+        "motor_mount_validation": "NOT observed on Motor Mount (no reamed holes identified). Rule is Machinery's Handbook only.",
+        "notes": "Motor Mount holes appear to be drilled to nominal — either tolerance is loose or the drawn tolerance was H9/H10. Reaming rule needed for any H7 shaft fit or dowel pin hole."
+      },
+      "confidence": "MEDIUM",
+      "open_issues": [
+        "trigger_condition requires tolerance field in feature JSON — not yet extracted by classify_features.py",
+        "Hole diameter classification for 'standard reamer size' needs lookup table"
+      ],
+      "added_by": "Claude Code — overnight rule expansion"
+    },
+    {
+      "rule_id": "PS-AL7075-REAM-001",
+      "status": "PROPOSED",
+      "material": "Al 7075-T6",
+      "operation": "reaming",
+      "trigger_condition": "hole_tolerance <= H7 AND hole_diameter BETWEEN 3 AND 20",
+      "operation_sequence": [
+        {"step": 1, "operation": "spot_drill"},
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "diameter_offset_mm": -0.2,
+          "notes": "7075 is harder than 6061 — keep same reaming allowance."
+        },
+        {"step": 3, "operation": "ream", "diameter": "nominal"}
+      ],
+      "cutting_parameters": {
+        "vc_m_per_min": {"min": 6, "max": 15, "recommended": 10},
+        "feed_per_rev_mm": {"formula": "0.2 * sqrt(diameter_mm)"},
+        "coolant": "flood"
+      },
+      "tool_specification": {
+        "tool_type": "carbide chucking reamer preferred over HSS for 7075",
+        "geometry": "straight flute for through, right-hand spiral for blind"
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Reaming; Sandvik Coromant aluminium grades guide",
+        "motor_mount_validation": "NOT observed on motor mount.",
+        "notes": "7075 is more abrasive than 6061 — carbide reamer preferred."
+      },
+      "confidence": "MEDIUM",
+      "open_issues": ["Same dependency on tolerance field as PS-AL6061-REAM-001"],
+      "added_by": "Claude Code — overnight rule expansion"
+    },
+    {
+      "rule_id": "PS-AL6061-CIRC-INTERP-001",
+      "status": "PROPOSED",
+      "material": "Al 6061-T6",
+      "operation": "circular_interpolation_mid_range",
+      "trigger_condition": "hole_diameter BETWEEN 13 AND 32 AND (require_precision_bore = true OR programmer_preference = circular_interp)",
+      "operation_sequence": [
+        {
+          "step": 1,
+          "operation": "circular_interp",
+          "pass_type": "RF",
+          "notes": "End mill follows circular path (helical entry recommended). Tool diameter = largest end mill that fits bore with 1mm clearance on each side. For D16.1 bore, use D10 EM (leaves 3.05mm radial clearance each side). Multiple Z passes may be needed.",
+          "stock_to_leave_xy_mm": 0.3,
+          "stock_to_leave_z_mm": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "circular_interp",
+          "pass_type": "FINISH",
+          "notes": "Single finish pass to bore diameter. Climb mill only.",
+          "stock_to_leave_xy_mm": 0,
+          "stock_to_leave_z_mm": 0
+        }
+      ],
+      "cutting_parameters": {
+        "vc_m_per_min": {"min": 60, "max": 100, "recommended": 80, "motor_mount_observed": 78.5},
+        "fz_mm_tooth": {"min": 0.10, "max": 0.20, "recommended": 0.16, "motor_mount_observed": 0.16},
+        "tool_diameter_rule": "bore_diameter * 0.55 to 0.65 — gives adequate chip clearance while maintaining rigidity",
+        "coolant": "flood"
+      },
+      "tool_specification": {
+        "tool_type": "end mill, 2-flute carbide, centre-cutting",
+        "diameter_selection": "0.55–0.65× bore diameter for rigidity"
+      },
+      "decision_logic": {
+        "prefer_circular_interp_over_drill_bore_when": "diameter BETWEEN 13 AND 32 AND (high positional accuracy required OR no boring bar available for mid-range diameter)",
+        "prefer_drill_then_bore_when": "diameter BETWEEN 13 AND 32 AND tolerance H7 or tighter (boring bar gives better roundness)"
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Milling — Circular Interpolation for Holes",
+        "motor_mount_validation": "CONFIRMED — Setup 4 op 1+2: D16.1 bore at -37mm depth machined with D10 EM using PROFILE BORE circular interpolation at S=2500 F=800. Toolpath names: '10 ENDMILL PROFILE BORE 16.1 RF' and '...FINISH'.",
+        "notes": "Current pipeline uses circular_interp only for d > 32mm. This rule extends it to 13–32mm range where the programmer may prefer circular interp over pilot+core drill (better positional accuracy, no tool change for pilot drill)."
+      },
+      "confidence": "HIGH",
+      "open_issues": [
+        "Overlap with existing pilot+core drill rule for 13–32mm. Need decision rule DR-005 to choose between them.",
+        "setup_4 bore is at -37mm depth — unusually deep for circular interp, requires long-reach EM."
+      ],
+      "added_by": "Claude Code — overnight rule expansion"
+    },
+    {
+      "rule_id": "PS-AL6061-BULLNOSE-001",
+      "status": "PROPOSED",
+      "material": "Al 6061-T6",
+      "operation": "bull_nose_radius_finish",
+      "trigger_condition": "feature_type IN (planar_face, step, shoulder) AND top_corner_radius IS NOT NULL AND top_corner_radius BETWEEN 0.5 AND 3",
+      "operation_sequence": [
+        {
+          "step": 1,
+          "operation": "bull_nose_radius_blend",
+          "pass_type": "FINISH",
+          "notes": "Bull nose (corner radius) end mill to blend top edge radius. Single finish pass — no RF needed as material removal is minimal.",
+          "stock_to_leave_xy_mm": 0,
+          "stock_to_leave_z_mm": 0
+        }
+      ],
+      "cutting_parameters": {
+        "vc_m_per_min": {"min": 80, "max": 150, "recommended": 113, "motor_mount_observed": 113},
+        "fz_mm_tooth": {"min": 0.10, "max": 0.20, "recommended": 0.167, "motor_mount_observed": 0.167},
+        "coolant": "flood or air blast"
+      },
+      "tool_specification": {
+        "tool_type": "bull nose end mill (corner radius end mill)",
+        "corner_radius_mm": "match top_corner_radius specification (typical: R0.5, R1, R1.5, R2, R3)",
+        "diameter_mm": "4–10mm depending on feature accessibility"
+      },
+      "decision_logic": {
+        "use_bull_nose_when": "feature has a specified top corner radius (drawing callout or design intent) AND flat end mill would leave sharp corner",
+        "do_not_use_when": "radius is > 4mm (profile_3d_contour with ball nose is more appropriate)"
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Milling Cutters — Corner Radius and Bull Nose End Mills",
+        "motor_mount_validation": "CONFIRMED — T8 D8R1 bull nose used in BOTH Setup 1 (op 16, '8R1 ENDMILL_TOP R FINISH', S=4500 F=1500) AND Setup 2 (op 8, '8R1 ENDMILL', same params). Used specifically for top-of-step radius blending.",
+        "notes": "Bull nose operation is not in process_selection.py at all. The current code has no tool type 'bull_nose' and tool_database.json has no bull_nose tools. Implementation requires: (1) add to tool_database, (2) add process rule here, (3) add feature field top_corner_radius to classify_features.py output."
+      },
+      "confidence": "HIGH",
+      "open_issues": [
+        "Bull nose tool type not in tool_database.json — must add before this rule can be implemented.",
+        "top_corner_radius field not extracted by classify_features.py — requires STEP file reading enhancement."
+      ],
+      "added_by": "Claude Code — overnight rule expansion"
+    },
+    {
+      "rule_id": "PS-AL6061-BALLNOSE-FLOOR-001",
+      "status": "PROPOSED",
+      "material": "Al 6061-T6",
+      "operation": "ball_nose_floor_finish",
+      "trigger_condition": "feature_type IN (pocket, slot, step, planar_face) AND floor_corner_radius IS NOT NULL AND floor_corner_radius BETWEEN 1 AND 5",
+      "operation_sequence": [
+        {
+          "step": 1,
+          "operation": "ball_nose_floor_finish",
+          "pass_type": "FINISH",
+          "notes": "Ball nose end mill to finish floor with radius. Follows flat end mill pocket_mill FINISH pass. Removes the witness mark left by flat tool on floor radius.",
+          "stock_to_leave_xy_mm": 0,
+          "stock_to_leave_z_mm": 0
+        }
+      ],
+      "cutting_parameters": {
+        "vc_m_per_min": {"min": 30, "max": 60, "recommended": 40, "motor_mount_observed": 39.3},
+        "fz_mm_tooth": {"min": 0.03, "max": 0.07, "recommended": 0.04, "motor_mount_observed": 0.04},
+        "stepover_pct_of_dia": {"recommended": 10, "notes": "Small stepover for fine floor surface finish"},
+        "coolant": "flood"
+      },
+      "tool_specification": {
+        "tool_type": "ball nose end mill",
+        "radius_mm": "floor_corner_radius (exact match)",
+        "diameter_mm": "2× floor_corner_radius — diameter equals 2R"
+      },
+      "decision_logic": {
+        "add_ball_nose_floor_when": "step or pocket has specified floor radius AND a flat end mill was already used for main pocket operation",
+        "skip_when": "floor_corner_radius is None or zero (sharp floor acceptable)"
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Milling — Ball-End Milling",
+        "motor_mount_validation": "CONFIRMED — T9 D5 ball nose used in Setup 1 (op 17, '5 BALLNOSE STEP BOTTOM FINISH', S=2500 F=200), Setup 2 (op 9), Setup 3 (op 3). All at identical S=2500 F=200 — very conservative feed for surface finish.",
+        "notes": "Ball nose floor finish is used after every step pocket machining operation in the motor mount. This is the standard sign-off for any feature with a floor radius. fz=0.04 is very light — prioritizes surface finish over cycle time."
+      },
+      "confidence": "HIGH",
+      "open_issues": [
+        "floor_corner_radius not extracted by classify_features.py — same limitation as bull nose rule.",
+        "Ball nose tool type is in tool_database.json? Needs verification.",
+        "3mm ball nose (T12) used in setup 2 for tight radius areas — smaller tool for constrained floor geometry."
+      ],
+      "added_by": "Claude Code — overnight rule expansion"
+    },
+    {
+      "rule_id": "PS-AL6061-CHAMFER-002",
+      "status": "PROPOSED",
+      "material": "Al 6061-T6",
+      "operation": "chamfer_milling_two_pass",
+      "trigger_condition": "feature_type = chamfer AND chamfer_angle = 45 AND chamfer_depth_mm > 0.5",
+      "operation_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "pass_type": "TOUCH",
+          "notes": "First pass at very low speed to position and engage chamfer tool accurately. Vc ~28 m/min, F=80 mmpm. This is essentially a 'find the edge' pass. Depth equals full chamfer depth.",
+          "speed_override_rpm": 900,
+          "feed_override_mmpm": 80
+        },
+        {
+          "step": 2,
+          "operation": "chamfer_mill",
+          "pass_type": "FINISH",
+          "notes": "Fast profile pass at full chamfer speed. Vc ~140 m/min, F=700 mmpm. Full chamfer profile in one pass.",
+          "speed_override_rpm": 4500,
+          "feed_override_mmpm": 700
+        }
+      ],
+      "cutting_parameters": {
+        "pass_1_vc": 28,
+        "pass_1_feed_mmpm": 80,
+        "pass_2_vc": 141,
+        "pass_2_fz_mm_tooth": 0.078,
+        "pass_2_feed_mmpm": 700,
+        "coolant": "air blast (no coolant needed for chamfer in aluminium)"
+      },
+      "tool_specification": {
+        "tool_type": "chamfer mill, 45 degree included angle",
+        "diameter_mm": "10mm standard (D >= chamfer circle diameter)"
+      },
+      "decision_logic": {
+        "use_two_pass_when": "chamfer_depth_mm > 0.5 AND part has been previously machined (tool needs to locate on existing edge)",
+        "single_pass_ok_when": "chamfer_depth_mm <= 0.5 OR chamfer is on raw stock edge (easy to locate)"
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Chamfering and Deburring",
+        "motor_mount_validation": "CONFIRMED — Setup 1 ops 18–19: T10 chamfer mill at S=900 F=80 then S=4500 F=700. Setup 4 op 3: T10 chamfer at S=900 F=500. Pattern consistent across setups.",
+        "notes": "The slow first pass (S=900) is unusual — not a standard Machinery's Handbook recommendation. This is the programmer's technique to ensure the chamfer tool engages correctly on a previously machined edge without chatter or tool deflection. HIGH confidence because observed twice."
+      },
+      "confidence": "HIGH",
+      "open_issues": [
+        "The 'TOUCH' pass concept has no analog in current pipeline — would require new pass_type.",
+        "Whether pass 1 is truly necessary or a programmer habit — needs shop validation."
+      ],
+      "added_by": "Claude Code — overnight rule expansion"
+    },
+    {
+      "rule_id": "PS-AL6061-DEEPNARROW-001",
+      "status": "PROPOSED",
+      "material": "Al 6061-T6",
+      "operation": "deep_narrow_pocket",
+      "trigger_condition": "feature_type IN (pocket, slot) AND pocket_depth_mm / pocket_width_mm > 5 (high DDR for end mill)",
+      "operation_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "pass_type": "RF",
+          "tool_spec": "long-reach end mill, diameter <= pocket_width * 0.8",
+          "notes": "Single RF pass only. No finish pass listed on motor mount for deep narrow pocket. Stock 0.15mm XY only.",
+          "stock_to_leave_xy_mm": 0.15,
+          "stock_to_leave_z_mm": 0
+        }
+      ],
+      "cutting_parameters": {
+        "vc_m_per_min": {"min": 20, "max": 40, "recommended": 26, "motor_mount_observed": 26.4},
+        "fz_mm_tooth": {"min": 0.06, "max": 0.12, "recommended": 0.09, "motor_mount_observed": 0.089},
+        "ap_mm": "full depth in steps if feature_depth > 3× tool_diameter",
+        "coolant": "flood (essential for chip evacuation in deep narrow pocket)"
+      },
+      "tool_specification": {
+        "tool_type": "long-reach end mill (extended shank)",
+        "diameter_selection": "largest diameter that fits pocket width with 10% clearance per side",
+        "l_d_ratio_max": 8,
+        "notes": "Motor mount: D3 EM at -41.5mm = L/D ratio 13.8 — exceptional. Normally avoid L/D > 8."
+      },
+      "decision_logic": {
+        "trigger_DDR_for_EM": "em_depth_mm / em_diameter_mm > 5 → reduce feed 30%; > 8 → reduce feed 50%; > 10 → flag for manual review",
+        "always_use_flood_coolant": "chip packing in deep narrow pockets is a major failure mode"
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Milling — Long-Reach and Extended Shank Milling",
+        "secondary": "Sandvik Coromant 'Long overhang milling' application guide",
+        "motor_mount_validation": "CONFIRMED — Setup 4 op 4: D3 EM at -41.5mm depth (L/D=13.8). S=2800 F=500. Named '3 ENDMILL LONG POCKET RF'.",
+        "notes": "Extreme L/D ratio observed. Current pipeline has no L/D check for end mill operations — always emits full-depth pocket_mill. This rule adds a DDR check for end mills analogous to the drill DDR check."
+      },
+      "confidence": "HIGH",
+      "open_issues": [
+        "L/D check requires tool reach data in tool_database.json — currently not stored.",
+        "Process_selection.py cannot currently trigger a 'long-reach' tool selection."
+      ],
+      "added_by": "Claude Code — overnight rule expansion"
+    },
+    {
+      "rule_id": "PS-AL7075-DRILL-001",
+      "status": "PROPOSED",
+      "material": "Al 7075-T6",
+      "operation": "twist_drill",
+      "trigger_condition": "feature_type IN (through_hole, blind_hole) AND material = aluminium_7075 AND hole_diameter BETWEEN 1 AND 13",
+      "operation_sequence": [
+        {"step": 1, "operation": "spot_drill"},
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "notes": "7075 is harder and more abrasive than 6061. Reduce Vc by ~15%. Keep fpr similar."
+        }
+      ],
+      "cutting_parameters": {
+        "vc_m_per_min": {"min": 50, "max": 90, "recommended": 70, "notes": "15% lower than 6061 due to higher hardness and abrasiveness"},
+        "feed_per_rev_mm": {"formula": "0.01 * diameter_mm + 0.02"},
+        "peck_ddr_thresholds": "same as 6061 (standard ≤3, peck 3–5, deep peck >5)",
+        "coolant": "flood (mandatory for 7075 — chip welding risk higher)"
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Drilling — Feeds and Speeds, aluminium alloys; Sandvik Coromant aluminium grade guide",
+        "motor_mount_validation": "NOT observed on motor mount (7075 not used on this part).",
+        "notes": "7075 has tensile strength ~570 MPa vs 310 MPa for 6061 — approximately twice the resistance. Tool wear is higher; flood coolant mandatory."
+      },
+      "confidence": "MEDIUM",
+      "open_issues": [],
+      "added_by": "Claude Code — overnight rule expansion"
+    },
+    {
+      "rule_id": "PS-AL7075-MILL-001",
+      "status": "PROPOSED",
+      "material": "Al 7075-T6",
+      "operation": "pocket_mill",
+      "trigger_condition": "feature_type IN (pocket, slot, contour, boss) AND material = aluminium_7075",
+      "operation_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "pass_type": "RF",
+          "stock_to_leave_xy_mm": 0.15,
+          "stock_to_leave_z_mm": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy_mm": 0,
+          "stock_to_leave_z_mm": 0
+        }
+      ],
+      "cutting_parameters": {
+        "vc_m_per_min_rf": {"min": 100, "max": 160, "recommended": 130},
+        "vc_m_per_min_finish": {"min": 60, "max": 100, "recommended": 80},
+        "fz_mm_tooth_rf": {"min": 0.08, "max": 0.15, "recommended": 0.12},
+        "fz_mm_tooth_finish": {"min": 0.03, "max": 0.07, "recommended": 0.05},
+        "coolant": "flood"
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Milling; Sandvik Coromant 7075 guide",
+        "motor_mount_validation": "NOT observed on motor mount.",
+        "notes": "Stock to leave is higher than 6061 (0.15 vs 0.10) because 7075 has higher spring-back stress. Use same sequence structure as 6061 but with lower Vc."
+      },
+      "confidence": "MEDIUM",
+      "open_issues": [],
+      "added_by": "Claude Code — overnight rule expansion"
+    },
+    {
+      "rule_id": "PS-SS304-DRILL-001",
+      "status": "PROPOSED",
+      "material": "SS304",
+      "operation": "twist_drill",
+      "trigger_condition": "feature_type IN (through_hole, blind_hole) AND material IN (stainless_steel, stainless_steel_316) AND hole_diameter BETWEEN 1 AND 13",
+      "operation_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "notes": "Centre drill critical for SS — work hardening makes re-location nearly impossible after surface is touched."
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "drill_cycle": "peck for DDR > 2 (lower threshold than aluminium due to work hardening)",
+          "notes": "Carbide or cobalt HSS drill. Do not dwell in hole — SS work hardens rapidly at low or zero feed."
+        }
+      ],
+      "cutting_parameters": {
+        "vc_m_per_min": {"min": 20, "max": 40, "recommended": 30, "notes": "Carbide drill. Use 8–15 m/min for HSS."},
+        "feed_per_rev_mm": {"formula": "0.012 * diameter_mm + 0.015", "notes": "Higher than aluminium proportionally — maintains chip break before work hardening"},
+        "peck_ddr_thresholds": {"standard_max": 2, "peck_max": 4, "deep_peck_above": 4},
+        "coolant": "flood (mandatory — SS heat buildup is severe without coolant)"
+      },
+      "tool_specification": {
+        "tool_type": "carbide drill preferred; cobalt HSS acceptable for small diameters",
+        "geometry": "130–135° point angle, thin web, split point for SS",
+        "coating": "TiAlN or TiCN"
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Drilling — Austenitic Stainless Steel; Table of Drilling Speeds",
+        "secondary": "Sandvik Coromant 'Drilling stainless steel' application guide",
+        "motor_mount_validation": "NOT observed on motor mount (SS not used on this part).",
+        "notes": "Work hardening is the primary hazard for SS304. Peck cycle DDR threshold is lower (2.0 vs 3.0 for aluminium) because chips pack more easily and work hardening accelerates failure."
+      },
+      "confidence": "MEDIUM",
+      "open_issues": [
+        "DDR thresholds for SS are tighter than aluminium — would need separate DDR constants per material in process_selection.py"
+      ],
+      "added_by": "Claude Code — overnight rule expansion"
+    },
+    {
+      "rule_id": "PS-SS304-TAP-001",
+      "status": "PROPOSED",
+      "material": "SS304",
+      "operation": "tapping",
+      "trigger_condition": "feature_type = tapped_hole AND material IN (stainless_steel, stainless_steel_316)",
+      "operation_sequence": [
+        {"step": 1, "operation": "spot_drill"},
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "notes": "Drill to full tap drill diameter. For SS, use tap drill at 65–70% thread engagement (vs 75% for aluminium) to reduce tapping torque and risk of tap breakage.",
+          "tap_drill_table_note": "Use same ISO 68-1 sizes but consider stepping up one size for deep blind holes"
+        },
+        {
+          "step": 3,
+          "operation": "tap_rh",
+          "notes": "Rigid tapping (G84). Use spiral-flute tap for blind holes to evacuate chips. Never reverse tap without coolant flowing. Feed rate = spindle_rpm × thread_pitch.",
+          "coolant_required": true
+        }
+      ],
+      "cutting_parameters": {
+        "vc_m_per_min_tapping": {"min": 5, "max": 12, "recommended": 8, "notes": "Very slow — SS tapping generates significant heat and torque"},
+        "feed_per_rev_mm": "equals thread pitch (rigid tapping — feed must be synchronized)",
+        "coolant": "flood — mandatory for SS tapping; sulphurised cutting oil preferred over water-soluble"
+      },
+      "tool_specification": {
+        "tool_type": "spiral-flute tap for blind holes, straight flute for through holes",
+        "material": "HSS-E (cobalt alloyed) or carbide for repeated use",
+        "coating": "TiN or uncoated — avoid TiAlN which increases friction in SS"
+      },
+      "decision_logic": {
+        "prefer_thread_mill_over_tap_when": "thread_diameter > M8 OR blind_hole_depth < 1.5× diameter (no chip space) OR tolerance is 6H or tighter"
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Tapping — Stainless Steel; §Thread Milling vs Tapping",
+        "motor_mount_validation": "NOT observed on motor mount.",
+        "notes": "Tap breakage in SS is the single most common threading failure. Rigid tapping is essential — floating tap holders allow tool to slip, causing broken taps. Spiral-flute tap critical for blind holes."
+      },
+      "confidence": "MEDIUM",
+      "open_issues": [
+        "Sulphurised cutting oil is not water-soluble — conflicts with flood coolant systems that use water-based coolant. Shop must switch fluid or use neat oil applicator."
+      ],
+      "added_by": "Claude Code — overnight rule expansion"
+    },
+    {
+      "rule_id": "PS-SS304-FACE-001",
+      "status": "PROPOSED",
+      "material": "SS304",
+      "operation": "face_milling",
+      "trigger_condition": "feature_type = planar_face AND material IN (stainless_steel, stainless_steel_316)",
+      "operation_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "pass_type": "RF",
+          "notes": "Roughing pass. Max ap = 0.5mm (already in FACE_MILL_MAX_AP table). Exit cut direction important — tool must exit completely before retracting to avoid built-up edge.",
+          "stock_to_leave_z_mm": 0.2
+        },
+        {
+          "step": 2,
+          "operation": "face_mill",
+          "pass_type": "FINISH",
+          "notes": "Finishing pass. One clean climb-milling pass. Do not reverse over finished surface.",
+          "stock_to_leave_z_mm": 0
+        }
+      ],
+      "cutting_parameters": {
+        "vc_m_per_min_rf": {"min": 80, "max": 150, "recommended": 120, "notes": "Carbide inserts (PVD coated). Positive rake geometry."},
+        "vc_m_per_min_finish": {"min": 150, "max": 250, "recommended": 180},
+        "fz_mm_tooth_rf": {"min": 0.08, "max": 0.15, "recommended": 0.12},
+        "fz_mm_tooth_finish": {"min": 0.04, "max": 0.08, "recommended": 0.06},
+        "max_ap_mm": 0.5,
+        "coolant": "flood"
+      },
+      "tool_specification": {
+        "tool_type": "indexable face mill, PVD TiAlN coated carbide inserts",
+        "geometry": "positive rake, sharp edge for SS — avoid large nose radius which increases cutting forces"
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Milling Speeds and Feeds — Stainless Steel",
+        "secondary": "Sandvik Coromant 'Face milling stainless steel' guide",
+        "motor_mount_validation": "NOT observed on motor mount.",
+        "notes": "SS304 work hardens if Vc is too low or feed is too low — minimum feed is as important as maximum. Dwell causes hardened surface that blunts next tool."
+      },
+      "confidence": "MEDIUM",
+      "open_issues": [],
+      "added_by": "Claude Code — overnight rule expansion"
+    },
+    {
+      "rule_id": "PS-SS304-PROFILE-001",
+      "status": "PROPOSED",
+      "material": "SS304",
+      "operation": "profile_and_pocket_milling",
+      "trigger_condition": "feature_type IN (pocket, slot, boss, contour) AND material IN (stainless_steel, stainless_steel_316)",
+      "operation_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "pass_type": "RF",
+          "stock_to_leave_xy_mm": 0.25,
+          "stock_to_leave_z_mm": 0.2,
+          "notes": "Conservative stock for SS — higher than aluminium due to tool deflection and spring-back"
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy_mm": 0,
+          "stock_to_leave_z_mm": 0,
+          "notes": "Finish pass — climb milling only. Do not conventional mill SS (torn surface finish)."
+        }
+      ],
+      "cutting_parameters": {
+        "vc_m_per_min_rf": {"min": 40, "max": 80, "recommended": 60},
+        "vc_m_per_min_finish": {"min": 60, "max": 100, "recommended": 80},
+        "fz_mm_tooth_rf": {"min": 0.04, "max": 0.10, "recommended": 0.07},
+        "fz_mm_tooth_finish": {"min": 0.02, "max": 0.05, "recommended": 0.03},
+        "radial_ae_pct_rf": 50,
+        "radial_ae_pct_finish": 5,
+        "coolant": "flood mandatory"
+      },
+      "tool_specification": {
+        "tool_type": "carbide end mill, 4-flute for finishing, 3-flute for slotting",
+        "coating": "TiAlN or AlTiN for heat resistance"
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Milling Speeds and Feeds — Austenitic Stainless Steel",
+        "motor_mount_validation": "NOT observed on motor mount.",
+        "notes": "Radial ae is critical in SS — 50% radial engagement for RF, very light (5%) for finishing. This prevents work hardening on finish walls."
+      },
+      "confidence": "MEDIUM",
+      "open_issues": [],
+      "added_by": "Claude Code — overnight rule expansion"
+    },
+    {
+      "rule_id": "PS-SS304-REAM-001",
+      "status": "PROPOSED",
+      "material": "SS304",
+      "operation": "reaming",
+      "trigger_condition": "hole_tolerance <= H7 AND hole_diameter BETWEEN 3 AND 20 AND material IN (stainless_steel, stainless_steel_316)",
+      "operation_sequence": [
+        {"step": 1, "operation": "spot_drill"},
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "diameter_offset_mm": -0.15,
+          "notes": "Smaller reaming allowance than aluminium — SS work hardens less on reaming than on drilling"
+        },
+        {
+          "step": 3,
+          "operation": "ream",
+          "notes": "Carbide reamer only for SS. Do not use HSS — built-up edge will destroy hole finish."
+        }
+      ],
+      "cutting_parameters": {
+        "vc_m_per_min": {"min": 5, "max": 12, "recommended": 8},
+        "feed_per_rev_mm": {"formula": "0.4 * sqrt(diameter_mm)"},
+        "coolant": "flood with sulphurised oil or neat cutting oil mixed in"
+      },
+      "tool_specification": {
+        "tool_type": "carbide chucking reamer (mandatory for SS)",
+        "geometry": "left-hand spiral to pull chips up from blind holes"
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Reaming — Stainless Steel",
+        "motor_mount_validation": "NOT observed on motor mount.",
+        "notes": "Very low Vc (5–12 m/min) for SS reaming to prevent heat buildup and BUE."
+      },
+      "confidence": "MEDIUM",
+      "open_issues": ["Same dependency on tolerance field as PS-AL6061-REAM-001"],
+      "added_by": "Claude Code — overnight rule expansion"
+    },
+    {
+      "rule_id": "PS-EN8-DRILL-001",
+      "status": "PROPOSED",
+      "material": "Mild Steel EN8 / 1045",
+      "operation": "twist_drill",
+      "trigger_condition": "feature_type IN (through_hole, blind_hole) AND material IN (mild_steel, steel) AND hole_diameter BETWEEN 1 AND 32",
+      "operation_sequence": [
+        {"step": 1, "operation": "spot_drill"},
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "drill_cycle": "standard if DDR ≤ 3, peck if 3–5, deep peck if > 5",
+          "notes": "HSS or carbide drill. Standard G83 peck drill with chip-break retract."
+        }
+      ],
+      "cutting_parameters": {
+        "vc_m_per_min": {"carbide": {"min": 50, "max": 90, "recommended": 70}, "hss": {"min": 15, "max": 30, "recommended": 22}},
+        "feed_per_rev_mm": {"formula": "0.01 * diameter_mm + 0.02"},
+        "coolant": "flood"
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Drilling Speeds and Feeds — Alloy and Carbon Steel",
+        "motor_mount_validation": "NOT observed on motor mount.",
+        "notes": "EN8 (BS970) equivalent to AISI 1045. Medium carbon steel. Machinability ~65% relative to 1212 free-machining steel. Carbide drills preferred for production quantities."
+      },
+      "confidence": "MEDIUM",
+      "open_issues": [],
+      "added_by": "Claude Code — overnight rule expansion"
+    },
+    {
+      "rule_id": "PS-EN8-TAP-001",
+      "status": "PROPOSED",
+      "material": "Mild Steel EN8 / 1045",
+      "operation": "tapping",
+      "trigger_condition": "feature_type = tapped_hole AND material IN (mild_steel, steel)",
+      "operation_sequence": [
+        {"step": 1, "operation": "spot_drill"},
+        {"step": 2, "operation": "twist_drill", "notes": "Standard ISO 68-1 tap drill diameter"},
+        {
+          "step": 3,
+          "operation": "tap_rh",
+          "notes": "Rigid tapping G84. Sulphurised cutting oil preferred for EN8 tapping. Spiral-flute tap for blind, straight-flute for through."
+        }
+      ],
+      "cutting_parameters": {
+        "vc_m_per_min": {"min": 10, "max": 20, "recommended": 15},
+        "feed_per_rev_mm": "thread pitch (synchronized)",
+        "coolant": "neat cutting oil or flood with sulphur additive"
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Tapping — Carbon and Alloy Steel",
+        "motor_mount_validation": "NOT observed on motor mount.",
+        "notes": "EN8 taps well with HSS taps. Cutting oil reduces tap torque by ~30% vs dry."
+      },
+      "confidence": "MEDIUM",
+      "open_issues": [],
+      "added_by": "Claude Code — overnight rule expansion"
+    },
+    {
+      "rule_id": "PS-EN8-MILL-001",
+      "status": "PROPOSED",
+      "material": "Mild Steel EN8 / 1045",
+      "operation": "pocket_and_profile_milling",
+      "trigger_condition": "feature_type IN (pocket, slot, boss, contour) AND material IN (mild_steel, steel)",
+      "operation_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "pass_type": "RF",
+          "stock_to_leave_xy_mm": 0.2,
+          "stock_to_leave_z_mm": 0.15
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy_mm": 0,
+          "stock_to_leave_z_mm": 0
+        }
+      ],
+      "cutting_parameters": {
+        "vc_m_per_min_rf": {"min": 60, "max": 120, "recommended": 90},
+        "vc_m_per_min_finish": {"min": 80, "max": 150, "recommended": 120},
+        "fz_mm_tooth_rf": {"min": 0.04, "max": 0.10, "recommended": 0.07},
+        "fz_mm_tooth_finish": {"min": 0.02, "max": 0.06, "recommended": 0.04},
+        "coolant": "flood"
+      },
+      "tool_specification": {
+        "tool_type": "carbide end mill, 4-flute (better chip load per tooth in steel vs 2-flute)",
+        "coating": "TiAlN"
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Milling Speeds and Feeds — Medium Carbon Steel",
+        "motor_mount_validation": "NOT observed on motor mount.",
+        "notes": "Stock to leave matches MATERIAL_STOCK_TABLE already in process_selection.py (0.2mm XY, 0.15mm Z for mild_steel). This rule formalises the parameters around that stock value."
+      },
+      "confidence": "MEDIUM",
+      "open_issues": [],
+      "added_by": "Claude Code — overnight rule expansion"
+    },
+    {
+      "rule_id": "PS-ALL-THREADMILL-001",
+      "status": "PROPOSED",
+      "material": "All",
+      "operation": "thread_milling",
+      "trigger_condition": "feature_type = tapped_hole AND (thread_diameter > 10 OR hole_type = blind AND thread_depth_mm / thread_diameter < 1.5 OR material IN (stainless_steel, stainless_steel_316, titanium))",
+      "operation_sequence": [
+        {"step": 1, "operation": "spot_drill"},
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "notes": "Drill to minor diameter of thread (same as tapping pilot hole). Thread mill cuts the thread form — no different pilot than tapping."
+        },
+        {
+          "step": 3,
+          "operation": "thread_mill",
+          "notes": "Single-tooth or multi-tooth thread mill follows helical path. Left out of hole from bottom for blind, conventional approach for through. One thread mill can cut any pitch — no tap change for special pitches.",
+          "direction": "climb milling preferred"
+        }
+      ],
+      "cutting_parameters": {
+        "vc_m_per_min": {"aluminium": 100, "mild_steel": 40, "stainless_steel": 25},
+        "feed_per_rev_mm": "varies by thread mill geometry — typically 0.03–0.08 per tooth",
+        "coolant": "flood"
+      },
+      "tool_specification": {
+        "tool_type": "thread mill — single-tooth or multi-form",
+        "note": "Multi-form thread mills must match thread pitch exactly; single-tooth is universal"
+      },
+      "decision_logic": {
+        "prefer_thread_mill_over_tap_when": [
+          "thread_diameter > M10 (large taps are expensive and hard to break out)",
+          "material is stainless steel or titanium",
+          "blind hole with insufficient chip evacuation space",
+          "tolerance 6H or tighter (thread mill gives better pitch diameter control)",
+          "non-standard thread pitch"
+        ],
+        "prefer_tap_over_thread_mill_when": [
+          "thread_diameter <= M8 AND material is aluminium or mild steel",
+          "high production volume (tapping is faster)",
+          "rigid tapping G84 is available and reliable"
+        ]
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Thread Milling; §Comparison of Thread Milling and Tapping",
+        "motor_mount_validation": "NOT observed on motor mount (all threads appear to be tapped).",
+        "notes": "Thread milling is not in current process_selection.py at all. The pipeline currently only knows tap_rh. This rule provides the decision framework and sequence."
+      },
+      "confidence": "MEDIUM",
+      "open_issues": [
+        "Thread milling tool type not in tool_database.json",
+        "thread_mill operation not in DRILL_OPS or RF_SPLIT_OPS — needs to be added as a new drill-like op (no RF split)"
+      ],
+      "added_by": "Claude Code — overnight rule expansion"
+    }
+  ],
+  "decision_rules": [
+    {
+      "rule_id": "DR-001",
+      "status": "PROPOSED",
+      "name": "Tap vs Thread Mill Selection",
+      "decision": "Given a tapped_hole feature, choose between tap_rh (G84 rigid tapping) and thread_mill.",
+      "logic": {
+        "use_tap_rh_when": [
+          "thread_diameter <= M8 AND material IN (aluminium, mild_steel)",
+          "through_hole (chips fall freely)",
+          "tolerance 7H or coarser",
+          "standard metric pitch only"
+        ],
+        "use_thread_mill_when": [
+          "thread_diameter >= M10",
+          "material IN (stainless_steel, stainless_steel_316)",
+          "blind_hole AND thread_depth_mm < 1.5 × thread_diameter_mm",
+          "tolerance 6H or tighter",
+          "non-standard pitch or left-hand thread"
+        ],
+        "priority": "If any thread_mill condition is met, use thread_mill. Tap_rh only when all conditions are comfortably met."
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Thread Milling vs Tapping",
+        "motor_mount_validation": "Tap used for all M2–M6 threads on motor mount (aluminium, through holes). Thread mill not observed.",
+        "notes": "Current pipeline only has tap_rh. Thread mill capability must be added before this DR can be implemented."
+      },
+      "confidence": "HIGH",
+      "added_by": "Claude Code — overnight rule expansion"
+    },
+    {
+      "rule_id": "DR-002",
+      "status": "PROPOSED",
+      "name": "Ream vs Bore Selection for Precision Holes",
+      "decision": "Given a hole with tight tolerance, choose between reaming and boring.",
+      "logic": {
+        "use_reaming_when": [
+          "hole_diameter BETWEEN 3 AND 20 mm",
+          "tolerance H7 or H8",
+          "standard reamer size available (standard metric reamer catalogue)",
+          "hole is through-hole (chip evacuation easy)"
+        ],
+        "use_boring_when": [
+          "hole_diameter > 20 mm",
+          "tolerance H6 or tighter (boring gives better roundness)",
+          "non-standard diameter (custom boring bar can be adjusted; reamers come in fixed sizes)",
+          "blind hole requiring flat bottom (reamer has chamfered tip leaving a conical floor)"
+        ],
+        "use_circular_interp_when": [
+          "hole_diameter BETWEEN 13 AND 32 mm AND positional tolerance is primary concern",
+          "no boring bar or reamer available for that diameter range",
+          "programmer preference for 'profile bore'"
+        ],
+        "priority_order": "reaming > boring > circular_interp for tolerance control; circular_interp > boring > reaming for positional accuracy"
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Boring vs Reaming — Process Selection",
+        "motor_mount_validation": "Motor mount uses profile bore (circular interp) for D16.1mm — confirms that circular_interp is used in 13–32mm range on this job.",
+        "notes": "Ream for standard tolerance H7–H8, 3–20mm. Bore for non-standard or tight tolerance. Circular interp when positional accuracy is primary."
+      },
+      "confidence": "HIGH",
+      "added_by": "Claude Code — overnight rule expansion"
+    },
+    {
+      "rule_id": "DR-003",
+      "status": "PROPOSED",
+      "name": "Peck Drilling Trigger (per material)",
+      "decision": "Given a hole with known DDR, select the appropriate drill cycle. Current rules use same DDR thresholds for all materials.",
+      "logic": {
+        "aluminium_6061_6082_7075": {
+          "standard_max_ddr": 3,
+          "peck_max_ddr": 5,
+          "deep_peck_above": 5,
+          "peck_increment_mm": "1.5× drill_diameter (Motor Mount confirmed: D2.5 peck=1.5mm)"
+        },
+        "mild_steel_en8": {
+          "standard_max_ddr": 2,
+          "peck_max_ddr": 4,
+          "deep_peck_above": 4,
+          "peck_increment_mm": "1× drill_diameter",
+          "notes": "Chip control is harder in steel — start pecking earlier"
+        },
+        "stainless_steel_304": {
+          "standard_max_ddr": 2,
+          "peck_max_ddr": 3,
+          "deep_peck_above": 3,
+          "peck_increment_mm": "0.5× drill_diameter (very small peck — work hardening risk)",
+          "notes": "Strictest thresholds — SS work hardens, chips weld to drill flutes"
+        }
+      },
+      "source": {
+        "primary": "Chang & Wysk 'Introduction to Automated Process Planning Systems' Ch. 5; Machinery's Handbook §Drilling",
+        "motor_mount_validation": "CONFIRMED for aluminium: D2.5 at DDR=6.4 → deep peck with 1.5mm peck. D3.2 at DDR=4.375 → peck with 1.5mm peck. Both match peck thresholds exactly.",
+        "notes": "Current code uses same DDR constants for all materials (standard≤3, peck 3–5, deep>5). This DR proposes tighter thresholds for steel and SS. Implementation: read material from context and apply different constants."
+      },
+      "confidence": "HIGH",
+      "added_by": "Claude Code — overnight rule expansion"
+    },
+    {
+      "rule_id": "DR-004",
+      "status": "PROPOSED",
+      "name": "Finish Pass Trigger for Milling Operations",
+      "decision": "When to add a dedicated FINISH pass vs. single-pass operation.",
+      "logic": {
+        "always_add_finish_pass": [
+          "feature_type IN (pocket, slot, boss, contour) — always RF + FINISH (already in process_selection.py)",
+          "Any wall with surface roughness requirement Ra ≤ 3.2 µm",
+          "Any wall that is a datum face or mating surface"
+        ],
+        "skip_finish_pass_single_op_ok": [
+          "feature_type = chamfer — chamfer_mill in one profile pass is acceptable",
+          "feature_type = slot AND slot_depth <= 0.5× tool_diameter (very shallow slot, one pass is fine)",
+          "face_mill with depth within max_ap — single FINISH pass only (already in process_selection.py)"
+        ],
+        "add_ball_nose_floor_finish_when": [
+          "step or pocket has floor corner radius > 0.5mm",
+          "Always after the flat-bottom pocket_mill FINISH pass"
+        ],
+        "stock_to_leave_guidance": {
+          "al_6061_pocket_wall": "0.1–0.25mm XY depending on feature depth",
+          "al_6061_floor": "0.1mm Z",
+          "motor_mount_observed": "0.25mm XY for 8mm pocket (D/depth=14/8=0.57), 0.1mm XY for 10mm EM step"
+        }
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Milling — Allowances for Finishing",
+        "motor_mount_validation": "CONFIRMED — all pockets use RF + FINISH pass pattern. Corner clearing pass used when corner radius < primary tool radius. Ball nose floor finish added for all step features.",
+        "notes": "The stock to leave is higher (0.25mm) when using a smaller end mill relative to the feature. This is because deflection is higher with smaller tools."
+      },
+      "confidence": "HIGH",
+      "added_by": "Claude Code — overnight rule expansion"
+    },
+    {
+      "rule_id": "DR-005",
+      "status": "PROPOSED",
+      "name": "Circular Interpolation vs Pilot+Core Drill for 13–32mm Bores",
+      "decision": "For holes in the 13–32mm range, choose between pilot+core drill sequence and circular interpolation (profile bore).",
+      "logic": {
+        "use_circular_interp_when": [
+          "positional_accuracy is primary concern (circular interp gives better positional accuracy than core drill)",
+          "bore has high depth-to-diameter ratio (> 2.0) making boring bar difficult",
+          "bore is part of a complex pocket that is already being milled (no need to change to drilling mode)",
+          "programmer has access to long-reach EM that fits the bore"
+        ],
+        "use_pilot_core_drill_when": [
+          "high production volume (drilling faster than circular interp for simple through holes)",
+          "tolerance is loose (H9 or coarser) — drilling is adequate",
+          "bore is standalone (not adjacent to milled features — no advantage to milling mode)"
+        ],
+        "use_boring_bar_when": [
+          "tolerance is H7 or tighter AND diameter > 20mm (boring gives best roundness)",
+          "non-standard diameter with no EM that provides correct engagement ratio"
+        ],
+        "tool_selection_for_circular_interp": "end mill diameter = bore_diameter × (0.55 to 0.65)"
+      },
+      "source": {
+        "primary": "Machinery's Handbook 29th ed. §Hole Making — Circular Interpolation vs Drilling",
+        "motor_mount_validation": "CONFIRMED — Setup 4: D16.1 bore at -37mm machined with circular interpolation (profile bore) using D10 EM. This is in the 13–32mm range where current code uses pilot+core drill.",
+        "notes": "This is the most important decision rule to implement — the motor mount confirms that circular interp is the preferred method for mid-range bores (13–32mm) in this shop. The current pipeline always uses pilot+core drill for this range, which contradicts observed practice."
+      },
+      "confidence": "HIGH",
+      "added_by": "Claude Code — overnight rule expansion"
+    }
+  ]
+}
