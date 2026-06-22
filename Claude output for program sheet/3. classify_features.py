@@ -354,10 +354,16 @@ def classify_cluster(cluster: Dict) -> Tuple[str, str]:
         elif len(radii) == 1:
             radius = radii[0]
 
-            # Very large radius → turning/boring, regardless of face count
+            # Very large radius → turning/boring, regardless of face count.
+            # Exception: depth < 1mm means this is a thin edge arc of a large
+            # flat face (e.g. a 25mm-radius circular edge), not a bore to machine.
             if radius >= LARGE_BORE_RADIUS_MM:
-                feature_type = 'large_bore'
-                confidence   = 'high'
+                if depth is not None and depth < 1.0:
+                    feature_type = 'planar_face'
+                    confidence   = 'medium'
+                else:
+                    feature_type = 'large_bore'
+                    confidence   = 'high'
 
             # Two or more faces → both ends of the hole were captured.
             # This is the clearest through_hole signal: the BFS found
