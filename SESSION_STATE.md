@@ -45,6 +45,33 @@ tool_selection and parameter_calculation default to `7a. tool_database.json` in 
 
 ---
 
+## Dashboard Data Model Work (2026-06-22)
+
+Branch: `feature/dashboard-data-model`
+Committed: `FINDINGS_dashboard_data_model.md`, `dashboard_data_model.json`, `audit/` (5 files)
+
+**Summary:** Inventoried InfluxDB (cnc-data + cnc-data-v2) and PostgreSQL (via migrations) for FPR and FAR cycle time dashboard design.
+
+**Key findings:**
+- InfluxDB cnc-data: 356,383 rows, 20 fields, 7 programs, date range 2026-05-06 to 2026-05-13
+- InfluxDB cnc-data-v2: 132k+ rows, 80+ programs (program_name as TAG — better for querying), data through 2026-06-06
+- `production_count` is always 0 — part counter not working (P0 fix needed)
+- `tool_name` stores G-code program text, not tool names (data quality issue)
+- PostgreSQL: 27 tables, empty locally, live on AWS at 13.233.172.143:3003
+- No MinIO — system uses AWS S3 for document storage
+- FPR: BLOCKED — no QC table exists anywhere
+- FAR: PARTIAL — 2 of 7 stages have timestamps (job receipt, delivery)
+- MVP dashboard can show: machine utilization, cycle time per program, alarm rate, pipeline kanban view
+
+**P0 capture gaps:**
+1. Create qc_inspection_results table + form (unblocks FPR)
+2. Fix production_count OPC UA tag on jyotiVMC
+3. Add capp_generated_at to enquiry_parts (FAR stage 2)
+4. Create program_job_mappings table (links InfluxDB program_name to PostgreSQL order)
+5. Restart telemetry collection (cnc-data is stale since May 13)
+
+---
+
 ## What Was Completed (as of 2026-04-13)
 
 ### From Toolpath.ai competitive analysis:
@@ -475,12 +502,13 @@ Weak (F1 < 0.40) — all slots and passages:
 - `counterbore_mill` mapped to `pocket2d` (was missing — caused 30+ error popups on Bottom Box import)
 
 **Known limitations:**
-- Tool auto-assignment NOT possible — Fusion API blocks local library access. Must select manually.
+- **"Failed to generate toolpath - no tool selected" popup** — fires once per operation during import (N ops = N clicks). This is Fusion's internal validation inside `setup.operations.add()`. **CONFIRMED UNFIXABLE via Python API.** This was investigated exhaustively across two sessions (2026-05-04, 2026-05-07). Do not attempt again. Full findings in memory file `feedback_fusion_tool_popup.md`. Accept the clicks and move on.
+- **Tool auto-assignment NOT possible** — The Fusion tool library API (`CAMManager.get()` → `libraryManager` → `toolLibraries` → `urlByLocation`) navigates correctly but returns 0 tools. Tools imported via Manage → Tool Library → Local → Import are stored at a different internal URL than what the API resolves. Cannot get Tool objects to assign to `op_input.tool`. Must assign manually via Tool tab → Local > Library.
 - WCS orientation must be set manually (double-click setup → WCS tab → select face). Spindle direction shown in setup name as guide.
 - `slot_mill` strategy: `slot2d` fails in Fusion API → falls back to `contour2d`
 - `tap_rh` strategy: `tapping` fails → falls back to `drill`
 - `face mill` type rejected from tool library ("Cutting Data not available") — workaround: use 20mm end mill for face_mill ops
-- Contour/pocket geometry requires manual face selection in Geometry tab
+- Contour/pocket geometry requires manual face selection in Geometry tab (CadContours2dParameterValue is not settable via Python API)
 
 **Critical: unit conversion**
 Fusion CAM API uses cm internally for ALL length values. `cam_importer.py` converts with `_cm = lambda mm: mm * 0.1`.
@@ -525,9 +553,79 @@ Claude output for program sheet\
   shiaanx_tools.hsmlib       ← tool library (delete all tools and re-import if duplicates appear)
 ```
 
-**Next steps:**
-- [ ] Re-import Bottom Box plan (add-in now has counterbore_mill fix) — should create 107 ops with no error popups
-- [ ] Set WCS for all 3 Bottom Box setups, assign tools, generate toolpaths
+**Current state (end of 2026-05-09):**
+- `cam_importer.py` is clean — all tool lookup dead code removed, popup limitation documented
+- Bottom Box params + features in: `capp_service\jobs\c31699c4-ef75-4f09-ad31-1cd02b396c05\`
+  - `Bottom_Box_Mod_params.json` — 3 setups, 48 clusters, 107 ops
+  - `Bottom_Box_Mod_features.json` — for geometry auto-assign
+
+**DRILL TOOL LIBRARY FIX (2026-05-09) — CRITICAL:**
+
+Root cause of drill tools showing warning triangle and "Cutting Data is not available" in Fusion:
+- Fusion requires `type="drill"` tools to have an `<expressions>` block in their XML definition
+- Our JSON-generated `.hsmlib` file created tools without this block → Fusion marks them invalid
+- Manually-created Fusion drills have `<expressions>` → they work fine
+- Mills work without `<expressions>` — this requirement is drill-specific
+
+**Fix applied:** Rewrote `generate_tool_library.py` to output **native XML format (UTF-16)** instead of JSON.
+- `type="drill"` tools now include full `<expressions>` block:
+  - `tool_bodyLength`, `tool_diameter`, `tool_fluteLength`, `tool_material`, `tool_overallLength`, `tool_shaftDiameter`, `tool_shoulderLength`, `tool_tipAngle`
+- `live-tool="1"` set for drill-type tools (matching Fusion's native drill format)
+- `live-tool="0"` for mills and taps (unchanged)
+- Tap thread-pitch now correctly sourced from `thread_pitch_mm` field in tool database (was hardcoded to 1)
+- Mill presets use correct XML parameter keys: `tool_feedCutting`, `tool_feedEntry`, etc.
+- Drill presets include "Default preset" (material-agnostic) + material-specific presets
+
+**New `shiaanx_tools.hsmlib` generated:** 56 tools, XML format, UTF-16 encoding.
+
+**To apply:** Delete old ShiaanX tools in Fusion (Manage → Tool Library → Local → Library → select all ShiaanX tools → Delete), then Import Tools → select new `shiaanx_tools.hsmlib`. Drill tools should now appear without warning triangles and be selectable for drilling operations.
+
+**PROPAGATE TOOLS button added (2026-05-09):**
+
+Fusion's multi-select edit only saves tool to the first selected op — this is a Fusion limitation.
+Fix: added "ShiaanX: Propagate Tools" button to the add-in (`ShiaanX.py`).
+
+How it works:
+- Reads `op.tool` from every operation that already has a tool assigned (these are the "seeds")
+- Matches other ops by the last token in the op name (= tool_id, e.g. `DRILL_5.0MM`, `EM_2FL_6MM`)
+- Assigns the matching tool object to all ops that still have `op.tool is None`
+- Already-assigned ops are NOT touched — safe to run at any point
+
+Workflow: assign ONE op per unique tool_id manually → click Propagate Tools → done.
+~90% confidence it works (uses Tool objects already in Fusion memory, not the broken library URL path).
+
+**Current state (end of 2026-05-09):**
+- Bottom Box in Fusion: 3 setups created, 107 ops, WCS set for all 3 setups ✅
+- Tool assignment: **manually nearly complete** (user was almost done at end of session)
+- `shiaanx_tools.hsmlib` reimported as XML — drill tools confirmed working (no warning triangles)
+- Bottom Box params + features in: `capp_service\jobs\c31699c4-ef75-4f09-ad31-1cd02b396c05\`
+  - `Bottom_Box_Mod_params.json` — 3 setups, 48 clusters, 107 ops
+  - `Bottom_Box_Mod_features.json` — for geometry auto-assign
+
+**Tool assignment reference (op name → library tool):**
+- Op name ends with `SPOT_090_3MM` → tool 1, Ø3mm spot drill
+- Op name ends with `SPOT_090_6MM` → tool 2, Ø6mm spot drill
+- Op name ends with `SPOT_090_10MM` → tool 3, Ø10mm spot drill
+- Op name ends with `DRILL_X.XMM` → scroll to top of library, find matching Ø twist drill (tools 7–19)
+- Op name ends with `EM_2FL_XMM` → aluminium end mill, tools 21–29 (Ø1–20mm)
+- Op name ends with `FACEMILL_50MM` → tool 30, Ø50mm face mill
+- Op name ends with `FACEMILL_63MM` → tool 31, Ø63mm face mill
+- Op name ends with `FACEMILL_40MM` → tool 56, Ø40mm face mill
+- Op name ends with `CHAM_*` → chamfer mills, tools 32–34
+- Op name ends with `SLOT_*` → slot mills, tools 35–37
+- Op name ends with `TAP_MX_RH` → taps, tools 38–42
+- `counterbore_mill` ops → use flat end mill matching the counterbore diameter (tools 21–29)
+
+**Exact next session start (Bottom Box in Fusion):**
+1. Open Bottom Box_Mod in Fusion — all 3 setups + 107 ops should still be there
+2. Finish any remaining tool assignments (manually nearly complete)
+3. Optionally: reload add-in → click "ShiaanX: Propagate Tools" to fill any remaining unassigned ops
+4. Right-click each setup → Generate All Toolpaths
+5. Verify toolpaths look correct on the part
+6. Simulate → Actions → Post Process
+
+**Next steps (future):**
+- [ ] Generate toolpaths for Bottom Box and verify against PowerMill programmer's plan
 - [ ] Fix `slot_mill` and `tap_rh` strategy IDs — probe correct Fusion strategy names
 - [ ] Fix face mill tool library compatibility (`face mill` type rejected by Fusion)
 - [ ] Phase 2: integrate with shiaanx-backend REST API (STEP upload → pipeline → results back to Fusion)
@@ -539,6 +637,348 @@ Claude output for program sheet\
 - `tap_rh`: **DONE** — `classify_features.py` now emits `tapped_hole` / `tapped_hole_angled` when `is_tapped=true` is set on a bore cluster. Full process chain (spot_drill → twist_drill → tap_rh) is active. Automatic STEP thread detection is future work.
 - Post-process fields (tool_number, length_offset): decided these belong in a job setup sheet at runtime, NOT in tool_database.json (AD-001)
 - Compare the rule sheet created for facing by our expert with the rule sheet getting created
+
+---
+
+## Closed-Loop Inspection System (built 2026-05-14)
+
+Three new components built alongside the existing 8-module CAPP pipeline. Do NOT modify the existing pipeline modules.
+
+### Component 1 — Datum Tagger
+
+**Location:** `datum_tagger/`
+
+Flask server + Three.js browser viewer for tagging datum faces on a STEP file.
+
+**Run:**
+```powershell
+& "C:\Users\Siddhant Gupta\miniconda3\envs\occ\python.exe" datum_tagger/server.py "path/to/part.step"
+# Opens http://localhost:5050 automatically
+```
+
+- Tessellates STEP with PythonOCC (same face index order as `1. extract_features.py`)
+- Click face to select → press A / B / C to tag as Datum A / B / C
+- Side panel shows face ID, type, normal, centroid; tagged faces coloured red/teal/yellow
+- Save button writes `<stepfile>.datums.json` alongside the STEP file
+
+**Output schema:** `<step>.datums.json` — step_file, step_file_hash, tagged_at, datums[ {label, face_index, face_type, normal, centroid} ]
+
+**Dependency:** Flask (installed in occ env 2026-05-14 via pip)
+
+---
+
+### Component 2 — Datum Transform
+
+**Location:** `datum_transform/datum_transform.py`
+
+Runs after `1. extract_features.py`. Rewrites feature coordinates in the datum reference frame.
+
+Frame construction:
+- Origin = Datum A centroid
+- Z axis = Datum A normal
+- X axis = Datum B normal projected onto plane ⊥ to Z, normalised
+- Y axis = Z × X (right-hand rule)
+
+**Run:**
+```powershell
+& "C:\Users\Siddhant Gupta\miniconda3\envs\occ\python.exe" datum_transform/datum_transform.py "<part>_features.json" "<part>.datums.json"
+# → writes <part>_features_datumed.json
+```
+
+- Adds `_datum` variants of all geometry dicts (plane_datum, cylinder_datum, etc.) — model-frame coords preserved
+- Assigns `inspection_section` label per cluster (DATUM_A / DATUM_B / DATUM_C / GENERAL)
+- Falls back to a world-axis X if Datum B is missing
+
+---
+
+### Component 3 — Inspection Template Generator
+
+**Location:** `inspection/template_generator.py`
+
+**Run:**
+```powershell
+& "C:\Users\Siddhant Gupta\miniconda3\envs\occ\python.exe" inspection/template_generator.py "<part>_features_datumed.json" "tolerances.json" [--metadata "<part>_params.json"] [--output "output.xlsx"]
+```
+
+Generates an Excel inspection template with:
+- Job header (part name, job ID, material, programmer, date) — from `--metadata` params JSON
+- Sectioned rows grouped by datum (DATUM_A / DATUM_B / DATUM_C / GENERAL) with orientation hint per section
+- Pre-populated: Feature ID, Feature Type, Nominal, Upper/Lower Tol, Datum Ref, Measurement Type
+- Blank: Actual (inspector fills), Notes
+- Formulas: Deviation = Actual − Nominal; Pass/Fail = PASS if deviation within tolerance
+- Conditional formatting: green PASS, red FAIL, yellow for deviation > 50% of tolerance
+- Summary block: Total, Measured, PASS count, FAIL count, Pass Rate % (all formula-driven)
+- Falls back to ±0.1 mm for features not in `tolerances.json`
+
+**`tolerances.json` schema:**
+```json
+{
+  "BORE_001": {"nominal_mm": 6.4, "upper_tol_mm": 0.1, "lower_tol_mm": 0.1, "measurement_type": "diameter"}
+}
+```
+
+---
+
+### End-to-End Workflow
+
+```
+1. Run datum_tagger/server.py on STEP file → tag Datum A/B/C → Save → <part>.datums.json
+2. Manually fill tolerances.json from drawing
+3. Run 1. extract_features.py → <part>_features.json
+4. Run datum_transform/datum_transform.py → <part>_features_datumed.json
+5. Run pipeline stages 2–9 (unchanged) → <part>_program_sheet.pdf
+6. Run inspection/template_generator.py → <part>_inspection_template.xlsx
+7. Inspector fills Actual column → deviations + pass/fail computed automatically
+```
+
+---
+
+---
+
+## ShiaanX Backend — Deployed API Access
+
+The backend runs on AWS EC2 (Mumbai) behind nginx. The local `shiaanx-backend/` repo is a reference copy — all live data is on the server.
+
+### Admin panel (browser)
+```
+http://13.233.172.143/admin/#/enquiries/<id>
+```
+
+### API base
+The frontend JS bundle sets `baseURL: '/api/api/v1'`. Nginx strips one `/api` prefix; the Node app expects `/api/v1/...`.
+All API calls must therefore use the double-prefix: `http://13.233.172.143/api/api/v1/...`
+
+### Login (get JWT token)
+```powershell
+$login = Invoke-RestMethod -Uri "http://13.233.172.143/api/api/v1/auth/login" `
+    -Method POST -ContentType "application/json" `
+    -Body '{"email":"admin@sx.com","password":"123456789"}'
+$token = $login.data.token
+$headers = @{ Authorization = "Bearer $token" }
+```
+
+### Fetch an enquiry
+```powershell
+Invoke-RestMethod -Uri "http://13.233.172.143/api/api/v1/admin/enquiries/<enquiry-id>" `
+    -Headers $headers | ConvertTo-Json -Depth 10
+```
+
+### Useful endpoints (all require `$headers`)
+| Endpoint | Description |
+|----------|-------------|
+| `GET /admin/enquiries` | List all enquiries |
+| `GET /admin/enquiries/:id` | Enquiry detail + parts + documents |
+| `PUT /admin/enquiries/:id/master-quote` | Save master quote |
+| `GET /admin/enquiries/:enquiryId/parts/:partId/auto-quote` | Get auto-quote state for a part |
+| `POST /admin/enquiries/:enquiryId/parts/:partId/auto-quote/generate` | Trigger pipeline auto-quote |
+| `PUT /admin/enquiries/:enquiryId/parts/:partId/auto-quote` | Save auto-quote state |
+
+### Motor Mount enquiry (demo part)
+- Enquiry ID: `7d5e47bc-df70-483a-b064-2be0237434d1`
+- Enquiry number: `SX/26-27/00028`
+- Part ID: `e3795ad8-175e-4510-a595-ca46a9b00751`
+- Customer: Arun Jeya Prakash (director@aviociantech.com)
+- Part: Motor Mount, Qty 40, Al6061-T6, CNC Machining, Type 2 anodizing
+- Auto-quote status: DRAFT (currently pipeline_offline fallback values)
+- STEP file on server: `uploads/enquiries/7d5e47bc-.../MOTOR MOUNT-....step`
+
+### Local Docker (reference only — empty DB)
+The local `shiaanx-backend/` Docker setup (`docker compose up -d` from that folder) spins up a fresh empty Postgres. It is NOT the live database. Use the AWS API above for any real data.
+
+---
+
+## Investor Demo Prep (2026-06-08)
+
+### Demo plan document
+Two documents exist — use the **root-level** `ShiaanX Demo Plan.pdf` (v2), not the one in `docs/`. The PDF has 11 steps structured as a 3–4 min investor video:
+- Steps 1–4: "BEFORE — The Broken Process" (3 vendors, side-by-side programs, defect)
+- Steps 5–11: "THE AI — What We Did" (closed loop analysis, root cause, rule added, correct parts, AI feed, instant quote, system recommendation)
+
+### Demo part: Motor Mount
+Location: `Claude output for program sheet/Manufactured parts/Motor Mount/`
+
+| Asset | File | Status |
+|-------|------|--------|
+| STEP file | `MOTOR MOUNT.step` | ✅ Ready |
+| Engineering drawing | `motor mount.pdf` | ✅ Ready |
+| CAM programs | `CAM Program/ncprograms/` (3 setups, 20 .tap files) | ✅ Ready |
+| Inspection report | `Inspection Report/Inspection Report_motor mount.xlsx` | ✅ Ready |
+| Controller log | — | ❌ Not yet obtained from vendor |
+
+**Key inspection finding (use for demo narrative):**
+- SL-04 & SL-05: Ø3.2mm holes measured 3.02/3.03mm → **FAIL** (deviation −0.18mm, tolerance ±0.10mm)
+- SL-13: 5mm depth measured 4.80mm → **FAIL** (deviation −0.20mm)
+- Root cause: 2mm end mill doing circular interp at F1000 mm/min — tool deflects under cutting pressure
+- Fix: Reduce Vf from 1000 → 400 mm/min for Ø≤4mm holes with Ø2mm tool
+
+**This matches the demo script almost exactly** ("3.2mm hole came out 3.0mm" — real data).
+
+### What's built / not built for steps 5–11
+
+| Step | Description | Status |
+|------|-------------|--------|
+| 5 | Closed loop analysis screen | ✅ Built — Closed Loop tab |
+| 6 | Root cause identified | ✅ Built — part of Closed Loop tab |
+| 7 | Rule auto-added to rule sheet | ✅ Rule FR-001 physically written to `02_process_selection.json`; live on RULES.html; shown in Rule Sheets tab |
+| 8 | Correct parts shoot | ❌ Physical shoot needed — your action |
+| 9 | AI Engine Feed card | ✅ Built — AI Feed tab |
+| 10 | Instant quote | ✅ Flask server built at `insta_quote/server.py` (not yet smoke-tested end-to-end) |
+| 11 | System recommendation (CAPP output) | ✅ Motor Mount pipeline runs clean — zero NOT_FOUND, all ops fully populated |
+
+### Frontend tabs (CappViewer.js) — full tab list
+1. Overview
+2. Strategy
+3. Program Sheet
+4. Datum Tagger
+5. Feature Map
+6. Inspection
+7. **Closed Loop** — Motor Mount defect data, root cause, rule auto-added
+8. **AI Feed** — animated vendor→model data flow, learning events (TS Engg, Krishnamurthy CNC, Aviocian)
+9. **Rule Sheets** — Sheet 02 pre-expanded showing FR-001 with blue "auto-added" badge
+
+### Closed Loop Tab
+**File:** `capp-frontend/src/components/viewer/tabs/ClosedLoopTab.js`
+4 sections: Data Collected · Deviation Analysis · Root Cause · Rule Auto-Added.
+Data hardcoded (Motor Mount). Always visible regardless of job loaded.
+Card formatting fixed: `flex: '1 1 120px'` so 4 cards wrap cleanly at narrow widths.
+
+### AI Feed Tab (built 2026-06-08)
+**File:** `capp-frontend/src/components/viewer/tabs/AIFeedTab.js`
+Vendors: Aviocian Technologies (Bengaluru), Krishnamurthy CNC (Pune), TS Engg (Chennai).
+Animated flow lines → ShiaanX AI model box. Learning stats (47 deflection events, 312 feed overrides, 9 rule updates). 3 expandable learning events — Motor Mount fix at top.
+
+### Rule Sheets Tab (built 2026-06-08)
+**File:** `capp-frontend/src/components/viewer/tabs/RuleSheetsTab.js`
+Shows sheets 02, 04, 05. Sheet 02 pre-expanded on "Feed Rate Overrides" section with FR-001 (blue NEW badge). Mirrors live data in `02_process_selection.json`.
+
+### RULES.html (GitHub Pages)
+URL: https://shiaanx.github.io/shiaanx-CAPP/docs/RULES.html#s02
+Feed Rate Overrides section added to `_html_process()` in `generate_rule_docs.py`.
+FR-001 shows: trigger, action (1000→400 mm/min), auto-added badge, source.
+Last generated and pushed: 2026-06-08.
+
+### Instant quote Flask server
+**File:** `insta_quote/server.py`
+`GET /health` → `{"status": "ok"}`. `POST /process` (multipart STEP) → runs full pipeline, returns quote state schema matching `auto-quote.service.js`.
+Run: `& "C:\Users\Siddhant Gupta\miniconda3\envs\occ\python.exe" insta_quote/server.py`
+Default port: 5001. Not yet smoke-tested with live Motor Mount STEP.
+
+### Feature Classifier Fixes (2026-06-13)
+
+**Problem:** Many features on the motor mount were misclassified, causing wrong operations to be generated and cycle times to be wildly off.
+
+**Root causes identified (from geometry signal analysis):**
+1. `bore` seeds with DDR < 0.12 (very shallow arc) were being called `through_hole` — they are edge fillets
+2. Large bore clusters (r=25mm) with negligible depth (0.3mm) were being called `large_bore` — they are planar face edges
+3. `bore` seeds with face_count=1, no perp_walls, DDR > 1.0 were being called `blind_hole` — they are pocket corner fillet walls (cylinder runs full pocket depth)
+4. `boss` clusters with depth < 0.05mm were generating machining ops — they are laser etching marks
+5. `plane` seed clusters with perp_wall_count=2 were being called `pocket` — they are steps/shoulders (need ≥3 walls for pocket)
+
+**Fixes in `3. classify_features.py`:**
+- Added `BORE_FILLET_DDR_MAX = 0.12`: bore + DDR < 0.12 + fc=1 + no perp_walls → `fillet`
+- Large bore + depth < 1.0mm → `planar_face` instead of `large_bore`
+- Added `BORE_WALL_FILLET_DDR_MIN = 1.0`: bore + fc=1 + no perp_walls + DDR > 1.0 → `fillet` (low confidence)
+- Boss + depth < 0.05mm → `background` (laser engraving)
+- Pocket classifier now requires `perp_count >= 3` (was `>= 2`)
+
+**Fixes in `8. parameter_calculation.py`:**
+- Drill depth sanity check: if `ap_mm < tool_diameter`, use `tool_dia × 5` for through-holes (extracted depth was face height not hole depth)
+- Added MRR-based bulk roughing estimate: `bbox_volume - part_volume` as material to remove, distributed 45%/55% across first two setups, effective MRR = 4,410 mm³/min (calibrated from vendor motor mount data: 23:44 roughing for ~108k mm³)
+- Injected as synthetic `stock_roughing` clusters so frontend shows them in StrategyTab
+- Added `profile_3d_contour` and `chamfer_mill` timing cases (were hitting 10s fallback)
+
+**Before → After cycle times:**
+| Setup | Before | After | Vendor |
+|-------|--------|-------|--------|
+| Setup 1 | 4:09 | 38:39 | 32:04 |
+| Setup 2 | 2:48 | 27:03 | 25:10 |
+| Setup 3 | 1:44 | 5:23 | 3:20 |
+| Total | ~9 min | ~71 min | ~66 min |
+
+**Reclassified clusters (motor mount):**
+- Cl 1, 4-6, 9-11: through_hole → fillet (edge fillets, DDR~0.09)
+- Cl 7-8: large_bore → planar_face (r=25mm, depth=0.3mm)
+- Cl 13-17: blind_hole → fillet (pocket corner walls, no perp_walls, DDR=1.2-2.0)
+- Cl 36-37: boss → background (laser etching, depth=0.009-0.019mm)
+- Cl 66: pocket → planar_face (only 2 perp walls = step, not enclosed pocket)
+
+**Known remaining gaps:**
+- Cluster 12 (3-face through_hole at pocket intersection): user uncertain, left as-is
+- Clusters 18-21 (r=2.3mm, depth=0.019mm): user can't locate on part; reclassified as fillet by DDR<0.12 rule
+- Cluster 22 (combining multiple bore features): clustering issue, not fixable at classify stage
+- Cluster 25 (r=5.5mm, DDR=0.136): on boundary, stays as through_hole per user preference
+
+**To re-run pipeline with fixes from setups.json (avoids slow OCC STEP parse):**
+```python
+import importlib.util, json
+# load_mod() → spec_from_file_location pattern
+classified = mod3.classify_clusters(setups_data)  # re-classify on existing cluster data
+processes  = mod4.select_processes(classified)
+setups     = mod5.plan_setups(processes)
+tools      = mod7.select_tools(setups, db_path=db_path, material='aluminium')
+params     = mod8.calculate_parameters(tools, db_path=db_path)
+json.dump(params, open('MOTOR_MOUNT_params.json','w', encoding='utf-8'), indent=2, ensure_ascii=False)
+```
+
+### Motor Mount pipeline — improved output (2026-06-08)
+Run command: `python "10. run_pipeline.py" "Manufactured parts/Motor Mount/MOTOR MOUNT.step" --material aluminium --vc-scale 0.65`
+
+**Before → After:**
+| Metric | Before | After |
+|--------|--------|-------|
+| NOT_FOUND tools | Many | 0 |
+| Principal setups | 6 | 3 (matches real 3-setup program) |
+| Ball-nose / 3D contour ops | 0 | 28 (all fillets → `profile_3d_contour`) |
+| RPM range | Always 10000 | 2330–8000 |
+| Pilot/core drills | NOT_FOUND | Resolved (8/10/13/16mm added) |
+| "Manual" language | Everywhere | Zero — program reads as fully automatic |
+
+**Pipeline changes made:**
+- `7a. tool_database.json` — added 8mm/10mm pilot drills, 13mm/16mm core drills, 3mm/4mm/6mm Al ball-nose end mills
+- `5. setup_planning.py` — anti-parallel principal-axis merge (±Z → 1 setup, ±Y → 1, ±X → 1)
+- `10. run_pipeline.py` — default `--max-rpm` lowered to 8000; new `--vc-scale` arg (use 0.65 for this vendor)
+- `8. parameter_calculation.py` — `--vc-scale` threaded through; `profile_3d_contour` ae/coolant handled
+- `4. process_selection.py` — fillets emit `profile_3d_contour` op with tool/stepover; unknown features also emit `profile_3d_contour` instead of `manual_review`
+- `7. tool_selection.py` — `profile_3d_contour` picks Al ball-nose; `pocket_mill` aliases to end mills; pocket sizing from face_area
+- `9. program_sheet.py` — `profile_3d_contour` renders as `X BALLNOSE` toolpath name
+
+**Demo job folder:** `capp_service/jobs/motor-mount-demo/` — contains updated params, setups, program sheet PDF.
+
+### CAPP service fixes (2026-06-08)
+**Problem:** 45 jobs × ~560KB JSON = ~25MB loaded into memory on every restart → blocked event loop → uploads hung on "Starting analysis…"
+
+**Fix in `main.py`:** `_recover_jobs()` now only reads filenames (no JSON loaded). Outputs lazy-loaded on first API access via `_load_job_output()`. `get_job()` reports all stages complete for recovered jobs.
+
+**Fix in `runner.py`:**
+- `subprocess.run` now has 600s timeout (was infinite)
+- Heartbeat messages during step 1 (the slow OCC parse): "Parsing STEP geometry…" → "Extracting faces…" → "Building adjacency graph…" every 20–45s so the UI doesn't look frozen
+
+**Start command:**
+```powershell
+cd C:\Users\Siddhant Gupta\Documents\ShiaanX\capp_service
+& "C:\Users\Siddhant Gupta\miniconda3\envs\occ\python.exe" -m uvicorn main:app --reload --port 8001
+```
+
+### Demo recording plan
+
+**ACT 1 — "The Problem" (60 sec, narrate over documents):**
+- Show `motor mount.pdf` (engineering drawing)
+- Show `Inspection Report_motor mount.xlsx` — SL-04/05 FAIL, SL-13 FAIL
+- Narrate: "3 vendors, 3 programmers, same decisions by hand, no system, no memory"
+
+**ACT 2 — "What ShiaanX Does" (2–3 min, live frontend):**
+1. Upload page → drop `MOTOR MOUNT.step` → Analyse
+2. Overview tab → feature count, setup count
+3. Strategy tab → full op sequence, all tools resolved, all parameters populated
+4. Program Sheet tab → download PDF
+5. Closed Loop tab → defect analysis, root cause, rule auto-added
+6. RULES.html in browser → `#s02` → FR-001 with blue badge
+7. AI Feed tab → vendor flow animation, learning events
+
+**What's still missing:**
+- Step 8: physical shoot of re-machined correct parts (your action)
+- Instant quote: not in critical path — skip or show backend default state
+- Act 1 visuals: screen-record opening the documents
 
 ---
 
@@ -556,3 +996,78 @@ git add "Claude output for program sheet/<changed file>"
 git commit -m "description of change"
 git push
 ```
+
+---
+
+## InfluxDB — CNC Controller Telemetry
+
+Live on AWS Timestream for InfluxDB (ap-south-1). Contains real telemetry from machine `jyotiVMC` at factory `ts`.
+
+```
+URL:      https://8j1moabvym-aoe5tdinruw5gy.timestream-influxdb.ap-south-1.on.aws:8086
+Username: admin
+Password: admin123
+Org:      cnc-org
+Bucket:   cnc-data  (primary — 356,383 rows as of 2026-06-22)
+          cnc-data-v2  (secondary)
+```
+
+**Auth (token-based, not basic auth):**
+```python
+import requests
+BASE = "https://8j1moabvym-aoe5tdinruw5gy.timestream-influxdb.ap-south-1.on.aws:8086"
+
+def get_session():
+    r = requests.post(f"{BASE}/api/v2/signin", auth=("admin", "admin123"), verify=False)
+    r.raise_for_status()
+    return r.cookies.get("influxdb-oss-session")
+# Session expires ~1 hour — call get_session() again on 401
+```
+
+**Measurement:** `cnc_telemetry`
+**Tags:** `factory_id` (= "ts"), `machine_id` (= "jyotiVMC")
+**Fields (all confirmed live):** alarm_active, axis_x, axis_y, axis_z, block_number,
+cutting_time, cycle_time, feed_override, feed_rate, machine_mode, machine_state,
+production_count, production_time, program_name, program_runtime, spindle_load,
+spindle_override, spindle_speed, tool_name, tool_number
+
+**PostgreSQL (business data):**
+```
+Start: cd shiaanx-backend && docker compose up -d
+Connection: postgresql://postgres:7009@localhost:5432/sx_dev
+Key tables: enquiries, enquiry_parts, orders, order_status_history,
+            enquiry_status_history, ProgramToolMappings
+```
+
+---
+
+## Overnight Task Setup (2026-06-22)
+
+4 autonomous Claude Code sessions launched overnight to audit the Motor Mount and expand rule sheets.
+
+**Task files:** `Overnight setups/TASK_1/2/3/4_*.md`
+**Branches created:**
+- `audit/feature-recognition-motor-mount` (TASK 1)
+- `feature/rule-sheet-expansion` (TASK 4)
+- `feature/dashboard-data-model` (TASK 2)
+- `feature/training-data-inventory` (TASK 3, optional)
+
+**Expected output files (check in morning):**
+- `FINDINGS_feature_recognition.md`
+- `FINDINGS_rule_expansion.md`
+- `FINDINGS_dashboard_data_model.md`
+- `audit/accuracy_breakdown_motormount.txt`
+- `proposed_rules.json`
+- `dashboard_data_model.json`
+- `training_data_inventory.csv`
+
+**Auto-resume at 2:10am:** Windows Task Scheduler tasks registered as `ShiaanX-Resume-Task1/2/4`.
+Resume scripts: `Overnight setups/resume_task1/2/4.ps1`
+These launch new Claude sessions that read on-disk progress and continue.
+
+**To repeat this setup on a future night:**
+1. `docker compose up -d` from `shiaanx-backend/`
+2. Run `Overnight setups/schedule_resumes.ps1 -resetTime "HH:MM"` as Administrator
+3. Open 3 Claude windows: `cd ShiaanX && claude --dangerously-skip-permissions`
+4. Paste task file content prefixed with: "Please read CLAUDE.md first for project context, then follow the task below exactly. Start with Step 1 and work through to the end. If you hit a hard stop condition, write the FINDINGS file and stop."
+5. Disable sleep (Settings → Power → Screen + Sleep → Never), keep on charge
