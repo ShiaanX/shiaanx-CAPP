@@ -133,6 +133,15 @@ LARGE_BORE_RADIUS_MM = 8.0
 # 0.5 means: if the depth is less than half the diameter, it's a thin arc.
 SINGLE_FACE_THROUGH_HOLE_DDR_MAX = 0.5
 
+# Single-face bore with DDR below this value is most likely a thin arc segment
+# of an edge fillet or step blend, not a drillable hole.
+BORE_FILLET_DDR_MAX = 0.12
+
+# Single-face bore with DDR above this threshold and no perpendicular walls is
+# most likely a pocket-corner fillet running the full pocket depth, not a blind
+# hole.  Pocket corner fillets have DDR >> 1 (narrow radius, tall pocket depth).
+BORE_WALL_FILLET_DDR_MIN = 1.0
+
 # Maximum total face area (mm^2) for a plane cluster to be classified as
 # a pocket rather than a planar_face/datum.  A large flat face (e.g. the
 # top stock surface) may have perpendicular neighbour walls but is NOT a
@@ -150,6 +159,14 @@ POCKET_MAX_PERP_WALLS = 8
 # exceeds this, the whole feature requires a boring bar — classify as large_bore.
 # (Distinct from LARGE_BORE_RADIUS_MM which guards single-step bores.)
 DRILL_MAX_RADIUS_MM = 8.0
+
+# Minimum fillet radius (mm) for a fillet cluster to be treated as a machined
+# feature requiring a ballnose/bull-nose pass.  Fillets smaller than this are
+# as-machined edge blends left by sharp endmill corners — no dedicated tool
+# pass is needed or possible (smallest ballnose in tool database is R=1.5mm;
+# smallest bull-nose is R=1.0mm).  Fillets below this threshold are reclassified
+# as background so process_selection generates no operations for them.
+FILLET_MIN_RADIUS_MM = 1.0
 
 
 # ---------------------------------------------------------------------------
@@ -278,6 +295,17 @@ def classify_cluster(cluster: Dict) -> Tuple[str, str]:
         return feature_type, 'high'
 
     # ------------------------------------------------------------------
+    # Fillet clusters (torus/edge-blend faces tagged by cluster_features.py).
+    # Fillets smaller than FILLET_MIN_RADIUS_MM are as-machined edge blends —
+    # no dedicated tool pass is needed.  Larger fillets require ballnose/bull-nose.
+    # ------------------------------------------------------------------
+    if seed_type == 'fillet':
+        fillet_r = max(radii) if radii else 0.0
+        if fillet_r < FILLET_MIN_RADIUS_MM:
+            return 'background', 'high'   # edge blend — no machining operation
+        return 'fillet', 'high'
+
+    # ------------------------------------------------------------------
     # Boss clusters
     # ------------------------------------------------------------------
     if seed_type == 'boss':
@@ -345,19 +373,34 @@ def classify_cluster(cluster: Dict) -> Tuple[str, str]:
                 else:
                     ddr = None
 
-                if ddr is not None and ddr <= SINGLE_FACE_THROUGH_HOLE_DDR_MAX:
+                if (ddr is not None
+                        and ddr < BORE_FILLET_DDR_MAX):
+                    # Extremely shallow arc = incidental edge geometry, not a hole.
+                    feature_type = 'background'
+                    confidence   = 'medium'
+
+                elif ddr is not None and ddr <= SINGLE_FACE_THROUGH_HOLE_DDR_MAX:
                     # Very shallow relative to diameter = arc segment of
                     # a through-hole. The bore passes through the part but
                     # the arc is thin because it intersects an angled face.
                     feature_type = 'through_hole'
                     confidence   = 'medium'   # inferred, not confirmed by 2 faces
+
+                elif (ddr is not None
+                        and ddr > BORE_WALL_FILLET_DDR_MIN
+                        and not cluster.get('has_perpendicular_walls', False)):
+                    # Deep single-face cylinder with no floor/cap and no perp walls
+                    # = pocket-corner fillet. DDR >> 1 because fillet is narrow
+                    # (r = blend radius) but tall (depth = pocket depth).
+                    if radius < FILLET_MIN_RADIUS_MM:
+                        feature_type = 'background'  # too small to machine
+                        confidence   = 'high'
+                    else:
+                        feature_type = 'fillet'
+                        confidence   = 'low'
+
                 else:
                     # Deeper relative to diameter = likely a true blind hole.
-                    # No cap face was captured, so we cannot confirm, but the
-                    # geometry is consistent with a blind hole.
-                    # Also reached when depth is None or radius == 0 (ddr = None)
-                    # — geometry is insufficient to classify; treat as blind with
-                    # low confidence and flag for manual review.
                     feature_type = 'blind_hole'
                     confidence   = 'low'      # no cap face — flag for review
 
