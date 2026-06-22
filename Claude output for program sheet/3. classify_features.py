@@ -116,8 +116,11 @@ except ImportError:
 
 # Radius (mm) above which a bore is classified as large_bore rather than
 # through_hole / blind_hole / counterbore. At this size, a standard drill
-# cannot be used — you need a boring bar or facing operation.
-LARGE_BORE_RADIUS_MM = 10.0
+# cannot be used — you need boring bar or circular interpolation.
+# 8.0mm = 16mm diameter = top of standard metric jobber drill range.
+# Bores above this (e.g. 16.1mm motor mount bore) require profile milling.
+# Matches DRILL_MAX_RADIUS_MM used in counterbore detection for consistency.
+LARGE_BORE_RADIUS_MM = 8.0
 
 # Depth-to-diameter ratio threshold for single-face bore disambiguation.
 # A bore seen as only ONE cylinder face with a very small depth/diameter
