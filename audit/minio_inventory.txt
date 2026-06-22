@@ -1,0 +1,41 @@
+MinIO / Object Storage Inventory
+Date: 2026-06-22
+
+=== FINDING: MinIO is NOT deployed ===
+The ShiaanX stack does not use MinIO.
+File storage uses AWS S3 via @aws-sdk/client-s3.
+
+=== ACTUAL STORAGE: AWS S3 ===
+Config file: shiaanx-backend/src/config/s3.config.js
+S3 client: @aws-sdk/client-s3 (AWS SDK v3)
+
+Configuration (from environment variables):
+  AWS_S3_REGION:        process.env.AWS_S3_REGION (not available locally)
+  AWS_ACCESS_KEY_ID:    process.env.AWS_ACCESS_KEY_ID (not available locally)
+  AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY (not available locally)
+  AWS_S3_BUCKET:        process.env.AWS_S3_BUCKET (not available locally)
+  STORAGE_TYPE:         's3' to enable S3; else falls back to local disk
+
+=== WHAT IS STORED IN S3 ===
+Based on shiaanx-backend/src/utils/s3.utils.js and upload.middleware.js:
+  - Enquiry documents (CAD files: .step, .stp, drawings: .pdf, .dxf)
+  - Enquiry message attachments
+  - Auto-quote generated PDF program sheets
+
+Objects are referenced in PostgreSQL via enquiry_documents.file_path (S3 key)
+and enquiry_message_attachments.file_path.
+
+=== DOCKER-COMPOSE ===
+No MinIO service in shiaanx-backend/docker-compose.yml.
+Services: postgres:15-alpine (sx-db), shiaanx-backend-backend (sx-backend)
+
+=== WHAT THIS MEANS FOR THE DASHBOARD ===
+S3 stores CAD files and documents only.
+No time-series data in S3 — all telemetry is in InfluxDB.
+No inspection reports, QC records, or FAR documents stored anywhere yet.
+S3 credentials not accessible in this session; cannot inventory bucket contents.
+
+=== DASHBOARD RELEVANCE ===
+S3 content (CAD files, PDFs) is not directly relevant to FPR or FAR KPIs.
+However, when FAR reports are generated, they should be stored in S3 and
+referenced in a new PostgreSQL table (not yet created).

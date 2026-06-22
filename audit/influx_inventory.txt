@@ -1,0 +1,150 @@
+InfluxDB Inventory — cnc-data + cnc-data-v2
+Date: 2026-06-22
+Connection: https://8j1moabvym-aoe5tdinruw5gy.timestream-influxdb.ap-south-1.on.aws:8086
+Org: cnc-org  Auth: admin/admin123 (session cookie method)
+Note: Python requests library fails due to TLS renegotiation on Windows. All queries run via curl.
+
+=== CONNECTION STATUS ===
+Auth: SUCCESS (HTTP 204, session cookie returned)
+
+=== ROW COUNTS (cnc-data, measurement=cnc_telemetry) ===
+All 20 fields have exactly 356,383 rows.
+Tags: factory_id=ts, machine_id=jyotiVMC
+
+Fields and row counts:
+  alarm_active      356,383
+  axis_x            356,383
+  axis_y            356,383
+  axis_z            356,383
+  block_number      356,383
+  cutting_time      356,383
+  cycle_time        356,383
+  feed_override     356,383
+  feed_rate         356,383
+  machine_mode      356,383
+  machine_state     356,383
+  production_count  356,383
+  production_time   356,383
+  program_name      356,383  stored as FIELD (not tag) in cnc-data
+  program_runtime   356,383
+  spindle_load      356,383
+  spindle_override  356,383
+  spindle_speed     356,383
+  tool_name         356,383  DATA QUALITY ISSUE: contains G-code text, not tool names
+  tool_number       356,383
+
+=== DATE RANGE (cnc-data) ===
+Oldest: 2026-05-06T10:01:09Z  cycle_time=765.04
+Newest: 2026-05-13T05:39:11Z  cycle_time=868.58
+  8 days of data (2026-05-06 to 2026-05-13), collected ~6 weeks before query date
+  No data in last 7 days as of 2026-06-22
+  Telemetry collection on cnc-data appears paused; cnc-data-v2 is more recent
+
+=== UNIQUE PROGRAMS (cnc-data, field=program_name) ===
+7 unique values (including blank):
+  "" (blank - machine idle, no program loaded)
+  "IR366 03104 00 1ST"
+  "IR366 03104 00 2ND"
+  "IR366 03104 00 3RD"
+  "IR366 03104 00 4TH"
+  "IR366 03110 00 3RD"
+  "UBR12937 1ST"
+
+Pattern: {PartID} {SetupSequence} e.g. IR366=part family, 03104=drawing no, 1ST/2ND=setup
+Represents 2 distinct parts across max 4 setups.
+
+=== MACHINE STATES (cnc-data) ===
+0 = idle / e-stop
+1 = running / auto cycle
+2 = MDI or paused
+
+=== MACHINE MODES (cnc-data) ===
+0 = auto
+2 = MDI / manual
+
+=== ALARM VALUES (cnc-data) ===
+0 = no alarm
+1 = alarm active
+
+=== PRODUCTION COUNT (cnc-data) ===
+Min=0, Max=0 across ALL 356,383 rows
+CRITICAL DATA QUALITY ISSUE: production_count is always 0.
+The part counter is not incrementing. Cannot use for part counting.
+
+=== SPINDLE LOAD (sample) ===
+Values ~0 to 0.006 at session start (machine warming up).
+Field is numeric (likely % or fractional load).
+
+=== TOOL_NAME FIELD (DATA QUALITY NOTE) ===
+The tool_name field does NOT contain tool names.
+It stores multi-line G-code program text - the currently executing program blocks.
+Examples:
+  "CYCLE210(0)\nCYCLE206("7",1,0,0)\nM32\n"
+  "N138 G90 G40 G64 G94 G54\nN139 T8\nN140 M06..."
+  "G90G54\nT1D1;(C-D)[M10]\nM16\nM03S1200\n..."
+The analytics.controller.js parseGCode() function extracts tool data from these blocks.
+
+=== ROW COUNTS (cnc-data-v2, measurement=cnc_telemetry) ===
+Partition 1 (no program_name tag): ~127,025 rows per field
+  alarm_active     127,025
+  axis_x/y/z       127,025 each
+  block_number      83,287 (gap in collection)
+  cutting_time     127,025
+  cycle_time       127,025
+  feed_override    127,025
+  feed_rate        127,025
+  machine_mode     127,025
+  machine_state    127,025
+  production_count 127,025
+  production_time  127,025
+  program_runtime  127,025
+  spindle_load     127,025
+  spindle_override 127,025
+  spindle_speed    127,025
+  tool_name        126,994 (31 row gap)
+  tool_number      127,025
+
+Partition 2 (tagged with program_name): 5,510 rows per field for "1206 DRILLING"
+In cnc-data-v2, program_name is an InfluxDB TAG (not field) - correct approach.
+
+=== DATE RANGE (cnc-data-v2) ===
+Oldest (no-tag): 2026-05-08T07:35:47Z
+Newest (no-tag): 2026-05-10T06:19:46Z
+Newest (1206 DRILLING): 2026-05-29T12:34:21Z
+Newest observed across all programs: 2026-06-06 (200874 1ST, 200880 1ST)
+Most recent data is ~16 days old as of query date (2026-06-22)
+
+=== UNIQUE PROGRAMS (cnc-data-v2, program_name as TAG) ===
+80+ unique programs. Representative sample:
+  1206 DRILLING
+  171910 2ND, 171916 1ST/2ND/3RD
+  200873 1ST/2ND, 200874 1ST, 200879, 200879 2ND, 200880 1ST
+  204995 1ST/2ND/3RD/4TH, 204997 1ST/2ND/LAST/REAMER
+  204999 B FINISH, 204999_SETUP..
+  226718 1ST/2ND/3RD/4TH, 226723 REAMER, 226726_SETUP..
+  25B025 030018 2ND/ST
+  A60V01550 00, AV60V01540
+  BHUJANG SLOT JOB, GAURAV SIR FIXTURE
+  GI023 01206 01, GI0230120601001_SETUP..
+  GI024 01204 01 2ND / 01205 01 2ND / 01206 01 2ND
+  GL034 02407 00, GL106 02206 00, GL107 02204 00
+  GL108 02205 00/2206 00, GL109 2204 00
+  GP034 02322 DRLLING, GP034.02341.004. / .02342 / .02343 / .02344
+  GS024 02209 01 A F
+  IR366 03104 00 1ST/2ND/3RD/4TH, IR366 03110 00 3RD
+  MOTOR_MOUNT_1/2/4_SETUP.
+  MPF0
+  RADIUS 10 MM
+  SP PPM 400 01 1ST/2ND, SP SMM 300 05 1ST/2ND
+  SP SMM 400 01, SP SMM 500 09 1ST/2ND, SP SMM 500 17 1ST/2ND
+  UBR01036 1ST/2ND/3RD/4TH/FIXTURE
+  UBR08642 DRILLING/SETUP..
+  UBR12937 1ST
+
+Naming convention: {PartID/Desc} {SetupSequence or SETUP/FIXTURE/DRILLING suffix}
+
+=== ALL BUCKETS ===
+cnc-data   (primary, 356,383 rows, program_name as field)
+cnc-data-v2 (secondary, 127,025+ rows, program_name as tag - better)
+_monitoring (system)
+_tasks (system)
