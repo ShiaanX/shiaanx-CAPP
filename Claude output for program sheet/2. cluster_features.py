@@ -198,45 +198,78 @@ def find_seeds(G: nx.Graph, config: ClusteringConfig) -> List[Dict]:
                 'geometry': data
             })
 
-    # Rule 3: Plane faces — one seed per unique normal direction.
-    # Deduplication uses planes_are_parallel (parallel OR anti-parallel normals
-    # count as the same orientation family). grow_cluster will expand each seed
-    # by collecting all graph-adjacent planes with a parallel normal.
+    # Rule 3: Plane faces — one seed per connected component within each normal
+    # direction group.
     #
-    # A plane is skipped if:
-    #   - It is smaller than config.min_plane_seed_area (tiny fillets/chamfers
-    #     that will be absorbed by adjacent cylinder clusters), OR
-    #   - It is graph-adjacent to a cylinder seed face (it will be claimed by
-    #     that cylinder cluster's cap-plane BFS — no need to duplicate it).
+    # Old behaviour: one seed per normal direction.  All disconnected groups of
+    # Z-up planes (stock top, pocket floors, step shoulders) shared a single seed
+    # and their faces fell into background unless graph-adjacent to that one seed.
+    # Result: 0 pockets, 0 steps, 0 outer-profile features detected on the Motor
+    # Mount despite clear geometric evidence in the STEP file.
+    #
+    # Fix (2026-06-23): group qualifying plane faces by normal direction, then
+    # within each group find connected components via parallel-plane adjacency.
+    # Plant one seed per component so each spatially-disconnected planar region
+    # (every pocket floor, every step shoulder, the stock face) becomes its own
+    # cluster rather than falling into background.
+    #
+    # A plane is still skipped if it is smaller than config.min_plane_seed_area.
+    # The cylinder-adjacency skip is also retained: bore-cap planes will be
+    # claimed by cylinder BFS anyway, so skipping them avoids seed proliferation.
     cylinder_seed_indices = {s['seed_face_index'] for s in seeds}
+
+    # Step 1: group qualifying plane faces by normal direction.
+    plane_dir_groups = []  # [{'rep_data': data, 'faces': [(node, data), ...]}]
 
     for node, data in G.nodes(data=True):
         if data['surface_type'] != 'Plane':
             continue
-
         if data['area'] < config.min_plane_seed_area:
             continue
-
-        # Skip if directly adjacent to any cylinder seed face
         if any(nb in cylinder_seed_indices for nb in G.neighbors(node)):
             continue
 
-        already_seeded = False
-        for existing in seeds:
-            if existing['seed_type'] == 'plane':
-                if planes_are_parallel(
-                    existing['geometry'],
-                    data,
-                    tol=config.plane_parallel_tol
-                ):
-                    already_seeded = True
-                    break
+        matched = None
+        for grp in plane_dir_groups:
+            if planes_are_parallel(grp['rep_data'], data,
+                                   tol=config.plane_parallel_tol):
+                matched = grp
+                break
+        if matched is None:
+            plane_dir_groups.append({'rep_data': data, 'faces': [(node, data)]})
+        else:
+            matched['faces'].append((node, data))
 
-        if not already_seeded:
+    # Step 2: within each direction group find connected components via BFS
+    # (traversing only parallel-plane graph edges) and plant one seed per component.
+    for grp in plane_dir_groups:
+        face_set = {n for n, _d in grp['faces']}
+        ref_data = grp['rep_data']
+        visited  = set()
+
+        for start_node, start_data in grp['faces']:
+            if start_node in visited:
+                continue
+
+            component = {start_node}
+            bfs_q     = [start_node]
+            while bfs_q:
+                cur = bfs_q.pop(0)
+                for nb in G.neighbors(cur):
+                    if nb in component or nb not in face_set:
+                        continue
+                    nb_data = G.nodes[nb]
+                    if (nb_data['surface_type'] == 'Plane'
+                            and planes_are_parallel(ref_data, nb_data,
+                                                    tol=config.plane_parallel_tol)):
+                        component.add(nb)
+                        bfs_q.append(nb)
+            visited.update(component)
+
             seeds.append({
-                'seed_face_index': node,
-                'seed_type': 'plane',
-                'geometry': data
+                'seed_face_index': start_node,
+                'seed_type'      : 'plane',
+                'geometry'       : start_data,
             })
 
     return seeds
