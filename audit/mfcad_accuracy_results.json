@@ -1,0 +1,918 @@
+{
+  "pre_fix_baseline": {
+    "21": {
+      "clusters": 24,
+      "correct": 3,
+      "accuracy": 12.5
+    },
+    "25": {
+      "clusters": 9,
+      "correct": 2,
+      "accuracy": 22.2
+    }
+  },
+  "post_fix_results": {
+    "21": {
+      "gt_label_counts": {
+        "24": {
+          "name": "Stock",
+          "faces": 6
+        },
+        "9": {
+          "name": "2-sided through step",
+          "faces": 3
+        },
+        "10": {
+          "name": "Slanted through step",
+          "faces": 2
+        },
+        "4": {
+          "name": "6-sided passage",
+          "faces": 22
+        },
+        "2": {
+          "name": "Triangular passage",
+          "faces": 12
+        },
+        "15": {
+          "name": "6-sided pocket",
+          "faces": 7
+        },
+        "16": {
+          "name": "Circular end pocket",
+          "faces": 4
+        }
+      },
+      "rules": {
+        "mode": "rules",
+        "total_clusters": 47,
+        "correct_clusters": 6,
+        "accuracy_pct": 12.8,
+        "per_class": {
+          "background": {
+            "total": 5,
+            "correct": 0,
+            "predicted_as": {
+              "planar_face": 4,
+              "pocket": 1
+            }
+          },
+          "pocket": {
+            "total": 11,
+            "correct": 6,
+            "predicted_as": {
+              "chamfer": 4,
+              "slot": 1
+            }
+          },
+          "six_sided_passage": {
+            "total": 19,
+            "correct": 0,
+            "predicted_as": {
+              "chamfer": 18,
+              "background": 1
+            }
+          },
+          "triangular_passage": {
+            "total": 12,
+            "correct": 0,
+            "predicted_as": {
+              "chamfer": 12
+            }
+          }
+        },
+        "errors": [
+          {
+            "cluster_id": 0,
+            "face_count": 1,
+            "predicted": "planar_face",
+            "expected": "background",
+            "majority_mfcad_id": 24
+          },
+          {
+            "cluster_id": 1,
+            "face_count": 1,
+            "predicted": "planar_face",
+            "expected": "background",
+            "majority_mfcad_id": 24
+          },
+          {
+            "cluster_id": 2,
+            "face_count": 1,
+            "predicted": "pocket",
+            "expected": "background",
+            "majority_mfcad_id": 24
+          },
+          {
+            "cluster_id": 5,
+            "face_count": 1,
+            "predicted": "planar_face",
+            "expected": "background",
+            "majority_mfcad_id": 24
+          },
+          {
+            "cluster_id": 7,
+            "face_count": 1,
+            "predicted": "planar_face",
+            "expected": "background",
+            "majority_mfcad_id": 24
+          },
+          {
+            "cluster_id": 10,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "six_sided_passage",
+            "majority_mfcad_id": 4
+          },
+          {
+            "cluster_id": 11,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "six_sided_passage",
+            "majority_mfcad_id": 4
+          },
+          {
+            "cluster_id": 12,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "six_sided_passage",
+            "majority_mfcad_id": 4
+          },
+          {
+            "cluster_id": 13,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "six_sided_passage",
+            "majority_mfcad_id": 4
+          },
+          {
+            "cluster_id": 14,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "six_sided_passage",
+            "majority_mfcad_id": 4
+          },
+          {
+            "cluster_id": 15,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "six_sided_passage",
+            "majority_mfcad_id": 4
+          },
+          {
+            "cluster_id": 16,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "six_sided_passage",
+            "majority_mfcad_id": 4
+          },
+          {
+            "cluster_id": 17,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "six_sided_passage",
+            "majority_mfcad_id": 4
+          },
+          {
+            "cluster_id": 18,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "six_sided_passage",
+            "majority_mfcad_id": 4
+          },
+          {
+            "cluster_id": 19,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "six_sided_passage",
+            "majority_mfcad_id": 4
+          },
+          {
+            "cluster_id": 20,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "six_sided_passage",
+            "majority_mfcad_id": 4
+          },
+          {
+            "cluster_id": 21,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "six_sided_passage",
+            "majority_mfcad_id": 4
+          },
+          {
+            "cluster_id": 22,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 23,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 24,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 25,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 26,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 27,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 28,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "six_sided_passage",
+            "majority_mfcad_id": 4
+          },
+          {
+            "cluster_id": 29,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "six_sided_passage",
+            "majority_mfcad_id": 4
+          },
+          {
+            "cluster_id": 30,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "six_sided_passage",
+            "majority_mfcad_id": 4
+          },
+          {
+            "cluster_id": 31,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "six_sided_passage",
+            "majority_mfcad_id": 4
+          },
+          {
+            "cluster_id": 32,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "six_sided_passage",
+            "majority_mfcad_id": 4
+          },
+          {
+            "cluster_id": 33,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "six_sided_passage",
+            "majority_mfcad_id": 4
+          },
+          {
+            "cluster_id": 35,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "pocket",
+            "majority_mfcad_id": 15
+          },
+          {
+            "cluster_id": 36,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "pocket",
+            "majority_mfcad_id": 15
+          },
+          {
+            "cluster_id": 37,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "pocket",
+            "majority_mfcad_id": 15
+          },
+          {
+            "cluster_id": 38,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "pocket",
+            "majority_mfcad_id": 15
+          },
+          {
+            "cluster_id": 39,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 40,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 41,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 42,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 43,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 44,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 45,
+            "face_count": 7,
+            "predicted": "background",
+            "expected": "six_sided_passage",
+            "majority_mfcad_id": 4
+          },
+          {
+            "cluster_id": 46,
+            "face_count": 4,
+            "predicted": "slot",
+            "expected": "pocket",
+            "majority_mfcad_id": 16
+          }
+        ]
+      },
+      "ml": {
+        "mode": "ml",
+        "total_clusters": 47,
+        "correct_clusters": 28,
+        "accuracy_pct": 59.6,
+        "per_class": {
+          "background": {
+            "total": 5,
+            "correct": 5,
+            "predicted_as": {}
+          },
+          "pocket": {
+            "total": 11,
+            "correct": 6,
+            "predicted_as": {
+              "slot": 3,
+              "six_sided_passage": 2
+            }
+          },
+          "six_sided_passage": {
+            "total": 19,
+            "correct": 17,
+            "predicted_as": {
+              "pocket": 2
+            }
+          },
+          "triangular_passage": {
+            "total": 12,
+            "correct": 0,
+            "predicted_as": {
+              "six_sided_passage": 12
+            }
+          }
+        },
+        "errors": [
+          {
+            "cluster_id": 8,
+            "face_count": 1,
+            "predicted": "slot_angled",
+            "expected": "pocket",
+            "majority_mfcad_id": 9
+          },
+          {
+            "cluster_id": 9,
+            "face_count": 1,
+            "predicted": "slot_angled",
+            "expected": "pocket_angled",
+            "majority_mfcad_id": 10
+          },
+          {
+            "cluster_id": 22,
+            "face_count": 1,
+            "predicted": "six_sided_passage_angled",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 23,
+            "face_count": 1,
+            "predicted": "six_sided_passage_angled",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 24,
+            "face_count": 1,
+            "predicted": "six_sided_passage_angled",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 25,
+            "face_count": 1,
+            "predicted": "six_sided_passage_angled",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 26,
+            "face_count": 1,
+            "predicted": "six_sided_passage_angled",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 27,
+            "face_count": 1,
+            "predicted": "six_sided_passage_angled",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 31,
+            "face_count": 1,
+            "predicted": "pocket_angled",
+            "expected": "six_sided_passage",
+            "majority_mfcad_id": 4
+          },
+          {
+            "cluster_id": 33,
+            "face_count": 1,
+            "predicted": "pocket_angled",
+            "expected": "six_sided_passage",
+            "majority_mfcad_id": 4
+          },
+          {
+            "cluster_id": 34,
+            "face_count": 1,
+            "predicted": "slot_angled",
+            "expected": "pocket",
+            "majority_mfcad_id": 9
+          },
+          {
+            "cluster_id": 35,
+            "face_count": 1,
+            "predicted": "six_sided_passage_angled",
+            "expected": "pocket",
+            "majority_mfcad_id": 15
+          },
+          {
+            "cluster_id": 38,
+            "face_count": 1,
+            "predicted": "six_sided_passage_angled",
+            "expected": "pocket",
+            "majority_mfcad_id": 15
+          },
+          {
+            "cluster_id": 39,
+            "face_count": 1,
+            "predicted": "six_sided_passage_angled",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 40,
+            "face_count": 1,
+            "predicted": "six_sided_passage_angled",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 41,
+            "face_count": 1,
+            "predicted": "six_sided_passage_angled",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 42,
+            "face_count": 1,
+            "predicted": "six_sided_passage_angled",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 43,
+            "face_count": 1,
+            "predicted": "six_sided_passage_angled",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 44,
+            "face_count": 1,
+            "predicted": "six_sided_passage_angled",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          }
+        ]
+      }
+    },
+    "25": {
+      "gt_label_counts": {
+        "24": {
+          "name": "Stock",
+          "faces": 9
+        },
+        "21": {
+          "name": "Circular blind step",
+          "faces": 8
+        },
+        "5": {
+          "name": "Triangular through slot",
+          "faces": 2
+        },
+        "2": {
+          "name": "Triangular passage",
+          "faces": 6
+        },
+        "6": {
+          "name": "Rectangular through slot",
+          "faces": 6
+        },
+        "1": {
+          "name": "Through hole",
+          "faces": 1
+        },
+        "12": {
+          "name": "Blind hole",
+          "faces": 2
+        }
+      },
+      "rules": {
+        "mode": "rules",
+        "total_clusters": 23,
+        "correct_clusters": 2,
+        "accuracy_pct": 8.7,
+        "per_class": {
+          "pocket": {
+            "total": 5,
+            "correct": 2,
+            "predicted_as": {
+              "through_hole": 2,
+              "planar_face": 1
+            }
+          },
+          "through_hole": {
+            "total": 1,
+            "correct": 0,
+            "predicted_as": {
+              "fillet": 1
+            }
+          },
+          "blind_hole": {
+            "total": 1,
+            "correct": 0,
+            "predicted_as": {
+              "through_hole": 1
+            }
+          },
+          "background": {
+            "total": 5,
+            "correct": 0,
+            "predicted_as": {
+              "planar_face": 1,
+              "pocket": 4
+            }
+          },
+          "slot": {
+            "total": 8,
+            "correct": 0,
+            "predicted_as": {
+              "pocket": 8
+            }
+          },
+          "triangular_passage": {
+            "total": 3,
+            "correct": 0,
+            "predicted_as": {
+              "chamfer": 2,
+              "background": 1
+            }
+          }
+        },
+        "errors": [
+          {
+            "cluster_id": 0,
+            "face_count": 2,
+            "predicted": "through_hole",
+            "expected": "pocket",
+            "majority_mfcad_id": 21
+          },
+          {
+            "cluster_id": 1,
+            "face_count": 3,
+            "predicted": "planar_face",
+            "expected": "pocket",
+            "majority_mfcad_id": 21
+          },
+          {
+            "cluster_id": 2,
+            "face_count": 2,
+            "predicted": "through_hole",
+            "expected": "pocket",
+            "majority_mfcad_id": 21
+          },
+          {
+            "cluster_id": 3,
+            "face_count": 1,
+            "predicted": "fillet",
+            "expected": "through_hole",
+            "majority_mfcad_id": 1
+          },
+          {
+            "cluster_id": 4,
+            "face_count": 2,
+            "predicted": "through_hole",
+            "expected": "blind_hole",
+            "majority_mfcad_id": 12
+          },
+          {
+            "cluster_id": 5,
+            "face_count": 1,
+            "predicted": "planar_face",
+            "expected": "background",
+            "majority_mfcad_id": 24
+          },
+          {
+            "cluster_id": 6,
+            "face_count": 1,
+            "predicted": "pocket",
+            "expected": "slot",
+            "majority_mfcad_id": 6
+          },
+          {
+            "cluster_id": 7,
+            "face_count": 1,
+            "predicted": "pocket",
+            "expected": "slot",
+            "majority_mfcad_id": 6
+          },
+          {
+            "cluster_id": 8,
+            "face_count": 1,
+            "predicted": "pocket",
+            "expected": "slot",
+            "majority_mfcad_id": 6
+          },
+          {
+            "cluster_id": 9,
+            "face_count": 1,
+            "predicted": "pocket",
+            "expected": "slot",
+            "majority_mfcad_id": 6
+          },
+          {
+            "cluster_id": 10,
+            "face_count": 1,
+            "predicted": "pocket",
+            "expected": "background",
+            "majority_mfcad_id": 24
+          },
+          {
+            "cluster_id": 11,
+            "face_count": 1,
+            "predicted": "pocket",
+            "expected": "background",
+            "majority_mfcad_id": 24
+          },
+          {
+            "cluster_id": 12,
+            "face_count": 1,
+            "predicted": "pocket",
+            "expected": "slot",
+            "majority_mfcad_id": 6
+          },
+          {
+            "cluster_id": 13,
+            "face_count": 1,
+            "predicted": "pocket",
+            "expected": "background",
+            "majority_mfcad_id": 24
+          },
+          {
+            "cluster_id": 15,
+            "face_count": 1,
+            "predicted": "pocket",
+            "expected": "slot",
+            "majority_mfcad_id": 6
+          },
+          {
+            "cluster_id": 16,
+            "face_count": 1,
+            "predicted": "pocket",
+            "expected": "background",
+            "majority_mfcad_id": 24
+          },
+          {
+            "cluster_id": 17,
+            "face_count": 1,
+            "predicted": "pocket_angled",
+            "expected": "slot",
+            "majority_mfcad_id": 5
+          },
+          {
+            "cluster_id": 18,
+            "face_count": 1,
+            "predicted": "pocket_angled",
+            "expected": "slot",
+            "majority_mfcad_id": 5
+          },
+          {
+            "cluster_id": 20,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 21,
+            "face_count": 1,
+            "predicted": "chamfer",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 22,
+            "face_count": 7,
+            "predicted": "background",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          }
+        ]
+      },
+      "ml": {
+        "mode": "ml",
+        "total_clusters": 23,
+        "correct_clusters": 11,
+        "accuracy_pct": 47.8,
+        "per_class": {
+          "pocket": {
+            "total": 5,
+            "correct": 5,
+            "predicted_as": {}
+          },
+          "through_hole": {
+            "total": 1,
+            "correct": 1,
+            "predicted_as": {}
+          },
+          "blind_hole": {
+            "total": 1,
+            "correct": 0,
+            "predicted_as": {
+              "oring_groove": 1
+            }
+          },
+          "background": {
+            "total": 5,
+            "correct": 5,
+            "predicted_as": {}
+          },
+          "slot": {
+            "total": 8,
+            "correct": 0,
+            "predicted_as": {
+              "rectangular_passage": 4,
+              "pocket": 2,
+              "six_sided_passage": 1,
+              "background": 1
+            }
+          },
+          "triangular_passage": {
+            "total": 3,
+            "correct": 0,
+            "predicted_as": {
+              "slot": 3
+            }
+          }
+        },
+        "errors": [
+          {
+            "cluster_id": 4,
+            "face_count": 2,
+            "predicted": "oring_groove",
+            "expected": "blind_hole",
+            "majority_mfcad_id": 12
+          },
+          {
+            "cluster_id": 6,
+            "face_count": 1,
+            "predicted": "rectangular_passage",
+            "expected": "slot",
+            "majority_mfcad_id": 6
+          },
+          {
+            "cluster_id": 7,
+            "face_count": 1,
+            "predicted": "rectangular_passage",
+            "expected": "slot",
+            "majority_mfcad_id": 6
+          },
+          {
+            "cluster_id": 8,
+            "face_count": 1,
+            "predicted": "pocket",
+            "expected": "slot",
+            "majority_mfcad_id": 6
+          },
+          {
+            "cluster_id": 9,
+            "face_count": 1,
+            "predicted": "six_sided_passage",
+            "expected": "slot",
+            "majority_mfcad_id": 6
+          },
+          {
+            "cluster_id": 12,
+            "face_count": 1,
+            "predicted": "rectangular_passage",
+            "expected": "slot",
+            "majority_mfcad_id": 6
+          },
+          {
+            "cluster_id": 15,
+            "face_count": 1,
+            "predicted": "pocket",
+            "expected": "slot",
+            "majority_mfcad_id": 6
+          },
+          {
+            "cluster_id": 17,
+            "face_count": 1,
+            "predicted": "background",
+            "expected": "slot",
+            "majority_mfcad_id": 5
+          },
+          {
+            "cluster_id": 18,
+            "face_count": 1,
+            "predicted": "rectangular_passage_angled",
+            "expected": "slot",
+            "majority_mfcad_id": 5
+          },
+          {
+            "cluster_id": 20,
+            "face_count": 1,
+            "predicted": "slot_angled",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 21,
+            "face_count": 1,
+            "predicted": "slot_angled",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          },
+          {
+            "cluster_id": 22,
+            "face_count": 7,
+            "predicted": "slot",
+            "expected": "triangular_passage",
+            "majority_mfcad_id": 2
+          }
+        ]
+      }
+    }
+  },
+  "summary": {
+    "pre_fix_overall_pct": 15.2,
+    "rules_overall_pct": 11.4,
+    "ml_overall_pct": 55.7
+  }
+}

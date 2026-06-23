@@ -393,9 +393,24 @@ Siddhant wants to understand each rule sheet in detail — what the rules mean, 
   - v4 marginally lower than v3 overall (65.8% vs 66.2%) — cluster-proxy features helped some classes but hurt others
   - Model saved: `models/rf_classifier_v4.pkl`, encoder: `models/rf_label_encoder_v4.json`
 
+- [x] **Post-clustering-fix evaluation on parts 21 & 25** (2026-06-23) — DONE
+  - Script: `audit/evaluate_mfcad_accuracy.py` (runs stages 1-3 fresh, extracts STEP GT, computes accuracy for rules + ML)
+  - Results: `audit/FINDINGS_mfcad_accuracy.md` | `audit/mfcad_accuracy_results.json`
+
+  | | Part 21 | Part 25 | Overall |
+  |---|---------|---------|---------|
+  | Pre-fix rules | 12.5% (3/24) | 22.2% (2/9) | 15.2% |
+  | Post-fix rules | 12.8% (6/47) | 8.7% (2/23) | 11.4% |
+  | **Post-fix ML v3** | **59.6% (28/47)** | **47.8% (11/23)** | **55.7%** |
+
+  - Cluster counts increased (24→47 for part 21, 9→23 for part 25) — connected-component fix is working
+  - Rule accuracy is flat/worse because both test parts are dominated by passages (triangular/six-sided) which rules have zero coverage of
+  - ML jumped ~40pp vs pre-fix rule baseline — better clusters give cleaner majority votes; no retraining needed for this gain
+  - Remaining rule errors: passages→chamfer, Stock→planar_face, slots→pocket
+  - Remaining ML errors: slot vs pocket (face-level features insufficient), Stock vs planar_face
+
 **Next improvement options:**
-- Investigate why v4 cluster-proxy features didn't beat v3 — check feature distribution for slot/passage classes
-- Try GBM (XGBoost/LightGBM) with same 18 features — often +3–5pp over RF on tabular data
+- **GBM retrain** — Replace RF in `ml_train_classifier_v4.py` with XGBoost/LightGBM, same 18 features, expected +5-10pp
 - Wire `--mode ml` into `10. run_pipeline.py` as an option
 - Start collecting real-part labeled data for the feedback flywheel
 - **Integrate with Autodesk Fusion** — see "Fusion 360 CAM Integration" section below (in progress)
