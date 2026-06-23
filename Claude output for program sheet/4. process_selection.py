@@ -140,6 +140,25 @@ DDR_STANDARD_MAX  = 3.0   # ≤ 3: standard cycle
 DDR_PECK_MAX      = 5.0   # 3–5: peck cycle
 # above 5: deep peck cycle
 
+# Material-specific DDR thresholds — DR-003 (Machinery's Handbook §Drilling;
+# validated on Motor Mount: Al 6061 thresholds match observed peck cycles exactly).
+# Steel and SS use tighter thresholds: chips pack faster, SS work-hardens rapidly.
+# Each entry is (standard_max, peck_max); deep_peck applies above peck_max.
+_DDR_THRESHOLDS_BY_MATERIAL: dict = {
+    'aluminium':           (3.0, 5.0),
+    'aluminium_6061':      (3.0, 5.0),
+    'aluminium_6063':      (3.0, 5.0),
+    'aluminium_6082':      (3.0, 5.0),
+    'aluminium_7075':      (3.0, 5.0),
+    'aluminium_7050':      (3.0, 5.0),
+    'mild_steel':          (2.0, 4.0),   # peck earlier — chip control
+    'steel':               (2.0, 4.0),
+    'stainless_steel':     (2.0, 3.0),   # strictest — work hardening
+    'stainless_steel_316': (2.0, 3.0),
+    'brass':               (3.0, 5.0),
+    'titanium':            (2.0, 4.0),
+}
+
 # Diameter above which a boss is better produced by turning than milling
 BOSS_TURNING_MIN_DIA = 6.0   # mm — below this, end mill is preferred
 
@@ -557,24 +576,28 @@ def _expand_rf_passes(steps: List[Dict], material: str = 'aluminium',
     return expanded
 
 
-def _drill_cycle(ddr: Optional[float]) -> str:
-    """Return the drill cycle name based on depth-to-diameter ratio."""
-    if ddr is None or ddr <= DDR_STANDARD_MAX:
+def _drill_cycle(ddr: Optional[float], material: str = 'aluminium') -> str:
+    """Return the drill cycle name based on DDR and material (DR-003)."""
+    std_max, peck_max = _DDR_THRESHOLDS_BY_MATERIAL.get(
+        material, (DDR_STANDARD_MAX, DDR_PECK_MAX)
+    )
+    if ddr is None or ddr <= std_max:
         return 'standard'
-    elif ddr <= DDR_PECK_MAX:
+    elif ddr <= peck_max:
         return 'peck'
     else:
         return 'deep_peck'
 
 
 def _drilling_steps(diameter_mm: float, depth_mm: Optional[float],
-                    ddr: Optional[float], start_step: int = 1) -> List[Dict]:
+                    ddr: Optional[float], start_step: int = 1,
+                    material: str = 'aluminium') -> List[Dict]:
     """
     Return the ordered drilling operation steps for a given diameter.
 
     This function is called for every hole — through, blind, or the inner
     bore of a counterbore. It encodes the Machinery's Handbook diameter
-    breakpoint rules.
+    breakpoint rules and DR-003 material-specific peck thresholds.
 
     Parameters
     ----------
@@ -582,9 +605,10 @@ def _drilling_steps(diameter_mm: float, depth_mm: Optional[float],
     depth_mm    : float  — axial depth (None if unknown)
     ddr         : float  — depth/diameter ratio (None if unknown)
     start_step  : int    — step number to start counting from
+    material    : str    — material key for DDR threshold lookup (DR-003)
     """
     steps = []
-    cycle = _drill_cycle(ddr)
+    cycle = _drill_cycle(ddr, material)
     step  = start_step
 
     if diameter_mm < MICRO_DRILL_MAX_DIA:
@@ -627,39 +651,61 @@ def _drilling_steps(diameter_mm: float, depth_mm: Optional[float],
         step += 1
 
     elif diameter_mm <= CORE_DRILL_MAX_DIA:
-        # 13–32mm: spot drill, pilot drill at ~60% diameter, then core drill
-        pilot_dia = round(diameter_mm * 0.6, 4)
-        steps.append({
-            'step'        : step,
-            'operation'   : 'spot_drill',
-            'machine'     : 'milling',
-            'diameter_mm' : round(diameter_mm, 4),  # hole diameter being located — tool_selection picks actual spot drill size
-            'depth_mm'    : None,
-            'drill_cycle' : None,
-            'reason'      : f'Locate for d={diameter_mm:.3f}mm hole'
-        })
-        step += 1
-        steps.append({
-            'step'        : step,
-            'operation'   : 'pilot_drill',
-            'machine'     : 'milling',
-            'diameter_mm' : pilot_dia,
-            'depth_mm'    : depth_mm,
-            'drill_cycle' : cycle,
-            'reason'      : (f'Pilot at d={pilot_dia}mm (60% of final) to '
-                             f'guide core drill and reduce cutting force')
-        })
-        step += 1
-        steps.append({
-            'step'        : step,
-            'operation'   : 'core_drill',
-            'machine'     : 'milling',
-            'diameter_mm' : round(diameter_mm, 4),
-            'depth_mm'    : depth_mm,
-            'drill_cycle' : cycle,
-            'reason'      : f'Open to final d={diameter_mm:.3f}mm'
-        })
-        step += 1
+        # 13–32mm: for aluminium use circular interpolation (profile bore) — DR-005 /
+        # PS-AL6061-CIRC-INTERP-001. Motor Mount Setup 4 confirmed: D16.1 bore machined
+        # with D10 EM profile bore (circular interp), not pilot+core drill.
+        # For steel / SS keep the pilot+core drill sequence (better chip control).
+        _alum_prefixes = ('aluminium',)
+        if material.startswith(_alum_prefixes) or material == 'aluminium':
+            em_dia = round(diameter_mm * 0.60, 4)   # tool_selection picks nearest EM ≤ this
+            steps.append({
+                'step'        : step,
+                'operation'   : 'circular_interp',
+                'machine'     : 'milling',
+                'diameter_mm' : round(diameter_mm, 4),
+                'depth_mm'    : depth_mm,
+                'drill_cycle' : None,
+                'em_diameter_hint_mm': em_dia,
+                'reason'      : (f'Profile bore d={diameter_mm:.3f}mm — circular interpolation '
+                                 f'with Ø{em_dia}mm end mill (0.60× bore). '
+                                 f'DR-005: circ-interp preferred over pilot+core for aluminium '
+                                 f'13–32mm bores. Helical entry, climb mill, flood coolant.')
+            })
+            step += 1
+        else:
+            # Steel / SS: pilot + core drill sequence — chip control more critical
+            pilot_dia = round(diameter_mm * 0.6, 4)
+            steps.append({
+                'step'        : step,
+                'operation'   : 'spot_drill',
+                'machine'     : 'milling',
+                'diameter_mm' : round(diameter_mm, 4),
+                'depth_mm'    : None,
+                'drill_cycle' : None,
+                'reason'      : f'Locate for d={diameter_mm:.3f}mm hole'
+            })
+            step += 1
+            steps.append({
+                'step'        : step,
+                'operation'   : 'pilot_drill',
+                'machine'     : 'milling',
+                'diameter_mm' : pilot_dia,
+                'depth_mm'    : depth_mm,
+                'drill_cycle' : cycle,
+                'reason'      : (f'Pilot at d={pilot_dia}mm (60% of final) to '
+                                 f'guide core drill and reduce cutting force')
+            })
+            step += 1
+            steps.append({
+                'step'        : step,
+                'operation'   : 'core_drill',
+                'machine'     : 'milling',
+                'diameter_mm' : round(diameter_mm, 4),
+                'depth_mm'    : depth_mm,
+                'drill_cycle' : cycle,
+                'reason'      : f'Open to final d={diameter_mm:.3f}mm'
+            })
+            step += 1
 
     else:
         # > 32mm: boring bar on milling machine (circular interpolation
@@ -683,25 +729,27 @@ def _drilling_steps(diameter_mm: float, depth_mm: Optional[float],
 # Per-feature-type process rules
 # ---------------------------------------------------------------------------
 
-def _process_through_hole(cluster: Dict) -> Tuple[str, List[Dict]]:
+def _process_through_hole(cluster: Dict,
+                          material: str = 'aluminium') -> Tuple[str, List[Dict]]:
     """Drilling a hole that passes completely through the part."""
     radius    = cluster['radii'][0]
     diameter  = round(2 * radius, 4)
     depth     = cluster['depth']
     ddr       = round(depth / diameter, 3) if (depth and diameter) else None
 
-    steps = _drilling_steps(diameter, depth, ddr, start_step=1)
+    steps = _drilling_steps(diameter, depth, ddr, start_step=1, material=material)
     return 'milling', steps
 
 
-def _process_blind_hole(cluster: Dict) -> Tuple[str, List[Dict]]:
+def _process_blind_hole(cluster: Dict,
+                        material: str = 'aluminium') -> Tuple[str, List[Dict]]:
     """Drilling to a depth that stops short of passing through."""
     radius    = cluster['radii'][0]
     diameter  = round(2 * radius, 4)
     depth     = cluster['depth']
     ddr       = round(depth / diameter, 3) if (depth and diameter) else None
 
-    steps = _drilling_steps(diameter, depth, ddr, start_step=1)
+    steps = _drilling_steps(diameter, depth, ddr, start_step=1, material=material)
 
     # For a blind hole, annotate the last step to clarify it stops at depth
     if steps:
@@ -711,7 +759,8 @@ def _process_blind_hole(cluster: Dict) -> Tuple[str, List[Dict]]:
     return 'milling', steps
 
 
-def _process_counterbore(cluster: Dict) -> Tuple[str, List[Dict]]:
+def _process_counterbore(cluster: Dict,
+                         material: str = 'aluminium') -> Tuple[str, List[Dict]]:
     """
     Stepped hole: smallest radius = inner bore, larger radii = counterbore steps.
 
@@ -725,7 +774,7 @@ def _process_counterbore(cluster: Dict) -> Tuple[str, List[Dict]]:
     depth        = cluster['depth']
     ddr          = round(depth / inner_dia, 3) if (depth and inner_dia) else None
 
-    steps = _drilling_steps(inner_dia, depth, ddr, start_step=1)
+    steps = _drilling_steps(inner_dia, depth, ddr, start_step=1, material=material)
     next_step = len(steps) + 1
 
     # Add a counterbore_mill step for each larger radius
@@ -1029,7 +1078,8 @@ def _process_pocket(cluster: Dict) -> Tuple[str, List[Dict]]:
     ]
 
 
-def _process_tapped_hole(cluster: Dict) -> Tuple[str, List[Dict]]:
+def _process_tapped_hole(cluster: Dict,
+                         material: str = 'aluminium') -> Tuple[str, List[Dict]]:
     """
     Tapped hole: center drill → drill pilot hole → tap (rigid tapping G84).
 
@@ -1040,13 +1090,14 @@ def _process_tapped_hole(cluster: Dict) -> Tuple[str, List[Dict]]:
 
     Thread diameter is taken from cluster radii (2 × radius).
     Pilot hole diameter is looked up from TAP_DRILL_TABLE.
+    Material is passed to _drill_cycle for correct DDR thresholds (DR-003).
     """
     radius     = cluster['radii'][0]
     thread_dia = round(2 * radius, 4)
     tap_drill  = _tap_drill_diameter(thread_dia)
     depth      = cluster.get('depth')
     ddr        = round(depth / tap_drill, 3) if (depth and tap_drill) else None
-    cycle      = _drill_cycle(ddr)
+    cycle      = _drill_cycle(ddr, material)
 
     return 'milling', [
         {
@@ -1159,19 +1210,19 @@ def select_process(cluster: Dict, machine_preference: str = None,
     # Bore family — always milling/drilling regardless of preference
     # ------------------------------------------------------------------
     elif ft in ('through_hole', 'through_hole_angled'):
-        machine_type, process_sequence = _process_through_hole(cluster)
+        machine_type, process_sequence = _process_through_hole(cluster, material=material)
         machine_selected = 'milling — drilling is milling-machine operation'
         if is_ang:
             process_sequence = _add_angled_note(process_sequence, axis)
 
     elif ft in ('blind_hole', 'blind_hole_angled'):
-        machine_type, process_sequence = _process_blind_hole(cluster)
+        machine_type, process_sequence = _process_blind_hole(cluster, material=material)
         machine_selected = 'milling — drilling is milling-machine operation'
         if is_ang:
             process_sequence = _add_angled_note(process_sequence, axis)
 
     elif ft in ('counterbore', 'counterbore_angled'):
-        machine_type, process_sequence = _process_counterbore(cluster)
+        machine_type, process_sequence = _process_counterbore(cluster, material=material)
         machine_selected = 'milling — drilling is milling-machine operation'
         if is_ang:
             process_sequence = _add_angled_note(process_sequence, axis)
@@ -1260,7 +1311,7 @@ def select_process(cluster: Dict, machine_preference: str = None,
     # Tapped hole — spot drill + pilot drill + rigid tap
     # ------------------------------------------------------------------
     elif ft in ('tapped_hole', 'tapped_hole_angled'):
-        machine_type, process_sequence = _process_tapped_hole(cluster)
+        machine_type, process_sequence = _process_tapped_hole(cluster, material=material)
         machine_selected = 'milling — center drill + pilot drill + rigid tap G84'
         if is_ang:
             process_sequence = _add_angled_note(process_sequence, axis)
