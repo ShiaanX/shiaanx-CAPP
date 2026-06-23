@@ -161,6 +161,40 @@ Given the data available today, these 4 metrics can be shown on a live dashboard
 
 ---
 
+## Migrations Created (2026-06-23)
+
+Four Sequelize migration files added to `shiaanx-backend/migrations/`.
+All four tested against local Docker Postgres — all ran successfully with 0 errors.
+
+| Migration | File | What it creates | KPI unblocked |
+|-----------|------|-----------------|---------------|
+| 27 | 27-create-qc-inspection-results.js | `qc_inspection_results` table | FPR |
+| 28 | 28-create-program-job-mappings.js | `program_job_mappings` table | FAR stage 4, utilisation per job |
+| 29 | 29-add-capp-generated-at-to-enquiry-parts.js | `capp_generated_at` column on `enquiry_parts` | FAR stage 2 |
+| 30 | 30-add-manufacturing-timestamps-to-orders.js | 4 timestamp columns on `orders` | FAR stages 3, 4, 5, 6 |
+
+**Run command:**
+```bash
+cd shiaanx-backend
+DB_USER=postgres DB_PASS=7009 DB_NAME=sx_dev DB_HOST=localhost npx sequelize-cli db:migrate
+```
+
+See `shiaanx-backend/migrations/DASHBOARD_MIGRATIONS.md` for full column specs, FPR formula SQL, FAR query SQL, and how each field should be populated.
+
+**KPI coverage after migrations applied:**
+
+| KPI | Before | After migrations |
+|-----|--------|-----------------|
+| FPR | BLOCKED | COMPUTABLE (needs QC form to write rows) |
+| FAR stage 2 (CAPP) | MISSING | COMPUTABLE (needs runner.py write-back) |
+| FAR stage 3 (material) | MISSING | COMPUTABLE (needs admin form) |
+| FAR stage 4 (machining) | PARTIAL | COMPUTABLE (InfluxDB auto-detect or admin entry) |
+| FAR stage 5 (QC) | MISSING | COMPUTABLE (set from qc_inspection_results) |
+| FAR stage 6 (FAR) | MISSING | COMPUTABLE (needs admin form) |
+| Machine util. per job | MISSING | COMPUTABLE (program_job_mappings + InfluxDB) |
+
+---
+
 ## Output Files
 
 | File | Contents |
@@ -170,4 +204,9 @@ Given the data available today, these 4 metrics can be shown on a live dashboard
 | `audit/minio_inventory.txt` | MinIO not deployed — AWS S3 used instead |
 | `audit/kpi_mapping.md` | Field-by-field FPR and FAR mapping, bonus metrics |
 | `dashboard_data_model.json` | Structured dashboard spec with gaps and proposed schema |
+| `shiaanx-backend/migrations/27-create-qc-inspection-results.js` | QC table migration |
+| `shiaanx-backend/migrations/28-create-program-job-mappings.js` | InfluxDB↔PG link migration |
+| `shiaanx-backend/migrations/29-add-capp-generated-at-to-enquiry-parts.js` | CAPP timestamp migration |
+| `shiaanx-backend/migrations/30-add-manufacturing-timestamps-to-orders.js` | FAR stages 3-6 migration |
+| `shiaanx-backend/migrations/DASHBOARD_MIGRATIONS.md` | Migration guide with SQL examples |
 | `FINDINGS_dashboard_data_model.md` | This file |
