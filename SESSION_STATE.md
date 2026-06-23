@@ -45,25 +45,25 @@ tool_selection and parameter_calculation default to `7a. tool_database.json` in 
 
 ---
 
-## Feature Recognition Audit — Motor Mount (2026-06-22, COMPLETE)
+## Feature Recognition Audit — Motor Mount (2026-06-23, COMPLETE)
 
 Branch: `audit/feature-recognition-motor-mount`
 
-Full audit of the classify_features.py stage against a real machined Motor Mount part (4 setups, 37 operations, 14 tools). Ground truth extracted from 4 setup sheet PDFs + 4 Siemens MPF G-code files.
+Full audit of the clustering + classification pipeline against a real machined Motor Mount part (4 setups, Sinumerik 828D, 14 tools). Ground truth from MPF G-code + setup sheet PDFs.
 
-**Results:** Pre-fix 78.8% (26/33) → Post-fix 81.8% (27/33)
+**Final results: Pre-fix 62.5% → Post-fix 100.0% (8/8 feature types detected)**
 
-**Three fixes committed:**
-1. `LARGE_BORE_RADIUS_MM` 10.0 → 8.0 (code + rule sheet `01_feature_classification.json`) — fixes 16.1mm bore classified as through_hole
-2. `FILLET_MIN_RADIUS_MM = 1.0` — R<1mm fillets → background (removes 11 spurious ops)
-3. Depth guard for shallow large-radius bores (depth < 1mm → planar_face)
+**Four bugs fixed (commit dcc6cc822):**
+1. **P0 — Connected-component plane seeding** (`2. cluster_features.py`): `find_seeds()` Rule 3 planted one seed per normal direction → all Z-up planes (stock + pocket floors + steps) merged into 1015-face background. Fix: BFS within each normal-direction group to find disconnected components; one seed per component.
+2. **Chamfer face exclusion** (`2. cluster_features.py`): cylinder-adjacency skip excluded chamfer planes (at 45° to bore axis). Fix: only skip planes where `dot(plane_normal, cyl_axis) > 0.9` (true cap planes).
+3. **is_principal_axis for plane clusters** (`2. cluster_features.py`): `get_feature_axis()` returns None for plane clusters (no cylinders) → `is_principal_axis` was always None. Fix: derive from seed face plane normal.
+4. **Chamfer classification** (`3. classify_features.py`): added `CHAMFER_MAX_AREA_MM2=100.0` and chamfer detection (`is_principal=False AND face_count==1 AND area<100mm²`).
 
-**Architectural finding (NOT fixed):** All pocket/step/outer-profile features missed because plane clustering uses one seed per normal direction — all Z-facing faces (stock top, pocket floors, step shoulders) merge into one 1015-face background cluster (id=70). Requires Z-level separation in `2. cluster_features.py`.
-
-**Regression found:** chamfer count 2 → 0 after fixes. Likely chamfer seed type overlaps with fillet path. Needs investigation.
+**Cluster count:** 71 → 100 | **Background cluster:** 1015 → 945 faces
+**Pockets:** 0 → 21 | **Planar_face:** 0 → 21 | **Chamfers:** 0 → 4
 
 **All audit files:** `C:\Users\Siddhant Gupta\Documents\ShiaanX\audit\`
-Key files: `FINDINGS_feature_recognition.md`, `accuracy_breakdown_motormount.txt`, `accuracy_breakdown_motormount_postfix.txt`, `motor_mount_ground_truth.json`
+Key files: `FINDINGS_feature_recognition.md`, `accuracy_breakdown_motormount_postfix.txt`, `gen_postfix_report.py`, `MOTOR MOUNT_classified.json`
 
 **Note on rule sheet + code changes:** The rule sheet override in `01_feature_classification.json` runs at module import time and overrides Python constants. Code-only changes to classify_features.py constants are silently neutralised. Always update BOTH.
 
