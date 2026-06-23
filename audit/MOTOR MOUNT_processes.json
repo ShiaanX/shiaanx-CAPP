@@ -2,87 +2,30 @@
   "clusters": [
     {
       "cluster_id": 0,
-      "seed_face_index": 1,
-      "seed_type": "bore",
-      "face_indices": [
-        1
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        0.0,
-        -1.0
-      ],
-      "depth": 0.408,
-      "radii": [
-        2.0
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "background",
-      "confidence": "medium",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
-    },
-    {
-      "cluster_id": 1,
-      "seed_face_index": 3,
-      "seed_type": "bore",
-      "face_indices": [
-        3
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "depth": 0.408,
-      "radii": [
-        2.0
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "background",
-      "confidence": "medium",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
-    },
-    {
-      "cluster_id": 2,
       "seed_face_index": 8,
       "seed_type": "bore",
       "face_indices": [
+        5,
         8,
         9
       ],
-      "face_count": 2,
+      "face_count": 3,
       "feature_axis": [
         0.0,
         0.0,
         1.0
       ],
-      "depth": 2.5,
+      "depth": 3.8688,
       "radii": [
-        1.2645
+        1.2645,
+        4.0
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "through_hole",
+      "feature_type": "counterbore",
       "confidence": "high",
       "machine_type": "milling",
       "machine_selected": "milling \u2014 drilling is milling-machine operation",
@@ -104,40 +47,65 @@
           "operation": "twist_drill",
           "machine": "milling",
           "diameter_mm": 2.529,
-          "depth_mm": 2.5,
+          "depth_mm": 3.8688,
           "drill_cycle": "standard",
-          "reason": "Drill to d=2.529mm depth=2.5mm DDR=0.989 -> standard cycle",
+          "reason": "Drill to d=2.529mm depth=3.8688mm DDR=1.53 -> standard cycle",
           "pass_type": null,
           "stock_to_leave_xy": null,
           "stock_to_leave_z": null
+        },
+        {
+          "step": 3,
+          "operation": "counterbore_mill",
+          "machine": "milling",
+          "diameter_mm": 8.0,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Open counterbore step to d=8.0mm (inner bore d=2.529mm already drilled) \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 4,
+          "operation": "counterbore_mill",
+          "machine": "milling",
+          "diameter_mm": 8.0,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Open counterbore step to d=8.0mm (inner bore d=2.529mm already drilled) \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
         }
       ]
     },
     {
-      "cluster_id": 3,
+      "cluster_id": 1,
       "seed_face_index": 10,
       "seed_type": "bore",
       "face_indices": [
+        2,
         10,
         11
       ],
-      "face_count": 2,
+      "face_count": 3,
       "feature_axis": [
         0.0,
         0.0,
         1.0
       ],
-      "depth": 2.5,
+      "depth": 3.868,
       "radii": [
-        1.2645
+        1.2645,
+        4.0
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "through_hole",
+      "feature_type": "counterbore",
       "confidence": "high",
       "machine_type": "milling",
       "machine_selected": "milling \u2014 drilling is milling-machine operation",
@@ -159,141 +127,33 @@
           "operation": "twist_drill",
           "machine": "milling",
           "diameter_mm": 2.529,
-          "depth_mm": 2.5,
+          "depth_mm": 3.868,
           "drill_cycle": "standard",
-          "reason": "Drill to d=2.529mm depth=2.5mm DDR=0.989 -> standard cycle",
+          "reason": "Drill to d=2.529mm depth=3.868mm DDR=1.529 -> standard cycle",
           "pass_type": null,
           "stock_to_leave_xy": null,
           "stock_to_leave_z": null
-        }
-      ]
-    },
-    {
-      "cluster_id": 4,
-      "seed_face_index": 37,
-      "seed_type": "bore",
-      "face_indices": [
-        37
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "depth": 0.375,
-      "radii": [
-        2.0
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "background",
-      "confidence": "medium",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
-    },
-    {
-      "cluster_id": 5,
-      "seed_face_index": 43,
-      "seed_type": "bore",
-      "face_indices": [
-        43
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "depth": 0.375,
-      "radii": [
-        2.0
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "background",
-      "confidence": "medium",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
-    },
-    {
-      "cluster_id": 6,
-      "seed_face_index": 45,
-      "seed_type": "bore",
-      "face_indices": [
-        45
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "depth": 0.3317,
-      "radii": [
-        2.0
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "background",
-      "confidence": "medium",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
-    },
-    {
-      "cluster_id": 7,
-      "seed_face_index": 48,
-      "seed_type": "bore",
-      "face_indices": [
-        48,
-        1086
-      ],
-      "face_count": 2,
-      "feature_axis": [
-        0.0,
-        0.0,
-        -1.0
-      ],
-      "depth": 0.2942,
-      "radii": [
-        25.0
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "planar_face",
-      "confidence": "medium",
-      "machine_type": "milling",
-      "machine_selected": "milling \u2014 only option for planar faces",
-      "process_sequence": [
+        },
         {
-          "step": 1,
-          "operation": "face_mill",
+          "step": 3,
+          "operation": "counterbore_mill",
           "machine": "milling",
-          "diameter_mm": null,
+          "diameter_mm": 8.0,
           "depth_mm": null,
           "drill_cycle": null,
-          "face_subtype": "full_surface",
-          "entry_method": "outside",
-          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "reason": "Open counterbore step to d=8.0mm (inner bore d=2.529mm already drilled) \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 4,
+          "operation": "counterbore_mill",
+          "machine": "milling",
+          "diameter_mm": 8.0,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Open counterbore step to d=8.0mm (inner bore d=2.529mm already drilled) \u2014 finishing pass",
           "pass_type": "FINISH",
           "stock_to_leave_xy": 0.0,
           "stock_to_leave_z": 0.0
@@ -301,157 +161,26 @@
       ]
     },
     {
-      "cluster_id": 8,
-      "seed_face_index": 67,
-      "seed_type": "bore",
-      "face_indices": [
-        67,
-        1094
-      ],
-      "face_count": 2,
-      "feature_axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "depth": 0.2942,
-      "radii": [
-        25.0
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "planar_face",
-      "confidence": "medium",
-      "machine_type": "milling",
-      "machine_selected": "milling \u2014 only option for planar faces",
-      "process_sequence": [
-        {
-          "step": 1,
-          "operation": "face_mill",
-          "machine": "milling",
-          "diameter_mm": null,
-          "depth_mm": null,
-          "drill_cycle": null,
-          "face_subtype": "full_surface",
-          "entry_method": "outside",
-          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
-          "pass_type": "FINISH",
-          "stock_to_leave_xy": 0.0,
-          "stock_to_leave_z": 0.0
-        }
-      ]
-    },
-    {
-      "cluster_id": 9,
-      "seed_face_index": 70,
-      "seed_type": "bore",
-      "face_indices": [
-        70
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "depth": 0.3317,
-      "radii": [
-        2.0
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "background",
-      "confidence": "medium",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
-    },
-    {
-      "cluster_id": 10,
-      "seed_face_index": 72,
-      "seed_type": "bore",
-      "face_indices": [
-        72
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "depth": 0.375,
-      "radii": [
-        2.0
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "background",
-      "confidence": "medium",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
-    },
-    {
-      "cluster_id": 11,
-      "seed_face_index": 78,
-      "seed_type": "bore",
-      "face_indices": [
-        78
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "depth": 0.375,
-      "radii": [
-        2.0
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "background",
-      "confidence": "medium",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
-    },
-    {
-      "cluster_id": 12,
+      "cluster_id": 2,
       "seed_face_index": 87,
       "seed_type": "bore",
       "face_indices": [
         87,
-        1071
+        1071,
+        1081,
+        1093
       ],
-      "face_count": 2,
+      "face_count": 4,
       "feature_axis": [
         1.0,
         0.0,
         0.0
       ],
-      "depth": 0.7384,
+      "depth": 1.4768,
       "radii": [
         2.5
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
@@ -478,9 +207,9 @@
           "operation": "twist_drill",
           "machine": "milling",
           "diameter_mm": 5.0,
-          "depth_mm": 0.7384,
+          "depth_mm": 1.4768,
           "drill_cycle": "standard",
-          "reason": "Drill to d=5.000mm depth=0.7384mm DDR=0.148 -> standard cycle",
+          "reason": "Drill to d=5.000mm depth=1.4768mm DDR=0.295 -> standard cycle",
           "pass_type": null,
           "stock_to_leave_xy": null,
           "stock_to_leave_z": null
@@ -488,352 +217,24 @@
       ]
     },
     {
-      "cluster_id": 13,
-      "seed_face_index": 88,
-      "seed_type": "bore",
-      "face_indices": [
-        88
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        -1.0,
-        0.0
-      ],
-      "depth": 9.9884,
-      "radii": [
-        2.5
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "fillet",
-      "confidence": "low",
-      "machine_type": "milling",
-      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
-      "process_sequence": [
-        {
-          "step": 1,
-          "operation": "profile_3d_contour",
-          "machine": "milling",
-          "diameter_mm": 4,
-          "depth_mm": 9.9884,
-          "drill_cycle": null,
-          "reason": "3D surface contour \u2014 ball-nose \u00d84mm, stepover 0.48mm, flood coolant.",
-          "pass_type": "FINISH",
-          "stock_to_leave_xy": 0.0,
-          "stock_to_leave_z": 0.0
-        }
-      ]
-    },
-    {
-      "cluster_id": 14,
-      "seed_face_index": 102,
-      "seed_type": "bore",
-      "face_indices": [
-        102
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        1.0,
-        0.0
-      ],
-      "depth": 9.405,
-      "radii": [
-        2.5
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "fillet",
-      "confidence": "low",
-      "machine_type": "milling",
-      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
-      "process_sequence": [
-        {
-          "step": 1,
-          "operation": "profile_3d_contour",
-          "machine": "milling",
-          "diameter_mm": 4,
-          "depth_mm": 9.405,
-          "drill_cycle": null,
-          "reason": "3D surface contour \u2014 ball-nose \u00d84mm, stepover 0.48mm, flood coolant.",
-          "pass_type": "FINISH",
-          "stock_to_leave_xy": 0.0,
-          "stock_to_leave_z": 0.0
-        }
-      ]
-    },
-    {
-      "cluster_id": 15,
-      "seed_face_index": 106,
-      "seed_type": "bore",
-      "face_indices": [
-        106
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        -1.0,
-        0.0
-      ],
-      "depth": 9.405,
-      "radii": [
-        2.5
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "fillet",
-      "confidence": "low",
-      "machine_type": "milling",
-      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
-      "process_sequence": [
-        {
-          "step": 1,
-          "operation": "profile_3d_contour",
-          "machine": "milling",
-          "diameter_mm": 4,
-          "depth_mm": 9.405,
-          "drill_cycle": null,
-          "reason": "3D surface contour \u2014 ball-nose \u00d84mm, stepover 0.48mm, flood coolant.",
-          "pass_type": "FINISH",
-          "stock_to_leave_xy": 0.0,
-          "stock_to_leave_z": 0.0
-        }
-      ]
-    },
-    {
-      "cluster_id": 16,
-      "seed_face_index": 108,
-      "seed_type": "bore",
-      "face_indices": [
-        108
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        -1.0,
-        0.0
-      ],
-      "depth": 9.9884,
-      "radii": [
-        2.5
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "fillet",
-      "confidence": "low",
-      "machine_type": "milling",
-      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
-      "process_sequence": [
-        {
-          "step": 1,
-          "operation": "profile_3d_contour",
-          "machine": "milling",
-          "diameter_mm": 4,
-          "depth_mm": 9.9884,
-          "drill_cycle": null,
-          "reason": "3D surface contour \u2014 ball-nose \u00d84mm, stepover 0.48mm, flood coolant.",
-          "pass_type": "FINISH",
-          "stock_to_leave_xy": 0.0,
-          "stock_to_leave_z": 0.0
-        }
-      ]
-    },
-    {
-      "cluster_id": 17,
+      "cluster_id": 3,
       "seed_face_index": 112,
       "seed_type": "bore",
       "face_indices": [
-        112
+        112,
+        113
       ],
-      "face_count": 1,
+      "face_count": 2,
       "feature_axis": [
         -1.0,
         0.0,
         0.0
       ],
-      "depth": 3.5731,
+      "depth": 7.1461,
       "radii": [
         1.5
       ],
       "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "fillet",
-      "confidence": "low",
-      "machine_type": "milling",
-      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
-      "process_sequence": [
-        {
-          "step": 1,
-          "operation": "profile_3d_contour",
-          "machine": "milling",
-          "diameter_mm": 4.0,
-          "depth_mm": 3.5731,
-          "drill_cycle": null,
-          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
-          "pass_type": "FINISH",
-          "stock_to_leave_xy": 0.0,
-          "stock_to_leave_z": 0.0
-        }
-      ]
-    },
-    {
-      "cluster_id": 18,
-      "seed_face_index": 114,
-      "seed_type": "bore",
-      "face_indices": [
-        114
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "depth": 0.0186,
-      "radii": [
-        2.3
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "background",
-      "confidence": "medium",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
-    },
-    {
-      "cluster_id": 19,
-      "seed_face_index": 115,
-      "seed_type": "bore",
-      "face_indices": [
-        115
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "depth": 0.0186,
-      "radii": [
-        2.3
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "background",
-      "confidence": "medium",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
-    },
-    {
-      "cluster_id": 20,
-      "seed_face_index": 1030,
-      "seed_type": "bore",
-      "face_indices": [
-        1030
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "depth": 0.0186,
-      "radii": [
-        2.3
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "background",
-      "confidence": "medium",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
-    },
-    {
-      "cluster_id": 21,
-      "seed_face_index": 1031,
-      "seed_type": "bore",
-      "face_indices": [
-        1031
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "depth": 0.0186,
-      "radii": [
-        2.3
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "background",
-      "confidence": "medium",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
-    },
-    {
-      "cluster_id": 22,
-      "seed_face_index": 1037,
-      "seed_type": "bore",
-      "face_indices": [
-        540,
-        1037,
-        1038
-      ],
-      "face_count": 3,
-      "feature_axis": [
-        0.0,
-        -1.0,
-        0.0
-      ],
-      "depth": 17.0332,
-      "radii": [
-        8.05
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
@@ -847,88 +248,488 @@
           "step": 1,
           "operation": "spot_drill",
           "machine": "milling",
-          "diameter_mm": 16.1,
+          "diameter_mm": 3.0,
           "depth_mm": null,
           "drill_cycle": null,
-          "reason": "Locate for d=16.100mm hole",
+          "reason": "Locate for d=3.000mm hole \u2014 prevents drill wandering",
           "pass_type": null,
           "stock_to_leave_xy": null,
           "stock_to_leave_z": null
         },
         {
           "step": 2,
-          "operation": "pilot_drill",
+          "operation": "twist_drill",
           "machine": "milling",
-          "diameter_mm": 9.66,
-          "depth_mm": 17.0332,
+          "diameter_mm": 3.0,
+          "depth_mm": 7.1461,
           "drill_cycle": "standard",
-          "reason": "Pilot at d=9.66mm (60% of final) to guide core drill and reduce cutting force",
+          "reason": "Drill to d=3.000mm depth=7.1461mm DDR=2.382 -> standard cycle",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 4,
+      "seed_face_index": 114,
+      "seed_type": "bore",
+      "face_indices": [
+        114,
+        1035,
+        1077
+      ],
+      "face_count": 3,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 4.4186,
+      "radii": [
+        1.2645,
+        1.5,
+        2.3
+      ],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "counterbore",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 2.529,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=2.529mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 2.529,
+          "depth_mm": 4.4186,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=2.529mm depth=4.4186mm DDR=1.747 -> standard cycle",
           "pass_type": null,
           "stock_to_leave_xy": null,
           "stock_to_leave_z": null
         },
         {
           "step": 3,
-          "operation": "core_drill",
+          "operation": "counterbore_mill",
+          "machine": "milling",
+          "diameter_mm": 3.0,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Open counterbore step to d=3.0mm (inner bore d=2.529mm already drilled) \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 4,
+          "operation": "counterbore_mill",
+          "machine": "milling",
+          "diameter_mm": 3.0,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Open counterbore step to d=3.0mm (inner bore d=2.529mm already drilled) \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        },
+        {
+          "step": 5,
+          "operation": "counterbore_mill",
+          "machine": "milling",
+          "diameter_mm": 4.6,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Open counterbore step to d=4.6mm (inner bore d=2.529mm already drilled) \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 6,
+          "operation": "counterbore_mill",
+          "machine": "milling",
+          "diameter_mm": 4.6,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Open counterbore step to d=4.6mm (inner bore d=2.529mm already drilled) \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 5,
+      "seed_face_index": 115,
+      "seed_type": "bore",
+      "face_indices": [
+        115,
+        1033,
+        1079
+      ],
+      "face_count": 3,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 4.4186,
+      "radii": [
+        1.2645,
+        1.5,
+        2.3
+      ],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "counterbore",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 2.529,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=2.529mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 2.529,
+          "depth_mm": 4.4186,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=2.529mm depth=4.4186mm DDR=1.747 -> standard cycle",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 3,
+          "operation": "counterbore_mill",
+          "machine": "milling",
+          "diameter_mm": 3.0,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Open counterbore step to d=3.0mm (inner bore d=2.529mm already drilled) \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 4,
+          "operation": "counterbore_mill",
+          "machine": "milling",
+          "diameter_mm": 3.0,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Open counterbore step to d=3.0mm (inner bore d=2.529mm already drilled) \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        },
+        {
+          "step": 5,
+          "operation": "counterbore_mill",
+          "machine": "milling",
+          "diameter_mm": 4.6,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Open counterbore step to d=4.6mm (inner bore d=2.529mm already drilled) \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 6,
+          "operation": "counterbore_mill",
+          "machine": "milling",
+          "diameter_mm": 4.6,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Open counterbore step to d=4.6mm (inner bore d=2.529mm already drilled) \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 6,
+      "seed_face_index": 1030,
+      "seed_type": "bore",
+      "face_indices": [
+        1030,
+        1032,
+        1080
+      ],
+      "face_count": 3,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 4.4186,
+      "radii": [
+        1.2645,
+        1.5,
+        2.3
+      ],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "counterbore",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 2.529,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=2.529mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 2.529,
+          "depth_mm": 4.4186,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=2.529mm depth=4.4186mm DDR=1.747 -> standard cycle",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 3,
+          "operation": "counterbore_mill",
+          "machine": "milling",
+          "diameter_mm": 3.0,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Open counterbore step to d=3.0mm (inner bore d=2.529mm already drilled) \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 4,
+          "operation": "counterbore_mill",
+          "machine": "milling",
+          "diameter_mm": 3.0,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Open counterbore step to d=3.0mm (inner bore d=2.529mm already drilled) \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        },
+        {
+          "step": 5,
+          "operation": "counterbore_mill",
+          "machine": "milling",
+          "diameter_mm": 4.6,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Open counterbore step to d=4.6mm (inner bore d=2.529mm already drilled) \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 6,
+          "operation": "counterbore_mill",
+          "machine": "milling",
+          "diameter_mm": 4.6,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Open counterbore step to d=4.6mm (inner bore d=2.529mm already drilled) \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 7,
+      "seed_face_index": 1031,
+      "seed_type": "bore",
+      "face_indices": [
+        1031,
+        1034,
+        1078
+      ],
+      "face_count": 3,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 4.4186,
+      "radii": [
+        1.2645,
+        1.5,
+        2.3
+      ],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "counterbore",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 2.529,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=2.529mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 2.529,
+          "depth_mm": 4.4186,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=2.529mm depth=4.4186mm DDR=1.747 -> standard cycle",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 3,
+          "operation": "counterbore_mill",
+          "machine": "milling",
+          "diameter_mm": 3.0,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Open counterbore step to d=3.0mm (inner bore d=2.529mm already drilled) \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 4,
+          "operation": "counterbore_mill",
+          "machine": "milling",
+          "diameter_mm": 3.0,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Open counterbore step to d=3.0mm (inner bore d=2.529mm already drilled) \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        },
+        {
+          "step": 5,
+          "operation": "counterbore_mill",
+          "machine": "milling",
+          "diameter_mm": 4.6,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Open counterbore step to d=4.6mm (inner bore d=2.529mm already drilled) \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 6,
+          "operation": "counterbore_mill",
+          "machine": "milling",
+          "diameter_mm": 4.6,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Open counterbore step to d=4.6mm (inner bore d=2.529mm already drilled) \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 8,
+      "seed_face_index": 1037,
+      "seed_type": "bore",
+      "face_indices": [
+        111,
+        540,
+        1037,
+        1038,
+        1070
+      ],
+      "face_count": 6,
+      "feature_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "depth": 33.8671,
+      "radii": [
+        8.05
+      ],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "through_hole",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "circular_interp",
           "machine": "milling",
           "diameter_mm": 16.1,
-          "depth_mm": 17.0332,
-          "drill_cycle": "standard",
-          "reason": "Open to final d=16.100mm",
-          "pass_type": null,
-          "stock_to_leave_xy": null,
-          "stock_to_leave_z": null
-        }
-      ]
-    },
-    {
-      "cluster_id": 23,
-      "seed_face_index": 1045,
-      "seed_type": "bore",
-      "face_indices": [
-        1045
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "depth": 1.5,
-      "radii": [
-        1.6
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "through_hole",
-      "confidence": "medium",
-      "machine_type": "milling",
-      "machine_selected": "milling \u2014 drilling is milling-machine operation",
-      "process_sequence": [
-        {
-          "step": 1,
-          "operation": "spot_drill",
-          "machine": "milling",
-          "diameter_mm": 3.2,
-          "depth_mm": null,
+          "depth_mm": 33.8671,
           "drill_cycle": null,
-          "reason": "Locate for d=3.200mm hole \u2014 prevents drill wandering",
-          "pass_type": null,
-          "stock_to_leave_xy": null,
-          "stock_to_leave_z": null
-        },
-        {
-          "step": 2,
-          "operation": "twist_drill",
-          "machine": "milling",
-          "diameter_mm": 3.2,
-          "depth_mm": 1.5,
-          "drill_cycle": "standard",
-          "reason": "Drill to d=3.200mm depth=1.5mm DDR=0.469 -> standard cycle",
+          "em_diameter_hint_mm": 9.66,
+          "reason": "Profile bore d=16.100mm \u2014 circular interpolation with \u00d89.66mm end mill (0.60\u00d7 bore). DR-005: circ-interp preferred over pilot+core for aluminium 13\u201332mm bores. Helical entry, climb mill, flood coolant.",
           "pass_type": null,
           "stock_to_leave_xy": null,
           "stock_to_leave_z": null
@@ -936,107 +737,101 @@
       ]
     },
     {
-      "cluster_id": 24,
-      "seed_face_index": 1046,
-      "seed_type": "bore",
-      "face_indices": [
-        1046
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "depth": 1.5,
-      "radii": [
-        1.6
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "through_hole",
-      "confidence": "medium",
-      "machine_type": "milling",
-      "machine_selected": "milling \u2014 drilling is milling-machine operation",
-      "process_sequence": [
-        {
-          "step": 1,
-          "operation": "spot_drill",
-          "machine": "milling",
-          "diameter_mm": 3.2,
-          "depth_mm": null,
-          "drill_cycle": null,
-          "reason": "Locate for d=3.200mm hole \u2014 prevents drill wandering",
-          "pass_type": null,
-          "stock_to_leave_xy": null,
-          "stock_to_leave_z": null
-        },
-        {
-          "step": 2,
-          "operation": "twist_drill",
-          "machine": "milling",
-          "diameter_mm": 3.2,
-          "depth_mm": 1.5,
-          "drill_cycle": "standard",
-          "reason": "Drill to d=3.200mm depth=1.5mm DDR=0.469 -> standard cycle",
-          "pass_type": null,
-          "stock_to_leave_xy": null,
-          "stock_to_leave_z": null
-        }
-      ]
-    },
-    {
-      "cluster_id": 25,
+      "cluster_id": 9,
       "seed_face_index": 1047,
       "seed_type": "bore",
       "face_indices": [
-        1047
+        1047,
+        1059,
+        1061,
+        1063,
+        1064,
+        1065,
+        1067
       ],
-      "face_count": 1,
+      "face_count": 7,
       "feature_axis": [
         0.0,
         0.0,
         1.0
       ],
-      "depth": 1.5,
+      "depth": 2.7237,
       "radii": [
-        5.5
+        5.5,
+        25.0,
+        32.0156
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "through_hole",
-      "confidence": "medium",
-      "machine_type": "milling",
-      "machine_selected": "milling \u2014 drilling is milling-machine operation",
-      "process_sequence": [
+      "feature_type": "large_bore",
+      "confidence": "high",
+      "process_sequence_turning": [
         {
           "step": 1,
-          "operation": "spot_drill",
-          "machine": "milling",
-          "diameter_mm": 11.0,
+          "operation": "face_turn",
+          "machine": "turning",
+          "diameter_mm": 64.0312,
           "depth_mm": null,
           "drill_cycle": null,
-          "reason": "Locate for d=11.000mm hole \u2014 prevents drill wandering",
-          "pass_type": null,
-          "stock_to_leave_xy": null,
-          "stock_to_leave_z": null
+          "reason": "Face to clean entry plane before boring"
         },
         {
           "step": 2,
-          "operation": "twist_drill",
+          "operation": "rough_bore",
+          "machine": "turning",
+          "diameter_mm": 10.45,
+          "depth_mm": 2.7237,
+          "drill_cycle": null,
+          "reason": "Rough bore to ~95% of final diameter d\u224810.45mm"
+        },
+        {
+          "step": 3,
+          "operation": "finish_bore",
+          "machine": "turning",
+          "diameter_mm": 64.0312,
+          "depth_mm": 2.7237,
+          "drill_cycle": null,
+          "reason": "Finish bore to final d=64.0312mm"
+        }
+      ],
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
           "machine": "milling",
-          "diameter_mm": 11.0,
-          "depth_mm": 1.5,
-          "drill_cycle": "standard",
-          "reason": "Drill to d=11.000mm depth=1.5mm DDR=0.136 -> standard cycle",
+          "diameter_mm": 64.0312,
+          "depth_mm": 2.7237,
+          "drill_cycle": null,
+          "reason": "Face mill large bore area d=64.0312mm \u2014 roughing pass (RF, depth=2.7237mm > max_ap=2.0mm)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.2
+        },
+        {
+          "step": 2,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": 64.0312,
+          "depth_mm": 2.7237,
+          "drill_cycle": null,
+          "reason": "Face mill large bore area d=64.0312mm \u2014 finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        },
+        {
+          "step": 3,
+          "operation": "circular_interp",
+          "machine": "milling",
+          "diameter_mm": 64.0312,
+          "depth_mm": 2.7237,
+          "drill_cycle": null,
+          "reason": "Circular interpolation with end mill to reach d=64.0312mm \u2014 diameter too large for drill",
           "pass_type": null,
           "stock_to_leave_xy": null,
           "stock_to_leave_z": null
@@ -1044,223 +839,7 @@
       ]
     },
     {
-      "cluster_id": 26,
-      "seed_face_index": 1048,
-      "seed_type": "bore",
-      "face_indices": [
-        1048
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "depth": 1.5,
-      "radii": [
-        1.6
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "through_hole",
-      "confidence": "medium",
-      "machine_type": "milling",
-      "machine_selected": "milling \u2014 drilling is milling-machine operation",
-      "process_sequence": [
-        {
-          "step": 1,
-          "operation": "spot_drill",
-          "machine": "milling",
-          "diameter_mm": 3.2,
-          "depth_mm": null,
-          "drill_cycle": null,
-          "reason": "Locate for d=3.200mm hole \u2014 prevents drill wandering",
-          "pass_type": null,
-          "stock_to_leave_xy": null,
-          "stock_to_leave_z": null
-        },
-        {
-          "step": 2,
-          "operation": "twist_drill",
-          "machine": "milling",
-          "diameter_mm": 3.2,
-          "depth_mm": 1.5,
-          "drill_cycle": "standard",
-          "reason": "Drill to d=3.200mm depth=1.5mm DDR=0.469 -> standard cycle",
-          "pass_type": null,
-          "stock_to_leave_xy": null,
-          "stock_to_leave_z": null
-        }
-      ]
-    },
-    {
-      "cluster_id": 27,
-      "seed_face_index": 1049,
-      "seed_type": "bore",
-      "face_indices": [
-        1049
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "depth": 1.5,
-      "radii": [
-        1.6
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "through_hole",
-      "confidence": "medium",
-      "machine_type": "milling",
-      "machine_selected": "milling \u2014 drilling is milling-machine operation",
-      "process_sequence": [
-        {
-          "step": 1,
-          "operation": "spot_drill",
-          "machine": "milling",
-          "diameter_mm": 3.2,
-          "depth_mm": null,
-          "drill_cycle": null,
-          "reason": "Locate for d=3.200mm hole \u2014 prevents drill wandering",
-          "pass_type": null,
-          "stock_to_leave_xy": null,
-          "stock_to_leave_z": null
-        },
-        {
-          "step": 2,
-          "operation": "twist_drill",
-          "machine": "milling",
-          "diameter_mm": 3.2,
-          "depth_mm": 1.5,
-          "drill_cycle": "standard",
-          "reason": "Drill to d=3.200mm depth=1.5mm DDR=0.469 -> standard cycle",
-          "pass_type": null,
-          "stock_to_leave_xy": null,
-          "stock_to_leave_z": null
-        }
-      ]
-    },
-    {
-      "cluster_id": 28,
-      "seed_face_index": 1050,
-      "seed_type": "bore",
-      "face_indices": [
-        1050
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "depth": 1.5,
-      "radii": [
-        1.6
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "through_hole",
-      "confidence": "medium",
-      "machine_type": "milling",
-      "machine_selected": "milling \u2014 drilling is milling-machine operation",
-      "process_sequence": [
-        {
-          "step": 1,
-          "operation": "spot_drill",
-          "machine": "milling",
-          "diameter_mm": 3.2,
-          "depth_mm": null,
-          "drill_cycle": null,
-          "reason": "Locate for d=3.200mm hole \u2014 prevents drill wandering",
-          "pass_type": null,
-          "stock_to_leave_xy": null,
-          "stock_to_leave_z": null
-        },
-        {
-          "step": 2,
-          "operation": "twist_drill",
-          "machine": "milling",
-          "diameter_mm": 3.2,
-          "depth_mm": 1.5,
-          "drill_cycle": "standard",
-          "reason": "Drill to d=3.200mm depth=1.5mm DDR=0.469 -> standard cycle",
-          "pass_type": null,
-          "stock_to_leave_xy": null,
-          "stock_to_leave_z": null
-        }
-      ]
-    },
-    {
-      "cluster_id": 29,
-      "seed_face_index": 1051,
-      "seed_type": "bore",
-      "face_indices": [
-        1051
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "depth": 1.5,
-      "radii": [
-        1.6
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "through_hole",
-      "confidence": "medium",
-      "machine_type": "milling",
-      "machine_selected": "milling \u2014 drilling is milling-machine operation",
-      "process_sequence": [
-        {
-          "step": 1,
-          "operation": "spot_drill",
-          "machine": "milling",
-          "diameter_mm": 3.2,
-          "depth_mm": null,
-          "drill_cycle": null,
-          "reason": "Locate for d=3.200mm hole \u2014 prevents drill wandering",
-          "pass_type": null,
-          "stock_to_leave_xy": null,
-          "stock_to_leave_z": null
-        },
-        {
-          "step": 2,
-          "operation": "twist_drill",
-          "machine": "milling",
-          "diameter_mm": 3.2,
-          "depth_mm": 1.5,
-          "drill_cycle": "standard",
-          "reason": "Drill to d=3.200mm depth=1.5mm DDR=0.469 -> standard cycle",
-          "pass_type": null,
-          "stock_to_leave_xy": null,
-          "stock_to_leave_z": null
-        }
-      ]
-    },
-    {
-      "cluster_id": 30,
+      "cluster_id": 10,
       "seed_face_index": 1052,
       "seed_type": "bore",
       "face_indices": [
@@ -1277,7 +856,6 @@
         1.6
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
@@ -1314,254 +892,81 @@
       ]
     },
     {
-      "cluster_id": 31,
-      "seed_face_index": 1088,
-      "seed_type": "bore",
-      "face_indices": [
-        1087,
-        1088
-      ],
-      "face_count": 2,
-      "feature_axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "depth": 2.5,
-      "radii": [
-        1.2645
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "through_hole",
-      "confidence": "high",
-      "machine_type": "milling",
-      "machine_selected": "milling \u2014 drilling is milling-machine operation",
-      "process_sequence": [
-        {
-          "step": 1,
-          "operation": "spot_drill",
-          "machine": "milling",
-          "diameter_mm": 2.529,
-          "depth_mm": null,
-          "drill_cycle": null,
-          "reason": "Locate for d=2.529mm hole \u2014 prevents drill wandering",
-          "pass_type": null,
-          "stock_to_leave_xy": null,
-          "stock_to_leave_z": null
-        },
-        {
-          "step": 2,
-          "operation": "twist_drill",
-          "machine": "milling",
-          "diameter_mm": 2.529,
-          "depth_mm": 2.5,
-          "drill_cycle": "standard",
-          "reason": "Drill to d=2.529mm depth=2.5mm DDR=0.989 -> standard cycle",
-          "pass_type": null,
-          "stock_to_leave_xy": null,
-          "stock_to_leave_z": null
-        }
-      ]
-    },
-    {
-      "cluster_id": 32,
-      "seed_face_index": 1090,
-      "seed_type": "bore",
-      "face_indices": [
-        1089,
-        1090
-      ],
-      "face_count": 2,
-      "feature_axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "depth": 2.5,
-      "radii": [
-        1.2645
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "through_hole",
-      "confidence": "high",
-      "machine_type": "milling",
-      "machine_selected": "milling \u2014 drilling is milling-machine operation",
-      "process_sequence": [
-        {
-          "step": 1,
-          "operation": "spot_drill",
-          "machine": "milling",
-          "diameter_mm": 2.529,
-          "depth_mm": null,
-          "drill_cycle": null,
-          "reason": "Locate for d=2.529mm hole \u2014 prevents drill wandering",
-          "pass_type": null,
-          "stock_to_leave_xy": null,
-          "stock_to_leave_z": null
-        },
-        {
-          "step": 2,
-          "operation": "twist_drill",
-          "machine": "milling",
-          "diameter_mm": 2.529,
-          "depth_mm": 2.5,
-          "drill_cycle": "standard",
-          "reason": "Drill to d=2.529mm depth=2.5mm DDR=0.989 -> standard cycle",
-          "pass_type": null,
-          "stock_to_leave_xy": null,
-          "stock_to_leave_z": null
-        }
-      ]
-    },
-    {
-      "cluster_id": 33,
-      "seed_face_index": 1091,
-      "seed_type": "bore",
-      "face_indices": [
-        1091
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "depth": 2.4999,
-      "radii": [
-        1.2645
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "blind_hole",
-      "confidence": "low",
-      "machine_type": "milling",
-      "machine_selected": "milling \u2014 drilling is milling-machine operation",
-      "process_sequence": [
-        {
-          "step": 1,
-          "operation": "spot_drill",
-          "machine": "milling",
-          "diameter_mm": 2.529,
-          "depth_mm": null,
-          "drill_cycle": null,
-          "reason": "Locate for d=2.529mm hole \u2014 prevents drill wandering",
-          "pass_type": null,
-          "stock_to_leave_xy": null,
-          "stock_to_leave_z": null
-        },
-        {
-          "step": 2,
-          "operation": "twist_drill",
-          "machine": "milling",
-          "diameter_mm": 2.529,
-          "depth_mm": 2.4999,
-          "drill_cycle": "standard",
-          "reason": "Drill to d=2.529mm depth=2.4999mm DDR=0.988 -> standard cycle \u2014 blind hole, stop at depth",
-          "pass_type": null,
-          "stock_to_leave_xy": null,
-          "stock_to_leave_z": null
-        }
-      ]
-    },
-    {
-      "cluster_id": 34,
-      "seed_face_index": 1092,
-      "seed_type": "bore",
-      "face_indices": [
-        1092
-      ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "depth": 2.4999,
-      "radii": [
-        1.2645
-      ],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": false,
-      "perp_wall_count": 0,
-      "internal_corner_radius": null,
-      "face_area": null,
-      "feature_type": "blind_hole",
-      "confidence": "low",
-      "machine_type": "milling",
-      "machine_selected": "milling \u2014 drilling is milling-machine operation",
-      "process_sequence": [
-        {
-          "step": 1,
-          "operation": "spot_drill",
-          "machine": "milling",
-          "diameter_mm": 2.529,
-          "depth_mm": null,
-          "drill_cycle": null,
-          "reason": "Locate for d=2.529mm hole \u2014 prevents drill wandering",
-          "pass_type": null,
-          "stock_to_leave_xy": null,
-          "stock_to_leave_z": null
-        },
-        {
-          "step": 2,
-          "operation": "twist_drill",
-          "machine": "milling",
-          "diameter_mm": 2.529,
-          "depth_mm": 2.4999,
-          "drill_cycle": "standard",
-          "reason": "Drill to d=2.529mm depth=2.4999mm DDR=0.988 -> standard cycle \u2014 blind hole, stop at depth",
-          "pass_type": null,
-          "stock_to_leave_xy": null,
-          "stock_to_leave_z": null
-        }
-      ]
-    },
-    {
-      "cluster_id": 35,
+      "cluster_id": 11,
       "seed_face_index": 14,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
-        14
+        14,
+        29
       ],
-      "face_count": 1,
+      "face_count": 2,
       "feature_axis": [
         0.0,
         1.0,
         0.0
       ],
-      "depth": 2.5397,
+      "depth": 6.7364,
       "radii": [
         0.5
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "background",
+      "feature_type": "boss",
       "confidence": "high",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 1.05,
+          "depth_mm": 6.7364,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 1.0,
+          "depth_mm": 6.7364,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=1.0mm"
+        }
+      ],
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 1.0,
+          "depth_mm": 6.7364,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=1.0mm h=6.7364mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 1.0,
+          "depth_mm": 6.7364,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=1.0mm h=6.7364mm \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
     },
     {
-      "cluster_id": 36,
+      "cluster_id": 12,
       "seed_face_index": 18,
       "seed_type": "boss",
       "face_indices": [
@@ -1579,7 +984,6 @@
         1.0
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
@@ -1636,7 +1040,7 @@
       ]
     },
     {
-      "cluster_id": 37,
+      "cluster_id": 13,
       "seed_face_index": 20,
       "seed_type": "boss",
       "face_indices": [
@@ -1654,7 +1058,6 @@
         1.0
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
@@ -1711,9 +1114,9 @@
       ]
     },
     {
-      "cluster_id": 38,
+      "cluster_id": 14,
       "seed_face_index": 21,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         21
       ],
@@ -1728,21 +1131,65 @@
         0.5
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "background",
+      "feature_type": "boss",
       "confidence": "high",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 1.05,
+          "depth_mm": 0.0254,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 1.0,
+          "depth_mm": 0.0254,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=1.0mm"
+        }
+      ],
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 1.0,
+          "depth_mm": 0.0254,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=1.0mm h=0.0254mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 1.0,
+          "depth_mm": 0.0254,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=1.0mm h=0.0254mm \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
     },
     {
-      "cluster_id": 39,
+      "cluster_id": 15,
       "seed_face_index": 27,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         27
       ],
@@ -1757,21 +1204,74 @@
         0.5
       ],
       "is_principal_axis": false,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "background",
+      "feature_type": "boss_angled",
       "confidence": "high",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 1.05,
+          "depth_mm": 0.0509,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 1.0,
+          "depth_mm": 0.0509,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=1.0mm"
+        }
+      ],
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "fixture_rotation",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Feature axis [-0.64, 0.768, 0.0] is not aligned to a principal axis \u2014 part must be rotated or an angled fixture used before drilling"
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 1.0,
+          "depth_mm": 0.0509,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=1.0mm h=0.0509mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 3,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 1.0,
+          "depth_mm": 0.0509,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=1.0mm h=0.0509mm \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
     },
     {
-      "cluster_id": 40,
+      "cluster_id": 16,
       "seed_face_index": 31,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         31
       ],
@@ -1786,21 +1286,74 @@
         0.5
       ],
       "is_principal_axis": false,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "background",
+      "feature_type": "boss_angled",
       "confidence": "high",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 1.05,
+          "depth_mm": 0.4911,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 1.0,
+          "depth_mm": 0.4911,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=1.0mm"
+        }
+      ],
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "fixture_rotation",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Feature axis [0.707, 0.707, 0.0] is not aligned to a principal axis \u2014 part must be rotated or an angled fixture used before drilling"
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 1.0,
+          "depth_mm": 0.4911,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=1.0mm h=0.4911mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 3,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 1.0,
+          "depth_mm": 0.4911,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=1.0mm h=0.4911mm \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
     },
     {
-      "cluster_id": 41,
+      "cluster_id": 17,
       "seed_face_index": 33,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         33
       ],
@@ -1815,21 +1368,65 @@
         0.5
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "background",
+      "feature_type": "boss",
       "confidence": "high",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 1.05,
+          "depth_mm": 4.0994,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 1.0,
+          "depth_mm": 4.0994,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=1.0mm"
+        }
+      ],
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 1.0,
+          "depth_mm": 4.0994,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=1.0mm h=4.0994mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 1.0,
+          "depth_mm": 4.0994,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=1.0mm h=4.0994mm \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
     },
     {
-      "cluster_id": 42,
+      "cluster_id": 18,
       "seed_face_index": 35,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         35
       ],
@@ -1844,21 +1441,74 @@
         0.5
       ],
       "is_principal_axis": false,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "background",
+      "feature_type": "boss_angled",
       "confidence": "high",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 1.05,
+          "depth_mm": 0.4911,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 1.0,
+          "depth_mm": 0.4911,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=1.0mm"
+        }
+      ],
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "fixture_rotation",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Feature axis [-0.707, 0.707, 0.0] is not aligned to a principal axis \u2014 part must be rotated or an angled fixture used before drilling"
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 1.0,
+          "depth_mm": 0.4911,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=1.0mm h=0.4911mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 3,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 1.0,
+          "depth_mm": 0.4911,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=1.0mm h=0.4911mm \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
     },
     {
-      "cluster_id": 43,
+      "cluster_id": 19,
       "seed_face_index": 39,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         39
       ],
@@ -1873,24 +1523,55 @@
         2.0
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "fillet",
+      "feature_type": "boss",
       "confidence": "high",
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 4.2,
+          "depth_mm": 0.375,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.375,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=4.0mm"
+        }
+      ],
       "machine_type": "milling",
-      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
       "process_sequence": [
         {
           "step": 1,
-          "operation": "profile_3d_contour",
+          "operation": "contour_mill",
           "machine": "milling",
-          "diameter_mm": 4,
+          "diameter_mm": 4.0,
           "depth_mm": 0.375,
           "drill_cycle": null,
-          "reason": "3D surface contour \u2014 ball-nose \u00d84mm, stepover 0.48mm, flood coolant.",
+          "reason": "Contour mill end mill around boss OD d=4.0mm h=0.375mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.375,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=4.0mm h=0.375mm \u2014 finishing pass",
           "pass_type": "FINISH",
           "stock_to_leave_xy": 0.0,
           "stock_to_leave_z": 0.0
@@ -1898,9 +1579,9 @@
       ]
     },
     {
-      "cluster_id": 44,
+      "cluster_id": 20,
       "seed_face_index": 41,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         41
       ],
@@ -1915,24 +1596,55 @@
         2.0
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "fillet",
+      "feature_type": "boss",
       "confidence": "high",
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 4.2,
+          "depth_mm": 0.375,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.375,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=4.0mm"
+        }
+      ],
       "machine_type": "milling",
-      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
       "process_sequence": [
         {
           "step": 1,
-          "operation": "profile_3d_contour",
+          "operation": "contour_mill",
           "machine": "milling",
-          "diameter_mm": 4,
+          "diameter_mm": 4.0,
           "depth_mm": 0.375,
           "drill_cycle": null,
-          "reason": "3D surface contour \u2014 ball-nose \u00d84mm, stepover 0.48mm, flood coolant.",
+          "reason": "Contour mill end mill around boss OD d=4.0mm h=0.375mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.375,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=4.0mm h=0.375mm \u2014 finishing pass",
           "pass_type": "FINISH",
           "stock_to_leave_xy": 0.0,
           "stock_to_leave_z": 0.0
@@ -1940,9 +1652,9 @@
       ]
     },
     {
-      "cluster_id": 45,
+      "cluster_id": 21,
       "seed_face_index": 47,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         47
       ],
@@ -1957,24 +1669,55 @@
         1.5
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "fillet",
+      "feature_type": "boss",
       "confidence": "high",
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 3.15,
+          "depth_mm": 0.8109,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 3.0,
+          "depth_mm": 0.8109,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=3.0mm"
+        }
+      ],
       "machine_type": "milling",
-      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
       "process_sequence": [
         {
           "step": 1,
-          "operation": "profile_3d_contour",
+          "operation": "contour_mill",
           "machine": "milling",
-          "diameter_mm": 4.0,
+          "diameter_mm": 3.0,
           "depth_mm": 0.8109,
           "drill_cycle": null,
-          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "reason": "Contour mill end mill around boss OD d=3.0mm h=0.8109mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 3.0,
+          "depth_mm": 0.8109,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=3.0mm h=0.8109mm \u2014 finishing pass",
           "pass_type": "FINISH",
           "stock_to_leave_xy": 0.0,
           "stock_to_leave_z": 0.0
@@ -1982,38 +1725,83 @@
       ]
     },
     {
-      "cluster_id": 46,
+      "cluster_id": 22,
       "seed_face_index": 51,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
-        51
+        51,
+        59
       ],
-      "face_count": 1,
+      "face_count": 2,
       "feature_axis": [
         0.0,
         -1.0,
         0.0
       ],
-      "depth": 2.3734,
+      "depth": 6.57,
       "radii": [
         0.5
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "background",
+      "feature_type": "boss",
       "confidence": "high",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 1.05,
+          "depth_mm": 6.57,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 1.0,
+          "depth_mm": 6.57,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=1.0mm"
+        }
+      ],
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 1.0,
+          "depth_mm": 6.57,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=1.0mm h=6.57mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 1.0,
+          "depth_mm": 6.57,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=1.0mm h=6.57mm \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
     },
     {
-      "cluster_id": 47,
+      "cluster_id": 23,
       "seed_face_index": 53,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         53
       ],
@@ -2028,21 +1816,74 @@
         0.5
       ],
       "is_principal_axis": false,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "background",
+      "feature_type": "boss_angled",
       "confidence": "high",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 1.05,
+          "depth_mm": 0.4911,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 1.0,
+          "depth_mm": 0.4911,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=1.0mm"
+        }
+      ],
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "fixture_rotation",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Feature axis [-0.707, -0.707, 0.0] is not aligned to a principal axis \u2014 part must be rotated or an angled fixture used before drilling"
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 1.0,
+          "depth_mm": 0.4911,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=1.0mm h=0.4911mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 3,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 1.0,
+          "depth_mm": 0.4911,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=1.0mm h=0.4911mm \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
     },
     {
-      "cluster_id": 48,
+      "cluster_id": 24,
       "seed_face_index": 55,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         55
       ],
@@ -2057,21 +1898,65 @@
         0.5
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "background",
+      "feature_type": "boss",
       "confidence": "high",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 1.05,
+          "depth_mm": 4.266,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 1.0,
+          "depth_mm": 4.266,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=1.0mm"
+        }
+      ],
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 1.0,
+          "depth_mm": 4.266,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=1.0mm h=4.266mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 1.0,
+          "depth_mm": 4.266,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=1.0mm h=4.266mm \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
     },
     {
-      "cluster_id": 49,
+      "cluster_id": 25,
       "seed_face_index": 57,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         57
       ],
@@ -2086,21 +1971,74 @@
         0.5
       ],
       "is_principal_axis": false,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "background",
+      "feature_type": "boss_angled",
       "confidence": "high",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 1.05,
+          "depth_mm": 0.4911,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 1.0,
+          "depth_mm": 0.4911,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=1.0mm"
+        }
+      ],
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "fixture_rotation",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Feature axis [0.707, -0.707, 0.0] is not aligned to a principal axis \u2014 part must be rotated or an angled fixture used before drilling"
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 1.0,
+          "depth_mm": 0.4911,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=1.0mm h=0.4911mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 3,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 1.0,
+          "depth_mm": 0.4911,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=1.0mm h=0.4911mm \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
     },
     {
-      "cluster_id": 50,
+      "cluster_id": 26,
       "seed_face_index": 61,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         61
       ],
@@ -2115,21 +2053,74 @@
         0.5
       ],
       "is_principal_axis": false,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "background",
+      "feature_type": "boss_angled",
       "confidence": "high",
-      "machine_type": "none",
-      "machine_selected": "not a machined feature",
-      "process_sequence": []
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 1.05,
+          "depth_mm": 0.0509,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 1.0,
+          "depth_mm": 0.0509,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=1.0mm"
+        }
+      ],
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "fixture_rotation",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Feature axis [-0.64, -0.768, 0.0] is not aligned to a principal axis \u2014 part must be rotated or an angled fixture used before drilling"
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 1.0,
+          "depth_mm": 0.0509,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=1.0mm h=0.0509mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 3,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 1.0,
+          "depth_mm": 0.0509,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=1.0mm h=0.0509mm \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
     },
     {
-      "cluster_id": 51,
+      "cluster_id": 27,
       "seed_face_index": 68,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         68
       ],
@@ -2144,24 +2135,55 @@
         1.5
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "fillet",
+      "feature_type": "boss",
       "confidence": "high",
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 3.15,
+          "depth_mm": 0.8109,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 3.0,
+          "depth_mm": 0.8109,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=3.0mm"
+        }
+      ],
       "machine_type": "milling",
-      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
       "process_sequence": [
         {
           "step": 1,
-          "operation": "profile_3d_contour",
+          "operation": "contour_mill",
           "machine": "milling",
-          "diameter_mm": 4.0,
+          "diameter_mm": 3.0,
           "depth_mm": 0.8109,
           "drill_cycle": null,
-          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "reason": "Contour mill end mill around boss OD d=3.0mm h=0.8109mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 3.0,
+          "depth_mm": 0.8109,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=3.0mm h=0.8109mm \u2014 finishing pass",
           "pass_type": "FINISH",
           "stock_to_leave_xy": 0.0,
           "stock_to_leave_z": 0.0
@@ -2169,9 +2191,9 @@
       ]
     },
     {
-      "cluster_id": 52,
+      "cluster_id": 28,
       "seed_face_index": 74,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         74
       ],
@@ -2186,24 +2208,55 @@
         2.0
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "fillet",
+      "feature_type": "boss",
       "confidence": "high",
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 4.2,
+          "depth_mm": 0.375,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.375,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=4.0mm"
+        }
+      ],
       "machine_type": "milling",
-      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
       "process_sequence": [
         {
           "step": 1,
-          "operation": "profile_3d_contour",
+          "operation": "contour_mill",
           "machine": "milling",
-          "diameter_mm": 4,
+          "diameter_mm": 4.0,
           "depth_mm": 0.375,
           "drill_cycle": null,
-          "reason": "3D surface contour \u2014 ball-nose \u00d84mm, stepover 0.48mm, flood coolant.",
+          "reason": "Contour mill end mill around boss OD d=4.0mm h=0.375mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.375,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=4.0mm h=0.375mm \u2014 finishing pass",
           "pass_type": "FINISH",
           "stock_to_leave_xy": 0.0,
           "stock_to_leave_z": 0.0
@@ -2211,9 +2264,9 @@
       ]
     },
     {
-      "cluster_id": 53,
+      "cluster_id": 29,
       "seed_face_index": 76,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         76
       ],
@@ -2228,24 +2281,55 @@
         2.0
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "fillet",
+      "feature_type": "boss",
       "confidence": "high",
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 4.2,
+          "depth_mm": 0.375,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.375,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=4.0mm"
+        }
+      ],
       "machine_type": "milling",
-      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
       "process_sequence": [
         {
           "step": 1,
-          "operation": "profile_3d_contour",
+          "operation": "contour_mill",
           "machine": "milling",
-          "diameter_mm": 4,
+          "diameter_mm": 4.0,
           "depth_mm": 0.375,
           "drill_cycle": null,
-          "reason": "3D surface contour \u2014 ball-nose \u00d84mm, stepover 0.48mm, flood coolant.",
+          "reason": "Contour mill end mill around boss OD d=4.0mm h=0.375mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.375,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=4.0mm h=0.375mm \u2014 finishing pass",
           "pass_type": "FINISH",
           "stock_to_leave_xy": 0.0,
           "stock_to_leave_z": 0.0
@@ -2253,9 +2337,9 @@
       ]
     },
     {
-      "cluster_id": 54,
+      "cluster_id": 30,
       "seed_face_index": 80,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         80
       ],
@@ -2270,24 +2354,55 @@
         1.5
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "fillet",
+      "feature_type": "boss",
       "confidence": "high",
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 3.15,
+          "depth_mm": 0.625,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 3.0,
+          "depth_mm": 0.625,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=3.0mm"
+        }
+      ],
       "machine_type": "milling",
-      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
       "process_sequence": [
         {
           "step": 1,
-          "operation": "profile_3d_contour",
+          "operation": "contour_mill",
           "machine": "milling",
-          "diameter_mm": 4.0,
+          "diameter_mm": 3.0,
           "depth_mm": 0.625,
           "drill_cycle": null,
-          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "reason": "Contour mill end mill around boss OD d=3.0mm h=0.625mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 3.0,
+          "depth_mm": 0.625,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=3.0mm h=0.625mm \u2014 finishing pass",
           "pass_type": "FINISH",
           "stock_to_leave_xy": 0.0,
           "stock_to_leave_z": 0.0
@@ -2295,9 +2410,9 @@
       ]
     },
     {
-      "cluster_id": 55,
+      "cluster_id": 31,
       "seed_face_index": 82,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         82
       ],
@@ -2312,24 +2427,55 @@
         1.5
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "fillet",
+      "feature_type": "boss",
       "confidence": "high",
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 3.15,
+          "depth_mm": 3.0,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 3.0,
+          "depth_mm": 3.0,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=3.0mm"
+        }
+      ],
       "machine_type": "milling",
-      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
       "process_sequence": [
         {
           "step": 1,
-          "operation": "profile_3d_contour",
+          "operation": "contour_mill",
           "machine": "milling",
-          "diameter_mm": 4.0,
+          "diameter_mm": 3.0,
           "depth_mm": 3.0,
           "drill_cycle": null,
-          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "reason": "Contour mill end mill around boss OD d=3.0mm h=3.0mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 3.0,
+          "depth_mm": 3.0,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=3.0mm h=3.0mm \u2014 finishing pass",
           "pass_type": "FINISH",
           "stock_to_leave_xy": 0.0,
           "stock_to_leave_z": 0.0
@@ -2337,9 +2483,9 @@
       ]
     },
     {
-      "cluster_id": 56,
+      "cluster_id": 32,
       "seed_face_index": 84,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         84
       ],
@@ -2354,24 +2500,55 @@
         1.5
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "fillet",
+      "feature_type": "boss",
       "confidence": "high",
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 3.15,
+          "depth_mm": 0.625,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 3.0,
+          "depth_mm": 0.625,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=3.0mm"
+        }
+      ],
       "machine_type": "milling",
-      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
       "process_sequence": [
         {
           "step": 1,
-          "operation": "profile_3d_contour",
+          "operation": "contour_mill",
           "machine": "milling",
-          "diameter_mm": 4.0,
+          "diameter_mm": 3.0,
           "depth_mm": 0.625,
           "drill_cycle": null,
-          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "reason": "Contour mill end mill around boss OD d=3.0mm h=0.625mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 3.0,
+          "depth_mm": 0.625,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=3.0mm h=0.625mm \u2014 finishing pass",
           "pass_type": "FINISH",
           "stock_to_leave_xy": 0.0,
           "stock_to_leave_z": 0.0
@@ -2379,9 +2556,9 @@
       ]
     },
     {
-      "cluster_id": 57,
+      "cluster_id": 33,
       "seed_face_index": 89,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         89
       ],
@@ -2396,24 +2573,55 @@
         1.5
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "fillet",
+      "feature_type": "boss",
       "confidence": "high",
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 3.15,
+          "depth_mm": 9.625,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 3.0,
+          "depth_mm": 9.625,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=3.0mm"
+        }
+      ],
       "machine_type": "milling",
-      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
       "process_sequence": [
         {
           "step": 1,
-          "operation": "profile_3d_contour",
+          "operation": "contour_mill",
           "machine": "milling",
-          "diameter_mm": 4.0,
+          "diameter_mm": 3.0,
           "depth_mm": 9.625,
           "drill_cycle": null,
-          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "reason": "Contour mill end mill around boss OD d=3.0mm h=9.625mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 3.0,
+          "depth_mm": 9.625,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=3.0mm h=9.625mm \u2014 finishing pass",
           "pass_type": "FINISH",
           "stock_to_leave_xy": 0.0,
           "stock_to_leave_z": 0.0
@@ -2421,9 +2629,9 @@
       ]
     },
     {
-      "cluster_id": 58,
+      "cluster_id": 34,
       "seed_face_index": 90,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         90
       ],
@@ -2438,24 +2646,55 @@
         1.5
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "fillet",
+      "feature_type": "boss",
       "confidence": "high",
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 3.15,
+          "depth_mm": 4.75,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 3.0,
+          "depth_mm": 4.75,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=3.0mm"
+        }
+      ],
       "machine_type": "milling",
-      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
       "process_sequence": [
         {
           "step": 1,
-          "operation": "profile_3d_contour",
+          "operation": "contour_mill",
           "machine": "milling",
-          "diameter_mm": 4.0,
+          "diameter_mm": 3.0,
           "depth_mm": 4.75,
           "drill_cycle": null,
-          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "reason": "Contour mill end mill around boss OD d=3.0mm h=4.75mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 3.0,
+          "depth_mm": 4.75,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=3.0mm h=4.75mm \u2014 finishing pass",
           "pass_type": "FINISH",
           "stock_to_leave_xy": 0.0,
           "stock_to_leave_z": 0.0
@@ -2463,9 +2702,9 @@
       ]
     },
     {
-      "cluster_id": 59,
+      "cluster_id": 35,
       "seed_face_index": 92,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         92
       ],
@@ -2480,24 +2719,55 @@
         1.5
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "fillet",
+      "feature_type": "boss",
       "confidence": "high",
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 3.15,
+          "depth_mm": 9.625,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 3.0,
+          "depth_mm": 9.625,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=3.0mm"
+        }
+      ],
       "machine_type": "milling",
-      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
       "process_sequence": [
         {
           "step": 1,
-          "operation": "profile_3d_contour",
+          "operation": "contour_mill",
           "machine": "milling",
-          "diameter_mm": 4.0,
+          "diameter_mm": 3.0,
           "depth_mm": 9.625,
           "drill_cycle": null,
-          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "reason": "Contour mill end mill around boss OD d=3.0mm h=9.625mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 3.0,
+          "depth_mm": 9.625,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=3.0mm h=9.625mm \u2014 finishing pass",
           "pass_type": "FINISH",
           "stock_to_leave_xy": 0.0,
           "stock_to_leave_z": 0.0
@@ -2505,9 +2775,9 @@
       ]
     },
     {
-      "cluster_id": 60,
+      "cluster_id": 36,
       "seed_face_index": 95,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         95
       ],
@@ -2522,24 +2792,55 @@
         1.5
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "fillet",
+      "feature_type": "boss",
       "confidence": "high",
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 3.15,
+          "depth_mm": 0.875,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 3.0,
+          "depth_mm": 0.875,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=3.0mm"
+        }
+      ],
       "machine_type": "milling",
-      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
       "process_sequence": [
         {
           "step": 1,
-          "operation": "profile_3d_contour",
+          "operation": "contour_mill",
           "machine": "milling",
-          "diameter_mm": 4.0,
+          "diameter_mm": 3.0,
           "depth_mm": 0.875,
           "drill_cycle": null,
-          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "reason": "Contour mill end mill around boss OD d=3.0mm h=0.875mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 3.0,
+          "depth_mm": 0.875,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=3.0mm h=0.875mm \u2014 finishing pass",
           "pass_type": "FINISH",
           "stock_to_leave_xy": 0.0,
           "stock_to_leave_z": 0.0
@@ -2547,9 +2848,9 @@
       ]
     },
     {
-      "cluster_id": 61,
+      "cluster_id": 37,
       "seed_face_index": 97,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         97
       ],
@@ -2564,24 +2865,55 @@
         1.5
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "fillet",
+      "feature_type": "boss",
       "confidence": "high",
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 3.15,
+          "depth_mm": 0.875,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 3.0,
+          "depth_mm": 0.875,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=3.0mm"
+        }
+      ],
       "machine_type": "milling",
-      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
       "process_sequence": [
         {
           "step": 1,
-          "operation": "profile_3d_contour",
+          "operation": "contour_mill",
           "machine": "milling",
-          "diameter_mm": 4.0,
+          "diameter_mm": 3.0,
           "depth_mm": 0.875,
           "drill_cycle": null,
-          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "reason": "Contour mill end mill around boss OD d=3.0mm h=0.875mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 3.0,
+          "depth_mm": 0.875,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=3.0mm h=0.875mm \u2014 finishing pass",
           "pass_type": "FINISH",
           "stock_to_leave_xy": 0.0,
           "stock_to_leave_z": 0.0
@@ -2589,41 +2921,73 @@
       ]
     },
     {
-      "cluster_id": 62,
+      "cluster_id": 38,
       "seed_face_index": 99,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
-        99
+        99,
+        104
       ],
-      "face_count": 1,
+      "face_count": 2,
       "feature_axis": [
         -1.0,
         0.0,
         0.0
       ],
-      "depth": 1.6871,
+      "depth": 3.3743,
       "radii": [
         1.5
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "fillet",
+      "feature_type": "boss",
       "confidence": "high",
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 3.15,
+          "depth_mm": 3.3743,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 3.0,
+          "depth_mm": 3.3743,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=3.0mm"
+        }
+      ],
       "machine_type": "milling",
-      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
       "process_sequence": [
         {
           "step": 1,
-          "operation": "profile_3d_contour",
+          "operation": "contour_mill",
           "machine": "milling",
-          "diameter_mm": 4.0,
-          "depth_mm": 1.6871,
+          "diameter_mm": 3.0,
+          "depth_mm": 3.3743,
           "drill_cycle": null,
-          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "reason": "Contour mill end mill around boss OD d=3.0mm h=3.3743mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 3.0,
+          "depth_mm": 3.3743,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=3.0mm h=3.3743mm \u2014 finishing pass",
           "pass_type": "FINISH",
           "stock_to_leave_xy": 0.0,
           "stock_to_leave_z": 0.0
@@ -2631,9 +2995,9 @@
       ]
     },
     {
-      "cluster_id": 63,
+      "cluster_id": 39,
       "seed_face_index": 1040,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         1040
       ],
@@ -2648,24 +3012,55 @@
         3.0
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "fillet",
+      "feature_type": "boss",
       "confidence": "high",
+      "process_sequence_turning": [
+        {
+          "step": 1,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 6.3,
+          "depth_mm": 9.625,
+          "drill_cycle": null,
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 6.0,
+          "depth_mm": 9.625,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=6.0mm"
+        }
+      ],
       "machine_type": "milling",
-      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
       "process_sequence": [
         {
           "step": 1,
-          "operation": "profile_3d_contour",
+          "operation": "contour_mill",
           "machine": "milling",
-          "diameter_mm": 4,
+          "diameter_mm": 6.0,
           "depth_mm": 9.625,
           "drill_cycle": null,
-          "reason": "3D surface contour \u2014 ball-nose \u00d84mm, stepover 0.48mm, flood coolant.",
+          "reason": "Contour mill end mill around boss OD d=6.0mm h=9.625mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 6.0,
+          "depth_mm": 9.625,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=6.0mm h=9.625mm \u2014 finishing pass",
           "pass_type": "FINISH",
           "stock_to_leave_xy": 0.0,
           "stock_to_leave_z": 0.0
@@ -2673,9 +3068,9 @@
       ]
     },
     {
-      "cluster_id": 64,
+      "cluster_id": 40,
       "seed_face_index": 1042,
-      "seed_type": "fillet",
+      "seed_type": "boss",
       "face_indices": [
         1042
       ],
@@ -2690,66 +3085,55 @@
         3.0
       ],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
       "face_area": null,
-      "feature_type": "fillet",
+      "feature_type": "boss",
       "confidence": "high",
-      "machine_type": "milling",
-      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
-      "process_sequence": [
+      "process_sequence_turning": [
         {
           "step": 1,
-          "operation": "profile_3d_contour",
-          "machine": "milling",
-          "diameter_mm": 4,
+          "operation": "rough_turn",
+          "machine": "turning",
+          "diameter_mm": 6.3,
           "depth_mm": 9.625,
           "drill_cycle": null,
-          "reason": "3D surface contour \u2014 ball-nose \u00d84mm, stepover 0.48mm, flood coolant.",
-          "pass_type": "FINISH",
-          "stock_to_leave_xy": 0.0,
-          "stock_to_leave_z": 0.0
+          "reason": "Rough turn boss OD, leave 5% for finish pass"
+        },
+        {
+          "step": 2,
+          "operation": "finish_turn",
+          "machine": "turning",
+          "diameter_mm": 6.0,
+          "depth_mm": 9.625,
+          "drill_cycle": null,
+          "reason": "Finish turn to final OD d=6.0mm"
         }
-      ]
-    },
-    {
-      "cluster_id": 65,
-      "seed_face_index": 6,
-      "seed_type": "plane",
-      "face_indices": [
-        6
       ],
-      "face_count": 1,
-      "feature_axis": [
-        0.0,
-        0.0,
-        -1.0
-      ],
-      "depth": null,
-      "radii": [],
-      "is_principal_axis": true,
-      "has_cone": false,
-      "has_perpendicular_walls": true,
-      "perp_wall_count": 19,
-      "internal_corner_radius": 1.2645,
-      "face_area": 3194.092983,
-      "feature_type": "planar_face",
-      "confidence": "high",
       "machine_type": "milling",
-      "machine_selected": "milling \u2014 only option for planar faces",
+      "machine_selected": "milling \u2014 preferred machine (PREFERRED_MACHINE=milling)",
       "process_sequence": [
         {
           "step": 1,
-          "operation": "face_mill",
+          "operation": "contour_mill",
           "machine": "milling",
-          "diameter_mm": null,
-          "depth_mm": null,
+          "diameter_mm": 6.0,
+          "depth_mm": 9.625,
           "drill_cycle": null,
-          "face_subtype": "full_surface",
-          "entry_method": "outside",
-          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "reason": "Contour mill end mill around boss OD d=6.0mm h=9.625mm \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "contour_mill",
+          "machine": "milling",
+          "diameter_mm": 6.0,
+          "depth_mm": 9.625,
+          "drill_cycle": null,
+          "reason": "Contour mill end mill around boss OD d=6.0mm h=9.625mm \u2014 finishing pass",
           "pass_type": "FINISH",
           "stock_to_leave_xy": 0.0,
           "stock_to_leave_z": 0.0
@@ -2757,22 +3141,17 @@
       ]
     },
     {
-      "cluster_id": 66,
+      "cluster_id": 41,
       "seed_face_index": 7,
       "seed_type": "plane",
       "face_indices": [
         7
       ],
       "face_count": 1,
-      "feature_axis": [
-        0.0,
-        1.0,
-        0.0
-      ],
+      "feature_axis": null,
       "depth": null,
       "radii": [],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": true,
       "perp_wall_count": 2,
       "internal_corner_radius": 4.0,
@@ -2809,22 +3188,336 @@
       ]
     },
     {
-      "cluster_id": 67,
+      "cluster_id": 42,
+      "seed_face_index": 16,
+      "seed_type": "plane",
+      "face_indices": [
+        16
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 2,
+      "internal_corner_radius": 32.015622,
+      "face_area": 62.0967,
+      "feature_type": "pocket",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 pocket mill RF + FINISH",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 43,
+      "seed_face_index": 86,
+      "seed_type": "plane",
+      "face_indices": [
+        86
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 3,
+      "internal_corner_radius": 1.5,
+      "face_area": 65.034292,
+      "feature_type": "pocket",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 pocket mill RF + FINISH",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 44,
+      "seed_face_index": 96,
+      "seed_type": "plane",
+      "face_indices": [
+        96
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 1,
+      "internal_corner_radius": 1.5,
+      "face_area": 115.391648,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 45,
+      "seed_face_index": 1044,
+      "seed_type": "plane",
+      "face_indices": [
+        1044
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 4,
+      "internal_corner_radius": null,
+      "face_area": 18.0,
+      "feature_type": "pocket",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 pocket mill RF + FINISH",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 46,
+      "seed_face_index": 1069,
+      "seed_type": "plane",
+      "face_indices": [
+        1069
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 7,
+      "internal_corner_radius": 8.05,
+      "face_area": 46.515738,
+      "feature_type": "pocket",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 pocket mill RF + FINISH",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 47,
+      "seed_face_index": 1072,
+      "seed_type": "plane",
+      "face_indices": [
+        1072
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 3,
+      "internal_corner_radius": 1.5,
+      "face_area": 11.028463,
+      "feature_type": "pocket",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 pocket mill RF + FINISH",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 48,
+      "seed_face_index": 1095,
+      "seed_type": "plane",
+      "face_indices": [
+        1095
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 3,
+      "internal_corner_radius": 1.5,
+      "face_area": 11.028463,
+      "feature_type": "pocket",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 pocket mill RF + FINISH",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 49,
       "seed_face_index": 12,
       "seed_type": "plane",
       "face_indices": [
         12
       ],
       "face_count": 1,
-      "feature_axis": [
-        -1.0,
-        0.0,
-        0.0
-      ],
+      "feature_axis": null,
       "depth": null,
       "radii": [],
       "is_principal_axis": true,
-      "has_cone": false,
       "has_perpendicular_walls": true,
       "perp_wall_count": 1,
       "internal_corner_radius": 0.5,
@@ -2851,26 +3544,21 @@
       ]
     },
     {
-      "cluster_id": 68,
-      "seed_face_index": 38,
+      "cluster_id": 50,
+      "seed_face_index": 13,
       "seed_type": "plane",
       "face_indices": [
-        38
+        13
       ],
       "face_count": 1,
-      "feature_axis": [
-        0.707107,
-        0.707107,
-        0.0
-      ],
+      "feature_axis": null,
       "depth": null,
       "radii": [],
-      "is_principal_axis": false,
-      "has_cone": false,
+      "is_principal_axis": true,
       "has_perpendicular_walls": true,
       "perp_wall_count": 1,
       "internal_corner_radius": 0.5,
-      "face_area": 5.893727,
+      "face_area": 32.21024,
       "feature_type": "planar_face",
       "confidence": "high",
       "machine_type": "milling",
@@ -2886,6 +3574,772 @@
           "face_subtype": "full_surface",
           "entry_method": "outside",
           "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 51,
+      "seed_face_index": 40,
+      "seed_type": "plane",
+      "face_indices": [
+        40
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 1,
+      "internal_corner_radius": 0.5,
+      "face_area": 49.193386,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 52,
+      "seed_face_index": 44,
+      "seed_type": "plane",
+      "face_indices": [
+        44
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 1,
+      "internal_corner_radius": 0.5,
+      "face_area": 50.359576,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 53,
+      "seed_face_index": 49,
+      "seed_type": "plane",
+      "face_indices": [
+        49
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 3,
+      "internal_corner_radius": 25.0,
+      "face_area": 32.249561,
+      "feature_type": "pocket",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 pocket mill RF + FINISH",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 54,
+      "seed_face_index": 71,
+      "seed_type": "plane",
+      "face_indices": [
+        71
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 1,
+      "internal_corner_radius": 0.5,
+      "face_area": 50.359576,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 55,
+      "seed_face_index": 75,
+      "seed_type": "plane",
+      "face_indices": [
+        75
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 1,
+      "internal_corner_radius": 0.5,
+      "face_area": 51.191564,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 56,
+      "seed_face_index": 94,
+      "seed_type": "plane",
+      "face_indices": [
+        94
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 1,
+      "internal_corner_radius": 1.5,
+      "face_area": 134.75,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 57,
+      "seed_face_index": 98,
+      "seed_type": "plane",
+      "face_indices": [
+        98
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 1,
+      "internal_corner_radius": 1.5,
+      "face_area": 134.75,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 58,
+      "seed_face_index": 109,
+      "seed_type": "plane",
+      "face_indices": [
+        109
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 1,
+      "internal_corner_radius": 1.5,
+      "face_area": 96.25,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 59,
+      "seed_face_index": 110,
+      "seed_type": "plane",
+      "face_indices": [
+        110
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 1,
+      "internal_corner_radius": 1.5,
+      "face_area": 96.25,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 60,
+      "seed_face_index": 116,
+      "seed_type": "plane",
+      "face_indices": [
+        116
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 3,
+      "internal_corner_radius": 8.05,
+      "face_area": 25.9,
+      "feature_type": "pocket",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 pocket mill RF + FINISH",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 61,
+      "seed_face_index": 117,
+      "seed_type": "plane",
+      "face_indices": [
+        117
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 3,
+      "internal_corner_radius": 8.05,
+      "face_area": 25.9,
+      "feature_type": "pocket",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 pocket mill RF + FINISH",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 62,
+      "seed_face_index": 1036,
+      "seed_type": "plane",
+      "face_indices": [
+        1036
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 3,
+      "internal_corner_radius": 25.0,
+      "face_area": 32.246516,
+      "feature_type": "pocket",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 pocket mill RF + FINISH",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 63,
+      "seed_face_index": 1060,
+      "seed_type": "plane",
+      "face_indices": [
+        1060
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 2,
+      "internal_corner_radius": 25.0,
+      "face_area": 13.600001,
+      "feature_type": "pocket",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 pocket mill RF + FINISH",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 64,
+      "seed_face_index": 1062,
+      "seed_type": "plane",
+      "face_indices": [
+        1062
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 2,
+      "internal_corner_radius": 25.0,
+      "face_area": 13.600001,
+      "feature_type": "pocket",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 pocket mill RF + FINISH",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 65,
+      "seed_face_index": 1066,
+      "seed_type": "plane",
+      "face_indices": [
+        1066
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 2,
+      "internal_corner_radius": 25.0,
+      "face_area": 13.600001,
+      "feature_type": "pocket",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 pocket mill RF + FINISH",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 66,
+      "seed_face_index": 1068,
+      "seed_type": "plane",
+      "face_indices": [
+        1068
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 2,
+      "internal_corner_radius": 25.0,
+      "face_area": 13.600001,
+      "feature_type": "pocket",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 pocket mill RF + FINISH",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 67,
+      "seed_face_index": 1073,
+      "seed_type": "plane",
+      "face_indices": [
+        1073
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 3,
+      "internal_corner_radius": 25.0,
+      "face_area": 32.429906,
+      "feature_type": "pocket",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 pocket mill RF + FINISH",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 68,
+      "seed_face_index": 1075,
+      "seed_type": "plane",
+      "face_indices": [
+        1075
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 3,
+      "internal_corner_radius": 25.0,
+      "face_area": 32.429906,
+      "feature_type": "pocket",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 pocket mill RF + FINISH",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 finishing pass",
           "pass_type": "FINISH",
           "stock_to_leave_xy": 0.0,
           "stock_to_leave_z": 0.0
@@ -2894,25 +4348,114 @@
     },
     {
       "cluster_id": 69,
-      "seed_face_index": 42,
+      "seed_face_index": 1083,
       "seed_type": "plane",
       "face_indices": [
-        42
+        1083
       ],
       "face_count": 1,
-      "feature_axis": [
-        0.707107,
-        -0.707107,
-        0.0
-      ],
+      "feature_axis": null,
       "depth": null,
       "radii": [],
-      "is_principal_axis": false,
-      "has_cone": false,
+      "is_principal_axis": true,
       "has_perpendicular_walls": true,
-      "perp_wall_count": 1,
+      "perp_wall_count": 3,
+      "internal_corner_radius": 8.05,
+      "face_area": 25.9,
+      "feature_type": "pocket",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 pocket mill RF + FINISH",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 70,
+      "seed_face_index": 1085,
+      "seed_type": "plane",
+      "face_indices": [
+        1085
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 3,
+      "internal_corner_radius": 8.05,
+      "face_area": 25.9,
+      "feature_type": "pocket",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 pocket mill RF + FINISH",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 71,
+      "seed_face_index": 15,
+      "seed_type": "plane",
+      "face_indices": [
+        15
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 8,
       "internal_corner_radius": 0.5,
-      "face_area": 5.893727,
+      "face_area": 724.604955,
       "feature_type": "planar_face",
       "confidence": "high",
       "machine_type": "milling",
@@ -2935,17 +4478,579 @@
       ]
     },
     {
-      "cluster_id": 70,
+      "cluster_id": 72,
+      "seed_face_index": 641,
+      "seed_type": "plane",
+      "face_indices": [
+        641
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 21,
+      "internal_corner_radius": null,
+      "face_area": 7.445787,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 73,
+      "seed_face_index": 678,
+      "seed_type": "plane",
+      "face_indices": [
+        678
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 29,
+      "internal_corner_radius": null,
+      "face_area": 7.212533,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 74,
+      "seed_face_index": 706,
+      "seed_type": "plane",
+      "face_indices": [
+        706
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 23,
+      "internal_corner_radius": null,
+      "face_area": 8.59822,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 75,
+      "seed_face_index": 754,
+      "seed_type": "plane",
+      "face_indices": [
+        754
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 42,
+      "internal_corner_radius": null,
+      "face_area": 13.128564,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 76,
+      "seed_face_index": 777,
+      "seed_type": "plane",
+      "face_indices": [
+        777
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 16,
+      "internal_corner_radius": null,
+      "face_area": 5.828443,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 77,
+      "seed_face_index": 791,
+      "seed_type": "plane",
+      "face_indices": [
+        791
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 12,
+      "internal_corner_radius": null,
+      "face_area": 5.695325,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 78,
+      "seed_face_index": 809,
+      "seed_type": "plane",
+      "face_indices": [
+        809
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 15,
+      "internal_corner_radius": null,
+      "face_area": 6.212779,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 79,
+      "seed_face_index": 930,
+      "seed_type": "plane",
+      "face_indices": [
+        930
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 28,
+      "internal_corner_radius": null,
+      "face_area": 8.387985,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 80,
+      "seed_face_index": 956,
+      "seed_type": "plane",
+      "face_indices": [
+        956
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 15,
+      "internal_corner_radius": null,
+      "face_area": 11.883625,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 81,
+      "seed_face_index": 1039,
+      "seed_type": "plane",
+      "face_indices": [
+        1039
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 4,
+      "internal_corner_radius": null,
+      "face_area": 36.0,
+      "feature_type": "pocket",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 pocket mill RF + FINISH",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 82,
+      "seed_face_index": 1043,
+      "seed_type": "plane",
+      "face_indices": [
+        1043
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 4,
+      "internal_corner_radius": null,
+      "face_area": 36.0,
+      "feature_type": "pocket",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 pocket mill RF + FINISH",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 83,
+      "seed_face_index": 38,
+      "seed_type": "plane",
+      "face_indices": [
+        38
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 1,
+      "internal_corner_radius": 0.5,
+      "face_area": 5.893727,
+      "feature_type": "chamfer",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 84,
+      "seed_face_index": 73,
+      "seed_type": "plane",
+      "face_indices": [
+        73
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 1,
+      "internal_corner_radius": 0.5,
+      "face_area": 5.893727,
+      "feature_type": "chamfer",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 85,
+      "seed_face_index": 42,
+      "seed_type": "plane",
+      "face_indices": [
+        42
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 1,
+      "internal_corner_radius": 0.5,
+      "face_area": 5.893727,
+      "feature_type": "chamfer",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 86,
+      "seed_face_index": 77,
+      "seed_type": "plane",
+      "face_indices": [
+        77
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 1,
+      "internal_corner_radius": 0.5,
+      "face_area": 5.893727,
+      "feature_type": "chamfer",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 87,
       "seed_face_index": null,
       "seed_type": "background",
       "face_indices": [
         0,
-        2,
         4,
-        5,
-        13,
-        15,
-        16,
         17,
         19,
         22,
@@ -2954,21 +5059,16 @@
         25,
         26,
         28,
-        29,
         30,
         32,
         34,
         36,
-        40,
-        44,
         46,
-        49,
         50,
         52,
         54,
         56,
         58,
-        59,
         60,
         62,
         63,
@@ -2976,32 +5076,17 @@
         65,
         66,
         69,
-        71,
-        73,
-        75,
-        77,
         79,
         81,
         83,
         85,
-        86,
         91,
         93,
-        94,
-        96,
-        98,
         100,
         101,
         103,
-        104,
         105,
         107,
-        109,
-        110,
-        111,
-        113,
-        116,
-        117,
         118,
         119,
         120,
@@ -3523,7 +5608,6 @@
         638,
         639,
         640,
-        641,
         642,
         643,
         644,
@@ -3560,7 +5644,6 @@
         675,
         676,
         677,
-        678,
         679,
         680,
         681,
@@ -3588,7 +5671,6 @@
         703,
         704,
         705,
-        706,
         707,
         708,
         709,
@@ -3636,7 +5718,6 @@
         751,
         752,
         753,
-        754,
         755,
         756,
         757,
@@ -3659,7 +5740,6 @@
         774,
         775,
         776,
-        777,
         778,
         779,
         780,
@@ -3673,7 +5753,6 @@
         788,
         789,
         790,
-        791,
         792,
         793,
         794,
@@ -3691,7 +5770,6 @@
         806,
         807,
         808,
-        809,
         810,
         811,
         812,
@@ -3811,7 +5889,6 @@
         927,
         928,
         929,
-        930,
         931,
         932,
         933,
@@ -3837,7 +5914,6 @@
         953,
         954,
         955,
-        956,
         957,
         958,
         959,
@@ -3911,56 +5987,19 @@
         1027,
         1028,
         1029,
-        1032,
-        1033,
-        1034,
-        1035,
-        1036,
-        1039,
         1041,
-        1043,
-        1044,
         1053,
         1054,
         1055,
         1056,
         1057,
-        1058,
-        1059,
-        1060,
-        1061,
-        1062,
-        1063,
-        1064,
-        1065,
-        1066,
-        1067,
-        1068,
-        1069,
-        1070,
-        1072,
-        1073,
-        1074,
-        1075,
-        1076,
-        1077,
-        1078,
-        1079,
-        1080,
-        1081,
-        1082,
-        1083,
-        1084,
-        1085,
-        1093,
-        1095
+        1058
       ],
       "feature_axis": null,
       "depth": null,
       "radii": [],
       "is_principal_axis": null,
-      "face_count": 1015,
-      "has_cone": false,
+      "face_count": 945,
       "has_perpendicular_walls": false,
       "perp_wall_count": 0,
       "internal_corner_radius": null,
@@ -3970,6 +6009,483 @@
       "machine_type": "none",
       "machine_selected": "not a machined feature",
       "process_sequence": []
+    },
+    {
+      "cluster_id": 88,
+      "seed_face_index": 1,
+      "seed_type": "slot",
+      "face_indices": [
+        1,
+        3
+      ],
+      "face_count": 2,
+      "feature_axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "depth": 0.408,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "internal_corner_radius": 2.0,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "face_area": null,
+      "feature_type": "slot",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 slot mill traverse",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "slot_mill",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.408,
+          "drill_cycle": null,
+          "reason": "Slot mill \u2014 full depth traverse, width=4.0mm, depth=0.408mm"
+        }
+      ]
+    },
+    {
+      "cluster_id": 89,
+      "seed_face_index": 37,
+      "seed_type": "slot",
+      "face_indices": [
+        37,
+        43
+      ],
+      "face_count": 2,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.375,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "internal_corner_radius": 2.0,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "face_area": null,
+      "feature_type": "slot",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 slot mill traverse",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "slot_mill",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.375,
+          "drill_cycle": null,
+          "reason": "Slot mill \u2014 full depth traverse, width=4.0mm, depth=0.375mm"
+        }
+      ]
+    },
+    {
+      "cluster_id": 90,
+      "seed_face_index": 45,
+      "seed_type": "slot",
+      "face_indices": [
+        45,
+        70
+      ],
+      "face_count": 2,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.3317,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "internal_corner_radius": 2.0,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "face_area": null,
+      "feature_type": "slot",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 slot mill traverse",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "slot_mill",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.3317,
+          "drill_cycle": null,
+          "reason": "Slot mill \u2014 full depth traverse, width=4.0mm, depth=0.3317mm"
+        }
+      ]
+    },
+    {
+      "cluster_id": 91,
+      "seed_face_index": 48,
+      "seed_type": "slot",
+      "face_indices": [
+        6,
+        48,
+        67,
+        1074,
+        1076,
+        1082,
+        1084,
+        1086,
+        1094
+      ],
+      "face_count": 9,
+      "feature_axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "depth": 0.6884,
+      "radii": [
+        25.0
+      ],
+      "is_principal_axis": true,
+      "internal_corner_radius": 25.0,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "face_area": null,
+      "feature_type": "slot",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 slot mill traverse",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "slot_mill",
+          "machine": "milling",
+          "diameter_mm": 50.0,
+          "depth_mm": 0.6884,
+          "drill_cycle": null,
+          "reason": "Slot mill \u2014 full depth traverse, width=50.0mm, depth=0.6884mm"
+        }
+      ]
+    },
+    {
+      "cluster_id": 92,
+      "seed_face_index": 72,
+      "seed_type": "slot",
+      "face_indices": [
+        72,
+        78
+      ],
+      "face_count": 2,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.375,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "internal_corner_radius": 2.0,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "face_area": null,
+      "feature_type": "slot",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 slot mill traverse",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "slot_mill",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.375,
+          "drill_cycle": null,
+          "reason": "Slot mill \u2014 full depth traverse, width=4.0mm, depth=0.375mm"
+        }
+      ]
+    },
+    {
+      "cluster_id": 93,
+      "seed_face_index": 88,
+      "seed_type": "slot",
+      "face_indices": [
+        88,
+        108
+      ],
+      "face_count": 2,
+      "feature_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "depth": 9.9884,
+      "radii": [
+        2.5
+      ],
+      "is_principal_axis": true,
+      "internal_corner_radius": 2.5,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "face_area": null,
+      "feature_type": "slot",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 slot mill traverse",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "slot_mill",
+          "machine": "milling",
+          "diameter_mm": 5.0,
+          "depth_mm": 9.9884,
+          "drill_cycle": null,
+          "reason": "Slot mill \u2014 full depth traverse, width=5.0mm, depth=9.9884mm"
+        }
+      ]
+    },
+    {
+      "cluster_id": 94,
+      "seed_face_index": 102,
+      "seed_type": "slot",
+      "face_indices": [
+        102,
+        106
+      ],
+      "face_count": 2,
+      "feature_axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "depth": 9.405,
+      "radii": [
+        2.5
+      ],
+      "is_principal_axis": true,
+      "internal_corner_radius": 2.5,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "face_area": null,
+      "feature_type": "slot",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 slot mill traverse",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "slot_mill",
+          "machine": "milling",
+          "diameter_mm": 5.0,
+          "depth_mm": 9.405,
+          "drill_cycle": null,
+          "reason": "Slot mill \u2014 full depth traverse, width=5.0mm, depth=9.405mm"
+        }
+      ]
+    },
+    {
+      "cluster_id": 95,
+      "seed_face_index": 1045,
+      "seed_type": "slot",
+      "face_indices": [
+        1045,
+        1046
+      ],
+      "face_count": 2,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 1.5,
+      "radii": [
+        1.6
+      ],
+      "is_principal_axis": true,
+      "internal_corner_radius": 1.6,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "face_area": null,
+      "feature_type": "slot",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 slot mill traverse",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "slot_mill",
+          "machine": "milling",
+          "diameter_mm": 3.2,
+          "depth_mm": 1.5,
+          "drill_cycle": null,
+          "reason": "Slot mill \u2014 full depth traverse, width=3.2mm, depth=1.5mm"
+        }
+      ]
+    },
+    {
+      "cluster_id": 96,
+      "seed_face_index": 1048,
+      "seed_type": "slot",
+      "face_indices": [
+        1048,
+        1049
+      ],
+      "face_count": 2,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 1.5,
+      "radii": [
+        1.6
+      ],
+      "is_principal_axis": true,
+      "internal_corner_radius": 1.6,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "face_area": null,
+      "feature_type": "slot",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 slot mill traverse",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "slot_mill",
+          "machine": "milling",
+          "diameter_mm": 3.2,
+          "depth_mm": 1.5,
+          "drill_cycle": null,
+          "reason": "Slot mill \u2014 full depth traverse, width=3.2mm, depth=1.5mm"
+        }
+      ]
+    },
+    {
+      "cluster_id": 97,
+      "seed_face_index": 1050,
+      "seed_type": "slot",
+      "face_indices": [
+        1050,
+        1051
+      ],
+      "face_count": 2,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 1.5,
+      "radii": [
+        1.6
+      ],
+      "is_principal_axis": true,
+      "internal_corner_radius": 1.6,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "face_area": null,
+      "feature_type": "slot",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 slot mill traverse",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "slot_mill",
+          "machine": "milling",
+          "diameter_mm": 3.2,
+          "depth_mm": 1.5,
+          "drill_cycle": null,
+          "reason": "Slot mill \u2014 full depth traverse, width=3.2mm, depth=1.5mm"
+        }
+      ]
+    },
+    {
+      "cluster_id": 98,
+      "seed_face_index": 1088,
+      "seed_type": "slot",
+      "face_indices": [
+        1087,
+        1088,
+        1089,
+        1090
+      ],
+      "face_count": 4,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 2.5,
+      "radii": [
+        1.2645
+      ],
+      "is_principal_axis": true,
+      "internal_corner_radius": 1.2645,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "face_area": null,
+      "feature_type": "slot",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 slot mill traverse",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "slot_mill",
+          "machine": "milling",
+          "diameter_mm": 2.529,
+          "depth_mm": 2.5,
+          "drill_cycle": null,
+          "reason": "Slot mill \u2014 full depth traverse, width=2.529mm, depth=2.5mm"
+        }
+      ]
+    },
+    {
+      "cluster_id": 99,
+      "seed_face_index": 1091,
+      "seed_type": "slot",
+      "face_indices": [
+        1091,
+        1092
+      ],
+      "face_count": 2,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 2.4999,
+      "radii": [
+        1.2645
+      ],
+      "is_principal_axis": true,
+      "internal_corner_radius": 1.2645,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "face_area": null,
+      "feature_type": "slot",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 slot mill traverse",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "slot_mill",
+          "machine": "milling",
+          "diameter_mm": 2.529,
+          "depth_mm": 2.4999,
+          "drill_cycle": null,
+          "reason": "Slot mill \u2014 full depth traverse, width=2.529mm, depth=2.4999mm"
+        }
+      ]
     }
   ],
   "file": "G:\\My Drive\\Closed Loop\\Motor Mount\\input\\MOTOR MOUNT.step",

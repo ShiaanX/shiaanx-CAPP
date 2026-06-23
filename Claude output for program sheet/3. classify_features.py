@@ -160,12 +160,6 @@ POCKET_MAX_PERP_WALLS = 8
 # (Distinct from LARGE_BORE_RADIUS_MM which guards single-step bores.)
 DRILL_MAX_RADIUS_MM = 8.0
 
-# Minimum fillet radius (mm) for a fillet cluster to be treated as a machined
-# feature requiring a ballnose/bull-nose pass.  Fillets smaller than this are
-# as-machined edge blends left by sharp endmill corners — no dedicated tool
-# pass is needed or possible (smallest ballnose in tool database is R=1.5mm;
-# smallest bull-nose is R=1.0mm).  Fillets below this threshold are reclassified
-# as background so process_selection generates no operations for them.
 FILLET_MIN_RADIUS_MM = 1.0
 
 # Maximum face area (mm^2) for a non-principal-axis plane cluster (face_count=1)
@@ -282,6 +276,7 @@ def classify_cluster(cluster: Dict) -> Tuple[str, str]:
         # Chamfer: angled (non-principal-axis) single-face plane with small area.
         # These are beveled edges at bore entries, pocket corners, or part periphery.
         # face_count=1 means the connected component BFS found no co-planar neighbours.
+        # Detected BEFORE the pocket check so perp_count=1 faces don't fall through.
         if (is_principal is False
                 and face_count == 1
                 and face_area is not None
