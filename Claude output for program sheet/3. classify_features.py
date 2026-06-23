@@ -168,6 +168,12 @@ DRILL_MAX_RADIUS_MM = 8.0
 # as background so process_selection generates no operations for them.
 FILLET_MIN_RADIUS_MM = 1.0
 
+# Maximum face area (mm^2) for a non-principal-axis plane cluster (face_count=1)
+# to be classified as a chamfer. Chamfer faces are small angled planes at bore
+# entries, pocket corners, or part periphery bevels. Larger angled faces (e.g.
+# inclined steps) are classified as planar_face instead.
+CHAMFER_MAX_AREA_MM2 = 100.0
+
 
 # ---------------------------------------------------------------------------
 # Rule sheet loader (Sheet 1: 01_feature_classification.json)
@@ -272,6 +278,15 @@ def classify_cluster(cluster: Dict) -> Tuple[str, str]:
         has_perp   = cluster.get('has_perpendicular_walls', False)
         perp_count = cluster.get('perp_wall_count', 0)
         face_area  = cluster.get('face_area')
+
+        # Chamfer: angled (non-principal-axis) single-face plane with small area.
+        # These are beveled edges at bore entries, pocket corners, or part periphery.
+        # face_count=1 means the connected component BFS found no co-planar neighbours.
+        if (is_principal is False
+                and face_count == 1
+                and face_area is not None
+                and face_area < CHAMFER_MAX_AREA_MM2):
+            return 'chamfer', 'high'
 
         if (has_perp
                 and perp_count >= 2
