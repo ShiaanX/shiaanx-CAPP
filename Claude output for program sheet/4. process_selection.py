@@ -968,12 +968,50 @@ def _process_planar_face(cluster: Dict, all_clusters: List[Dict] = None) -> Tupl
 
 def _process_chamfer(cluster: Dict) -> Tuple[str, List[Dict]]:
     """
-    Chamfer — single chamfer_mill pass.
+    Chamfer — two-pass chamfer_mill strategy (PS-AL6061-CHAMFER-002).
+
+    Motor Mount validated (Setup 1 ops 18–19, Setup 4 op 3):
+      Pass 1 TOUCH — very slow engagement (Vc ~28 m/min) to locate tool on
+                     the machined edge without chatter or tool deflection.
+      Pass 2 FINISH — full-speed profile cut (Vc ~140 m/min).
+
+    Single-pass fallback: when depth is unknown or <= 0.5mm a single pass
+    is sufficient (shallow chamfer, no edge-finding needed).
+
     Diameter for tool selection = 2 × max radius if radii available, else None.
     """
-    radii = cluster.get('radii') or []
+    radii    = cluster.get('radii') or []
     diameter = round(2 * max(radii), 4) if radii else None
     depth    = cluster.get('depth')
+    dia_str  = (f', d={diameter}mm' if diameter else '')
+
+    if depth is not None and depth > 0.5:
+        return 'milling', [
+            {
+                'step'        : 1,
+                'operation'   : 'chamfer_mill',
+                'machine'     : 'milling',
+                'diameter_mm' : diameter,
+                'depth_mm'    : depth,
+                'drill_cycle' : None,
+                'chamfer_pass': 'TOUCH',
+                'reason'      : (f'Chamfer touch pass — slow engagement for tool location'
+                                 + dia_str +
+                                 f'; parameter_calculation: use Vc ~28 m/min, F ~80 mmpm'),
+            },
+            {
+                'step'        : 2,
+                'operation'   : 'chamfer_mill',
+                'machine'     : 'milling',
+                'diameter_mm' : diameter,
+                'depth_mm'    : depth,
+                'drill_cycle' : None,
+                'chamfer_pass': 'FINISH',
+                'reason'      : (f'Chamfer profile pass — full-speed contour'
+                                 + dia_str +
+                                 f'; parameter_calculation: use Vc ~140 m/min'),
+            },
+        ]
     return 'milling', [
         {
             'step'        : 1,
@@ -982,8 +1020,7 @@ def _process_chamfer(cluster: Dict) -> Tuple[str, List[Dict]]:
             'diameter_mm' : diameter,
             'depth_mm'    : depth,
             'drill_cycle' : None,
-            'reason'      : (f'Chamfer mill — single pass along chamfer edge'
-                             + (f', d={diameter}mm' if diameter else '')),
+            'reason'      : (f'Chamfer mill — single pass along chamfer edge' + dia_str),
         }
     ]
 
