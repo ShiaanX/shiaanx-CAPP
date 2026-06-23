@@ -1,0 +1,451 @@
+{
+  "shop": "TS",
+  "machine": "Sinumerik 828D",
+  "setups": {
+    "setup_1": {
+      "file": "MOTOR_MOUNT_1_SETUP..MPF",
+      "tool_list": {
+        "1": {
+          "type": "END MILL",
+          "dia_mm": 10.0
+        },
+        "2": {
+          "type": "CENTER DRILL",
+          "dia_mm": 2.0
+        },
+        "3": {
+          "type": "DRILL",
+          "dia_mm": 2.5
+        },
+        "4": {
+          "type": "DRILL",
+          "dia_mm": 3.2
+        },
+        "5": {
+          "type": "END MILL",
+          "dia_mm": 8.0
+        },
+        "6": {
+          "type": "END MILL",
+          "dia_mm": 3.0
+        },
+        "7": {
+          "type": "END MILL",
+          "dia_mm": 4.0
+        },
+        "8": {
+          "type": "BULL NOSE MILL",
+          "dia_mm": 8.0
+        },
+        "9": {
+          "type": "BALL NOSE",
+          "dia_mm": 5.0
+        },
+        "10": {
+          "type": "CHAMFER MILL",
+          "dia_mm": 10.0
+        }
+      },
+      "operations": [
+        {
+          "operation": "10 ENDMILL DYNAMIC-1 RF =  0:09:43",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 10.0
+          },
+          "S": 4461,
+          "F": 10000
+        },
+        {
+          "operation": "10 ENDMILL STEP-1 BOTTOM FINISH- =  0:02:03",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 10.0
+          },
+          "S": 2800,
+          "F": 300
+        },
+        {
+          "operation": "10 ENDMILL OUTER-PROFILE FINISH =  0:01:25",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 10.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "10 ENDMILL STEP-1 FINISH =  0:01:12",
+          "tool": {
+            "type": "CENTER DRILL",
+            "dia_mm": 2.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "CENTER DRILL-BS2 =  0:00:58",
+          "tool": {
+            "type": "DRILL",
+            "dia_mm": 2.5
+          },
+          "S": 1000,
+          "F": 80
+        },
+        {
+          "operation": "2.5 DRILL- =  0:02:06",
+          "tool": {
+            "type": "DRILL",
+            "dia_mm": 3.2
+          },
+          "S": 1500,
+          "F": 70
+        },
+        {
+          "operation": "3.2 DRILL- =  0:01:21",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 8.0
+          },
+          "S": 1200,
+          "F": 80
+        },
+        {
+          "operation": "8 ENDMILL Q11 RF =  0:00:29",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 8.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "8 ENDMILL SP RF =  0:01:18",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 8.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "8 ENDMILL Q11 FINISH =  0:00:18",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 8.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "8 ENDMILL SMALL-POCKET FINISH- =  0:00:20",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 3.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "3 ENDMILL CAVITY-- RF =  0:03:11",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 3.0
+          },
+          "S": 3000,
+          "F": 800
+        },
+        {
+          "operation": "3 ENDMILL CAVITY- FINISH =  0:00:48",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 3.0
+          },
+          "S": 2200,
+          "F": 800
+        },
+        {
+          "operation": "3 ENDMILL SMALL-POCKET CORNER =  0:01:28",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 4.0
+          },
+          "S": 3000,
+          "F": 800
+        },
+        {
+          "operation": "4 ENDMILL OUTER-PROFILE CORNER =  0:01:31",
+          "tool": {
+            "type": "BULL NOSE MILL",
+            "dia_mm": 8.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "8R1 ENDMILL-TOP R FINISH =  0:02:58",
+          "tool": {
+            "type": "BALL NOSE",
+            "dia_mm": 5.0
+          },
+          "S": 4500,
+          "F": 1500
+        },
+        {
+          "operation": "5 BALLNOSE STEP BOTTOM FINISH =  0:00:48",
+          "tool": {
+            "type": "CHAMFER MILL",
+            "dia_mm": 10.0
+          },
+          "S": 2500,
+          "F": 500
+        },
+        {
+          "operation": "CHAMFER CUTTER 10 X 45 =  0:00:51",
+          "tool": {
+            "type": "CHAMFER MILL",
+            "dia_mm": 10.0
+          },
+          "S": 900,
+          "F": 80
+        },
+        {
+          "operation": "CHAMFER CUTTER 10 X 45- =  0:01:03",
+          "tool": {
+            "type": "CHAMFER MILL",
+            "dia_mm": 10.0
+          },
+          "S": 4500,
+          "F": 1000
+        }
+      ]
+    },
+    "setup_2": {
+      "file": "MOTOR_MOUNT_2_SETUP..MPF",
+      "tool_list": {
+        "1": {
+          "type": "END MILL",
+          "dia_mm": 10.0
+        },
+        "11": {
+          "type": "DRILL",
+          "dia_mm": 3.0
+        },
+        "7": {
+          "type": "END MILL",
+          "dia_mm": 4.0
+        },
+        "8": {
+          "type": "BULL NOSE MILL",
+          "dia_mm": 8.0
+        },
+        "9": {
+          "type": "BALL NOSE",
+          "dia_mm": 5.0
+        },
+        "12": {
+          "type": "BALL NOSE",
+          "dia_mm": 3.0
+        }
+      },
+      "operations": [
+        {
+          "operation": "10 ENDMILL DYAMNIC-2RF =  0:14:01",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 10.0
+          },
+          "S": 4557,
+          "F": 10000
+        },
+        {
+          "operation": "10 ENDMILL STEP-2 FINISH =  0:00:45",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 10.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "10 ENDMILL LENGHT FINISH CUT =  0:00:24",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 10.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "10 ENDMILL STEP BOTTOM FINISH =  0:02:39",
+          "tool": {
+            "type": "DRILL",
+            "dia_mm": 3.0
+          },
+          "S": 2800,
+          "F": 300
+        },
+        {
+          "operation": "3 DRILL =  0:00:31",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 4.0
+          },
+          "S": 1200,
+          "F": 80
+        },
+        {
+          "operation": "4 ENDMILL STEP POCKET FINISH =  0:00:36",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 4.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "4 ENDMILL STEP-2 FINISH =  0:00:38",
+          "tool": {
+            "type": "BULL NOSE MILL",
+            "dia_mm": 8.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "8R1 ENDMILL =  0:01:53",
+          "tool": {
+            "type": "BALL NOSE",
+            "dia_mm": 5.0
+          },
+          "S": 4500,
+          "F": 1500
+        },
+        {
+          "operation": "5 BALLNOSE STEP-2 BOTTOM R FINISH =  0:00:45",
+          "tool": {
+            "type": "BALL NOSE",
+            "dia_mm": 3.0
+          },
+          "S": 2500,
+          "F": 500
+        },
+        {
+          "operation": "3 BALLNOSE-1 =  0:01:34",
+          "tool": {
+            "type": "BALL NOSE",
+            "dia_mm": 3.0
+          },
+          "S": 4500,
+          "F": 1000
+        },
+        {
+          "operation": "3 BALLNOSE =  0:02:23",
+          "tool": {
+            "type": "BALL NOSE",
+            "dia_mm": 3.0
+          },
+          "S": 4500,
+          "F": 1000
+        }
+      ]
+    },
+    "setup_3_finish": {
+      "file": "MOTOR_MOUNT_3_FINISH_SETUP..MPF",
+      "tool_list": {
+        "1": {
+          "type": "END MILL",
+          "dia_mm": 10.0
+        },
+        "9": {
+          "type": "BALL NOSE",
+          "dia_mm": 5.0
+        }
+      },
+      "operations": [
+        {
+          "operation": "10 ENDMILL STEP-1-1 BOTTOM FINISH =  0:02:03",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 10.0
+          },
+          "S": 2800,
+          "F": 300
+        },
+        {
+          "operation": "10 ENDMILL STEP-1 FINISH-1 =  0:00:41",
+          "tool": {
+            "type": "BALL NOSE",
+            "dia_mm": 5.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "5 BALLNOSE STEP BOTTOM FINISH- =  0:00:48",
+          "tool": {
+            "type": "BALL NOSE",
+            "dia_mm": 5.0
+          },
+          "S": 2500,
+          "F": 500
+        }
+      ]
+    },
+    "setup_4": {
+      "file": "MOTOR_MOUNT_4_SETUP..MPF",
+      "tool_list": {
+        "13": {
+          "type": "END MILL",
+          "dia_mm": 10.0
+        },
+        "10": {
+          "type": "CHAMFER MILL",
+          "dia_mm": 10.0
+        },
+        "14": {
+          "type": "END MILL",
+          "dia_mm": 3.0
+        }
+      },
+      "operations": [
+        {
+          "operation": "10 ENDMILL PROFILE BORE 16.1 RF =  0:03:08",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 10.0
+          },
+          "S": 2500,
+          "F": 800
+        },
+        {
+          "operation": "10 ENDMILL PROFILE BORE 16.1 FINISH =  0:00:19",
+          "tool": {
+            "type": "CHAMFER MILL",
+            "dia_mm": 10.0
+          },
+          "S": 2500,
+          "F": 800
+        },
+        {
+          "operation": "CHAMFER CUTTER 10 X 45-BORE OUTER =  0:00:42",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 3.0
+          },
+          "S": 900,
+          "F": 80
+        },
+        {
+          "operation": "3 ENDMILL LONG POCKET RF =  0:01:56",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 3.0
+          },
+          "S": 2800,
+          "F": 500
+        }
+      ]
+    }
+  }
+}
