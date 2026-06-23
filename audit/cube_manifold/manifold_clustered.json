@@ -1,0 +1,895 @@
+{
+  "clusters": [
+    {
+      "cluster_id": 0,
+      "seed_face_index": 20,
+      "seed_type": "bore",
+      "face_indices": [
+        11,
+        20,
+        38,
+        48,
+        87,
+        88,
+        108
+      ],
+      "face_count": 9,
+      "feature_axis": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "depth": 9.0639,
+      "radii": [
+        7.5,
+        10.0
+      ],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null
+    },
+    {
+      "cluster_id": 1,
+      "seed_face_index": 23,
+      "seed_type": "bore",
+      "face_indices": [
+        8,
+        23,
+        81,
+        82,
+        111
+      ],
+      "face_count": 5,
+      "feature_axis": [
+        -1.0,
+        -0.0,
+        -0.0
+      ],
+      "depth": 7.5,
+      "radii": [
+        3.5
+      ],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null
+    },
+    {
+      "cluster_id": 2,
+      "seed_face_index": 24,
+      "seed_type": "bore",
+      "face_indices": [
+        7,
+        24,
+        79,
+        80,
+        112
+      ],
+      "face_count": 5,
+      "feature_axis": [
+        -1.0,
+        -0.0,
+        -0.0
+      ],
+      "depth": 7.5,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null
+    },
+    {
+      "cluster_id": 3,
+      "seed_face_index": 25,
+      "seed_type": "bore",
+      "face_indices": [
+        6,
+        25,
+        77,
+        78,
+        113
+      ],
+      "face_count": 5,
+      "feature_axis": [
+        -1.0,
+        -0.0,
+        -0.0
+      ],
+      "depth": 6.8206,
+      "radii": [
+        3.5
+      ],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null
+    },
+    {
+      "cluster_id": 4,
+      "seed_face_index": 26,
+      "seed_type": "bore",
+      "face_indices": [
+        26,
+        37,
+        50,
+        75,
+        76
+      ],
+      "face_count": 5,
+      "feature_axis": [
+        -0.0,
+        1.0,
+        -0.0
+      ],
+      "depth": 3.8691,
+      "radii": [
+        1.1714
+      ],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null
+    },
+    {
+      "cluster_id": 5,
+      "seed_face_index": 27,
+      "seed_type": "bore",
+      "face_indices": [
+        5,
+        27,
+        73,
+        74,
+        114
+      ],
+      "face_count": 5,
+      "feature_axis": [
+        -1.0,
+        -0.0,
+        -0.0
+      ],
+      "depth": 6.7798,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null
+    },
+    {
+      "cluster_id": 6,
+      "seed_face_index": 30,
+      "seed_type": "bore",
+      "face_indices": [
+        4,
+        19,
+        30,
+        68,
+        93,
+        115
+      ],
+      "face_count": 6,
+      "feature_axis": [
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "depth": 27.0,
+      "radii": [
+        3.0
+      ],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null
+    },
+    {
+      "cluster_id": 7,
+      "seed_face_index": 31,
+      "seed_type": "bore",
+      "face_indices": [
+        3,
+        31,
+        32,
+        66,
+        67,
+        116
+      ],
+      "face_count": 6,
+      "feature_axis": [
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "depth": 12.6193,
+      "radii": [
+        3.0
+      ],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null
+    },
+    {
+      "cluster_id": 8,
+      "seed_face_index": 35,
+      "seed_type": "bore",
+      "face_indices": [
+        15,
+        35,
+        60,
+        61,
+        97
+      ],
+      "face_count": 5,
+      "feature_axis": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "depth": 4.5,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null
+    },
+    {
+      "cluster_id": 9,
+      "seed_face_index": 36,
+      "seed_type": "bore",
+      "face_indices": [
+        14,
+        36,
+        52,
+        53,
+        54,
+        98
+      ],
+      "face_count": 6,
+      "feature_axis": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "depth": 3.7826,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null
+    },
+    {
+      "cluster_id": 10,
+      "seed_face_index": 39,
+      "seed_type": "bore",
+      "face_indices": [
+        2,
+        39,
+        40,
+        41,
+        51,
+        124
+      ],
+      "face_count": 6,
+      "feature_axis": [
+        -0.0,
+        1.0,
+        -0.0
+      ],
+      "depth": 4.6769,
+      "radii": [
+        1.1564
+      ],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null
+    },
+    {
+      "cluster_id": 11,
+      "seed_face_index": 42,
+      "seed_type": "plane",
+      "face_indices": [
+        42
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 478.842932
+    },
+    {
+      "cluster_id": 12,
+      "seed_face_index": 44,
+      "seed_type": "plane",
+      "face_indices": [
+        44
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 549.929219
+    },
+    {
+      "cluster_id": 13,
+      "seed_face_index": 43,
+      "seed_type": "plane",
+      "face_indices": [
+        43
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 510.542225
+    },
+    {
+      "cluster_id": 14,
+      "seed_face_index": 45,
+      "seed_type": "plane",
+      "face_indices": [
+        45
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 382.63941
+    },
+    {
+      "cluster_id": 15,
+      "seed_face_index": 49,
+      "seed_type": "plane",
+      "face_indices": [
+        49
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 1,
+      "internal_corner_radius": 3.5,
+      "face_area": 169.175391
+    },
+    {
+      "cluster_id": 16,
+      "seed_face_index": 56,
+      "seed_type": "plane",
+      "face_indices": [
+        56
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 1,
+      "internal_corner_radius": 4.0,
+      "face_area": 54.0
+    },
+    {
+      "cluster_id": 17,
+      "seed_face_index": 58,
+      "seed_type": "plane",
+      "face_indices": [
+        58
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 1,
+      "internal_corner_radius": 4.0,
+      "face_area": 54.0
+    },
+    {
+      "cluster_id": 18,
+      "seed_face_index": 46,
+      "seed_type": "plane",
+      "face_indices": [
+        46
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 652.03098
+    },
+    {
+      "cluster_id": 19,
+      "seed_face_index": 47,
+      "seed_type": "plane",
+      "face_indices": [
+        47
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 575.06196
+    },
+    {
+      "cluster_id": 20,
+      "seed_face_index": 89,
+      "seed_type": "plane",
+      "face_indices": [
+        89
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 19.26866
+    },
+    {
+      "cluster_id": 21,
+      "seed_face_index": 120,
+      "seed_type": "plane",
+      "face_indices": [
+        120
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 19.180271
+    },
+    {
+      "cluster_id": 22,
+      "seed_face_index": 90,
+      "seed_type": "plane",
+      "face_indices": [
+        90
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 19.26866
+    },
+    {
+      "cluster_id": 23,
+      "seed_face_index": 121,
+      "seed_type": "plane",
+      "face_indices": [
+        121
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 19.091883
+    },
+    {
+      "cluster_id": 24,
+      "seed_face_index": 91,
+      "seed_type": "plane",
+      "face_indices": [
+        91
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 19.26866
+    },
+    {
+      "cluster_id": 25,
+      "seed_face_index": 106,
+      "seed_type": "plane",
+      "face_indices": [
+        106
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 19.26866
+    },
+    {
+      "cluster_id": 26,
+      "seed_face_index": 92,
+      "seed_type": "plane",
+      "face_indices": [
+        92
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 19.26866
+    },
+    {
+      "cluster_id": 27,
+      "seed_face_index": 117,
+      "seed_type": "plane",
+      "face_indices": [
+        117
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 19.180271
+    },
+    {
+      "cluster_id": 28,
+      "seed_face_index": 102,
+      "seed_type": "plane",
+      "face_indices": [
+        102
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 8.485281
+    },
+    {
+      "cluster_id": 29,
+      "seed_face_index": 105,
+      "seed_type": "plane",
+      "face_indices": [
+        105
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 19.26866
+    },
+    {
+      "cluster_id": 30,
+      "seed_face_index": 123,
+      "seed_type": "plane",
+      "face_indices": [
+        123
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 19.180271
+    },
+    {
+      "cluster_id": 31,
+      "seed_face_index": 103,
+      "seed_type": "plane",
+      "face_indices": [
+        103
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 8.485281
+    },
+    {
+      "cluster_id": 32,
+      "seed_face_index": 107,
+      "seed_type": "plane",
+      "face_indices": [
+        107
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 19.26866
+    },
+    {
+      "cluster_id": 33,
+      "seed_face_index": 118,
+      "seed_type": "plane",
+      "face_indices": [
+        118
+      ],
+      "face_count": 1,
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 19.180271
+    },
+    {
+      "cluster_id": 34,
+      "seed_face_index": null,
+      "seed_type": "background",
+      "face_indices": [
+        0,
+        1,
+        18,
+        94,
+        119,
+        122,
+        125,
+        126
+      ],
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": null,
+      "face_count": 8,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null
+    },
+    {
+      "cluster_id": 35,
+      "seed_face_index": 21,
+      "seed_type": "slot",
+      "face_indices": [
+        9,
+        10,
+        21,
+        22,
+        83,
+        84,
+        85,
+        86,
+        109,
+        110
+      ],
+      "face_count": 10,
+      "feature_axis": [
+        -1.0,
+        -0.0,
+        -0.0
+      ],
+      "depth": 7.5,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "internal_corner_radius": 2.0,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "face_area": null
+    },
+    {
+      "cluster_id": 36,
+      "seed_face_index": 28,
+      "seed_type": "slot",
+      "face_indices": [
+        16,
+        17,
+        28,
+        29,
+        69,
+        70,
+        71,
+        72,
+        95,
+        96
+      ],
+      "face_count": 10,
+      "feature_axis": [
+        -0.0,
+        -0.0,
+        -1.0
+      ],
+      "depth": 2.5,
+      "radii": [
+        3.0
+      ],
+      "is_principal_axis": true,
+      "internal_corner_radius": 3.0,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "face_area": null
+    },
+    {
+      "cluster_id": 37,
+      "seed_face_index": 33,
+      "seed_type": "slot",
+      "face_indices": [
+        12,
+        13,
+        33,
+        34,
+        62,
+        63,
+        64,
+        65,
+        99,
+        100
+      ],
+      "face_count": 10,
+      "feature_axis": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "depth": 4.5,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "internal_corner_radius": 2.0,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "face_area": null
+    },
+    {
+      "cluster_id": 38,
+      "seed_face_index": 55,
+      "seed_type": "slot",
+      "face_indices": [
+        55,
+        57,
+        59,
+        101,
+        104
+      ],
+      "face_count": 5,
+      "feature_axis": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "depth": 2.25,
+      "radii": [
+        4.0
+      ],
+      "is_principal_axis": true,
+      "internal_corner_radius": 4.0,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "face_area": null
+    }
+  ],
+  "file": "G:\\My Drive\\Closed Loop\\cube Manifold\\Input\\manifold.STEP",
+  "bounding_box": {
+    "xmin": -14.0,
+    "ymin": -14.0,
+    "zmin": -0.0,
+    "xmax": 14.0,
+    "ymax": 14.0,
+    "zmax": 28.0,
+    "length_x": 28.0,
+    "length_y": 28.0,
+    "length_z": 28.0,
+    "diagonal": 48.497423
+  },
+  "mass_properties": {
+    "volume": 16125.142914,
+    "center_of_mass": {
+      "x": -0.086529,
+      "y": -0.2793,
+      "z": 14.136083
+    },
+    "matrix_of_inertia": [
+      [
+        2145255.358321,
+        2165.453019,
+        -3884.406238
+      ],
+      [
+        2165.453019,
+        2288734.198992,
+        -589.708086
+      ],
+      [
+        -3884.406238,
+        -589.708086,
+        2105545.828061
+      ]
+    ]
+  },
+  "surface_area": 7019.136496,
+  "topology_counts": {
+    "Compounds": 0,
+    "CompSolids": 0,
+    "Solids": 1,
+    "Shells": 1,
+    "Faces": 127,
+    "Wires": 148,
+    "Edges": 318,
+    "Vertices": 202
+  }
+}

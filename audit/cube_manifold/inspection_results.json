@@ -1,0 +1,442 @@
+{
+  "part": "cube_manifold",
+  "inspection_date": "01-04-2025",
+  "total": 16,
+  "passed": 15,
+  "failed": 1,
+  "pass_rate_pct": 93.8,
+  "records": [
+    {
+      "sl_no": 1,
+      "description_raw": "28",
+      "nominal_mm": 28.0,
+      "feature_type": "linear",
+      "depth_mm": null,
+      "tol_plus": 0.1,
+      "tol_minus": 0.1,
+      "instrument": "Digital Vernier Caliper",
+      "observation": "27.98/27.99",
+      "measurements": [
+        {
+          "measured": 27.98,
+          "pass": true,
+          "low": 27.9,
+          "high": 28.1
+        },
+        {
+          "measured": 27.99,
+          "pass": true,
+          "low": 27.9,
+          "high": 28.1
+        }
+      ],
+      "pass": true,
+      "remark": null
+    },
+    {
+      "sl_no": 2,
+      "description_raw": "28",
+      "nominal_mm": 28.0,
+      "feature_type": "linear",
+      "depth_mm": null,
+      "tol_plus": 0.1,
+      "tol_minus": 0.1,
+      "instrument": "Digital Vernier Caliper",
+      "observation": "28.01/28.02",
+      "measurements": [
+        {
+          "measured": 28.01,
+          "pass": true,
+          "low": 27.9,
+          "high": 28.1
+        },
+        {
+          "measured": 28.02,
+          "pass": true,
+          "low": 27.9,
+          "high": 28.1
+        }
+      ],
+      "pass": true,
+      "remark": null
+    },
+    {
+      "sl_no": 3,
+      "description_raw": "28",
+      "nominal_mm": 28.0,
+      "feature_type": "linear",
+      "depth_mm": null,
+      "tol_plus": 0.1,
+      "tol_minus": 0.1,
+      "instrument": "Digital Vernier Caliper",
+      "observation": "27.98/27.92",
+      "measurements": [
+        {
+          "measured": 27.98,
+          "pass": true,
+          "low": 27.9,
+          "high": 28.1
+        },
+        {
+          "measured": 27.92,
+          "pass": true,
+          "low": 27.9,
+          "high": 28.1
+        }
+      ],
+      "pass": true,
+      "remark": null
+    },
+    {
+      "sl_no": 4,
+      "description_raw": "\u00d820",
+      "nominal_mm": 20.0,
+      "feature_type": "hole_dia",
+      "depth_mm": null,
+      "tol_plus": 0.1,
+      "tol_minus": 0.1,
+      "instrument": "Digital Vernier Caliper",
+      "observation": "19.95/19.96",
+      "measurements": [
+        {
+          "measured": 19.95,
+          "pass": true,
+          "low": 19.9,
+          "high": 20.1
+        },
+        {
+          "measured": 19.96,
+          "pass": true,
+          "low": 19.9,
+          "high": 20.1
+        }
+      ],
+      "pass": true,
+      "remark": null
+    },
+    {
+      "sl_no": 5,
+      "description_raw": "2",
+      "nominal_mm": 2.0,
+      "feature_type": "linear",
+      "depth_mm": null,
+      "tol_plus": 0.05,
+      "tol_minus": 0.05,
+      "instrument": "Digital Vernier Caliper",
+      "observation": "2.04/2.05",
+      "measurements": [
+        {
+          "measured": 2.04,
+          "pass": true,
+          "low": 1.95,
+          "high": 2.05
+        },
+        {
+          "measured": 2.05,
+          "pass": true,
+          "low": 1.95,
+          "high": 2.05
+        }
+      ],
+      "pass": true,
+      "remark": null
+    },
+    {
+      "sl_no": 6,
+      "description_raw": "\u00d86x4",
+      "nominal_mm": 6.0,
+      "feature_type": "hole",
+      "depth_mm": 4.0,
+      "tol_plus": 0.1,
+      "tol_minus": 0.1,
+      "instrument": "Digital Vernier Caliper",
+      "observation": "5.98/5.99",
+      "measurements": [
+        {
+          "measured": 5.98,
+          "pass": true,
+          "low": 5.9,
+          "high": 6.1
+        },
+        {
+          "measured": 5.99,
+          "pass": true,
+          "low": 5.9,
+          "high": 6.1
+        }
+      ],
+      "pass": true,
+      "remark": null
+    },
+    {
+      "sl_no": 7,
+      "description_raw": "\u00d84x4",
+      "nominal_mm": 4.0,
+      "feature_type": "hole",
+      "depth_mm": 4.0,
+      "tol_plus": 0.05,
+      "tol_minus": 0.05,
+      "instrument": "Digital Vernier Caliper",
+      "observation": "3.94/3.95",
+      "measurements": [
+        {
+          "measured": 3.94,
+          "pass": false,
+          "low": 3.95,
+          "high": 4.05
+        },
+        {
+          "measured": 3.95,
+          "pass": true,
+          "low": 3.95,
+          "high": 4.05
+        }
+      ],
+      "pass": false,
+      "remark": null
+    },
+    {
+      "sl_no": 8,
+      "description_raw": "8",
+      "nominal_mm": 8.0,
+      "feature_type": "linear",
+      "depth_mm": null,
+      "tol_plus": 0.1,
+      "tol_minus": 0.1,
+      "instrument": "Digital Vernier Caliper",
+      "observation": "8.01/8.02",
+      "measurements": [
+        {
+          "measured": 8.01,
+          "pass": true,
+          "low": 7.9,
+          "high": 8.1
+        },
+        {
+          "measured": 8.02,
+          "pass": true,
+          "low": 7.9,
+          "high": 8.1
+        }
+      ],
+      "pass": true,
+      "remark": null
+    },
+    {
+      "sl_no": 9,
+      "description_raw": "20",
+      "nominal_mm": 20.0,
+      "feature_type": "linear",
+      "depth_mm": null,
+      "tol_plus": 0.1,
+      "tol_minus": 0.1,
+      "instrument": "Digital Vernier Caliper",
+      "observation": "19.91/19.92",
+      "measurements": [
+        {
+          "measured": 19.91,
+          "pass": true,
+          "low": 19.9,
+          "high": 20.1
+        },
+        {
+          "measured": 19.92,
+          "pass": true,
+          "low": 19.9,
+          "high": 20.1
+        }
+      ],
+      "pass": true,
+      "remark": null
+    },
+    {
+      "sl_no": 10,
+      "description_raw": "5",
+      "nominal_mm": 5.0,
+      "feature_type": "linear",
+      "depth_mm": null,
+      "tol_plus": 0.1,
+      "tol_minus": 0.1,
+      "instrument": "Digital Vernier Caliper",
+      "observation": "5.03/5.04",
+      "measurements": [
+        {
+          "measured": 5.03,
+          "pass": true,
+          "low": 4.9,
+          "high": 5.1
+        },
+        {
+          "measured": 5.04,
+          "pass": true,
+          "low": 4.9,
+          "high": 5.1
+        }
+      ],
+      "pass": true,
+      "remark": null
+    },
+    {
+      "sl_no": 11,
+      "description_raw": "\u00d86x2",
+      "nominal_mm": 6.0,
+      "feature_type": "hole",
+      "depth_mm": 2.0,
+      "tol_plus": 0.1,
+      "tol_minus": 0.1,
+      "instrument": "Digital Vernier Caliper",
+      "observation": "6.01/6.02",
+      "measurements": [
+        {
+          "measured": 6.01,
+          "pass": true,
+          "low": 5.9,
+          "high": 6.1
+        },
+        {
+          "measured": 6.02,
+          "pass": true,
+          "low": 5.9,
+          "high": 6.1
+        }
+      ],
+      "pass": true,
+      "remark": null
+    },
+    {
+      "sl_no": 12,
+      "description_raw": "\u00d84x4",
+      "nominal_mm": 4.0,
+      "feature_type": "hole",
+      "depth_mm": 4.0,
+      "tol_plus": 0.1,
+      "tol_minus": 0.1,
+      "instrument": "Digital Vernier Caliper",
+      "observation": "3.92/3.94",
+      "measurements": [
+        {
+          "measured": 3.92,
+          "pass": true,
+          "low": 3.9,
+          "high": 4.1
+        },
+        {
+          "measured": 3.94,
+          "pass": true,
+          "low": 3.9,
+          "high": 4.1
+        }
+      ],
+      "pass": true,
+      "remark": null
+    },
+    {
+      "sl_no": 13,
+      "description_raw": "\u00d87x2",
+      "nominal_mm": 7.0,
+      "feature_type": "hole",
+      "depth_mm": 2.0,
+      "tol_plus": 0.1,
+      "tol_minus": 0.1,
+      "instrument": "Digital Vernier Caliper",
+      "observation": "6.93/6.94",
+      "measurements": [
+        {
+          "measured": 6.93,
+          "pass": true,
+          "low": 6.9,
+          "high": 7.1
+        },
+        {
+          "measured": 6.94,
+          "pass": true,
+          "low": 6.9,
+          "high": 7.1
+        }
+      ],
+      "pass": true,
+      "remark": null
+    },
+    {
+      "sl_no": 14,
+      "description_raw": "8",
+      "nominal_mm": 8.0,
+      "feature_type": "linear",
+      "depth_mm": null,
+      "tol_plus": 0.1,
+      "tol_minus": 0.1,
+      "instrument": "Digital Vernier Caliper",
+      "observation": "8.01/8.02",
+      "measurements": [
+        {
+          "measured": 8.01,
+          "pass": true,
+          "low": 7.9,
+          "high": 8.1
+        },
+        {
+          "measured": 8.02,
+          "pass": true,
+          "low": 7.9,
+          "high": 8.1
+        }
+      ],
+      "pass": true,
+      "remark": null
+    },
+    {
+      "sl_no": 15,
+      "description_raw": "\u00d82.3",
+      "nominal_mm": 2.3,
+      "feature_type": "hole_dia",
+      "depth_mm": null,
+      "tol_plus": 0.05,
+      "tol_minus": 0.05,
+      "instrument": "Digital Vernier Caliper",
+      "observation": "2.28/2.29",
+      "measurements": [
+        {
+          "measured": 2.28,
+          "pass": true,
+          "low": 2.25,
+          "high": 2.3499999999999996
+        },
+        {
+          "measured": 2.29,
+          "pass": true,
+          "low": 2.25,
+          "high": 2.3499999999999996
+        }
+      ],
+      "pass": true,
+      "remark": null
+    },
+    {
+      "sl_no": 16,
+      "description_raw": "\u00d815",
+      "nominal_mm": 15.0,
+      "feature_type": "hole_dia",
+      "depth_mm": null,
+      "tol_plus": 0.1,
+      "tol_minus": 0.1,
+      "instrument": "Digital Vernier Caliper",
+      "observation": "14.93/14.94",
+      "measurements": [
+        {
+          "measured": 14.93,
+          "pass": true,
+          "low": 14.9,
+          "high": 15.1
+        },
+        {
+          "measured": 14.94,
+          "pass": true,
+          "low": 14.9,
+          "high": 15.1
+        }
+      ],
+      "pass": true,
+      "remark": null
+    }
+  ]
+}
