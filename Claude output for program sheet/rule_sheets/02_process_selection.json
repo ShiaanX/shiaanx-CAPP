@@ -155,5 +155,52 @@
   "warnings": [
     "Slot/pocket process branches may still fall through to manual_review in select_process() until those feature types are fully wired.",
     "LIVE (applied at import): all drill bands, DDR thresholds, boss_turning_min_diameter, stock_to_leave tables, face_mill_max_ap, rf_split_operations, drill_like_operations, tap_drill_table, corner_r_feature_types."
-  ]
+  ],
+  "implemented_rules": {
+    "DR-003": {
+      "title": "Material-specific DDR peck thresholds",
+      "status": "IMPLEMENTED",
+      "commit": "76de5907a",
+      "confidence": "HIGH",
+      "source": "Machinery's Handbook 29th ed. §Drilling; Motor Mount Al 6061 validation",
+      "description": "DDR thresholds for drill cycle selection (standard/peck/deep_peck) vary by material. Steel and SS use tighter thresholds because chips pack faster and SS work-hardens.",
+      "thresholds_by_material": {
+        "aluminium":           { "standard_max": 3.0, "peck_max": 5.0 },
+        "aluminium_6061":      { "standard_max": 3.0, "peck_max": 5.0 },
+        "aluminium_6063":      { "standard_max": 3.0, "peck_max": 5.0 },
+        "aluminium_6082":      { "standard_max": 3.0, "peck_max": 5.0 },
+        "aluminium_7075":      { "standard_max": 3.0, "peck_max": 5.0 },
+        "aluminium_7050":      { "standard_max": 3.0, "peck_max": 5.0 },
+        "mild_steel":          { "standard_max": 2.0, "peck_max": 4.0 },
+        "steel":               { "standard_max": 2.0, "peck_max": 4.0 },
+        "stainless_steel":     { "standard_max": 2.0, "peck_max": 3.0 },
+        "stainless_steel_316": { "standard_max": 2.0, "peck_max": 3.0 },
+        "brass":               { "standard_max": 3.0, "peck_max": 5.0 },
+        "titanium":            { "standard_max": 2.0, "peck_max": 4.0 }
+      }
+    },
+    "PS-AL6061-CIRC-INTERP-001_DR-005": {
+      "title": "Circular interpolation for 13–32mm aluminium bores",
+      "status": "IMPLEMENTED",
+      "commit": "c470cb1bc",
+      "confidence": "HIGH",
+      "source": "Motor Mount Setup 4: D16.1 bore profiled with D10 EM circular interp; Machinery's Handbook §Milling",
+      "description": "For aluminium, 13–32mm holes use circular interpolation (helical entry, climb mill, flood coolant) instead of pilot+core drill. Steel/SS retain pilot+core drill for better chip control.",
+      "em_diameter_hint_fraction": 0.60,
+      "applies_to_materials": ["aluminium", "aluminium_6061", "aluminium_6063", "aluminium_6082", "aluminium_7075", "aluminium_7050"],
+      "diameter_band_mm": { "min_exclusive": 13.0, "max_inclusive": 32.0 }
+    },
+    "PS-AL6061-CHAMFER-002": {
+      "title": "Two-pass chamfer strategy (TOUCH + FINISH)",
+      "status": "IMPLEMENTED",
+      "commit": "5b8c8f656",
+      "confidence": "HIGH",
+      "source": "Motor Mount Setup 1 ops 18-19; Setup 4 op 3 — S318 F80 touch, S1592 F477 finish",
+      "description": "When chamfer depth > 0.5mm, emit two chamfer_mill steps: TOUCH pass (Vc ~28 m/min, F ~80 mmpm) for tool location, FINISH pass (Vc ~140 m/min) for profile contour. Shallow chamfers (<=0.5mm or unknown depth) use single pass.",
+      "single_pass_threshold_mm": 0.5,
+      "touch_pass_vc_m_per_min": 28,
+      "touch_pass_feed_mmpm": 80,
+      "finish_pass_vc_m_per_min": 140
+    }
+  }
 }
