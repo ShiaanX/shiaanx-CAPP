@@ -1,0 +1,342 @@
+{
+  "dashboard_version": "0.1",
+  "generated_date": "2026-06-22",
+  "author": "ShiaanX Dashboard Data Model — automated inventory",
+
+  "data_sources": {
+    "influxdb": {
+      "url": "https://8j1moabvym-aoe5tdinruw5gy.timestream-influxdb.ap-south-1.on.aws:8086",
+      "org": "cnc-org",
+      "primary_bucket": "cnc-data",
+      "secondary_bucket": "cnc-data-v2",
+      "measurement": "cnc_telemetry",
+      "tags": ["factory_id", "machine_id", "program_name (v2 only)"],
+      "total_rows": 356383,
+      "date_range": "2026-05-06 to 2026-06-06",
+      "machines": ["jyotiVMC (factory_id=ts)"],
+      "notes": [
+        "cnc-data-v2 is better structured: program_name as TAG enables efficient grouping",
+        "production_count is always 0 — part counter not working",
+        "tool_name field contains G-code program text, not tool names"
+      ]
+    },
+    "postgresql": {
+      "host": "localhost:5432 (dev) / 13.233.172.143 (prod)",
+      "database": "sx_dev",
+      "tables": 27,
+      "live_data_location": "AWS instance at 13.233.172.143",
+      "local_status": "empty (dev Docker instance)"
+    },
+    "s3": {
+      "provider": "AWS S3",
+      "contents": "CAD files, drawings, PDF program sheets",
+      "not_relevant_to_kpis": true
+    }
+  },
+
+  "primary_kpis": [
+    {
+      "kpi_name": "First Pass Rate (FPR)",
+      "definition": "Percentage of parts that pass QC inspection on the first attempt without rework",
+      "numerator": "Parts passing QC inspection on first attempt in period",
+      "denominator": "Total parts inspected in period",
+      "granularity": ["overall", "by_customer", "by_material", "by_part_program", "by_machine"],
+      "refresh_cadence": "daily",
+      "source_tables_available": [],
+      "source_tables_needed": [
+        "qc_inspection_results (MISSING — must create)",
+        "enquiry_parts (exists, links part to enquiry)",
+        "orders (exists, links to customer and material)"
+      ],
+      "missing_data": [
+        "No QC inspection table exists anywhere in the system",
+        "No pass/fail outcome field in any existing table",
+        "No rework count tracking",
+        "No failure mode classification (dimensional, surface finish, feature missed, etc.)",
+        "production_count in InfluxDB is always 0 — cannot count parts from telemetry",
+        "No linkage from InfluxDB program_name to PostgreSQL order/part ID"
+      ],
+      "status": "blocked",
+      "mvp_unblock_path": "Create qc_inspection_results table in PostgreSQL. Capture: order_id, part_id, inspection_date, outcome (PASS/FAIL/CONDITIONAL), failure_mode, rework_cycle_number. Even a simple web form that writes to this table would unblock FPR."
+    },
+    {
+      "kpi_name": "FAR Cycle Time",
+      "definition": "Calendar days from job receipt (enquiry submitted) to AS9102 first article report submission to customer",
+      "target": "< 21 calendar days (aerospace standard)",
+      "stages": [
+        {
+          "stage": "job_receipt",
+          "source_field": "enquiries.submitted_at",
+          "availability": "PARTIAL",
+          "notes": "submitted_at can be null. Use created_at as fallback. Live data on AWS only."
+        },
+        {
+          "stage": "capp_generated",
+          "source_field": "MISSING",
+          "availability": "NO",
+          "notes": "capp_service generates program sheets but does not write a completion timestamp to any DB. enquiry_parts.auto_quote_status has PENDING_PIPELINE/DRAFT/FINALIZED but no timestamp column."
+        },
+        {
+          "stage": "material_procured",
+          "source_field": "MISSING",
+          "availability": "NO",
+          "notes": "No procurement module. No table for material purchase orders or goods receipt notes."
+        },
+        {
+          "stage": "machining_complete",
+          "source_field": "PARTIAL — derivable from InfluxDB",
+          "availability": "PARTIAL",
+          "notes": "Can approximate from: last InfluxDB timestamp for a given program_name (when machine_state returns to 0 and program_name stops). Not stored explicitly. Linking InfluxDB program_name to PostgreSQL order requires manual naming convention."
+        },
+        {
+          "stage": "qc_complete",
+          "source_field": "MISSING",
+          "availability": "NO",
+          "notes": "No QC module. Same blocker as FPR."
+        },
+        {
+          "stage": "far_submitted",
+          "source_field": "MISSING",
+          "availability": "NO",
+          "notes": "No field or table tracks when AS9102 report was submitted to customer. Not tracked anywhere."
+        },
+        {
+          "stage": "customer_acceptance",
+          "source_field": "orders.actual_delivery_date",
+          "availability": "PARTIAL",
+          "notes": "actual_delivery_date captures physical delivery, not customer sign-off on FAR. Partial proxy. Live on AWS only."
+        }
+      ],
+      "status": "partial",
+      "computable_today": "order_to_delivery_days = orders.actual_delivery_date - enquiries.submitted_at (2 of 7 stages captured, gives total elapsed time not FAR-specific timeline)",
+      "mvp_unblock_path": "Add capp_generated_at to enquiry_parts. Add qc_complete_at and far_submitted_at to orders. For material procurement, a simple date field on orders (material_received_date) would suffice at MVP."
+    }
+  ],
+
+  "computable_now": [
+    {
+      "metric_name": "Machine Utilization Rate",
+      "definition": "Ratio of active cutting time to total machine-on time, per day",
+      "formula": "sum(cutting_time) / sum(production_time) × 100",
+      "source": "InfluxDB cnc_telemetry",
+      "fields": ["cutting_time", "production_time"],
+      "granularity": ["overall", "by_program", "by_day"],
+      "refresh_cadence": "hourly",
+      "status": "computable_now",
+      "notes": "Both fields are non-zero in the data. Use cnc-data-v2 for program-level grouping."
+    },
+    {
+      "metric_name": "Average Cycle Time per Program",
+      "definition": "Mean elapsed time (seconds) for one complete program cycle",
+      "formula": "mean(cycle_time) grouped by program_name",
+      "source": "InfluxDB cnc-data-v2",
+      "fields": ["cycle_time", "program_name (tag)"],
+      "granularity": ["by_program", "by_day", "by_week"],
+      "refresh_cadence": "daily",
+      "status": "computable_now",
+      "notes": "cycle_time resets at program start. Use cnc-data-v2 where program_name is a tag. Significant variation across programs is expected (setups differ)."
+    },
+    {
+      "metric_name": "Alarm Rate",
+      "definition": "Percentage of telemetry samples showing an active alarm, per program",
+      "formula": "sum(alarm_active=1) / count(alarm_active) × 100 per program_name",
+      "source": "InfluxDB cnc_telemetry",
+      "fields": ["alarm_active", "program_name"],
+      "granularity": ["by_program", "by_day"],
+      "refresh_cadence": "hourly",
+      "status": "computable_now",
+      "notes": "alarm_active is binary 0/1. High alarm rate for a program suggests setup or programming issues."
+    },
+    {
+      "metric_name": "Feed Override Usage",
+      "definition": "Mean and distribution of operator feed rate override percentage (100% = programmed value)",
+      "formula": "mean(feed_override), percentile(feed_override, [25,50,75,95]) per program",
+      "source": "InfluxDB cnc_telemetry",
+      "fields": ["feed_override", "program_name"],
+      "granularity": ["by_program", "by_day"],
+      "refresh_cadence": "daily",
+      "status": "computable_now",
+      "notes": "Override != 100 indicates manual adjustment. Frequent large deviations suggest CAPP parameters need calibration. Also applies to spindle_override."
+    },
+    {
+      "metric_name": "Spindle Load Profile",
+      "definition": "Mean and peak spindle load during cutting per program",
+      "formula": "mean(spindle_load), max(spindle_load) where machine_state=1 grouped by program_name",
+      "source": "InfluxDB cnc_telemetry",
+      "fields": ["spindle_load", "machine_state", "program_name"],
+      "granularity": ["by_program", "by_operation"],
+      "refresh_cadence": "daily",
+      "status": "computable_now",
+      "notes": "Filter to machine_state=1 (running) to exclude idle readings. High peak load indicates tool wear or incorrect Vc."
+    },
+    {
+      "metric_name": "Programs Run per Day",
+      "definition": "Count of distinct programs started per calendar day",
+      "formula": "count(distinct program_name) per day where machine_state=1",
+      "source": "InfluxDB cnc-data-v2",
+      "fields": ["program_name (tag)", "machine_state"],
+      "granularity": ["by_day", "by_week"],
+      "refresh_cadence": "daily",
+      "status": "computable_now",
+      "notes": "Proxy for job throughput. Does not distinguish between setup programs and production runs."
+    },
+    {
+      "metric_name": "On-Time Delivery Rate",
+      "definition": "Percentage of orders delivered on or before expected delivery date",
+      "formula": "count(actual_delivery_date <= expected_delivery_date) / count(orders with both dates) × 100",
+      "source": "PostgreSQL",
+      "fields": ["orders.actual_delivery_date", "orders.expected_delivery_date"],
+      "granularity": ["overall", "by_customer", "by_material", "by_month"],
+      "refresh_cadence": "daily",
+      "status": "partial",
+      "notes": "Schema exists. Requires live PostgreSQL data (AWS instance). Both date fields can be null — filter to rows where both are populated."
+    },
+    {
+      "metric_name": "Quote-to-Order Conversion Rate",
+      "definition": "Percentage of enquiries that convert to confirmed orders",
+      "formula": "count(orders) / count(enquiries) × 100 per time period",
+      "source": "PostgreSQL",
+      "fields": ["enquiries.id", "orders.enquiry_id", "enquiries.status"],
+      "granularity": ["overall", "by_month", "by_customer"],
+      "refresh_cadence": "daily",
+      "status": "partial",
+      "notes": "Schema exists. Requires live PostgreSQL data."
+    }
+  ],
+
+  "capture_gaps": [
+    {
+      "gap_id": "G01",
+      "gap_description": "No QC inspection outcome captured anywhere — pass/fail, failure mode, rework cycle",
+      "required_for_kpi": "FPR",
+      "capture_method": "New PostgreSQL table: qc_inspection_results(id, order_id, enquiry_part_id, inspector_id, inspected_at, outcome ENUM(PASS,FAIL,CONDITIONAL_PASS), failure_mode VARCHAR, rework_cycle INT, notes TEXT). Captured via: (a) internal web form in ShiaanX admin UI, or (b) webhook from CMM / inspection app.",
+      "priority": "P0",
+      "effort": "Medium — 1 table + 1 admin form"
+    },
+    {
+      "gap_id": "G02",
+      "gap_description": "production_count in InfluxDB is always 0 — CNC part counter not captured",
+      "required_for_kpi": "FPR (indirectly), machining throughput",
+      "capture_method": "Fix OPC UA / Focas data collection agent to map the correct part counter register from jyotiVMC controller. Likely a tag address mismatch in the data collection script.",
+      "priority": "P0",
+      "effort": "Low — 1-line fix in OPC UA tag configuration"
+    },
+    {
+      "gap_id": "G03",
+      "gap_description": "No timestamp for when CAPP program sheet was generated",
+      "required_for_kpi": "FAR cycle time (stage 2)",
+      "capture_method": "Add capp_generated_at TIMESTAMP to enquiry_parts table. capp_service/runner.py writes this timestamp to PostgreSQL when program sheet PDF is created. One migration + 3-line change in runner.py.",
+      "priority": "P0",
+      "effort": "Low — 1 migration + backend code change"
+    },
+    {
+      "gap_id": "G04",
+      "gap_description": "No linkage between InfluxDB program_name and PostgreSQL order/part ID",
+      "required_for_kpi": "FAR cycle time (stage 4 — machining complete), FPR (part identity)",
+      "capture_method": "ProgramToolMappings table already exists but only maps program_name to tool. Extend it or create a new table: program_job_mappings(program_name, order_id, enquiry_part_id, scheduled_setup_number). Populated when CAPP generates a program sheet — the pipeline already knows the part and setup.",
+      "priority": "P0",
+      "effort": "Low — 1 migration + CAPP pipeline write-back"
+    },
+    {
+      "gap_id": "G05",
+      "gap_description": "No AS9102 FAR report tracking — submission date, report ID, customer acknowledgement",
+      "required_for_kpi": "FAR cycle time (stage 6)",
+      "capture_method": "New PostgreSQL table: far_reports(id, order_id, report_number VARCHAR, submitted_at TIMESTAMP, submitted_by UUID FK(users), s3_key VARCHAR, customer_acknowledged_at TIMESTAMP, notes TEXT). Captured via: admin form when FAR is sent to customer.",
+      "priority": "P1",
+      "effort": "Medium — 1 table + 1 admin form + S3 upload"
+    },
+    {
+      "gap_id": "G06",
+      "gap_description": "No material procurement tracking — purchase date, received date, material cert",
+      "required_for_kpi": "FAR cycle time (stage 3)",
+      "capture_method": "Add to orders table: material_ordered_date DATE, material_received_date DATE. Or create separate procurement_records table for full traceability. Captured via: admin form or ERP integration.",
+      "priority": "P1",
+      "effort": "Low (2 columns on orders) to Medium (full procurement table)"
+    },
+    {
+      "gap_id": "G07",
+      "gap_description": "Telemetry data is stale — most recent data in cnc-data is 2026-05-13 (40 days old)",
+      "required_for_kpi": "All InfluxDB-based metrics (machine utilization, cycle time, etc.)",
+      "capture_method": "Investigate and restart the OPC UA / Focas data collection agent on jyotiVMC. cnc-data-v2 has more recent data (up to 2026-06-06) — check whether the collector was migrated to v2 or stopped. Dashboard queries should use cnc-data-v2 as primary bucket.",
+      "priority": "P0",
+      "effort": "Low — operational fix, not code change"
+    },
+    {
+      "gap_id": "G08",
+      "gap_description": "tool_name field stores G-code program text, not tool names — field name is misleading",
+      "required_for_kpi": "Tool utilization metrics, setup sheet validation",
+      "capture_method": "Option A: Fix OPC UA tag mapping to capture actual tool name string (if controller exposes it). Option B: Keep as G-code text (current state) and rely on parseGCode() for tool extraction — but rename the InfluxDB field to 'active_program_block' to avoid confusion. Option C: Use ProgramToolMappings in PostgreSQL as the tool reference.",
+      "priority": "P2",
+      "effort": "Low to Medium"
+    }
+  ],
+
+  "proposed_schema_additions": [
+    {
+      "table": "qc_inspection_results",
+      "columns": {
+        "id": "UUID PK",
+        "order_id": "UUID FK(orders)",
+        "enquiry_part_id": "UUID FK(enquiry_parts)",
+        "inspector_id": "UUID FK(users)",
+        "inspected_at": "TIMESTAMP NOT NULL",
+        "outcome": "ENUM('PASS','FAIL','CONDITIONAL_PASS') NOT NULL",
+        "failure_mode": "VARCHAR (dimensional | surface_finish | feature_missing | other)",
+        "rework_cycle": "INTEGER DEFAULT 1 (1=first attempt, 2=after first rework)",
+        "cmm_report_s3_key": "VARCHAR (optional link to CMM output)",
+        "notes": "TEXT",
+        "created_at": "TIMESTAMP",
+        "updated_at": "TIMESTAMP"
+      },
+      "rationale": "Enables FPR computation. FPR = count(WHERE rework_cycle=1 AND outcome=PASS) / count(WHERE rework_cycle=1)"
+    },
+    {
+      "table": "far_reports",
+      "columns": {
+        "id": "UUID PK",
+        "order_id": "UUID FK(orders) NOT NULL",
+        "report_number": "VARCHAR UNIQUE",
+        "submitted_at": "TIMESTAMP NOT NULL",
+        "submitted_by": "UUID FK(users)",
+        "s3_key": "VARCHAR (S3 path to the PDF report)",
+        "customer_acknowledged_at": "TIMESTAMP",
+        "notes": "TEXT",
+        "created_at": "TIMESTAMP",
+        "updated_at": "TIMESTAMP"
+      },
+      "rationale": "Enables FAR cycle time stage 6. FAR submitted date is the official end point of the AS9102 timeline."
+    },
+    {
+      "table": "program_job_mappings",
+      "columns": {
+        "id": "SERIAL PK",
+        "program_name": "VARCHAR NOT NULL (matches InfluxDB program_name)",
+        "order_id": "UUID FK(orders)",
+        "enquiry_part_id": "UUID FK(enquiry_parts)",
+        "setup_number": "INTEGER (1=1ST, 2=2ND, etc.)",
+        "created_at": "TIMESTAMP"
+      },
+      "rationale": "Links InfluxDB telemetry to PostgreSQL orders. Enables machining_complete derivation from InfluxDB program end time. CAPP pipeline populates this at program sheet generation time."
+    },
+    {
+      "migration": "Add columns to enquiry_parts",
+      "columns": {
+        "capp_generated_at": "TIMESTAMP (when program sheet was generated)",
+        "machining_started_at": "TIMESTAMP (derived from InfluxDB or manual entry)",
+        "machining_completed_at": "TIMESTAMP (derived from InfluxDB or manual entry)"
+      },
+      "rationale": "Captures FAR cycle time stages 2 and 4 at the part level."
+    },
+    {
+      "migration": "Add columns to orders",
+      "columns": {
+        "material_ordered_date": "DATE",
+        "material_received_date": "DATE",
+        "qc_started_at": "TIMESTAMP",
+        "qc_completed_at": "TIMESTAMP",
+        "far_submitted_at": "TIMESTAMP"
+      },
+      "rationale": "Captures FAR cycle time stages 3, 5, and 6 at the order level."
+    }
+  ]
+}

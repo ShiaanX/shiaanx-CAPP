@@ -211,35 +211,3 @@ The MATERIAL_STOCK_TABLE and FACE_MILL_MAX_AP have SS304 entries (stock=0.25mm, 
 | `audit/rule_coverage_matrix.md` | COMPLETE | 10 gaps identified |
 | `proposed_rules.json` | COMPLETE | 22 rules (14 operation + 5 decision + 3 from decision rules section) |
 | `FINDINGS_rule_expansion.md` | COMPLETE | This file |
-
----
-
-## Implementation Summary (Session 2 — 2026-06-22/23)
-
-Three HIGH confidence rules from `proposed_rules.json` were implemented into `4. process_selection.py` in separate commits on branch `feature/rule-sheet-expansion`. All rules validated against Motor Mount pipeline (no regressions; PIPELINE COMPLETE, all 9 stages).
-
-### Rules IMPLEMENTED
-
-| Rule ID | Commit | What changed |
-|---------|--------|-------------|
-| **DR-003** | `76de5907a` | Added `_DDR_THRESHOLDS_BY_MATERIAL` table; `material` kwarg threaded through `_drill_cycle → _drilling_steps → _process_through_hole, _process_blind_hole, _process_counterbore, _process_tapped_hole → select_process`. Steel uses (2.0, 4.0) thresholds; SS uses (2.0, 3.0); aluminium keeps (3.0, 5.0). |
-| **PS-AL6061-CIRC-INTERP-001 + DR-005** | `c470cb1bc` | 13–32mm branch in `_drilling_steps` now emits `circular_interp` for aluminium (em_diameter_hint_mm = 0.60 × bore). Steel/SS fall back to pilot+core drill. Motor Mount D16.1 bore confirmed. |
-| **PS-AL6061-CHAMFER-002** | `5b8c8f656` | `_process_chamfer()` now emits two steps (TOUCH + FINISH) when depth > 0.5mm. TOUCH: Vc ~28 m/min, F ~80 mmpm. FINISH: Vc ~140 m/min. Single-pass fallback for unknown/shallow depth. |
-| **setup_planning.py bug fix** | `1062f6d27` | Pre-existing `TypeError` in `print_setup_summary`: `wo.get('x_mm', 0)` returns `None` when key exists but value is `None`; `:.3f` format on `None` raised `TypeError`. Fixed with `or 0` fallback. |
-
-`rule_sheets/02_process_selection.json` updated with `implemented_rules` block (commit `7cb9bb6ba`).
-
-### Rules DEFERRED (not implemented this session)
-
-| Rule ID | Confidence | Reason deferred |
-|---------|-----------|-----------------|
-| PS-AL6061-DYNAMIC-001 | HIGH | Requires `dynamic_mill` operation type + feature flag; geometry fields for ae % not in feature JSON yet |
-| PS-AL6061-BULLNOSE-001 | HIGH | Requires `top_corner_radius` geometry field in feature JSON — classify_features.py change needed first |
-| PS-AL6061-BALLNOSE-FLOOR-001 | HIGH | Requires `floor_corner_radius` geometry field — same blocker |
-| PS-AL6061-DEEPNARROW-001 | HIGH | Requires L/D ratio from feature JSON depth and internal_corner_radius — feasible but not this session |
-| PS-AL6061-REAM-001 | MEDIUM | Blocked by tolerance fields from GD&T (not in MFCAD++ STEP files) |
-| PS-AL7075-* (3 rules) | MEDIUM | Handbook-only; no empirical validation — needs first Al 7075 job |
-| PS-SS304-* (5 rules) | MEDIUM | Handbook-only; no SS304 job to validate against |
-| PS-EN8-* (3 rules) | MEDIUM | Handbook-only; no EN8 job to validate against |
-| PS-ALL-THREADMILL-001 | MEDIUM | Needs thread_mill tool type added to tool_database.json first |
-| DR-001, DR-002, DR-004 | HIGH | Decision rules only (no code change needed in process_selection; they will apply when reaming/thread-milling ops are added) |

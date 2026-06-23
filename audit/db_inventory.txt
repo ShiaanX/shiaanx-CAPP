@@ -1,0 +1,214 @@
+PostgreSQL Inventory — sx_dev database
+Date: 2026-06-22
+Connection: postgresql://postgres:7009@localhost:5432/sx_dev (local Docker)
+Note: Local Docker DB is empty (all 0 rows). Live data is on AWS backend at 13.233.172.143.
+      Schema documented from shiaanx-backend/migrations/ (migrations 01 through 26).
+
+=== DOCKER STATUS ===
+sx-db container: Running (postgres:15-alpine)
+Port: 0.0.0.0:5432->5432/tcp
+All 27 tables created, 0 rows in all tables (clean dev instance, no seeded data)
+
+=== TABLE LIST (27 tables) ===
+  ProgramToolMappings        0 rows
+  SequelizeMeta              0 rows
+  enquiries                  0 rows
+  enquiry_documents          0 rows
+  enquiry_message_attachments 0 rows
+  enquiry_messages           0 rows
+  enquiry_part_finishes      0 rows
+  enquiry_part_materials     0 rows
+  enquiry_part_technologies  0 rows
+  enquiry_parts              0 rows
+  enquiry_status_history     0 rows
+  finishes                   0 rows
+  materials                  0 rows
+  order_item_finishes        0 rows
+  order_item_materials       0 rows
+  order_item_technologies    0 rows
+  order_items                0 rows
+  order_status_history       0 rows
+  orders                     0 rows
+  otps                       0 rows
+  processing_technologies    0 rows
+  quote_items                0 rows
+  quote_messages             0 rows
+  quotes                     0 rows
+  referral_codes             0 rows
+  referrals                  0 rows
+  users                      0 rows
+
+=== FULL SCHEMA (from migrations 01-26) ===
+
+-- users (migration 01, extended by 19, 20)
+CREATE TABLE users (
+  id                UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  name              VARCHAR NOT NULL,
+  email             VARCHAR NOT NULL UNIQUE,
+  password          VARCHAR NOT NULL,
+  role              ENUM('ADMIN','CUSTOMER','VENDOR') NOT NULL,
+  status            ENUM('active','inactive','blocked') DEFAULT 'active',
+  is_email_verified BOOLEAN DEFAULT false,
+  company_name      VARCHAR,           -- added migration 19
+  gst               VARCHAR,           -- added migration 19
+  registered_address TEXT,             -- added migration 19
+  user_id           VARCHAR UNIQUE,    -- added migration 20 (e.g. C00001, V00001, A00001)
+  created_at        TIMESTAMP NOT NULL,
+  updated_at        TIMESTAMP NOT NULL,
+  deleted_at        TIMESTAMP
+);
+
+-- referral_codes, referrals, otps (migration 02)
+CREATE TABLE referral_codes (id UUID PK, customer_id UUID FK(users), code VARCHAR UNIQUE, status ENUM('active','inactive'), ...);
+CREATE TABLE referrals (id UUID PK, referrer_customer_id UUID FK, referred_customer_id UUID FK, referral_code_id UUID FK, status ENUM('pending','successful','rejected'), ...);
+CREATE TABLE otps (id UUID PK, user_id UUID FK, type ENUM('EMAIL','MOBILE'), purpose ENUM('VERIFICATION','FORGOT_PASSWORD'), code VARCHAR, expires_at TIMESTAMP, is_used BOOLEAN, ...);
+
+-- quotes (migration 03, 04, 05)
+CREATE TABLE quotes (
+  id           UUID PK,
+  quote_number VARCHAR NOT NULL UNIQUE,
+  customer_id  UUID FK(users) NOT NULL,
+  status       VARCHAR DEFAULT 'PENDING',
+  total_amount DECIMAL(12,2) DEFAULT 0,
+  created_by   UUID FK(users),
+  created_at, updated_at, deleted_at
+);
+CREATE TABLE quote_items (id UUID PK, quote_id UUID FK, product_name VARCHAR, quantity INT, rate DECIMAL, amount DECIMAL, ...);
+CREATE TABLE quote_messages (id UUID PK, quote_id UUID FK, sender_id UUID FK(users), message TEXT, ...);
+
+-- enquiries (migration 06, extended by 14, 16, 21, 24)
+CREATE TABLE enquiries (
+  id                       UUID PK,
+  enquiry_number           VARCHAR NOT NULL UNIQUE,
+  customer_id              UUID FK(users) NOT NULL,
+  processing_technology    VARCHAR,
+  material                 VARCHAR,
+  finishes                 VARCHAR,
+  remarks                  TEXT,
+  quantity                 INT DEFAULT 1,
+  status                   VARCHAR DEFAULT 'PENDING',
+  status_updated_at        TIMESTAMP,
+  submitted_at             TIMESTAMP,      -- IMPORTANT: job receipt timestamp
+  shipping_address         TEXT,           -- added migration 14
+  billing_address          TEXT,           -- added migration 21
+  processing_technology_id UUID FK(processing_technologies),  -- migration 16
+  material_id              UUID FK(materials),                -- migration 16
+  finish_id                UUID FK(finishes),                 -- migration 16
+  master_quote_data        JSONB,          -- added migration 24 (discount, totals, shipping)
+  created_at, updated_at, deleted_at
+);
+Indexes: customer_id, status, enquiry_number
+
+-- enquiry_documents (migration 07, extended by 17, 18)
+CREATE TABLE enquiry_documents (
+  id              UUID PK,
+  enquiry_id      UUID FK(enquiries),
+  enquiry_part_id UUID FK(enquiry_parts),   -- added migration 17
+  file_name       VARCHAR,
+  file_path       VARCHAR(500),             -- S3 key or local path
+  file_type       VARCHAR,
+  file_size_kb    DECIMAL,
+  mime_type       VARCHAR,
+  document_type   VARCHAR,                  -- e.g. 'STEP', 'PDF', 'DXF'
+  uploaded_by     UUID FK(users),
+  remarks         TEXT,                     -- added migration 18
+  created_at, updated_at, deleted_at
+);
+
+-- enquiry_messages, enquiry_message_attachments (migrations 08, 09)
+CREATE TABLE enquiry_messages (id UUID PK, enquiry_id UUID FK, sender_id UUID FK, message TEXT, is_read BOOLEAN, read_at TIMESTAMP, ...);
+CREATE TABLE enquiry_message_attachments (id UUID PK, message_id UUID FK, file_name VARCHAR, file_path VARCHAR, ...);
+
+-- orders (migration 10, extended by 16)
+CREATE TABLE orders (
+  id                       UUID PK,
+  order_number             VARCHAR NOT NULL UNIQUE,
+  customer_id              UUID FK(users) NOT NULL,
+  enquiry_id               UUID FK(enquiries) UNIQUE,    -- 1:1 with enquiry
+  processing_technology    VARCHAR,
+  material                 VARCHAR,
+  finishes                 VARCHAR,
+  quantity                 INT NOT NULL,
+  total_amount             DECIMAL(12,2),
+  tax_amount               DECIMAL(12,2) DEFAULT 0,
+  discount_amount          DECIMAL(12,2) DEFAULT 0,
+  final_amount             DECIMAL(12,2),
+  status                   VARCHAR DEFAULT 'PROCESSING',
+  generated_by             UUID FK(users),
+  generated_at             TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  expected_delivery_date   DATE,           -- IMPORTANT: target delivery
+  actual_delivery_date     DATE,           -- IMPORTANT: actual delivery (on-time delivery KPI)
+  admin_notes              TEXT,
+  customer_notes           TEXT,
+  processing_technology_id UUID FK(processing_technologies),
+  material_id              UUID FK(materials),
+  finish_id                UUID FK(finishes),
+  created_at, updated_at, deleted_at
+);
+Indexes: customer_id, enquiry_id, status, order_number
+
+-- order_items (migration 11)
+CREATE TABLE order_items (id UUID PK, order_id UUID FK, item_name VARCHAR, description TEXT, quantity INT, unit_price DECIMAL, total_price DECIMAL, processing_technology VARCHAR, material VARCHAR, finishes VARCHAR, ...);
+
+-- status history tables (migrations 12, 13)
+CREATE TABLE enquiry_status_history (id UUID PK, enquiry_id UUID FK, from_status VARCHAR, to_status VARCHAR, changed_by UUID FK, change_reason TEXT, created_at TIMESTAMP);
+CREATE TABLE order_status_history (id UUID PK, order_id UUID FK, from_status VARCHAR, to_status VARCHAR, changed_by UUID FK, change_reason TEXT, created_at TIMESTAMP);
+
+-- master attribute tables (migration 15, extended by 23)
+CREATE TABLE processing_technologies (id UUID PK, name VARCHAR UNIQUE, description TEXT, is_active BOOLEAN, rate DECIMAL, ...);
+CREATE TABLE materials (id UUID PK, name VARCHAR UNIQUE, description TEXT, is_active BOOLEAN, rate DECIMAL, ...);
+CREATE TABLE finishes (id UUID PK, name VARCHAR UNIQUE, description TEXT, is_active BOOLEAN, rate DECIMAL, ...);
+
+-- enquiry_parts and junction tables (migration 17, extended by 22)
+CREATE TABLE enquiry_parts (
+  id                UUID PK,
+  enquiry_id        UUID FK(enquiries),
+  part_name         VARCHAR NOT NULL,
+  remarks           TEXT,
+  quantity          INT DEFAULT 1,
+  auto_quote_data   JSONB,    -- IMPORTANT: full auto-generated quote state for this part
+  auto_quote_status VARCHAR,  -- PENDING_PIPELINE | DRAFT | FINALIZED
+  created_at, updated_at, deleted_at
+);
+Junction tables: enquiry_part_technologies, enquiry_part_materials, enquiry_part_finishes
+                 order_item_technologies, order_item_materials, order_item_finishes
+
+-- ProgramToolMappings (migrations 25, 26)
+CREATE TABLE "ProgramToolMappings" (
+  id           SERIAL PK,
+  program_name VARCHAR NOT NULL,
+  tool_name    VARCHAR NOT NULL,
+  tool_number  INT NOT NULL DEFAULT 0,
+  created_at   TIMESTAMP,
+  updated_at   TIMESTAMP,
+  UNIQUE(program_name, tool_number)
+);
+Index: program_name
+Purpose: Links InfluxDB program_name values to tool_name and tool_number.
+This is the bridge between InfluxDB telemetry and the tool catalog.
+
+=== KEY TIMESTAMP FIELDS FOR FAR CYCLE TIME ===
+enquiries.submitted_at           -- job received from customer
+enquiries.created_at             -- enquiry created in system
+enquiries.status_updated_at      -- last status change
+enquiry_status_history.created_at -- history of each status change with timestamp
+orders.generated_at              -- order generated (PO confirmed)
+orders.expected_delivery_date    -- target delivery date
+orders.actual_delivery_date      -- actual delivery date
+order_status_history.created_at  -- order status transitions
+
+=== MISSING TIMESTAMP FIELDS ===
+NO field for: CAPP generated date, material procured date,
+              machining complete date, QC inspection date,
+              AS9102 report submitted date.
+
+=== ENQUIRY STATUS VALUES (inferred from schema, not from live data) ===
+Likely values: PENDING, UNDER_REVIEW, QUOTED, PO_RECEIVED, IN_PRODUCTION, QC, SHIPPED, DELIVERED
+(Exact enum not defined in migrations - stored as VARCHAR, flexible)
+
+=== LIVE DATA STATUS ===
+Local Docker: 0 rows in all tables (dev instance only)
+Live data location: AWS PostgreSQL on instance 13.233.172.143
+AWS backend API port: 3003 (running in Docker)
+AWS API health: returns {"message":"Route not found"} at /api/v1/health
+  (backend is live but /health route not implemented)
