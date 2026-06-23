@@ -1,0 +1,42 @@
+======================================================================
+Motor Mount Feature Recognition — Accuracy Report
+======================================================================
+
+Total clusters detected : 100
+
+Feature Type Distribution:
+  background                    : 1
+  boss                          : 24
+  boss_angled                   : 6
+  chamfer                       : 4
+  counterbore                   : 6
+  large_bore                    : 1
+  planar_face                   : 21
+  pocket                        : 21
+  slot                          : 12
+  through_hole                  : 4
+
+──────────────────────────────────────────────────────────────────────
+Ground Truth Recall Check (min expected count vs detected):
+  Feature                Min Expected   Detected    Pre-Fix   Status
+  ------------------------------------------------------------------
+  boss                              2         24         24 Y  PASS
+  chamfer                           2          4          0 N  PASS
+  counterbore                       0          6          6 Y  PASS
+  large_bore                        1          1          1 Y  PASS
+  planar_face                       3         21          0 N  PASS
+  pocket                            6         21          0 N  PASS
+  slot                              0         12         12 Y  PASS
+  through_hole                      2          4          4 Y  PASS
+
+  Pre-fix recall  : 62.5%  (5/8 types met)
+  Post-fix recall : 100.0%  (8/8 types met)
+  Delta           : +37.5%
+
+──────────────────────────────────────────────────────────────────────
+Fix Summary:
+  1. Plane connected-component seeding (P0 bug) → pocket/planar_face now detected
+  2. Chamfer seed exclusion fix (cap plane test) → chamfer faces now seeded
+  3. Chamfer classification in classify_features.py → chamfer label applied
+  4. is_principal_axis propagated for plane clusters → angled detection works
+======================================================================

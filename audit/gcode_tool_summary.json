@@ -1,0 +1,383 @@
+{
+  "part": "Motor Mount",
+  "setups": [
+    {
+      "setup_number": 1,
+      "file": "MOTOR_MOUNT_1_SETUP..MPF",
+      "total_lines": 19368,
+      "tool_calls": [
+        {
+          "line": 45,
+          "tool_number": 1,
+          "tool_description": "- T1 END MILL D10",
+          "operation_name": "10 ENDMILL DYNAMIC-1 RF =  0:09:43",
+          "raw": "T1; - T1 END MILL D10"
+        },
+        {
+          "line": 11280,
+          "tool_number": 1,
+          "tool_description": "- T1 END MILL D10",
+          "operation_name": "10 ENDMILL STEP-1 BOTTOM FINISH- =  0:02:03",
+          "raw": "T1; - T1 END MILL D10"
+        },
+        {
+          "line": 11707,
+          "tool_number": 1,
+          "tool_description": "- T1 END MILL D10",
+          "operation_name": "10 ENDMILL OUTER-PROFILE FINISH =  0:01:25",
+          "raw": "T1; - T1 END MILL D10"
+        },
+        {
+          "line": 11751,
+          "tool_number": 1,
+          "tool_description": "- T1 END MILL D10",
+          "operation_name": "10 ENDMILL STEP-1 FINISH =  0:01:12",
+          "raw": "T1; - T1 END MILL D10"
+        },
+        {
+          "line": 11794,
+          "tool_number": 2,
+          "tool_description": "- T2 CENTER DRILL D2",
+          "operation_name": "CENTER DRILL-BS2 =  0:00:58",
+          "raw": "T2; - T2 CENTER DRILL D2"
+        },
+        {
+          "line": 11826,
+          "tool_number": 3,
+          "tool_description": "- T3 DRILL D2.5",
+          "operation_name": "2.5 DRILL- =  0:02:06",
+          "raw": "T3; - T3 DRILL D2.5"
+        },
+        {
+          "line": 11853,
+          "tool_number": 4,
+          "tool_description": "- T4 DRILL D3.2",
+          "operation_name": "3.2 DRILL- =  0:01:21",
+          "raw": "T4; - T4 DRILL D3.2"
+        },
+        {
+          "line": 11872,
+          "tool_number": 5,
+          "tool_description": "- T5 END MILL D8",
+          "operation_name": "8 ENDMILL Q11 RF =  0:00:29",
+          "raw": "T5; - T5 END MILL D8"
+        },
+        {
+          "line": 11903,
+          "tool_number": 5,
+          "tool_description": "- T5 END MILL D8",
+          "operation_name": "8 ENDMILL SP RF =  0:01:18",
+          "raw": "T5; - T5 END MILL D8"
+        },
+        {
+          "line": 12059,
+          "tool_number": 5,
+          "tool_description": "- T5 END MILL D8",
+          "operation_name": "8 ENDMILL Q11 FINISH =  0:00:18",
+          "raw": "T5; - T5 END MILL D8"
+        },
+        {
+          "line": 12076,
+          "tool_number": 5,
+          "tool_description": "- T5 END MILL D8",
+          "operation_name": "8 ENDMILL SMALL-POCKET FINISH- =  0:00:20",
+          "raw": "T5; - T5 END MILL D8"
+        },
+        {
+          "line": 12097,
+          "tool_number": 6,
+          "tool_description": "- T6 END MILL D3",
+          "operation_name": "3 ENDMILL CAVITY-- RF =  0:03:11",
+          "raw": "T6; - T6 END MILL D3"
+        },
+        {
+          "line": 15435,
+          "tool_number": 6,
+          "tool_description": "- T6 END MILL D3",
+          "operation_name": "3 ENDMILL CAVITY- FINISH =  0:00:48",
+          "raw": "T6; - T6 END MILL D3"
+        },
+        {
+          "line": 15599,
+          "tool_number": 6,
+          "tool_description": "- T6 END MILL D3",
+          "operation_name": "3 ENDMILL SMALL-POCKET CORNER =  0:01:28",
+          "raw": "T6; - T6 END MILL D3"
+        },
+        {
+          "line": 16299,
+          "tool_number": 7,
+          "tool_description": "- T7 END MILL D4",
+          "operation_name": "4 ENDMILL OUTER-PROFILE CORNER =  0:01:31",
+          "raw": "T7; - T7 END MILL D4"
+        },
+        {
+          "line": 17117,
+          "tool_number": 8,
+          "tool_description": "- T8 BULL NOSE MILL D8",
+          "operation_name": "8R1 ENDMILL-TOP R FINISH =  0:02:58",
+          "raw": "T8; - T8 BULL NOSE MILL D8"
+        },
+        {
+          "line": 19028,
+          "tool_number": 9,
+          "tool_description": "- T9 BALL NOSE D5",
+          "operation_name": "5 BALLNOSE STEP BOTTOM FINISH =  0:00:48",
+          "raw": "T9; - T9 BALL NOSE D5"
+        },
+        {
+          "line": 19047,
+          "tool_number": 10,
+          "tool_description": "- T10 CHAMFER MILL D10",
+          "operation_name": "CHAMFER CUTTER 10 X 45 =  0:00:51",
+          "raw": "T10; - T10 CHAMFER MILL D10"
+        },
+        {
+          "line": 19081,
+          "tool_number": 10,
+          "tool_description": "- T10 CHAMFER MILL D10",
+          "operation_name": "CHAMFER CUTTER 10 X 45- =  0:01:03",
+          "raw": "T10; - T10 CHAMFER MILL D10"
+        }
+      ],
+      "tool_call_count": 19,
+      "unique_spindle_speeds": [
+        900,
+        1000,
+        1200,
+        1500,
+        2200,
+        2500,
+        2800,
+        3000,
+        4461,
+        4500
+      ],
+      "unique_feed_rates": [
+        70.0,
+        80.0,
+        199.0,
+        200.0,
+        233.0,
+        236.0,
+        250.0,
+        251.0,
+        264.0,
+        277.0,
+        280.0,
+        283.0,
+        293.0,
+        300.0,
+        301.0,
+        309.0,
+        310.0,
+        311.0,
+        315.0,
+        334.0
+      ]
+    },
+    {
+      "setup_number": 2,
+      "file": "MOTOR_MOUNT_2_SETUP..MPF",
+      "total_lines": 23539,
+      "tool_calls": [
+        {
+          "line": 33,
+          "tool_number": 1,
+          "tool_description": "- T1 END MILL D10",
+          "operation_name": "10 ENDMILL DYAMNIC-2RF =  0:14:01",
+          "raw": "T1; - T1 END MILL D10"
+        },
+        {
+          "line": 18072,
+          "tool_number": 1,
+          "tool_description": "- T1 END MILL D10",
+          "operation_name": "10 ENDMILL STEP-2 FINISH =  0:00:45",
+          "raw": "T1; - T1 END MILL D10"
+        },
+        {
+          "line": 18103,
+          "tool_number": 1,
+          "tool_description": "- T1 END MILL D10",
+          "operation_name": "10 ENDMILL LENGHT FINISH CUT =  0:00:24",
+          "raw": "T1; - T1 END MILL D10"
+        },
+        {
+          "line": 18118,
+          "tool_number": 1,
+          "tool_description": "- T1 END MILL D10",
+          "operation_name": "10 ENDMILL STEP BOTTOM FINISH =  0:02:39",
+          "raw": "T1; - T1 END MILL D10"
+        },
+        {
+          "line": 19032,
+          "tool_number": 11,
+          "tool_description": "- T11 DRILL D3",
+          "operation_name": "3 DRILL =  0:00:31",
+          "raw": "T11; - T11 DRILL D3"
+        },
+        {
+          "line": 19047,
+          "tool_number": 7,
+          "tool_description": "- T7 END MILL D4",
+          "operation_name": "4 ENDMILL STEP POCKET FINISH =  0:00:36",
+          "raw": "T7; - T7 END MILL D4"
+        },
+        {
+          "line": 19092,
+          "tool_number": 7,
+          "tool_description": "- T7 END MILL D4",
+          "operation_name": "4 ENDMILL STEP-2 FINISH =  0:00:38",
+          "raw": "T7; - T7 END MILL D4"
+        },
+        {
+          "line": 19130,
+          "tool_number": 8,
+          "tool_description": "- T8 BULL NOSE MILL D8",
+          "operation_name": "8R1 ENDMILL =  0:01:53",
+          "raw": "T8; - T8 BULL NOSE MILL D8"
+        },
+        {
+          "line": 20016,
+          "tool_number": 9,
+          "tool_description": "- T9 BALL NOSE D5",
+          "operation_name": "5 BALLNOSE STEP-2 BOTTOM R FINISH =  0:00:45",
+          "raw": "T9; - T9 BALL NOSE D5"
+        },
+        {
+          "line": 20040,
+          "tool_number": 12,
+          "tool_description": "- T12 BALL NOSE D3",
+          "operation_name": "3 BALLNOSE-1 =  0:01:34",
+          "raw": "T12; - T12 BALL NOSE D3"
+        },
+        {
+          "line": 20875,
+          "tool_number": 12,
+          "tool_description": "- T12 BALL NOSE D3",
+          "operation_name": "3 BALLNOSE =  0:02:23",
+          "raw": "T12; - T12 BALL NOSE D3"
+        }
+      ],
+      "tool_call_count": 11,
+      "unique_spindle_speeds": [
+        1200,
+        2200,
+        2500,
+        2800,
+        4500,
+        4557
+      ],
+      "unique_feed_rates": [
+        80.0,
+        83.0,
+        84.0,
+        95.0,
+        101.0,
+        108.0,
+        109.0,
+        110.0,
+        111.0,
+        141.0,
+        144.0,
+        158.0,
+        165.0,
+        167.0,
+        169.0,
+        173.0,
+        182.0,
+        194.0,
+        199.0,
+        200.0
+      ]
+    },
+    {
+      "setup_number": 3,
+      "file": "MOTOR_MOUNT_3_FINISH_SETUP..MPF",
+      "total_lines": 484,
+      "tool_calls": [
+        {
+          "line": 20,
+          "tool_number": 1,
+          "tool_description": "- T1 END MILL D10",
+          "operation_name": "10 ENDMILL STEP-1-1 BOTTOM FINISH =  0:02:03",
+          "raw": "T1; - T1 END MILL D10"
+        },
+        {
+          "line": 447,
+          "tool_number": 1,
+          "tool_description": "- T1 END MILL D10",
+          "operation_name": "10 ENDMILL STEP-1 FINISH-1 =  0:00:41",
+          "raw": "T1; - T1 END MILL D10"
+        },
+        {
+          "line": 466,
+          "tool_number": 9,
+          "tool_description": "- T9 BALL NOSE D5",
+          "operation_name": "5 BALLNOSE STEP BOTTOM FINISH- =  0:00:48",
+          "raw": "T9; - T9 BALL NOSE D5"
+        }
+      ],
+      "tool_call_count": 3,
+      "unique_spindle_speeds": [
+        2200,
+        2500,
+        2800
+      ],
+      "unique_feed_rates": [
+        200.0,
+        300.0,
+        500.0,
+        800.0,
+        1000.0,
+        10000.0
+      ]
+    },
+    {
+      "setup_number": 4,
+      "file": "MOTOR_MOUNT_4_SETUP..MPF",
+      "total_lines": 773,
+      "tool_calls": [
+        {
+          "line": 23,
+          "tool_number": 13,
+          "tool_description": "- T13 END MILL D10",
+          "operation_name": "10 ENDMILL PROFILE BORE 16.1 RF =  0:03:08",
+          "raw": "T13; - T13 END MILL D10"
+        },
+        {
+          "line": 543,
+          "tool_number": 13,
+          "tool_description": "- T13 END MILL D10",
+          "operation_name": "10 ENDMILL PROFILE BORE 16.1 FINISH =  0:00:19",
+          "raw": "T13; - T13 END MILL D10"
+        },
+        {
+          "line": 570,
+          "tool_number": 10,
+          "tool_description": "- T10 CHAMFER MILL D10",
+          "operation_name": "CHAMFER CUTTER 10 X 45-BORE OUTER =  0:00:42",
+          "raw": "T10; - T10 CHAMFER MILL D10"
+        },
+        {
+          "line": 624,
+          "tool_number": 14,
+          "tool_description": "- T14 END MILL D3",
+          "operation_name": "3 ENDMILL LONG POCKET RF =  0:01:56",
+          "raw": "T14; - T14 END MILL D3"
+        }
+      ],
+      "tool_call_count": 4,
+      "unique_spindle_speeds": [
+        900,
+        2500,
+        2800
+      ],
+      "unique_feed_rates": [
+        80.0,
+        500.0,
+        800.0
+      ]
+    }
+  ]
+}

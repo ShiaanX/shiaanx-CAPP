@@ -116,8 +116,11 @@ except ImportError:
 
 # Radius (mm) above which a bore is classified as large_bore rather than
 # through_hole / blind_hole / counterbore. At this size, a standard drill
-# cannot be used — you need a boring bar or facing operation.
-LARGE_BORE_RADIUS_MM = 10.0
+# cannot be used — you need boring bar or circular interpolation.
+# 8.0mm = 16mm diameter = top of standard metric jobber drill range.
+# Bores above this (e.g. 16.1mm motor mount bore) require profile milling.
+# Matches DRILL_MAX_RADIUS_MM used in counterbore detection for consistency.
+LARGE_BORE_RADIUS_MM = 8.0
 
 # Depth-to-diameter ratio threshold for single-face bore disambiguation.
 # A bore seen as only ONE cylinder face with a very small depth/diameter
@@ -129,6 +132,15 @@ LARGE_BORE_RADIUS_MM = 10.0
 # How to read it: if depth / (2 * radius) <= this value, call it through_hole.
 # 0.5 means: if the depth is less than half the diameter, it's a thin arc.
 SINGLE_FACE_THROUGH_HOLE_DDR_MAX = 0.5
+
+# Single-face bore with DDR below this value is most likely a thin arc segment
+# of an edge fillet or step blend, not a drillable hole.
+BORE_FILLET_DDR_MAX = 0.12
+
+# Single-face bore with DDR above this threshold and no perpendicular walls is
+# most likely a pocket-corner fillet running the full pocket depth, not a blind
+# hole.  Pocket corner fillets have DDR >> 1 (narrow radius, tall pocket depth).
+BORE_WALL_FILLET_DDR_MIN = 1.0
 
 # Maximum total face area (mm^2) for a plane cluster to be classified as
 # a pocket rather than a planar_face/datum.  A large flat face (e.g. the
@@ -147,6 +159,14 @@ POCKET_MAX_PERP_WALLS = 8
 # exceeds this, the whole feature requires a boring bar — classify as large_bore.
 # (Distinct from LARGE_BORE_RADIUS_MM which guards single-step bores.)
 DRILL_MAX_RADIUS_MM = 8.0
+
+FILLET_MIN_RADIUS_MM = 1.0
+
+# Maximum face area (mm^2) for a non-principal-axis plane cluster (face_count=1)
+# to be classified as a chamfer. Chamfer faces are small angled planes at bore
+# entries, pocket corners, or part periphery bevels. Larger angled faces (e.g.
+# inclined steps) are classified as planar_face instead.
+CHAMFER_MAX_AREA_MM2 = 100.0
 
 
 # ---------------------------------------------------------------------------
@@ -253,6 +273,16 @@ def classify_cluster(cluster: Dict) -> Tuple[str, str]:
         perp_count = cluster.get('perp_wall_count', 0)
         face_area  = cluster.get('face_area')
 
+        # Chamfer: angled (non-principal-axis) single-face plane with small area.
+        # These are beveled edges at bore entries, pocket corners, or part periphery.
+        # face_count=1 means the connected component BFS found no co-planar neighbours.
+        # Detected BEFORE the pocket check so perp_count=1 faces don't fall through.
+        if (is_principal is False
+                and face_count == 1
+                and face_area is not None
+                and face_area < CHAMFER_MAX_AREA_MM2):
+            return 'chamfer', 'high'
+
         if (has_perp
                 and perp_count >= 2
                 and perp_count <= POCKET_MAX_PERP_WALLS
@@ -273,6 +303,17 @@ def classify_cluster(cluster: Dict) -> Tuple[str, str]:
     if seed_type == 'slot':
         feature_type = 'slot_angled' if is_principal is False else 'slot'
         return feature_type, 'high'
+
+    # ------------------------------------------------------------------
+    # Fillet clusters (torus/edge-blend faces tagged by cluster_features.py).
+    # Fillets smaller than FILLET_MIN_RADIUS_MM are as-machined edge blends —
+    # no dedicated tool pass is needed.  Larger fillets require ballnose/bull-nose.
+    # ------------------------------------------------------------------
+    if seed_type == 'fillet':
+        fillet_r = max(radii) if radii else 0.0
+        if fillet_r < FILLET_MIN_RADIUS_MM:
+            return 'background', 'high'   # edge blend — no machining operation
+        return 'fillet', 'high'
 
     # ------------------------------------------------------------------
     # Boss clusters
@@ -323,10 +364,16 @@ def classify_cluster(cluster: Dict) -> Tuple[str, str]:
         elif len(radii) == 1:
             radius = radii[0]
 
-            # Very large radius → turning/boring, regardless of face count
+            # Very large radius → turning/boring, regardless of face count.
+            # Exception: depth < 1mm means this is a thin edge arc of a large
+            # flat face (e.g. a 25mm-radius circular edge), not a bore to machine.
             if radius >= LARGE_BORE_RADIUS_MM:
-                feature_type = 'large_bore'
-                confidence   = 'high'
+                if depth is not None and depth < 1.0:
+                    feature_type = 'planar_face'
+                    confidence   = 'medium'
+                else:
+                    feature_type = 'large_bore'
+                    confidence   = 'high'
 
             # Two or more faces → both ends of the hole were captured.
             # This is the clearest through_hole signal: the BFS found
@@ -342,19 +389,34 @@ def classify_cluster(cluster: Dict) -> Tuple[str, str]:
                 else:
                     ddr = None
 
-                if ddr is not None and ddr <= SINGLE_FACE_THROUGH_HOLE_DDR_MAX:
+                if (ddr is not None
+                        and ddr < BORE_FILLET_DDR_MAX):
+                    # Extremely shallow arc = incidental edge geometry, not a hole.
+                    feature_type = 'background'
+                    confidence   = 'medium'
+
+                elif ddr is not None and ddr <= SINGLE_FACE_THROUGH_HOLE_DDR_MAX:
                     # Very shallow relative to diameter = arc segment of
                     # a through-hole. The bore passes through the part but
                     # the arc is thin because it intersects an angled face.
                     feature_type = 'through_hole'
                     confidence   = 'medium'   # inferred, not confirmed by 2 faces
+
+                elif (ddr is not None
+                        and ddr > BORE_WALL_FILLET_DDR_MIN
+                        and not cluster.get('has_perpendicular_walls', False)):
+                    # Deep single-face cylinder with no floor/cap and no perp walls
+                    # = pocket-corner fillet. DDR >> 1 because fillet is narrow
+                    # (r = blend radius) but tall (depth = pocket depth).
+                    if radius < FILLET_MIN_RADIUS_MM:
+                        feature_type = 'background'  # too small to machine
+                        confidence   = 'high'
+                    else:
+                        feature_type = 'fillet'
+                        confidence   = 'low'
+
                 else:
                     # Deeper relative to diameter = likely a true blind hole.
-                    # No cap face was captured, so we cannot confirm, but the
-                    # geometry is consistent with a blind hole.
-                    # Also reached when depth is None or radius == 0 (ddr = None)
-                    # — geometry is insufficient to classify; treat as blind with
-                    # low confidence and flag for manual review.
                     feature_type = 'blind_hole'
                     confidence   = 'low'      # no cap face — flag for review
 

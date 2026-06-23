@@ -1,0 +1,4063 @@
+{
+  "clusters": [
+    {
+      "cluster_id": 0,
+      "seed_face_index": 1,
+      "seed_type": "bore",
+      "face_indices": [
+        1
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "depth": 0.408,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "background",
+      "confidence": "medium",
+      "machine_type": "none",
+      "machine_selected": "not a machined feature",
+      "process_sequence": []
+    },
+    {
+      "cluster_id": 1,
+      "seed_face_index": 3,
+      "seed_type": "bore",
+      "face_indices": [
+        3
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.408,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "background",
+      "confidence": "medium",
+      "machine_type": "none",
+      "machine_selected": "not a machined feature",
+      "process_sequence": []
+    },
+    {
+      "cluster_id": 2,
+      "seed_face_index": 8,
+      "seed_type": "bore",
+      "face_indices": [
+        8,
+        9
+      ],
+      "face_count": 2,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 2.5,
+      "radii": [
+        1.2645
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "through_hole",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 2.529,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=2.529mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 2.529,
+          "depth_mm": 2.5,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=2.529mm depth=2.5mm DDR=0.989 -> standard cycle",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 3,
+      "seed_face_index": 10,
+      "seed_type": "bore",
+      "face_indices": [
+        10,
+        11
+      ],
+      "face_count": 2,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 2.5,
+      "radii": [
+        1.2645
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "through_hole",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 2.529,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=2.529mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 2.529,
+          "depth_mm": 2.5,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=2.529mm depth=2.5mm DDR=0.989 -> standard cycle",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 4,
+      "seed_face_index": 37,
+      "seed_type": "bore",
+      "face_indices": [
+        37
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.375,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "background",
+      "confidence": "medium",
+      "machine_type": "none",
+      "machine_selected": "not a machined feature",
+      "process_sequence": []
+    },
+    {
+      "cluster_id": 5,
+      "seed_face_index": 43,
+      "seed_type": "bore",
+      "face_indices": [
+        43
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.375,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "background",
+      "confidence": "medium",
+      "machine_type": "none",
+      "machine_selected": "not a machined feature",
+      "process_sequence": []
+    },
+    {
+      "cluster_id": 6,
+      "seed_face_index": 45,
+      "seed_type": "bore",
+      "face_indices": [
+        45
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.3317,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "background",
+      "confidence": "medium",
+      "machine_type": "none",
+      "machine_selected": "not a machined feature",
+      "process_sequence": []
+    },
+    {
+      "cluster_id": 7,
+      "seed_face_index": 48,
+      "seed_type": "bore",
+      "face_indices": [
+        48,
+        1086
+      ],
+      "face_count": 2,
+      "feature_axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "depth": 0.2942,
+      "radii": [
+        25.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "planar_face",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 8,
+      "seed_face_index": 67,
+      "seed_type": "bore",
+      "face_indices": [
+        67,
+        1094
+      ],
+      "face_count": 2,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.2942,
+      "radii": [
+        25.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "planar_face",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 9,
+      "seed_face_index": 70,
+      "seed_type": "bore",
+      "face_indices": [
+        70
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.3317,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "background",
+      "confidence": "medium",
+      "machine_type": "none",
+      "machine_selected": "not a machined feature",
+      "process_sequence": []
+    },
+    {
+      "cluster_id": 10,
+      "seed_face_index": 72,
+      "seed_type": "bore",
+      "face_indices": [
+        72
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.375,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "background",
+      "confidence": "medium",
+      "machine_type": "none",
+      "machine_selected": "not a machined feature",
+      "process_sequence": []
+    },
+    {
+      "cluster_id": 11,
+      "seed_face_index": 78,
+      "seed_type": "bore",
+      "face_indices": [
+        78
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.375,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "background",
+      "confidence": "medium",
+      "machine_type": "none",
+      "machine_selected": "not a machined feature",
+      "process_sequence": []
+    },
+    {
+      "cluster_id": 12,
+      "seed_face_index": 87,
+      "seed_type": "bore",
+      "face_indices": [
+        87,
+        1071
+      ],
+      "face_count": 2,
+      "feature_axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "depth": 0.7384,
+      "radii": [
+        2.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "through_hole",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 5.0,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=5.000mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 5.0,
+          "depth_mm": 0.7384,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=5.000mm depth=0.7384mm DDR=0.148 -> standard cycle",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 13,
+      "seed_face_index": 88,
+      "seed_type": "bore",
+      "face_indices": [
+        88
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "depth": 9.9884,
+      "radii": [
+        2.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "low",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4,
+          "depth_mm": 9.9884,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 14,
+      "seed_face_index": 102,
+      "seed_type": "bore",
+      "face_indices": [
+        102
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "depth": 9.405,
+      "radii": [
+        2.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "low",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4,
+          "depth_mm": 9.405,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 15,
+      "seed_face_index": 106,
+      "seed_type": "bore",
+      "face_indices": [
+        106
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "depth": 9.405,
+      "radii": [
+        2.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "low",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4,
+          "depth_mm": 9.405,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 16,
+      "seed_face_index": 108,
+      "seed_type": "bore",
+      "face_indices": [
+        108
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "depth": 9.9884,
+      "radii": [
+        2.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "low",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4,
+          "depth_mm": 9.9884,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 17,
+      "seed_face_index": 112,
+      "seed_type": "bore",
+      "face_indices": [
+        112
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "depth": 3.5731,
+      "radii": [
+        1.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "low",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 3.5731,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 18,
+      "seed_face_index": 114,
+      "seed_type": "bore",
+      "face_indices": [
+        114
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.0186,
+      "radii": [
+        2.3
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "background",
+      "confidence": "medium",
+      "machine_type": "none",
+      "machine_selected": "not a machined feature",
+      "process_sequence": []
+    },
+    {
+      "cluster_id": 19,
+      "seed_face_index": 115,
+      "seed_type": "bore",
+      "face_indices": [
+        115
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.0186,
+      "radii": [
+        2.3
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "background",
+      "confidence": "medium",
+      "machine_type": "none",
+      "machine_selected": "not a machined feature",
+      "process_sequence": []
+    },
+    {
+      "cluster_id": 20,
+      "seed_face_index": 1030,
+      "seed_type": "bore",
+      "face_indices": [
+        1030
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.0186,
+      "radii": [
+        2.3
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "background",
+      "confidence": "medium",
+      "machine_type": "none",
+      "machine_selected": "not a machined feature",
+      "process_sequence": []
+    },
+    {
+      "cluster_id": 21,
+      "seed_face_index": 1031,
+      "seed_type": "bore",
+      "face_indices": [
+        1031
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.0186,
+      "radii": [
+        2.3
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "background",
+      "confidence": "medium",
+      "machine_type": "none",
+      "machine_selected": "not a machined feature",
+      "process_sequence": []
+    },
+    {
+      "cluster_id": 22,
+      "seed_face_index": 1037,
+      "seed_type": "bore",
+      "face_indices": [
+        540,
+        1037,
+        1038
+      ],
+      "face_count": 3,
+      "feature_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "depth": 17.0332,
+      "radii": [
+        8.05
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "through_hole",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 16.1,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=16.100mm hole",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "pilot_drill",
+          "machine": "milling",
+          "diameter_mm": 9.66,
+          "depth_mm": 17.0332,
+          "drill_cycle": "standard",
+          "reason": "Pilot at d=9.66mm (60% of final) to guide core drill and reduce cutting force",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 3,
+          "operation": "core_drill",
+          "machine": "milling",
+          "diameter_mm": 16.1,
+          "depth_mm": 17.0332,
+          "drill_cycle": "standard",
+          "reason": "Open to final d=16.100mm",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 23,
+      "seed_face_index": 1045,
+      "seed_type": "bore",
+      "face_indices": [
+        1045
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 1.5,
+      "radii": [
+        1.6
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "through_hole",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 3.2,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=3.200mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 3.2,
+          "depth_mm": 1.5,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=3.200mm depth=1.5mm DDR=0.469 -> standard cycle",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 24,
+      "seed_face_index": 1046,
+      "seed_type": "bore",
+      "face_indices": [
+        1046
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 1.5,
+      "radii": [
+        1.6
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "through_hole",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 3.2,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=3.200mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 3.2,
+          "depth_mm": 1.5,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=3.200mm depth=1.5mm DDR=0.469 -> standard cycle",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 25,
+      "seed_face_index": 1047,
+      "seed_type": "bore",
+      "face_indices": [
+        1047
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 1.5,
+      "radii": [
+        5.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "through_hole",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 11.0,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=11.000mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 11.0,
+          "depth_mm": 1.5,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=11.000mm depth=1.5mm DDR=0.136 -> standard cycle",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 26,
+      "seed_face_index": 1048,
+      "seed_type": "bore",
+      "face_indices": [
+        1048
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 1.5,
+      "radii": [
+        1.6
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "through_hole",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 3.2,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=3.200mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 3.2,
+          "depth_mm": 1.5,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=3.200mm depth=1.5mm DDR=0.469 -> standard cycle",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 27,
+      "seed_face_index": 1049,
+      "seed_type": "bore",
+      "face_indices": [
+        1049
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 1.5,
+      "radii": [
+        1.6
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "through_hole",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 3.2,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=3.200mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 3.2,
+          "depth_mm": 1.5,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=3.200mm depth=1.5mm DDR=0.469 -> standard cycle",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 28,
+      "seed_face_index": 1050,
+      "seed_type": "bore",
+      "face_indices": [
+        1050
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 1.5,
+      "radii": [
+        1.6
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "through_hole",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 3.2,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=3.200mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 3.2,
+          "depth_mm": 1.5,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=3.200mm depth=1.5mm DDR=0.469 -> standard cycle",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 29,
+      "seed_face_index": 1051,
+      "seed_type": "bore",
+      "face_indices": [
+        1051
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 1.5,
+      "radii": [
+        1.6
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "through_hole",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 3.2,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=3.200mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 3.2,
+          "depth_mm": 1.5,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=3.200mm depth=1.5mm DDR=0.469 -> standard cycle",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 30,
+      "seed_face_index": 1052,
+      "seed_type": "bore",
+      "face_indices": [
+        1052
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 1.5,
+      "radii": [
+        1.6
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "through_hole",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 3.2,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=3.200mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 3.2,
+          "depth_mm": 1.5,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=3.200mm depth=1.5mm DDR=0.469 -> standard cycle",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 31,
+      "seed_face_index": 1088,
+      "seed_type": "bore",
+      "face_indices": [
+        1087,
+        1088
+      ],
+      "face_count": 2,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 2.5,
+      "radii": [
+        1.2645
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "through_hole",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 2.529,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=2.529mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 2.529,
+          "depth_mm": 2.5,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=2.529mm depth=2.5mm DDR=0.989 -> standard cycle",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 32,
+      "seed_face_index": 1090,
+      "seed_type": "bore",
+      "face_indices": [
+        1089,
+        1090
+      ],
+      "face_count": 2,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 2.5,
+      "radii": [
+        1.2645
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "through_hole",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 2.529,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=2.529mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 2.529,
+          "depth_mm": 2.5,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=2.529mm depth=2.5mm DDR=0.989 -> standard cycle",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 33,
+      "seed_face_index": 1091,
+      "seed_type": "bore",
+      "face_indices": [
+        1091
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 2.4999,
+      "radii": [
+        1.2645
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "blind_hole",
+      "confidence": "low",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 2.529,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=2.529mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 2.529,
+          "depth_mm": 2.4999,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=2.529mm depth=2.4999mm DDR=0.988 -> standard cycle \u2014 blind hole, stop at depth",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 34,
+      "seed_face_index": 1092,
+      "seed_type": "bore",
+      "face_indices": [
+        1092
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 2.4999,
+      "radii": [
+        1.2645
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "blind_hole",
+      "confidence": "low",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 2.529,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=2.529mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 2.529,
+          "depth_mm": 2.4999,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=2.529mm depth=2.4999mm DDR=0.988 -> standard cycle \u2014 blind hole, stop at depth",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 35,
+      "seed_face_index": 14,
+      "seed_type": "fillet",
+      "face_indices": [
+        14
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "depth": 2.5397,
+      "radii": [
+        0.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 2.5397,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 36,
+      "seed_face_index": 18,
+      "seed_type": "boss",
+      "face_indices": [
+        18,
+        584
+      ],
+      "face_count": 2,
+      "feature_axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "depth": 0.0092,
+      "radii": [
+        1.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "background",
+      "confidence": "high",
+      "machine_type": "none",
+      "machine_selected": "not a machined feature",
+      "process_sequence": []
+    },
+    {
+      "cluster_id": 37,
+      "seed_face_index": 20,
+      "seed_type": "boss",
+      "face_indices": [
+        20,
+        836
+      ],
+      "face_count": 2,
+      "feature_axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "depth": 0.0191,
+      "radii": [
+        1.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "background",
+      "confidence": "high",
+      "machine_type": "none",
+      "machine_selected": "not a machined feature",
+      "process_sequence": []
+    },
+    {
+      "cluster_id": 38,
+      "seed_face_index": 21,
+      "seed_type": "fillet",
+      "face_indices": [
+        21
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "depth": 0.0254,
+      "radii": [
+        0.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.0254,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 39,
+      "seed_face_index": 27,
+      "seed_type": "fillet",
+      "face_indices": [
+        27
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        -0.6401843013037726,
+        0.7682213615646213,
+        0.0
+      ],
+      "depth": 0.0509,
+      "radii": [
+        0.5
+      ],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.0509,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 40,
+      "seed_face_index": 31,
+      "seed_type": "fillet",
+      "face_indices": [
+        31
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.7071067811865475,
+        0.7071067811865475,
+        0.0
+      ],
+      "depth": 0.4911,
+      "radii": [
+        0.5
+      ],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.4911,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 41,
+      "seed_face_index": 33,
+      "seed_type": "fillet",
+      "face_indices": [
+        33
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "depth": 4.0994,
+      "radii": [
+        0.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 4.0994,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 42,
+      "seed_face_index": 35,
+      "seed_type": "fillet",
+      "face_indices": [
+        35
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        -0.7071067811865475,
+        0.7071067811865475,
+        0.0
+      ],
+      "depth": 0.4911,
+      "radii": [
+        0.5
+      ],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.4911,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 43,
+      "seed_face_index": 39,
+      "seed_type": "fillet",
+      "face_indices": [
+        39
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.375,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4,
+          "depth_mm": 0.375,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 44,
+      "seed_face_index": 41,
+      "seed_type": "fillet",
+      "face_indices": [
+        41
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.375,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4,
+          "depth_mm": 0.375,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 45,
+      "seed_face_index": 47,
+      "seed_type": "fillet",
+      "face_indices": [
+        47
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.8109,
+      "radii": [
+        1.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.8109,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 46,
+      "seed_face_index": 51,
+      "seed_type": "fillet",
+      "face_indices": [
+        51
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "depth": 2.3734,
+      "radii": [
+        0.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 2.3734,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 47,
+      "seed_face_index": 53,
+      "seed_type": "fillet",
+      "face_indices": [
+        53
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        -0.7071067811865475,
+        -0.7071067811865475,
+        0.0
+      ],
+      "depth": 0.4911,
+      "radii": [
+        0.5
+      ],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.4911,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 48,
+      "seed_face_index": 55,
+      "seed_type": "fillet",
+      "face_indices": [
+        55
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "depth": 4.266,
+      "radii": [
+        0.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 4.266,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 49,
+      "seed_face_index": 57,
+      "seed_type": "fillet",
+      "face_indices": [
+        57
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.7071067811865475,
+        -0.7071067811865475,
+        0.0
+      ],
+      "depth": 0.4911,
+      "radii": [
+        0.5
+      ],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.4911,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 50,
+      "seed_face_index": 61,
+      "seed_type": "fillet",
+      "face_indices": [
+        61
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        -0.6401843013037726,
+        -0.7682213615646213,
+        0.0
+      ],
+      "depth": 0.0509,
+      "radii": [
+        0.5
+      ],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.0509,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 51,
+      "seed_face_index": 68,
+      "seed_type": "fillet",
+      "face_indices": [
+        68
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.8109,
+      "radii": [
+        1.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.8109,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 52,
+      "seed_face_index": 74,
+      "seed_type": "fillet",
+      "face_indices": [
+        74
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.375,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4,
+          "depth_mm": 0.375,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 53,
+      "seed_face_index": 76,
+      "seed_type": "fillet",
+      "face_indices": [
+        76
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.375,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4,
+          "depth_mm": 0.375,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 54,
+      "seed_face_index": 80,
+      "seed_type": "fillet",
+      "face_indices": [
+        80
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "depth": 0.625,
+      "radii": [
+        1.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.625,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 55,
+      "seed_face_index": 82,
+      "seed_type": "fillet",
+      "face_indices": [
+        82
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "depth": 3.0,
+      "radii": [
+        1.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 3.0,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 56,
+      "seed_face_index": 84,
+      "seed_type": "fillet",
+      "face_indices": [
+        84
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.625,
+      "radii": [
+        1.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.625,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 57,
+      "seed_face_index": 89,
+      "seed_type": "fillet",
+      "face_indices": [
+        89
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "depth": 9.625,
+      "radii": [
+        1.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 9.625,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 58,
+      "seed_face_index": 90,
+      "seed_type": "fillet",
+      "face_indices": [
+        90
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "depth": 4.75,
+      "radii": [
+        1.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 4.75,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 59,
+      "seed_face_index": 92,
+      "seed_type": "fillet",
+      "face_indices": [
+        92
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "depth": 9.625,
+      "radii": [
+        1.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 9.625,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 60,
+      "seed_face_index": 95,
+      "seed_type": "fillet",
+      "face_indices": [
+        95
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        -0.0,
+        -1.0
+      ],
+      "depth": 0.875,
+      "radii": [
+        1.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.875,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 61,
+      "seed_face_index": 97,
+      "seed_type": "fillet",
+      "face_indices": [
+        97
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": 0.875,
+      "radii": [
+        1.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 0.875,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 62,
+      "seed_face_index": 99,
+      "seed_type": "fillet",
+      "face_indices": [
+        99
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "depth": 1.6871,
+      "radii": [
+        1.5
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4.0,
+          "depth_mm": 1.6871,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84.0mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 63,
+      "seed_face_index": 1040,
+      "seed_type": "fillet",
+      "face_indices": [
+        1040
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "depth": 9.625,
+      "radii": [
+        3.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4,
+          "depth_mm": 9.625,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 64,
+      "seed_face_index": 1042,
+      "seed_type": "fillet",
+      "face_indices": [
+        1042
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "depth": 9.625,
+      "radii": [
+        3.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 ball-nose 3D surface contour",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "profile_3d_contour",
+          "machine": "milling",
+          "diameter_mm": 4,
+          "depth_mm": 9.625,
+          "drill_cycle": null,
+          "reason": "3D surface contour \u2014 ball-nose \u00d84mm, stepover 0.48mm, flood coolant.",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 65,
+      "seed_face_index": 6,
+      "seed_type": "plane",
+      "face_indices": [
+        6
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 19,
+      "internal_corner_radius": 1.2645,
+      "face_area": 3194.092983,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 66,
+      "seed_face_index": 7,
+      "seed_type": "plane",
+      "face_indices": [
+        7
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 2,
+      "internal_corner_radius": 4.0,
+      "face_area": 160.122627,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 67,
+      "seed_face_index": 12,
+      "seed_type": "plane",
+      "face_indices": [
+        12
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 1,
+      "internal_corner_radius": 0.5,
+      "face_area": 30.212062,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 68,
+      "seed_face_index": 38,
+      "seed_type": "plane",
+      "face_indices": [
+        38
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.707107,
+        0.707107,
+        0.0
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 1,
+      "internal_corner_radius": 0.5,
+      "face_area": 5.893727,
+      "feature_type": "chamfer",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 69,
+      "seed_face_index": 42,
+      "seed_type": "plane",
+      "face_indices": [
+        42
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.707107,
+        -0.707107,
+        0.0
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 1,
+      "internal_corner_radius": 0.5,
+      "face_area": 5.893727,
+      "feature_type": "chamfer",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ]
+    },
+    {
+      "cluster_id": 70,
+      "seed_face_index": null,
+      "seed_type": "background",
+      "face_indices": [
+        0,
+        2,
+        4,
+        5,
+        13,
+        15,
+        16,
+        17,
+        19,
+        22,
+        23,
+        24,
+        25,
+        26,
+        28,
+        29,
+        30,
+        32,
+        34,
+        36,
+        40,
+        44,
+        46,
+        49,
+        50,
+        52,
+        54,
+        56,
+        58,
+        59,
+        60,
+        62,
+        63,
+        64,
+        65,
+        66,
+        69,
+        71,
+        73,
+        75,
+        77,
+        79,
+        81,
+        83,
+        85,
+        86,
+        91,
+        93,
+        94,
+        96,
+        98,
+        100,
+        101,
+        103,
+        104,
+        105,
+        107,
+        109,
+        110,
+        111,
+        113,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175,
+        176,
+        177,
+        178,
+        179,
+        180,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193,
+        194,
+        195,
+        196,
+        197,
+        198,
+        199,
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207,
+        208,
+        209,
+        210,
+        211,
+        212,
+        213,
+        214,
+        215,
+        216,
+        217,
+        218,
+        219,
+        220,
+        221,
+        222,
+        223,
+        224,
+        225,
+        226,
+        227,
+        228,
+        229,
+        230,
+        231,
+        232,
+        233,
+        234,
+        235,
+        236,
+        237,
+        238,
+        239,
+        240,
+        241,
+        242,
+        243,
+        244,
+        245,
+        246,
+        247,
+        248,
+        249,
+        250,
+        251,
+        252,
+        253,
+        254,
+        255,
+        256,
+        257,
+        258,
+        259,
+        260,
+        261,
+        262,
+        263,
+        264,
+        265,
+        266,
+        267,
+        268,
+        269,
+        270,
+        271,
+        272,
+        273,
+        274,
+        275,
+        276,
+        277,
+        278,
+        279,
+        280,
+        281,
+        282,
+        283,
+        284,
+        285,
+        286,
+        287,
+        288,
+        289,
+        290,
+        291,
+        292,
+        293,
+        294,
+        295,
+        296,
+        297,
+        298,
+        299,
+        300,
+        301,
+        302,
+        303,
+        304,
+        305,
+        306,
+        307,
+        308,
+        309,
+        310,
+        311,
+        312,
+        313,
+        314,
+        315,
+        316,
+        317,
+        318,
+        319,
+        320,
+        321,
+        322,
+        323,
+        324,
+        325,
+        326,
+        327,
+        328,
+        329,
+        330,
+        331,
+        332,
+        333,
+        334,
+        335,
+        336,
+        337,
+        338,
+        339,
+        340,
+        341,
+        342,
+        343,
+        344,
+        345,
+        346,
+        347,
+        348,
+        349,
+        350,
+        351,
+        352,
+        353,
+        354,
+        355,
+        356,
+        357,
+        358,
+        359,
+        360,
+        361,
+        362,
+        363,
+        364,
+        365,
+        366,
+        367,
+        368,
+        369,
+        370,
+        371,
+        372,
+        373,
+        374,
+        375,
+        376,
+        377,
+        378,
+        379,
+        380,
+        381,
+        382,
+        383,
+        384,
+        385,
+        386,
+        387,
+        388,
+        389,
+        390,
+        391,
+        392,
+        393,
+        394,
+        395,
+        396,
+        397,
+        398,
+        399,
+        400,
+        401,
+        402,
+        403,
+        404,
+        405,
+        406,
+        407,
+        408,
+        409,
+        410,
+        411,
+        412,
+        413,
+        414,
+        415,
+        416,
+        417,
+        418,
+        419,
+        420,
+        421,
+        422,
+        423,
+        424,
+        425,
+        426,
+        427,
+        428,
+        429,
+        430,
+        431,
+        432,
+        433,
+        434,
+        435,
+        436,
+        437,
+        438,
+        439,
+        440,
+        441,
+        442,
+        443,
+        444,
+        445,
+        446,
+        447,
+        448,
+        449,
+        450,
+        451,
+        452,
+        453,
+        454,
+        455,
+        456,
+        457,
+        458,
+        459,
+        460,
+        461,
+        462,
+        463,
+        464,
+        465,
+        466,
+        467,
+        468,
+        469,
+        470,
+        471,
+        472,
+        473,
+        474,
+        475,
+        476,
+        477,
+        478,
+        479,
+        480,
+        481,
+        482,
+        483,
+        484,
+        485,
+        486,
+        487,
+        488,
+        489,
+        490,
+        491,
+        492,
+        493,
+        494,
+        495,
+        496,
+        497,
+        498,
+        499,
+        500,
+        501,
+        502,
+        503,
+        504,
+        505,
+        506,
+        507,
+        508,
+        509,
+        510,
+        511,
+        512,
+        513,
+        514,
+        515,
+        516,
+        517,
+        518,
+        519,
+        520,
+        521,
+        522,
+        523,
+        524,
+        525,
+        526,
+        527,
+        528,
+        529,
+        530,
+        531,
+        532,
+        533,
+        534,
+        535,
+        536,
+        537,
+        538,
+        539,
+        541,
+        542,
+        543,
+        544,
+        545,
+        546,
+        547,
+        548,
+        549,
+        550,
+        551,
+        552,
+        553,
+        554,
+        555,
+        556,
+        557,
+        558,
+        559,
+        560,
+        561,
+        562,
+        563,
+        564,
+        565,
+        566,
+        567,
+        568,
+        569,
+        570,
+        571,
+        572,
+        573,
+        574,
+        575,
+        576,
+        577,
+        578,
+        579,
+        580,
+        581,
+        582,
+        583,
+        585,
+        586,
+        587,
+        588,
+        589,
+        590,
+        591,
+        592,
+        593,
+        594,
+        595,
+        596,
+        597,
+        598,
+        599,
+        600,
+        601,
+        602,
+        603,
+        604,
+        605,
+        606,
+        607,
+        608,
+        609,
+        610,
+        611,
+        612,
+        613,
+        614,
+        615,
+        616,
+        617,
+        618,
+        619,
+        620,
+        621,
+        622,
+        623,
+        624,
+        625,
+        626,
+        627,
+        628,
+        629,
+        630,
+        631,
+        632,
+        633,
+        634,
+        635,
+        636,
+        637,
+        638,
+        639,
+        640,
+        641,
+        642,
+        643,
+        644,
+        645,
+        646,
+        647,
+        648,
+        649,
+        650,
+        651,
+        652,
+        653,
+        654,
+        655,
+        656,
+        657,
+        658,
+        659,
+        660,
+        661,
+        662,
+        663,
+        664,
+        665,
+        666,
+        667,
+        668,
+        669,
+        670,
+        671,
+        672,
+        673,
+        674,
+        675,
+        676,
+        677,
+        678,
+        679,
+        680,
+        681,
+        682,
+        683,
+        684,
+        685,
+        686,
+        687,
+        688,
+        689,
+        690,
+        691,
+        692,
+        693,
+        694,
+        695,
+        696,
+        697,
+        698,
+        699,
+        700,
+        701,
+        702,
+        703,
+        704,
+        705,
+        706,
+        707,
+        708,
+        709,
+        710,
+        711,
+        712,
+        713,
+        714,
+        715,
+        716,
+        717,
+        718,
+        719,
+        720,
+        721,
+        722,
+        723,
+        724,
+        725,
+        726,
+        727,
+        728,
+        729,
+        730,
+        731,
+        732,
+        733,
+        734,
+        735,
+        736,
+        737,
+        738,
+        739,
+        740,
+        741,
+        742,
+        743,
+        744,
+        745,
+        746,
+        747,
+        748,
+        749,
+        750,
+        751,
+        752,
+        753,
+        754,
+        755,
+        756,
+        757,
+        758,
+        759,
+        760,
+        761,
+        762,
+        763,
+        764,
+        765,
+        766,
+        767,
+        768,
+        769,
+        770,
+        771,
+        772,
+        773,
+        774,
+        775,
+        776,
+        777,
+        778,
+        779,
+        780,
+        781,
+        782,
+        783,
+        784,
+        785,
+        786,
+        787,
+        788,
+        789,
+        790,
+        791,
+        792,
+        793,
+        794,
+        795,
+        796,
+        797,
+        798,
+        799,
+        800,
+        801,
+        802,
+        803,
+        804,
+        805,
+        806,
+        807,
+        808,
+        809,
+        810,
+        811,
+        812,
+        813,
+        814,
+        815,
+        816,
+        817,
+        818,
+        819,
+        820,
+        821,
+        822,
+        823,
+        824,
+        825,
+        826,
+        827,
+        828,
+        829,
+        830,
+        831,
+        832,
+        833,
+        834,
+        835,
+        837,
+        838,
+        839,
+        840,
+        841,
+        842,
+        843,
+        844,
+        845,
+        846,
+        847,
+        848,
+        849,
+        850,
+        851,
+        852,
+        853,
+        854,
+        855,
+        856,
+        857,
+        858,
+        859,
+        860,
+        861,
+        862,
+        863,
+        864,
+        865,
+        866,
+        867,
+        868,
+        869,
+        870,
+        871,
+        872,
+        873,
+        874,
+        875,
+        876,
+        877,
+        878,
+        879,
+        880,
+        881,
+        882,
+        883,
+        884,
+        885,
+        886,
+        887,
+        888,
+        889,
+        890,
+        891,
+        892,
+        893,
+        894,
+        895,
+        896,
+        897,
+        898,
+        899,
+        900,
+        901,
+        902,
+        903,
+        904,
+        905,
+        906,
+        907,
+        908,
+        909,
+        910,
+        911,
+        912,
+        913,
+        914,
+        915,
+        916,
+        917,
+        918,
+        919,
+        920,
+        921,
+        922,
+        923,
+        924,
+        925,
+        926,
+        927,
+        928,
+        929,
+        930,
+        931,
+        932,
+        933,
+        934,
+        935,
+        936,
+        937,
+        938,
+        939,
+        940,
+        941,
+        942,
+        943,
+        944,
+        945,
+        946,
+        947,
+        948,
+        949,
+        950,
+        951,
+        952,
+        953,
+        954,
+        955,
+        956,
+        957,
+        958,
+        959,
+        960,
+        961,
+        962,
+        963,
+        964,
+        965,
+        966,
+        967,
+        968,
+        969,
+        970,
+        971,
+        972,
+        973,
+        974,
+        975,
+        976,
+        977,
+        978,
+        979,
+        980,
+        981,
+        982,
+        983,
+        984,
+        985,
+        986,
+        987,
+        988,
+        989,
+        990,
+        991,
+        992,
+        993,
+        994,
+        995,
+        996,
+        997,
+        998,
+        999,
+        1000,
+        1001,
+        1002,
+        1003,
+        1004,
+        1005,
+        1006,
+        1007,
+        1008,
+        1009,
+        1010,
+        1011,
+        1012,
+        1013,
+        1014,
+        1015,
+        1016,
+        1017,
+        1018,
+        1019,
+        1020,
+        1021,
+        1022,
+        1023,
+        1024,
+        1025,
+        1026,
+        1027,
+        1028,
+        1029,
+        1032,
+        1033,
+        1034,
+        1035,
+        1036,
+        1039,
+        1041,
+        1043,
+        1044,
+        1053,
+        1054,
+        1055,
+        1056,
+        1057,
+        1058,
+        1059,
+        1060,
+        1061,
+        1062,
+        1063,
+        1064,
+        1065,
+        1066,
+        1067,
+        1068,
+        1069,
+        1070,
+        1072,
+        1073,
+        1074,
+        1075,
+        1076,
+        1077,
+        1078,
+        1079,
+        1080,
+        1081,
+        1082,
+        1083,
+        1084,
+        1085,
+        1093,
+        1095
+      ],
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": null,
+      "face_count": 1015,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "background",
+      "confidence": "high",
+      "machine_type": "none",
+      "machine_selected": "not a machined feature",
+      "process_sequence": []
+    }
+  ],
+  "file": "G:\\My Drive\\Closed Loop\\Motor Mount\\input\\MOTOR MOUNT.step",
+  "bounding_box": {
+    "xmin": -27.672622,
+    "ymin": -73.107838,
+    "zmin": -8.007838,
+    "xmax": 27.672622,
+    "ymax": 31.686802,
+    "zmax": 13.507838,
+    "length_x": 55.345245,
+    "length_y": 104.79464,
+    "length_z": 21.515676,
+    "diagonal": 120.448898
+  },
+  "mass_properties": {
+    "volume": 16979.342686,
+    "center_of_mass": {
+      "x": -0.006724,
+      "y": -34.390664,
+      "z": 2.367901
+    },
+    "matrix_of_inertia": [
+      [
+        15024831.036271,
+        7646.602321,
+        -476.071095
+      ],
+      [
+        7646.602321,
+        3176083.112458,
+        331631.208323
+      ],
+      [
+        -476.071095,
+        331631.208323,
+        17317989.464576
+      ]
+    ]
+  },
+  "surface_area": 15773.508172,
+  "topology_counts": {
+    "Compounds": 0,
+    "CompSolids": 0,
+    "Solids": 1,
+    "Shells": 1,
+    "Faces": 1096,
+    "Wires": 1178,
+    "Edges": 3141,
+    "Vertices": 2073
+  }
+}

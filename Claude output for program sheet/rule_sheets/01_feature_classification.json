@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "ruleset_id": "feature_classification_v1",
-  "updated_at": "2026-04-14",
+  "updated_at": "2026-06-22",
   "description": "Tunable parameters and decision order for bore/boss/plane/slot classification. Mirrors constants and logic documented in 3. classify_features.py as of this date. The Python module remains authoritative until load_rule_sheet() (or equivalent) is implemented.",
   "pipeline_stage": "3. classify_features.py",
   "decision_priority": [
@@ -14,9 +14,9 @@
   ],
   "thresholds_mm": {
     "large_bore_radius_mm": {
-      "value": 10.0,
+      "value": 8.0,
       "unit": "mm",
-      "role": "Radius above which a single-step bore is large_bore; also used in multi-radius bore max-radius check."
+      "role": "Radius above which a single-step bore is large_bore; also used in multi-radius bore max-radius check. Lowered from 10.0 (2026-06-22): max standard metric jobber drill is 16mm dia = r=8mm; anything larger needs circular interp or boring bar."
     },
     "single_face_through_hole_ddr_max": {
       "value": 0.5,

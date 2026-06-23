@@ -45,6 +45,30 @@ tool_selection and parameter_calculation default to `7a. tool_database.json` in 
 
 ---
 
+## Feature Recognition Audit — Motor Mount (2026-06-23, COMPLETE)
+
+Branch: `audit/feature-recognition-motor-mount`
+
+Full audit of the clustering + classification pipeline against a real machined Motor Mount part (4 setups, Sinumerik 828D, 14 tools). Ground truth from MPF G-code + setup sheet PDFs.
+
+**Final results: Pre-fix 62.5% → Post-fix 100.0% (8/8 feature types detected)**
+
+**Four bugs fixed (commit dcc6cc822):**
+1. **P0 — Connected-component plane seeding** (`2. cluster_features.py`): `find_seeds()` Rule 3 planted one seed per normal direction → all Z-up planes (stock + pocket floors + steps) merged into 1015-face background. Fix: BFS within each normal-direction group to find disconnected components; one seed per component.
+2. **Chamfer face exclusion** (`2. cluster_features.py`): cylinder-adjacency skip excluded chamfer planes (at 45° to bore axis). Fix: only skip planes where `dot(plane_normal, cyl_axis) > 0.9` (true cap planes).
+3. **is_principal_axis for plane clusters** (`2. cluster_features.py`): `get_feature_axis()` returns None for plane clusters (no cylinders) → `is_principal_axis` was always None. Fix: derive from seed face plane normal.
+4. **Chamfer classification** (`3. classify_features.py`): added `CHAMFER_MAX_AREA_MM2=100.0` and chamfer detection (`is_principal=False AND face_count==1 AND area<100mm²`).
+
+**Cluster count:** 71 → 100 | **Background cluster:** 1015 → 945 faces
+**Pockets:** 0 → 21 | **Planar_face:** 0 → 21 | **Chamfers:** 0 → 4
+
+**All audit files:** `C:\Users\Siddhant Gupta\Documents\ShiaanX\audit\`
+Key files: `FINDINGS_feature_recognition.md`, `accuracy_breakdown_motormount_postfix.txt`, `gen_postfix_report.py`, `MOTOR MOUNT_classified.json`
+
+**Note on rule sheet + code changes:** The rule sheet override in `01_feature_classification.json` runs at module import time and overrides Python constants. Code-only changes to classify_features.py constants are silently neutralised. Always update BOTH.
+
+---
+
 ## What Was Completed (as of 2026-04-13)
 
 ### From Toolpath.ai competitive analysis:
