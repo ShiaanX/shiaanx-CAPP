@@ -651,39 +651,61 @@ def _drilling_steps(diameter_mm: float, depth_mm: Optional[float],
         step += 1
 
     elif diameter_mm <= CORE_DRILL_MAX_DIA:
-        # 13–32mm: spot drill, pilot drill at ~60% diameter, then core drill
-        pilot_dia = round(diameter_mm * 0.6, 4)
-        steps.append({
-            'step'        : step,
-            'operation'   : 'spot_drill',
-            'machine'     : 'milling',
-            'diameter_mm' : round(diameter_mm, 4),  # hole diameter being located — tool_selection picks actual spot drill size
-            'depth_mm'    : None,
-            'drill_cycle' : None,
-            'reason'      : f'Locate for d={diameter_mm:.3f}mm hole'
-        })
-        step += 1
-        steps.append({
-            'step'        : step,
-            'operation'   : 'pilot_drill',
-            'machine'     : 'milling',
-            'diameter_mm' : pilot_dia,
-            'depth_mm'    : depth_mm,
-            'drill_cycle' : cycle,
-            'reason'      : (f'Pilot at d={pilot_dia}mm (60% of final) to '
-                             f'guide core drill and reduce cutting force')
-        })
-        step += 1
-        steps.append({
-            'step'        : step,
-            'operation'   : 'core_drill',
-            'machine'     : 'milling',
-            'diameter_mm' : round(diameter_mm, 4),
-            'depth_mm'    : depth_mm,
-            'drill_cycle' : cycle,
-            'reason'      : f'Open to final d={diameter_mm:.3f}mm'
-        })
-        step += 1
+        # 13–32mm: for aluminium use circular interpolation (profile bore) — DR-005 /
+        # PS-AL6061-CIRC-INTERP-001. Motor Mount Setup 4 confirmed: D16.1 bore machined
+        # with D10 EM profile bore (circular interp), not pilot+core drill.
+        # For steel / SS keep the pilot+core drill sequence (better chip control).
+        _alum_prefixes = ('aluminium',)
+        if material.startswith(_alum_prefixes) or material == 'aluminium':
+            em_dia = round(diameter_mm * 0.60, 4)   # tool_selection picks nearest EM ≤ this
+            steps.append({
+                'step'        : step,
+                'operation'   : 'circular_interp',
+                'machine'     : 'milling',
+                'diameter_mm' : round(diameter_mm, 4),
+                'depth_mm'    : depth_mm,
+                'drill_cycle' : None,
+                'em_diameter_hint_mm': em_dia,
+                'reason'      : (f'Profile bore d={diameter_mm:.3f}mm — circular interpolation '
+                                 f'with Ø{em_dia}mm end mill (0.60× bore). '
+                                 f'DR-005: circ-interp preferred over pilot+core for aluminium '
+                                 f'13–32mm bores. Helical entry, climb mill, flood coolant.')
+            })
+            step += 1
+        else:
+            # Steel / SS: pilot + core drill sequence — chip control more critical
+            pilot_dia = round(diameter_mm * 0.6, 4)
+            steps.append({
+                'step'        : step,
+                'operation'   : 'spot_drill',
+                'machine'     : 'milling',
+                'diameter_mm' : round(diameter_mm, 4),
+                'depth_mm'    : None,
+                'drill_cycle' : None,
+                'reason'      : f'Locate for d={diameter_mm:.3f}mm hole'
+            })
+            step += 1
+            steps.append({
+                'step'        : step,
+                'operation'   : 'pilot_drill',
+                'machine'     : 'milling',
+                'diameter_mm' : pilot_dia,
+                'depth_mm'    : depth_mm,
+                'drill_cycle' : cycle,
+                'reason'      : (f'Pilot at d={pilot_dia}mm (60% of final) to '
+                                 f'guide core drill and reduce cutting force')
+            })
+            step += 1
+            steps.append({
+                'step'        : step,
+                'operation'   : 'core_drill',
+                'machine'     : 'milling',
+                'diameter_mm' : round(diameter_mm, 4),
+                'depth_mm'    : depth_mm,
+                'drill_cycle' : cycle,
+                'reason'      : f'Open to final d={diameter_mm:.3f}mm'
+            })
+            step += 1
 
     else:
         # > 32mm: boring bar on milling machine (circular interpolation
