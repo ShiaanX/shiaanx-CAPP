@@ -1,0 +1,295 @@
+[
+  {
+    "filename": "1-4END_SEMI.tap",
+    "setup": 1,
+    "tool_diameter_mm": 4.0,
+    "operation_suffix": "SEMI",
+    "inferred_op_type": "semi_finish",
+    "line_count": 53348,
+    "spindle_speeds_rpm": [
+      4500
+    ],
+    "feed_rates_mmpm": [
+      100.0,
+      1000.0
+    ],
+    "tool_calls": [
+      "1"
+    ]
+  },
+  {
+    "filename": "1_8END.tap",
+    "setup": 1,
+    "tool_diameter_mm": 8.0,
+    "operation_suffix": "",
+    "inferred_op_type": "finish",
+    "line_count": 26503,
+    "spindle_speeds_rpm": [
+      3200
+    ],
+    "feed_rates_mmpm": [
+      150.0,
+      1500.0
+    ],
+    "tool_calls": [
+      "1"
+    ]
+  },
+  {
+    "filename": "1_8END_RUF.tap",
+    "setup": 1,
+    "tool_diameter_mm": 8.0,
+    "operation_suffix": "RUF",
+    "inferred_op_type": "roughing",
+    "line_count": 7624,
+    "spindle_speeds_rpm": [
+      4500
+    ],
+    "feed_rates_mmpm": [
+      100.0,
+      1000.0,
+      3000.0
+    ],
+    "tool_calls": [
+      "1"
+    ]
+  },
+  {
+    "filename": "2_4END.tap",
+    "setup": 2,
+    "tool_diameter_mm": 4.0,
+    "operation_suffix": "",
+    "inferred_op_type": "finish",
+    "line_count": 21830,
+    "spindle_speeds_rpm": [
+      4500
+    ],
+    "feed_rates_mmpm": [
+      100.0,
+      1000.0
+    ],
+    "tool_calls": [
+      "1"
+    ]
+  },
+  {
+    "filename": "2_8END_RUF.tap",
+    "setup": 2,
+    "tool_diameter_mm": 8.0,
+    "operation_suffix": "RUF",
+    "inferred_op_type": "roughing",
+    "line_count": 36478,
+    "spindle_speeds_rpm": [
+      3200
+    ],
+    "feed_rates_mmpm": [
+      150.0,
+      1500.0,
+      3000.0
+    ],
+    "tool_calls": [
+      "1"
+    ]
+  },
+  {
+    "filename": "3_4END_FLAT.tap",
+    "setup": 3,
+    "tool_diameter_mm": 4.0,
+    "operation_suffix": "FLAT",
+    "inferred_op_type": "flat_finish",
+    "line_count": 443,
+    "spindle_speeds_rpm": [
+      4500
+    ],
+    "feed_rates_mmpm": [
+      100.0,
+      1000.0
+    ],
+    "tool_calls": [
+      "1"
+    ]
+  },
+  {
+    "filename": "3_4END_RUF_1.tap",
+    "setup": 3,
+    "tool_diameter_mm": 4.0,
+    "operation_suffix": "RUF_1",
+    "inferred_op_type": "roughing",
+    "line_count": 67358,
+    "spindle_speeds_rpm": [
+      3200
+    ],
+    "feed_rates_mmpm": [
+      150.0,
+      1500.0,
+      3000.0
+    ],
+    "tool_calls": [
+      "1"
+    ]
+  },
+  {
+    "filename": "3_4END_RUF_1_1.tap",
+    "setup": 3,
+    "tool_diameter_mm": 4.0,
+    "operation_suffix": "RUF_1_1",
+    "inferred_op_type": "roughing",
+    "line_count": 67778,
+    "spindle_speeds_rpm": [
+      3200
+    ],
+    "feed_rates_mmpm": [
+      150.0,
+      1500.0,
+      3000.0
+    ],
+    "tool_calls": [
+      "1"
+    ]
+  },
+  {
+    "filename": "4_4END_CHAMPER.tap",
+    "setup": 4,
+    "tool_diameter_mm": 4.0,
+    "operation_suffix": "CHAMPER",
+    "inferred_op_type": "chamfer",
+    "line_count": 4255,
+    "spindle_speeds_rpm": [
+      4500
+    ],
+    "feed_rates_mmpm": [
+      100.0,
+      1000.0,
+      3000.0
+    ],
+    "tool_calls": [
+      "1"
+    ]
+  },
+  {
+    "filename": "4_4END_FINSH.tap",
+    "setup": 4,
+    "tool_diameter_mm": 4.0,
+    "operation_suffix": "FINSH",
+    "inferred_op_type": "finishing",
+    "line_count": 57912,
+    "spindle_speeds_rpm": [
+      4500
+    ],
+    "feed_rates_mmpm": [
+      100.0,
+      1000.0
+    ],
+    "tool_calls": [
+      "1"
+    ]
+  },
+  {
+    "filename": "5_4END_FINSH_1.tap",
+    "setup": 5,
+    "tool_diameter_mm": 4.0,
+    "operation_suffix": "FINSH_1",
+    "inferred_op_type": "finishing",
+    "line_count": 52762,
+    "spindle_speeds_rpm": [
+      4500
+    ],
+    "feed_rates_mmpm": [
+      100.0,
+      1000.0
+    ],
+    "tool_calls": [
+      "1"
+    ]
+  },
+  {
+    "filename": "6_4END_FLATE.tap",
+    "setup": 6,
+    "tool_diameter_mm": 4.0,
+    "operation_suffix": "FLATE",
+    "inferred_op_type": "flat_finish",
+    "line_count": 755,
+    "spindle_speeds_rpm": [
+      4500
+    ],
+    "feed_rates_mmpm": [
+      100.0,
+      1000.0
+    ],
+    "tool_calls": [
+      "1"
+    ]
+  },
+  {
+    "filename": "7_1.5END",
+    "setup": 7,
+    "tool_diameter_mm": 1.5,
+    "operation_suffix": "",
+    "inferred_op_type": "finish",
+    "line_count": 6542,
+    "spindle_speeds_rpm": [
+      4500
+    ],
+    "feed_rates_mmpm": [
+      100.0,
+      1000.0
+    ],
+    "tool_calls": [
+      "1"
+    ]
+  },
+  {
+    "filename": "7_2END.tap",
+    "setup": 7,
+    "tool_diameter_mm": 2.0,
+    "operation_suffix": "",
+    "inferred_op_type": "finish",
+    "line_count": 3861,
+    "spindle_speeds_rpm": [
+      4500
+    ],
+    "feed_rates_mmpm": [
+      100.0,
+      1000.0
+    ],
+    "tool_calls": [
+      "1"
+    ]
+  },
+  {
+    "filename": "8_1.5END_FNISH",
+    "setup": 8,
+    "tool_diameter_mm": 1.5,
+    "operation_suffix": "FNISH",
+    "inferred_op_type": "finishing",
+    "line_count": 3917,
+    "spindle_speeds_rpm": [
+      4500
+    ],
+    "feed_rates_mmpm": [
+      100.0,
+      1000.0
+    ],
+    "tool_calls": [
+      "1"
+    ]
+  },
+  {
+    "filename": "9_8END_1.tap",
+    "setup": 9,
+    "tool_diameter_mm": 8.0,
+    "operation_suffix": "1",
+    "inferred_op_type": "finish",
+    "line_count": 9431,
+    "spindle_speeds_rpm": [
+      3200
+    ],
+    "feed_rates_mmpm": [
+      150.0,
+      1500.0
+    ],
+    "tool_calls": [
+      "1"
+    ]
+  }
+]

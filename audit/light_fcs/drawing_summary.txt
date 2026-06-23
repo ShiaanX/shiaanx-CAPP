@@ -1,0 +1,57 @@
+=== DRAWING SUMMARY — LIGHT-FCS_A06.01.0001.A00 ===
+
+Part No:      LIGHT-FCS_A06.01.0001.A00
+Revision:     A / 00
+Sheet:        1/1
+Format:       A3
+Scale:        1.5:1
+Weight:       0.04 Kg
+Date:         02/12/2024 (drawn) / 03/12/2024 (checked) / 04/12/2024 (approved)
+Origin:       DUMA Engineering Group, Móstoles (Madrid), Spain — CONFIDENTIAL/RESTRICTED
+
+MATERIAL
+  5083 H-12/H-22 (NOT 6061 — marine/aerospace aluminium, harder to machine than 6061)
+
+FINISH
+  SURTEC 650 + BLACK ANODIZED
+  Note: "Masking area before anodizing / Enmascarar zona antes de anodizado"
+
+GENERAL TOLERANCES
+  ISO 2768 mk (medium for linear, fine for geometric)
+
+ENVELOPE (from pipeline bounding box)
+  50.00 × 30.00 × 32.00 mm
+
+KEY DIMENSIONS (from PDF text extraction)
+  50, 30  — overall footprint
+  32      — height (from bounding box)
+  22, 25, 26, 14, 12, 5, 6
+  33.6 ±0.1
+  42.82
+  =20°= (angled feature)
+  R5, R3, Rmin 0.2 / Rmax 0.4
+
+HOLE / BORE DATA
+  Dia 6.6  (tol ±0.1) — likely drill clearance
+  Dia 6.8  (tol ±0.1) — likely M6-thread pilot or clearance
+  Dia 10 g8  (tol -0.01 / +0.03) — precision bore, shaft fit
+  3x features at Ø10 g8 zone
+
+GD&T (from PDF)
+  0.02 A-B-C  — parallelism/flatness multi-datum
+  0.1 A       — position to datum A
+  0.1 A-B     — position to A-B
+  0.01 / 0.03 — on the 3x Ø10 zone
+  0.02 A B C  — flatness chain
+  1 X 45° chamfer (×2 locations)
+  0.5 X 45° chamfer
+  15 ±0.1
+  1 ±0.05
+
+SURFACE FINISH
+  Ra 3.2 (general), 1.6 (critical faces)
+
+NOTES
+  Drawing is bilingual (Spanish / English)
+  "SEE 3D MODEL FILE FOR DETAILS NOT GIVEN IN THE DOCUMENT"
+  Security level: RESTRICTED
