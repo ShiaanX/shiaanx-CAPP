@@ -1164,10 +1164,12 @@ def print_setup_summary(data: Dict):
         if wo:
             print(f"    Origin    : X={s.get('origin_x', '?')}")
             print(f"                Y={s.get('origin_y', '?')}")
-            print(f"                Z={s.get('origin_z', 'TOP')}  "
-                  f"(CAD point: {wo.get('x_mm', 0):.3f}mm, "
-                  f"{wo.get('y_mm', 0):.3f}mm, "
-                  f"{wo.get('z_mm', 0):.3f}mm)")
+            _oz = s.get('origin_z') or 'TOP'
+            _ox = wo.get('x_mm') or 0
+            _oy = wo.get('y_mm') or 0
+            _oz_mm = wo.get('z_mm') or 0
+            print(f"                Z={_oz}  "
+                  f"(CAD point: {_ox:.3f}mm, {_oy:.3f}mm, {_oz_mm:.3f}mm)")
             print(f"    Probe note: {wo.get('note', '')}")
 
         fw = s.get('setup_face_width')
