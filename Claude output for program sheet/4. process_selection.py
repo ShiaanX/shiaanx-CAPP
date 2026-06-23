@@ -985,7 +985,9 @@ def _process_chamfer(cluster: Dict) -> Tuple[str, List[Dict]]:
     depth    = cluster.get('depth')
     dia_str  = (f', d={diameter}mm' if diameter else '')
 
-    if depth is not None and depth > 0.5:
+    # Default to two-pass when depth is unknown (None) or > 0.5mm.
+    # Single-pass only when depth is confirmed shallow (0 < depth <= 0.5mm).
+    if depth is None or depth > 0.5:
         return 'milling', [
             {
                 'step'        : 1,

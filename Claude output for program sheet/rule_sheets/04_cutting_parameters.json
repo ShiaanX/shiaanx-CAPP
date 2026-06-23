@@ -97,6 +97,20 @@
     "boring_bar": "through_spindle",
     "tap_rh": "flood"
   },
+  "chamfer_two_pass": {
+    "description": "Two-pass chamfer strategy: TOUCH (tool finds edge slowly) then FINISH (full speed profile). Validated on Motor Mount Al6061 part. chamfer_pass field set by process_selection.py.",
+    "TOUCH": {
+      "Vc_mmin": 28.0,
+      "vf_max_mmpm": 80.0,
+      "rationale": "Slow entry ensures the tool locates the chamfer edge without deflecting off the burred/sharp corner. Vf hard-capped at 80 mm/min regardless of calculated value."
+    },
+    "FINISH": {
+      "Vc_mmin": 140.0,
+      "rationale": "Full-speed profile pass once edge is located. Standard aluminium chamfer_mill Vc from tool database."
+    },
+    "single_pass_fallback": "If chamfer_pass field is absent, existing tool-database Vc is used unchanged (backward-compatible).",
+    "depth_condition": "Two-pass when depth is None (unknown) or > 0.5mm. Single-pass only when depth is confirmed <= 0.5mm."
+  },
   "spring_pass_note": "A spring pass is a repeat of the finish pass at zero additional DOC. It recovers elastic deflection of the tool and workpiece that occurred on the first finish pass. For aluminium facing, the strategy sheet marks Is_Finishing=TRUE rules with Spring_Pass=TRUE. In practice: emit a third face_mill step with pass_type=SPRING, identical parameters to FINISH, zero stock_to_leave. Not yet implemented in process_selection.py — tracked for future addition.",
   "ramp_plunge": {
     "location": "7a. tool_database.json per tool entry ramp_plunge",

@@ -108,6 +108,13 @@ RPM_ROUND_TO = 10
 # Feed rate rounding
 VF_ROUND_TO = 1   # round to nearest 1 mm/min
 
+# Chamfer two-pass Vc / feed limits (Motor Mount validated values)
+# TOUCH: slow entry pass so the tool finds the chamfer edge without deflection
+# FINISH: full-speed profile pass once the edge is located
+CHAMFER_TOUCH_VC       = 28.0    # m/min
+CHAMFER_FINISH_VC      = 140.0   # m/min
+CHAMFER_TOUCH_FEED_MAX = 80.0    # mm/min — hard cap on TOUCH feed
+
 # Path to tool database (same directory as this script)
 _DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                         '7a. tool_database.json')
@@ -480,6 +487,17 @@ def _calc_step_params(step: Dict, cluster: Dict,
     if fz is None:
         fz = step.get('fz_mm')
 
+    # ------------------------------------------------------------------
+    # Chamfer two-pass Vc override
+    # chamfer_pass is set by process_selection.py: 'TOUCH' | 'FINISH' | absent
+    # ------------------------------------------------------------------
+    chamfer_pass = step.get('chamfer_pass')
+    if op == 'chamfer_mill':
+        if chamfer_pass == 'TOUCH':
+            Vc = CHAMFER_TOUCH_VC
+        elif chamfer_pass == 'FINISH':
+            Vc = CHAMFER_FINISH_VC
+
     notes = []
 
     # ------------------------------------------------------------------
@@ -524,6 +542,16 @@ def _calc_step_params(step: Dict, cluster: Dict,
         else:
             vf = MIN_VF_MMPM
             notes.append('fz not set — using minimum feed rate')
+
+    # ------------------------------------------------------------------
+    # Chamfer TOUCH feed cap
+    # ------------------------------------------------------------------
+    if op == 'chamfer_mill' and chamfer_pass == 'TOUCH' and vf > CHAMFER_TOUCH_FEED_MAX:
+        notes.append(
+            f'TOUCH pass: Vf capped at {CHAMFER_TOUCH_FEED_MAX} mm/min '
+            f'(calculated {vf})'
+        )
+        vf = CHAMFER_TOUCH_FEED_MAX
 
     # ------------------------------------------------------------------
     # Axial depth of cut (ap)
@@ -653,6 +681,8 @@ def _calc_step_params(step: Dict, cluster: Dict,
         step['stock_to_leave_z'] = step.get('stock_to_leave_z')
     if 'pass_type' not in step:
         step['pass_type'] = pass_type
+    if chamfer_pass is not None:
+        step['chamfer_pass'] = chamfer_pass
 
     # Cycle time estimate (§4c)
     step['estimated_time_s'] = _estimate_cycle_time(op, step, cluster)

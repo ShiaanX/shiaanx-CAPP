@@ -226,7 +226,27 @@ def find_seeds(G: nx.Graph, config: ClusteringConfig) -> List[Dict]:
             continue
         if data['area'] < config.min_plane_seed_area:
             continue
-        if any(nb in cylinder_seed_indices for nb in G.neighbors(node)):
+        # Skip only planes that are bore/boss CAP faces (normal ∥ cylinder
+        # axis, dot ≈ 1).  Angled planes like chamfers live at bore entries
+        # but have normals ⊥ the bore axis (dot ≈ 0) — they need their own
+        # seed and are NOT claimed by cylinder BFS.
+        skip = False
+        plane_normal_raw = data.get('plane', {}).get('normal')
+        pn_vec = _vec(plane_normal_raw) if plane_normal_raw else None
+        for nb in G.neighbors(node):
+            if nb not in cylinder_seed_indices:
+                continue
+            nb_data = G.nodes[nb]
+            cyl_info = nb_data.get('cylinder') or nb_data.get('cone') or {}
+            cyl_axis_raw = cyl_info.get('axis_direction')
+            if not cyl_axis_raw or pn_vec is None:
+                skip = True
+                break
+            cyl_vec = _vec(cyl_axis_raw)
+            if abs(_dot(pn_vec, cyl_vec)) > 0.9:  # cap plane → skip
+                skip = True
+                break
+        if skip:
             continue
 
         matched = None
@@ -722,6 +742,22 @@ def cluster_features(json_data: Dict,
         cluster_faces = [faces[i] for i in face_indices]
 
         axis = get_feature_axis(cluster_faces)
+
+        # For plane clusters the cylinder axis is unavailable; derive
+        # is_principal_axis from the seed face's plane normal instead.
+        if axis is not None:
+            principal = is_principal_axis(axis)
+        elif seed['seed_type'] in ('plane', 'plane_feature'):
+            seed_node = G.nodes.get(seed['seed_face_index'], {})
+            plane_normal_raw = seed_node.get('plane', {}).get('normal')
+            if plane_normal_raw:
+                nv = _vec(plane_normal_raw)
+                principal = is_principal_axis(nv)
+            else:
+                principal = None
+        else:
+            principal = None
+
         raw_clusters.append({
             'cluster_id'        : cluster_id,
             'seed_face_index'   : seed['seed_face_index'],
@@ -731,7 +767,7 @@ def cluster_features(json_data: Dict,
             'feature_axis'      : axis,
             'depth'             : get_feature_depth(cluster_faces),
             'radii'             : get_radii_sorted(cluster_faces),
-            'is_principal_axis' : is_principal_axis(axis) if axis else None,
+            'is_principal_axis' : principal,
         })
 
     if verbose:
