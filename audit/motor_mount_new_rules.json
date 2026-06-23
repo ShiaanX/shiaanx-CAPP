@@ -1,0 +1,160 @@
+[
+  {
+    "rule_id": "SR-MM-001",
+    "rule_name": "bore_circular_interp_tool_diameter",
+    "confidence": "HIGH",
+    "classification": "CONSISTENT",
+    "description": "For bores 14\u201320mm diameter, use the largest end mill that fits (\u2264bore_dia/1.3). Both shops used 10mm EM for \u230016.1 bore via circular interpolation.",
+    "evidence": "TS: 10mm EM S=2500 F=800; Krishna: 10mm EM S=3000 F=1000",
+    "current_rule": "circular_interp for holes >32mm; boring_bar for exact size",
+    "proposed_update": "For holes 14\u201332mm: use largest_end_mill_le(bore_dia/1.3) with circular interpolation. Both shops converge on this.",
+    "applies_to": [
+      "through_hole",
+      "large_bore"
+    ],
+    "material": "aluminium"
+  },
+  {
+    "rule_id": "SR-MM-002",
+    "rule_name": "medium_pocket_8mm_em",
+    "confidence": "HIGH",
+    "classification": "CONSISTENT",
+    "description": "For pockets 8\u201315mm wide, both shops independently chose 8mm EM as the primary roughing tool.",
+    "evidence": "TS: 8mm EM for Q11 and SP pockets; Krishna: 8mm EM for 1st op in 2nd setting",
+    "current_rule": "smallest tool >= required diameter",
+    "proposed_update": "For pocket width 8\u201315mm: prefer 8mm EM as primary \u2014 consistent with both shops.",
+    "applies_to": [
+      "pocket",
+      "rectangular_blind_pocket"
+    ],
+    "material": "aluminium"
+  },
+  {
+    "rule_id": "SR-MM-003",
+    "rule_name": "ball_nose_for_fillet_radius",
+    "confidence": "HIGH",
+    "classification": "CONSISTENT",
+    "description": "Both shops use ball nose or bull nose end mill for fillet / step-bottom radius finishing. This is physics-driven: a ball nose traces the correct radius geometry.",
+    "evidence": "TS: 8mm BN R1 + 5mm ball nose; Krishna: 4mm ball nose (1st), 3mm ball nose (2nd)",
+    "current_rule": "Not explicitly modeled \u2014 fillet finish not in pipeline",
+    "proposed_update": "Add ball_nose_finish step for features with fillet_radius > 0: tool_dia = fillet_radius * 2, or next smaller standard size.",
+    "applies_to": [
+      "pocket",
+      "blind_hole",
+      "step"
+    ],
+    "material": "any"
+  },
+  {
+    "rule_id": "SR-MM-004",
+    "rule_name": "separate_setup_for_second_face",
+    "confidence": "HIGH",
+    "classification": "CONSISTENT",
+    "description": "Both shops use a separate setup (flip) for the second major face. This is physics-driven: the part must be re-fixtured to machine the opposite side.",
+    "evidence": "TS setup 2 = flip; Krishna 2nd setting = flip",
+    "current_rule": "setup_planning.py already groups by axis direction",
+    "proposed_update": "Confirms current approach. No change needed.",
+    "applies_to": [
+      "setup_planning"
+    ],
+    "material": "any"
+  },
+  {
+    "rule_id": "SR-MM-005",
+    "rule_name": "bore_and_long_pocket_last_setup",
+    "confidence": "HIGH",
+    "classification": "CONSISTENT",
+    "description": "Both shops put the bore (\u230016.1) and any long narrow pocket in the final setup. Physics reason: these features define the part datum \u2014 machining them last minimises accumulated error.",
+    "evidence": "TS setup 4: bore 16.1 + long pocket; Krishna 3rd setting: 10mm EM bore + 4mm EM finish",
+    "current_rule": "setup_planning groups by axis only",
+    "proposed_update": "Prioritise bore_feature and long_pocket to last setup when part has a primary bore axis.",
+    "applies_to": [
+      "setup_planning"
+    ],
+    "material": "any"
+  },
+  {
+    "rule_id": "SR-MM-006",
+    "rule_name": "step_bottom_finish_low_feedrate",
+    "confidence": "MEDIUM",
+    "classification": "CONSISTENT",
+    "description": "Both shops use significantly reduced feed for step/floor finishing passes (300\u2013500 mm/min with 10mm EM on aluminium), even though roughing is much faster.",
+    "evidence": "TS step bottom finish: S=2800 F=300; Krishna 2nd setting step: S=3000 F=500",
+    "current_rule": "parameter_calculation uses fz_finish from tool_database",
+    "proposed_update": "Validate that finish F for 10mm EM floor pass is \u2264500 mm/min for aluminium. Current tool_database may need fz_finish check.",
+    "applies_to": [
+      "parameter_calculation"
+    ],
+    "material": "aluminium"
+  },
+  {
+    "rule_id": "SR-MM-007",
+    "rule_name": "drilling_sequence_center_then_twist",
+    "confidence": "MEDIUM",
+    "classification": "CONSISTENT",
+    "description": "TS explicitly uses center drill \u2192 twist drill for all holes. Krishna TAP files don't include drilling \u2014 likely done on a separate machine or not captured \u2014 but inspection shows drilled holes pass at both shops.",
+    "evidence": "TS: T2=2mm center drill, T3=2.5mm, T4=3.2mm, T11=3mm drill; Krishna: no drill TAP files but \u23003.2 and \u23002.5 holes present in inspection",
+    "current_rule": "spot_drill \u2192 twist_drill already in pipeline",
+    "proposed_update": "Confirms current rule. Note: shops may separate drilling onto a drill press or second VMC \u2014 pipeline should flag this possibility.",
+    "applies_to": [
+      "process_selection"
+    ],
+    "material": "any"
+  },
+  {
+    "rule_id": "SR-MM-008",
+    "rule_name": "roughing_tool_largest_em_in_pocket",
+    "confidence": "HIGH",
+    "classification": "CONSISTENT",
+    "description": "Both shops use the largest end mill that fits the pocket/feature for roughing. TS: 10mm EM for main body; Krishna: 12mm EM. Both maximise MRR within feature geometry constraints.",
+    "evidence": "TS T1=10mm EM rough; Krishna steps 1-2 = 12mm EM",
+    "current_rule": "process_selection doesn't explicitly maximise EM diameter for roughing",
+    "proposed_update": "For rough passes: select largest EM \u2264 min(pocket_width \u00d7 0.75, 12mm for aluminium). Confirm tool fits feature before assigning.",
+    "applies_to": [
+      "tool_selection"
+    ],
+    "material": "aluminium"
+  },
+  {
+    "rule_id": "SR-MM-009",
+    "rule_name": "hsm_dynamic_roughing_is_shop_preference",
+    "confidence": "HIGH",
+    "classification": "VARIABLE",
+    "description": "HSM/trochoidal/dynamic roughing (TS: S=4461 F=10000) vs conventional roughing (Krishna: S=3000 F=1000) \u2014 10\u00d7 feed difference. This is a CAM software + machine capability choice, not a physics rule.",
+    "evidence": "TS Sinumerik 828D with HSM-capable spindle + NX CAM dynamic toolpaths. Krishna uses PowerMILL conventional passes.",
+    "current_rule": "pipeline doesn't model roughing strategy",
+    "proposed_update": "Flag as shop/machine preference. Add roughing_strategy field to process output: ['conventional', 'dynamic_hsm']. Default to conventional for safety.",
+    "applies_to": [
+      "process_selection"
+    ],
+    "material": "aluminium"
+  },
+  {
+    "rule_id": "SR-MM-010",
+    "rule_name": "absolute_spindle_speed_is_shop_preference",
+    "confidence": "HIGH",
+    "classification": "VARIABLE",
+    "description": "Both shops achieve acceptable inspection results with significantly different spindle speeds for the same features (\u00b130-40%). This confirms S is derived from tool/material Vc \u2014 the exact value is flexible.",
+    "evidence": "Profile finish: TS S=2200 vs Krishna S=3000-4500. Both pass inspection.",
+    "current_rule": "parameter_calculation computes S from Vc and dia",
+    "proposed_update": "Confirms current approach is correct in principle. Widen acceptable Vc range for aluminium in tool_database (current values may be too conservative).",
+    "applies_to": [
+      "parameter_calculation"
+    ],
+    "material": "aluminium"
+  },
+  {
+    "rule_id": "SR-MM-011",
+    "rule_name": "dim_5mm_consistently_difficult",
+    "confidence": "HIGH",
+    "classification": "CONSISTENT",
+    "description": "The 5mm dimension (SL 13) was marked Not OK by TS and borderline/not measured by Krishna. Both shops struggled with this dimension, suggesting it is a genuinely tight feature regardless of shop skill.",
+    "evidence": "TS: 'Not OK' all 9 parts; Krishna: '-' (not passed) for 5 parts",
+    "current_rule": "N/A \u2014 inspection data not in pipeline",
+    "proposed_update": "Flag this as a known difficult dimension in inspection planning. Likely a small shoulder or step depth where tool deflection dominates.",
+    "applies_to": [
+      "inspection_planning"
+    ],
+    "material": "aluminium"
+  }
+]

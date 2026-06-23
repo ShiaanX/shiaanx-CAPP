@@ -1,0 +1,325 @@
+{
+  "shop": "Krishna Engineering",
+  "machine": "PowerMILL (Fanuc)",
+  "settings": {
+    "1st setting": {
+      "operations": [
+        {
+          "file": "1_12end_outer1.tap",
+          "step_order": 1,
+          "operation_inferred": "outer_profile",
+          "tool_type": "ENDMILL",
+          "tool_dia_mm": 12.0,
+          "S_dominant": 3000,
+          "S_min": 3000,
+          "S_max": 3000,
+          "F_dominant": 500,
+          "F_values": [
+            500,
+            1000
+          ]
+        },
+        {
+          "file": "2__12end.tap",
+          "step_order": 2,
+          "operation_inferred": "milling_op",
+          "tool_type": "ENDMILL",
+          "tool_dia_mm": 12.0,
+          "S_dominant": 3000,
+          "S_min": 3000,
+          "S_max": 3000,
+          "F_dominant": 500,
+          "F_values": [
+            500,
+            1000,
+            3000
+          ]
+        },
+        {
+          "file": "3_12end_outer.tap",
+          "step_order": 3,
+          "operation_inferred": "outer_profile",
+          "tool_type": "ENDMILL",
+          "tool_dia_mm": 12.0,
+          "S_dominant": 4500,
+          "S_min": 4500,
+          "S_max": 4500,
+          "F_dominant": 500,
+          "F_values": [
+            500,
+            1000
+          ]
+        },
+        {
+          "file": "3_4end_outer_1.tap",
+          "step_order": 3,
+          "operation_inferred": "outer_profile",
+          "tool_type": "ENDMILL",
+          "tool_dia_mm": 4.0,
+          "S_dominant": 4500,
+          "S_min": 4500,
+          "S_max": 4500,
+          "F_dominant": 500,
+          "F_values": [
+            500,
+            1000
+          ]
+        },
+        {
+          "file": "4_4end.tap",
+          "step_order": 4,
+          "operation_inferred": "milling_op",
+          "tool_type": "ENDMILL",
+          "tool_dia_mm": 4.0,
+          "S_dominant": 4200,
+          "S_min": 4200,
+          "S_max": 4200,
+          "F_dominant": 500,
+          "F_values": [
+            500,
+            1000,
+            3000
+          ]
+        },
+        {
+          "file": "5_4end.tap",
+          "step_order": 5,
+          "operation_inferred": "milling_op",
+          "tool_type": "ENDMILL",
+          "tool_dia_mm": 4.0,
+          "S_dominant": 4000,
+          "S_min": 4000,
+          "S_max": 4000,
+          "F_dominant": 500,
+          "F_values": [
+            500,
+            1000
+          ]
+        },
+        {
+          "file": "6_2end.tap",
+          "step_order": 6,
+          "operation_inferred": "milling_op",
+          "tool_type": "ENDMILL",
+          "tool_dia_mm": 2.0,
+          "S_dominant": 7500,
+          "S_min": 7500,
+          "S_max": 7500,
+          "F_dominant": 500,
+          "F_values": [
+            500,
+            1000,
+            3000
+          ]
+        },
+        {
+          "file": "7_2end_1.tap",
+          "step_order": 7,
+          "operation_inferred": "milling_op",
+          "tool_type": "ENDMILL",
+          "tool_dia_mm": 2.0,
+          "S_dominant": 7500,
+          "S_min": 7500,
+          "S_max": 7500,
+          "F_dominant": 500,
+          "F_values": [
+            500,
+            1000
+          ]
+        },
+        {
+          "file": "8_2end_1_1.tap",
+          "step_order": 8,
+          "operation_inferred": "milling_op",
+          "tool_type": "ENDMILL",
+          "tool_dia_mm": 2.0,
+          "S_dominant": 7500,
+          "S_min": 7500,
+          "S_max": 7500,
+          "F_dominant": 500,
+          "F_values": [
+            500,
+            1000
+          ]
+        },
+        {
+          "file": "9_4boll.tap",
+          "step_order": 9,
+          "operation_inferred": "radius_finish_ballnose",
+          "tool_type": "BALLNOSED",
+          "tool_dia_mm": 4.0,
+          "S_dominant": 7500,
+          "S_min": 7500,
+          "S_max": 7500,
+          "F_dominant": 500,
+          "F_values": [
+            500,
+            1000
+          ]
+        }
+      ]
+    },
+    "2nd setting": {
+      "operations": [
+        {
+          "file": "1_8end.tap",
+          "step_order": 1,
+          "operation_inferred": "milling_op",
+          "tool_type": "ENDMILL",
+          "tool_dia_mm": 8.0,
+          "S_dominant": 3000,
+          "S_min": 3000,
+          "S_max": 3000,
+          "F_dominant": 500,
+          "F_values": [
+            500,
+            1000,
+            3000
+          ]
+        },
+        {
+          "file": "2_4end.tap",
+          "step_order": 2,
+          "operation_inferred": "milling_op",
+          "tool_type": "ENDMILL",
+          "tool_dia_mm": 4.0,
+          "S_dominant": 3000,
+          "S_min": 3000,
+          "S_max": 3000,
+          "F_dominant": 500,
+          "F_values": [
+            500,
+            1000,
+            3000
+          ]
+        },
+        {
+          "file": "3_4end_flat.tap",
+          "step_order": 3,
+          "operation_inferred": "flat_pocket_or_step",
+          "tool_type": "ENDMILL",
+          "tool_dia_mm": 4.0,
+          "S_dominant": 3000,
+          "S_min": 3000,
+          "S_max": 3000,
+          "F_dominant": 500,
+          "F_values": [
+            500,
+            1000
+          ]
+        },
+        {
+          "file": "4_2end.tap",
+          "step_order": 4,
+          "operation_inferred": "milling_op",
+          "tool_type": "ENDMILL",
+          "tool_dia_mm": 2.0,
+          "S_dominant": 3000,
+          "S_min": 3000,
+          "S_max": 3000,
+          "F_dominant": 500,
+          "F_values": [
+            500,
+            1000
+          ]
+        },
+        {
+          "file": "5_2end_1.tap",
+          "step_order": 5,
+          "operation_inferred": "milling_op",
+          "tool_type": "ENDMILL",
+          "tool_dia_mm": 2.0,
+          "S_dominant": 3000,
+          "S_min": 3000,
+          "S_max": 3000,
+          "F_dominant": 500,
+          "F_values": [
+            500,
+            1000
+          ]
+        },
+        {
+          "file": "6_2end_flat_1.tap",
+          "step_order": 6,
+          "operation_inferred": "flat_pocket_or_step",
+          "tool_type": "ENDMILL",
+          "tool_dia_mm": 2.0,
+          "S_dominant": 3000,
+          "S_min": 3000,
+          "S_max": 3000,
+          "F_dominant": 500,
+          "F_values": [
+            500,
+            1000
+          ]
+        },
+        {
+          "file": "7_3boll.tap",
+          "step_order": 7,
+          "operation_inferred": "radius_finish_ballnose",
+          "tool_type": "BALLNOSED",
+          "tool_dia_mm": 3.0,
+          "S_dominant": 3000,
+          "S_min": 3000,
+          "S_max": 3000,
+          "F_dominant": 500,
+          "F_values": [
+            500,
+            1000,
+            3000
+          ]
+        },
+        {
+          "file": "12end_face11MM.tap",
+          "step_order": 12,
+          "operation_inferred": "face_mill",
+          "tool_type": "ENDMILL",
+          "tool_dia_mm": 12.0,
+          "S_dominant": 3000,
+          "S_min": 3000,
+          "S_max": 3000,
+          "F_dominant": 500,
+          "F_values": [
+            500,
+            1000,
+            3000
+          ]
+        }
+      ]
+    },
+    "3rd setting": {
+      "operations": [
+        {
+          "file": "1_10END.tap",
+          "step_order": 1,
+          "operation_inferred": "milling_op",
+          "tool_type": "ENDMILL",
+          "tool_dia_mm": 10.0,
+          "S_dominant": 3000,
+          "S_min": 3000,
+          "S_max": 3000,
+          "F_dominant": 500,
+          "F_values": [
+            500,
+            1000
+          ]
+        },
+        {
+          "file": "2_4END_FIN.tap",
+          "step_order": 2,
+          "operation_inferred": "finish",
+          "tool_type": "ENDMILL",
+          "tool_dia_mm": 4.0,
+          "S_dominant": 3000,
+          "S_min": 3000,
+          "S_max": 3000,
+          "F_dominant": 500,
+          "F_values": [
+            500,
+            1000
+          ]
+        }
+      ]
+    }
+  }
+}
