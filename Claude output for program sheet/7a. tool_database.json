@@ -2089,7 +2089,7 @@
     {
       "_section": "STEEL/STAINLESS BALL END MILLS — 3-4 flute, for 3D profiling and radius features in harder materials",
       "tool_id": "BALL_3FL_STEEL_3MM",
-      "operation": ["contour_mill", "pocket_mill"],
+      "operation": ["contour_mill", "pocket_mill", "profile_3d_contour"],
       "description": "3-flute solid carbide ball end mill 3mm — steel/stainless geometry",
       "diameter_mm": 3.0,
       "flute_count": 3,
@@ -2129,12 +2129,23 @@
           "ap_max_mm": 0.18,
           "ae_max_mm": 0.09,
           "notes": "Flood coolant essential"
+        },
+        "aluminium": {
+          "Vc_mmin": 180,
+          "fz_mm": 0.006,
+          "Vc_rough_mmin": 150,
+          "Vc_finish_mmin": 180,
+          "fz_rough_mm": 0.008,
+          "fz_finish_mm": 0.005,
+          "ap_max_mm": 0.5,
+          "ae_max_mm": 0.3,
+          "notes": "AlTiN coating not ideal for Al — use conservative Vc; flood coolant or mist. Stepover 10% of D for surface finish."
         }
       }
     },
     {
       "tool_id": "BALL_4FL_STEEL_6MM",
-      "operation": ["contour_mill", "pocket_mill"],
+      "operation": ["contour_mill", "pocket_mill", "profile_3d_contour"],
       "description": "4-flute solid carbide ball end mill 6mm — steel/stainless geometry",
       "diameter_mm": 6.0,
       "flute_count": 4,
@@ -2174,12 +2185,23 @@
           "ap_max_mm": 0.36,
           "ae_max_mm": 0.18,
           "notes": "Flood coolant essential"
+        },
+        "aluminium": {
+          "Vc_mmin": 200,
+          "fz_mm": 0.010,
+          "Vc_rough_mmin": 160,
+          "Vc_finish_mmin": 200,
+          "fz_rough_mm": 0.012,
+          "fz_finish_mm": 0.008,
+          "ap_max_mm": 1.0,
+          "ae_max_mm": 0.6,
+          "notes": "AlTiN coating not ideal for Al — use conservative Vc; flood coolant or mist. Stepover 10% of D for surface finish."
         }
       }
     },
     {
       "tool_id": "BALL_4FL_STEEL_10MM",
-      "operation": ["contour_mill", "pocket_mill"],
+      "operation": ["contour_mill", "pocket_mill", "profile_3d_contour"],
       "description": "4-flute solid carbide ball end mill 10mm — steel/stainless geometry",
       "diameter_mm": 10.0,
       "flute_count": 4,
@@ -2219,6 +2241,17 @@
           "ap_max_mm": 0.6,
           "ae_max_mm": 0.3,
           "notes": "Flood coolant essential"
+        },
+        "aluminium": {
+          "Vc_mmin": 220,
+          "fz_mm": 0.015,
+          "Vc_rough_mmin": 180,
+          "Vc_finish_mmin": 220,
+          "fz_rough_mm": 0.018,
+          "fz_finish_mm": 0.012,
+          "ap_max_mm": 1.5,
+          "ae_max_mm": 1.0,
+          "notes": "AlTiN coating not ideal for Al — use conservative Vc; flood coolant or mist. Stepover 10% of D for surface finish."
         }
       }
     },

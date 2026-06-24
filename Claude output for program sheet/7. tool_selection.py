@@ -583,6 +583,28 @@ def _assign_tool_to_step(step: Dict, cluster: Dict,
                       f'feed rate MUST equal thread pitch (G84 canned cycle). '
                       f'Use tapping fluid or through-spindle coolant.')
 
+    elif op == 'profile_3d_contour':
+        # req_dia = 2 × fillet radius (ball nose diameter must be ≤ fillet diameter).
+        # Pick largest ball nose that fits: tool_dia ≤ req_dia.
+        ball_tools = sorted(
+            [t for t in db['tools'] if 'profile_3d_contour' in (t.get('operation') or [])],
+            key=lambda t: t['diameter_mm']
+        )
+        if req_dia and req_dia > 0:
+            fitting = [t for t in ball_tools if t['diameter_mm'] <= req_dia + 0.01]
+            if fitting:
+                tool_dia = fitting[-1]['diameter_mm']
+                tool_notes += f'Ball nose {tool_dia}mm ≤ fillet dia {req_dia}mm (SR-MM-003)'
+            elif ball_tools:
+                tool_dia = ball_tools[0]['diameter_mm']
+                tool_notes += f'Smallest ball nose {tool_dia}mm — larger than fillet dia {req_dia}mm; verify clearance'
+            else:
+                tool_dia = req_dia
+                tool_notes += 'No ball nose in DB — ADD ball nose end mill'
+        else:
+            tool_dia = ball_tools[0]['diameter_mm'] if ball_tools else 6.0
+            tool_notes += f'Fillet radius unknown — defaulting to {tool_dia}mm ball nose'
+
     elif op == 'boring_bar':
         tool_dia = req_dia or 0
         tool_notes = 'Single-point boring bar — set to final diameter'

@@ -539,6 +539,32 @@ def _expand_rf_passes(steps: List[Dict], material: str = 'aluminium',
                     )
                     expanded.append(cr_step)
 
+                # §1c: SR-MM-003 — ball nose finish pass for fillet radii.
+                # Both TS and Krishna Engineering independently added a ball nose
+                # finishing pass on any feature with a floor-to-wall fillet radius.
+                # Trigger: internal_corner_radius > 0 AND feature type has a
+                # floor-wall junction (pocket, slot, boss).
+                BALLNOSE_FEATURE_TYPES = {
+                    'pocket', 'pocket_angled', 'slot', 'slot_angled',
+                    'boss', 'boss_angled'
+                }
+                if corner_r is not None and corner_r > 0 and ft in BALLNOSE_FEATURE_TYPES:
+                    bn_step = copy.copy(step)
+                    bn_step['operation']          = 'profile_3d_contour'
+                    bn_step['pass_type']          = 'BALLNOSE_FINISH'
+                    bn_step['stock_to_leave_xy']  = 0.0
+                    bn_step['stock_to_leave_z']   = 0.0
+                    # Ball nose radius must be ≤ fillet radius
+                    bn_step['diameter_mm']        = round(corner_r * 2, 4)
+                    bn_step['depth_mm']           = step.get('depth_mm')
+                    bn_step['drill_cycle']        = None
+                    bn_step['reason']             = (
+                        f'Ball nose fillet finish — corner_r={corner_r}mm, '
+                        f'Ø{round(corner_r*2,4)}mm ball nose. SR-MM-003: both '
+                        f'shops added this pass on {ft} features with fillets.'
+                    )
+                    expanded.append(bn_step)
+
         # ----------------------------------------------------------------
         # Face mill — split only when depth exceeds single-pass capability
         # ----------------------------------------------------------------
