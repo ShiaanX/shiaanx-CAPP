@@ -159,10 +159,10 @@ Parsed G-code from two shops: TS (Sinumerik 828D, 4 MPF setups) and Krishna Engi
 ---
 
 ### Session 5 — Training Data Inventory
-No SESSION_UPDATE file found on any branch. Session either didn't complete or didn't commit.
+**PERMANENTLY SKIPPED.** Only 1 SolidCAM `.prz` file exists in Google Drive — not enough for a viable training set. Training data flywheel will come from real part audits (sessions 6–8) instead. Do not re-run.
 
-### Session 9 — Inspection / Dashboard
-Session merged as part of `feature/dashboard-data-model` branch. See Dashboard Data Model section below.
+### Session 9 — Inspection / FPR Metrics
+Terminal was closed before committing. Output is lost — no branch, no files. Task was: design `qc_inspection_results` DB table + wire FPR metrics to dashboard. Straightforward enough to re-run or implement directly when dashboard work resumes.
 
 ---
 
@@ -170,31 +170,68 @@ Session merged as part of `feature/dashboard-data-model` branch. See Dashboard D
 
 Based on all audit sessions, ordered by impact:
 
-| Priority | Fix | Source | File |
-|----------|-----|--------|------|
-| P0 | `pocket_mill` tool_diameter_mm=0 bug | Session 7 | `7. tool_selection.py` |
-| P0 | Extend circular_interp to Ø4–32mm (not just ≥13mm) | Sessions 6+7+8 | `4. process_selection.py` |
-| P1 | Setup consolidation: merge anti-parallel axes | Session 2 | `5. setup_planning.py` |
-| P1 | SR-MM-001: 10mm EM circ interp for 14–32mm bores | Session 8 | `7. tool_selection.py` |
-| P1 | SR-MM-003: `ball_nose_finish` step for fillet features | Session 8 | `4. process_selection.py` |
-| P2 | Add 1.5mm and 2mm EM to tool database | Session 7 | `7a. tool_database.json` |
-| P2 | Add Al 5083 to material alias table | Session 7 | `8. parameter_calculation.py` |
-| P2 | RPM conservatism for small drills (≤4mm): cap Vc 50–60 m/min | Session 2 | `8. parameter_calculation.py` |
-| P2 | GBM retrain (XGBoost/LightGBM, 18 features) | Session 3 | `ml_train_classifier_v4.py` |
-| P3 | Face mill size sanity check vs bounding box | Session 7 | `7. tool_selection.py` |
-| P3 | `step_feature` classifier and ops | Session 2 | `3. classify_features.py`, `4. process_selection.py` |
-| DEFERRED | R1: pocket floor vs open face — needs `adjacent_cluster_ids` + `centroid` populated for plane clusters in `cluster_features.py` first; currently both are `None` on all plane-seeded clusters so there is no signal to distinguish floor from open face | Sessions 6+7 | `2. cluster_features.py` then `4. process_selection.py` |
+| Status | Priority | Fix | Source | File |
+|--------|----------|-----|--------|------|
+| ✅ DONE | P0 | `pocket_mill` tool_diameter_mm=0 bug — `_process_pocket()` now passes `internal_corner_radius` + `face_area_mm2`; `tool_selection.py` has `pocket_mill` branch that picks largest EM ≤ corner constraint. 21 Motor Mount pockets: 0 NOT_FOUND (was all NOT_FOUND). Commit `03b233ec1`. | Session 7 | `4. process_selection.py`, `7. tool_selection.py` |
+| ✅ DONE | P0 | R2: circular_interp for aluminium holes 6–13mm — `_drilling_steps()` now routes to `circular_interp` (0.60× bore EM) before the spot+drill bands. Threshold 6mm (not 4mm) — cube manifold showed 4mm interpolated hole failed due to EM deflection. Commit `03b233ec1`. | Sessions 6+7+8 | `4. process_selection.py` |
+| 🔲 | P1 | Setup consolidation: merge anti-parallel axes → target ≤4–5 setups (currently generates 12 for Motor Mount) | Session 2 | `5. setup_planning.py` |
+| 🔲 | P1 | SR-MM-001: extend existing circ-interp rule down to 14mm minimum (was 13mm) for aluminium bores | Session 8 | already partially covered by R2 above |
+| 🔲 | P1 | SR-MM-003: `ball_nose_finish` step for any feature with `fillet_radius > 0` | Session 8 | `4. process_selection.py` |
+| 🔲 | P2 | Add 1.5mm and 2mm EM to tool database | Session 7 | `7a. tool_database.json` |
+| 🔲 | P2 | Add Al 5083 to material alias table | Session 7 | `8. parameter_calculation.py` |
+| 🔲 | P2 | RPM conservatism for small drills (≤4mm): cap Vc at 50–60 m/min | Session 2 | `8. parameter_calculation.py` |
+| 🔲 | P2 | GBM retrain (XGBoost/LightGBM, same 18 features, expected +5–10pp accuracy) | Session 3 | `ml_train_classifier_v4.py` |
+| 🔲 | P3 | Face mill size sanity check: reject face mill if diameter > part bounding box shorter dimension | Session 7 | `7. tool_selection.py` |
+| 🔲 | P3 | `step_feature` classifier + ops (contour wall + floor face_mill) | Session 2 | `3. classify_features.py`, `4. process_selection.py` |
+| DEFERRED | — | R1: pocket floor vs open face — blocked until `adjacent_cluster_ids` + `centroid` are populated for plane-seeded clusters in `cluster_features.py`. Currently both `None` on all planar_face clusters — no signal available to distinguish floor from open face. | Sessions 6+7 | `2. cluster_features.py` first, then `4. process_selection.py` |
 
 ---
 
-## Branches Pending Merge to Main
+## Branches — All Merged (as of 2026-06-24)
 
-| Branch | Session | Status |
-|--------|---------|--------|
-| `audit/cube-manifold` | Session 6 | Audit only — safe to merge |
-| `audit/light-fcs` | Session 7 | Audit only — safe to merge |
-| `audit/motor-mount-two-shops` | Session 8 | Audit only + new rules JSON |
-| `feature/dashboard-data-model` | Session 9 | Migrations + inventory files |
+All session branches merged to main and pushed. No pending branches.
+
+| Branch | Merged | Notes |
+|--------|--------|-------|
+| `audit/feature-recognition-motor-mount` | ✅ | Feature recognition + clustering fixes |
+| `feature/rule-sheet-expansion` | ✅ | DR-003, circ-interp rule, two-pass chamfer |
+| `feature/chamfer-params` | ✅ | TOUCH/FINISH parameter differentiation |
+| `feature/dashboard-data-model` | ✅ | InfluxDB inventory + 4 Sequelize migrations |
+| `audit/cube-manifold` | ✅ | Cube manifold audit + 8 proposed rules |
+| `audit/light-fcs` | ✅ | LIGHT-FCS audit findings |
+| `audit/motor-mount-two-shops` | ✅ | Two-shop comparison + 11 rules |
+
+---
+
+## AI / ML Strategy (discussed 2026-06-24)
+
+### Do not start with RL yet
+RL requires many iterations to converge. Each trial in manufacturing is a real machined part — expensive and slow. With current data volume (handful of audited parts), RL will not converge. What we're building (closed loop inspection → rule/parameter update) is already the right architecture. The question is how much to automate each step.
+
+### Recommended roadmap by stage
+
+| Stage | Approach | Trigger / Data needed |
+|-------|----------|-----------------------|
+| **Now** | GBM retrain (XGBoost/LightGBM, 18 features) | Ready — 8790-part MFCAD++ dataset exists. Expected +5–10pp on feature classification. |
+| **Now** | LLM-assisted rule extraction | Use Claude API to read G-code + drawing + inspection report → propose rule additions in `proposed_rules.json` format automatically. Autonomous agent scaffold already exists. |
+| **3–6 months** | Contextual bandits for parameter tuning | Needs ~20–50 part+inspection pairs. Treat each job as context (material, feature type, tool dia, machine), action = Vc/fz choice, reward = inspection pass/fail. Thompson Sampling or UCB policy. InfluxDB telemetry + inspection results provide the data schema already. |
+| **12+ months** | GNN for feature recognition | Needs 200+ real labeled parts. Operates on B-Rep adjacency graph. Significantly outperforms RF for domain-specific part families (aerospace brackets, manifolds, motor mounts). This is the long-term moat. |
+| **Much later** | Full RL | Only when ShiaanX controls machines and can run many iterations cheaply. Not before. |
+
+### Claude vs SLM — where each fits
+
+| Task | Tool | Reason |
+|------|------|--------|
+| Rule extraction from G-code + drawings | **Claude API** | Needs long-context reasoning, handles ambiguity |
+| Feature classification (real-time, pipeline) | **Local RF/GBM → GNN** | No latency, deterministic, auditable |
+| Explaining pipeline decisions to users | **Claude API** | Natural language, investor-facing |
+| Structured extraction / simple decisions | **Gemini Flash** (already in autonomous agent) | Free tier, fast |
+| Offline / shop-floor inference | **Phi-3 or Qwen2.5** | Runs without internet |
+
+Architecture is layered: fast deterministic models for core pipeline decisions, LLM APIs for reasoning/explanation/rule extraction, small local models for offline shop floor use later.
+
+### Immediate next action on AI
+GBM retrain in `ml_train_classifier_v4.py` — change RandomForest to XGBoost, same 18 features, same dataset. One script change, run overnight, check accuracy improvement.
 
 ---
 
