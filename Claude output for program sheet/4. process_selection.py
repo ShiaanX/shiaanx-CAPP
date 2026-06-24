@@ -135,6 +135,12 @@ TWIST_DRILL_MAX_DIA   = 13.0   # 1–13mm: standard twist drill
 CORE_DRILL_MAX_DIA    = 32.0   # 13–32mm: pilot + core drill
 # above 32mm: boring bar (turning) or circular interpolation (milling)
 
+# R2 (cube manifold audit 2026-06-23): aluminium shops use circular interpolation
+# for holes down to ~4mm — avoids drill breakage, better position accuracy.
+# The cube manifold showed a 4mm interpolated hole failed (3.94mm undersize) due
+# to EM deflection; 6mm is the safer lower bound where deflection is manageable.
+CIRC_INTERP_MIN_DIA_ALUM_MM = 6.0   # holes ≥ this → circular_interp for aluminium
+
 # DDR (depth / diameter) breakpoints for drill cycle selection
 DDR_STANDARD_MAX  = 3.0   # ≤ 3: standard cycle
 DDR_PECK_MAX      = 5.0   # 3–5: peck cycle
@@ -611,6 +617,25 @@ def _drilling_steps(diameter_mm: float, depth_mm: Optional[float],
     cycle = _drill_cycle(ddr, material)
     step  = start_step
 
+    # R2: aluminium shops use circular interpolation for holes ≥ 6mm instead of drilling.
+    # Applies only in the 1–13mm band (below this, drill is more reliable for position;
+    # above 13mm, the existing aluminium circ-interp rule already handles it).
+    _alum = material == 'aluminium' or material.startswith('aluminium')
+    if _alum and CIRC_INTERP_MIN_DIA_ALUM_MM <= diameter_mm <= TWIST_DRILL_MAX_DIA:
+        em_dia = round(diameter_mm * 0.60, 4)
+        return [{
+            'step'               : step,
+            'operation'          : 'circular_interp',
+            'machine'            : 'milling',
+            'diameter_mm'        : round(diameter_mm, 4),
+            'depth_mm'           : depth_mm,
+            'drill_cycle'        : None,
+            'em_diameter_hint_mm': em_dia,
+            'reason'             : (f'Helical interpolation d={diameter_mm:.3f}mm — '
+                                    f'Ø{em_dia}mm EM (0.60× bore). R2: aluminium shops '
+                                    f'prefer circ-interp over spot+drill for ≥{CIRC_INTERP_MIN_DIA_ALUM_MM}mm holes.')
+        }]
+
     if diameter_mm < MICRO_DRILL_MAX_DIA:
         # Sub-1mm: no spot drill (it would snap the drill)
         steps.append({
@@ -1065,17 +1090,25 @@ def _process_pocket(cluster: Dict) -> Tuple[str, List[Dict]]:
     Depth = cluster depth.
     RF + FINISH split is applied automatically (pocket_mill is in RF_SPLIT_OPS).
     """
-    depth = cluster.get('depth')
+    depth       = cluster.get('depth')
+    corner_r    = cluster.get('internal_corner_radius')
+    face_area   = cluster.get('face_area')
+    # diameter_mm: 2× corner radius is the largest tool that fits the pocket interior.
+    # Passed through so tool_selection can pick the correct end mill size.
+    diameter_mm = round(2 * corner_r, 4) if corner_r else None
     return 'milling', [
         {
-            'step'        : 1,
-            'operation'   : 'pocket_mill',
-            'machine'     : 'milling',
-            'diameter_mm' : None,
-            'depth_mm'    : depth,
-            'drill_cycle' : None,
-            'reason'      : (f'Pocket mill — RF + FINISH passes'
-                             + (f', depth={depth}mm' if depth else '')),
+            'step'                   : 1,
+            'operation'              : 'pocket_mill',
+            'machine'                : 'milling',
+            'diameter_mm'            : diameter_mm,
+            'depth_mm'               : depth,
+            'drill_cycle'            : None,
+            'internal_corner_radius' : corner_r,
+            'face_area_mm2'          : face_area,
+            'reason'                 : (f'Pocket mill — RF + FINISH passes'
+                                        + (f', depth={depth}mm' if depth else '')
+                                        + (f', corner_r={corner_r}mm' if corner_r else '')),
         }
     ]
 

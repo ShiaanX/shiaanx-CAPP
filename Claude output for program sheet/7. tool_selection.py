@@ -509,6 +509,39 @@ def _assign_tool_to_step(step: Dict, cluster: Dict,
         tool_dia, note = _resolve_endmill_for_contour(req_dia or 1, db)
         tool_notes += note
 
+    elif op == 'pocket_mill':
+        # req_dia = 2 × internal_corner_radius (largest EM that fits the pocket corners).
+        # If None (corner radius unknown), fall back to face_area estimate or 8mm default.
+        if req_dia and req_dia > 0:
+            # Largest standard EM that fits: tool_dia ≤ req_dia
+            all_ems = sorted(
+                [t for t in db['tools'] if 'contour_mill' in (t.get('operation') or [])],
+                key=lambda t: t['diameter_mm']
+            )
+            fitting = [t for t in all_ems if t['diameter_mm'] <= req_dia + 0.01]
+            if fitting:
+                tool_dia = fitting[-1]['diameter_mm']  # largest that fits
+                tool_notes += f'Pocket: largest EM ≤ corner constraint {req_dia}mm → {tool_dia}mm'
+            else:
+                tool_dia = all_ems[0]['diameter_mm'] if all_ems else 6.0
+                tool_notes += f'Pocket: no EM ≤ {req_dia}mm — using smallest available {tool_dia}mm'
+        else:
+            # No corner radius: estimate from face_area or use 8mm default
+            face_area = step.get('face_area_mm2')
+            import math
+            if face_area and face_area > 0:
+                est_width = math.sqrt(face_area) * 0.6
+                all_ems = sorted(
+                    [t for t in db['tools'] if 'contour_mill' in (t.get('operation') or [])],
+                    key=lambda t: t['diameter_mm']
+                )
+                fitting = [t for t in all_ems if t['diameter_mm'] <= est_width + 0.01]
+                tool_dia = fitting[-1]['diameter_mm'] if fitting else 8.0
+                tool_notes += f'Pocket: corner radius unknown, area={face_area:.0f}mm² → est width {est_width:.1f}mm → {tool_dia}mm EM'
+            else:
+                tool_dia = 8.0
+                tool_notes += 'Pocket: no geometry constraint — defaulting to 8mm EM'
+
     elif op == 'counterbore_mill':
         # req_dia is the COUNTERBORE diameter
         tool_dia, note = _resolve_endmill_for_counterbore(req_dia or 1, db)
@@ -559,7 +592,9 @@ def _assign_tool_to_step(step: Dict, cluster: Dict,
         tool_notes = f'No diameter resolution rule for operation "{op}"'
 
     # --- Query database ---
-    db_tool = _query_tool(op, tool_dia, material, db)
+    # pocket_mill ops use contour_mill tools (end mills) in the database
+    query_op = 'contour_mill' if op == 'pocket_mill' else op
+    db_tool = _query_tool(query_op, tool_dia, material, db)
 
     if db_tool is None:
         step['tool_id']          = 'NOT_FOUND'
