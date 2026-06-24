@@ -182,6 +182,25 @@ Built and wired the Fixture Design Integration module. Full audit docs in `audit
 
 ---
 
+### Session 10b — Fixture 3D Viewer Tab (branch: `feature/fixture-viewer`)
+
+Built on top of `feature/fixture-design`. Added a Fixture tab to the ShiaanX frontend.
+
+**Backend endpoints added to `capp_service/main.py`:**
+- `GET /jobs/{id}/fixture` — serves `*_fixture_spec.json` from job folder (no in-memory store dependency)
+- `GET /jobs/{id}/jaw/{setup}/{side}` — serves soft jaw STEP files
+- `GET /jobs/{id}/fixture_assembly/{setup}` — merges part + jaw STEPs via OCC subprocess, caches result
+
+**Frontend:**
+- `FixtureTab.js` — setup selector pills, fixture spec table, soft jaw warning, setup notes, "Load in 3D Viewer" button with colour legend
+- `CappViewer.js` — added `viewerUrl` state; iframe URL controlled by state (defaults to part STEP, overridden by fixture assembly URL); switching away from Fixture tab resets to part-only STEP
+
+**Tested:** Backend endpoints return HTTP 200 with correct Motor Mount data (3 setups, angle_plate/fixture_plate). Assembly STEP generated in ~5s and cached. JS syntax verified.
+
+**Branch `feature/fixture-viewer` — not yet merged to main.**
+
+---
+
 ## Pipeline Fixes Priority Queue (as of 2026-06-24)
 
 Based on all audit sessions, ordered by impact:

@@ -7,6 +7,7 @@ import PipelineProgress from '../components/viewer/PipelineProgress';
 import OverviewTab from '../components/viewer/tabs/OverviewTab';
 import StrategyTab from '../components/viewer/tabs/StrategyTab';
 import ProgramSheetTab from '../components/viewer/tabs/ProgramSheetTab';
+import FixtureTab from '../components/viewer/tabs/FixtureTab';
 
 const POLL_INTERVAL = 2000;
 
@@ -16,6 +17,7 @@ const CappViewer = () => {
   const [job, setJob] = useState(null);
   const [activeTab, setActiveTab] = useState('overview');
   const [outputs, setOutputs] = useState({});
+  const [viewerUrl, setViewerUrl] = useState(null);
   const pollRef = useRef(null);
   const viewerIframeRef = useRef(null);
 
@@ -56,10 +58,18 @@ const CappViewer = () => {
     { key: 'overview',       label: 'Overview' },
     { key: 'strategy',       label: 'Strategy' },
     { key: 'program_sheet',  label: 'Program Sheet' },
+    { key: 'fixture',        label: 'Fixture' },
   ];
 
   const stepUrl = getStepUrl(jobId);
   const pdfUrl  = getPdfUrl(jobId);
+
+  // Initialise viewerUrl once job is complete
+  useEffect(() => {
+    if (job?.status === 'COMPLETE' && !viewerUrl) {
+      setViewerUrl(stepUrl);
+    }
+  }, [job?.status]); // eslint-disable-line
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -91,7 +101,7 @@ const CappViewer = () => {
           {job?.status === 'COMPLETE' ? (
             <iframe
               ref={viewerIframeRef}
-              src={`/step-viewer.html?url=${encodeURIComponent(stepUrl)}`}
+              src={viewerUrl ? `/step-viewer.html?url=${encodeURIComponent(viewerUrl)}` : ''}
               title="3D Viewer"
               style={{ width: '100%', height: '100%', border: 'none' }}
             />
@@ -116,7 +126,10 @@ const CappViewer = () => {
               <div
                 key={t.key}
                 className={`tab ${activeTab === t.key ? 'active' : ''}`}
-                onClick={() => setActiveTab(t.key)}
+                onClick={() => {
+                  setActiveTab(t.key);
+                  if (t.key !== 'fixture') setViewerUrl(stepUrl);
+                }}
               >
                 {t.label}
               </div>
@@ -145,6 +158,13 @@ const CappViewer = () => {
             )}
             {activeTab === 'program_sheet' && (
               <ProgramSheetTab jobId={jobId} hasPdf={job?.has_pdf} />
+            )}
+            {activeTab === 'fixture' && (
+              <FixtureTab
+                jobId={jobId}
+                active={activeTab === 'fixture'}
+                onLoadAssembly={(url) => setViewerUrl(url)}
+              />
             )}
           </div>
         </div>

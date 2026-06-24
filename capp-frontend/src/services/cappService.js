@@ -25,3 +25,15 @@ export function getPdfUrl(jobId) {
 export function getStepUrl(jobId) {
   return `${api.defaults.baseURL}/jobs/${jobId}/step`;
 }
+
+export async function getFixtureSpec(jobId) {
+  return api.get(`/jobs/${jobId}/fixture`);
+}
+
+export function getFixtureAssemblyUrl(jobId, setupIndex) {
+  return `${api.defaults.baseURL}/jobs/${jobId}/fixture_assembly/${setupIndex}`;
+}
+
+export function getJawUrl(jobId, setupIndex, side) {
+  return `${api.defaults.baseURL}/jobs/${jobId}/jaw/${setupIndex}/${side}`;
+}
