@@ -884,6 +884,55 @@ def plan_setups(processes_data: Dict,
             axis_groups.append({'rep_axis': ax_unit, 'clusters': [c]})
 
     # ------------------------------------------------------------------
+    # Step 2b: Fold small angled groups into nearest principal group.
+    #
+    # Rationale: angled groups with very few clusters (≤ 3) are typically
+    # a single boss or feature on a tilted face. On a 3-axis VMC the shop
+    # accesses these by tilting the vise or re-clamping within the nearest
+    # principal setup — not by creating a fully new setup. The fixture_rotation
+    # step already in the cluster's process_sequence documents the re-orientation.
+    #
+    # Threshold: ≤ 3 clusters AND angle to nearest principal axis ≤ 70°.
+    # Groups outside this threshold keep their own angled setup.
+    # ------------------------------------------------------------------
+    _FOLD_MAX_CLUSTERS  = 3
+    _FOLD_MAX_ANGLE_DEG = 70.0
+
+    principal_groups = [g for g in axis_groups if _is_principal(g['rep_axis'])]
+    angled_keep      = []
+
+    for group in axis_groups:
+        if _is_principal(group['rep_axis']):
+            continue  # principal groups stay as-is
+
+        n_clust = len(group['clusters'])
+        ax      = group['rep_axis']
+
+        # Angle from nearest principal axis (ignoring sign — ±X, ±Y, ±Z all qualify)
+        PRINCIPAL_UNIT = [np.array([1,0,0]), np.array([0,1,0]), np.array([0,0,1])]
+        best_dot       = max(abs(float(np.dot(ax, p))) for p in PRINCIPAL_UNIT)
+        angle_deg      = math.degrees(math.acos(min(best_dot, 1.0)))
+
+        if n_clust <= _FOLD_MAX_CLUSTERS and angle_deg <= _FOLD_MAX_ANGLE_DEG:
+            if principal_groups:
+                # Nearest principal group = highest |dot product| with angled axis,
+                # break ties by cluster count (prefer the dominant setup)
+                nearest = max(
+                    principal_groups,
+                    key=lambda g: (abs(float(np.dot(ax, g['rep_axis']))),
+                                   len(g['clusters']))
+                )
+                nearest['clusters'].extend(group['clusters'])
+                for c in group['clusters']:
+                    c['_folded_from_angled_axis'] = [round(float(x), 4) for x in ax]
+            else:
+                angled_keep.append(group)
+        else:
+            angled_keep.append(group)
+
+    axis_groups = principal_groups + angled_keep
+
+    # ------------------------------------------------------------------
     # Step 3: Build a Setup dict for each axis group
     # ------------------------------------------------------------------
     setups = []
