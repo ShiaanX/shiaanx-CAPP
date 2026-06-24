@@ -27,12 +27,23 @@ Or from Python:
                            part_name='Hub', programmer='CNC-AI')
 """
 
+import importlib.util
 import json
 import sys
 import os
 import copy
 from datetime import datetime
 from typing import Dict, List, Optional
+
+# Load fixture_pdf_page.py via importlib (AD-009: numbered-filename modules)
+_fixture_pdf_page = None
+try:
+    _fpp_path = os.path.join(os.path.dirname(__file__), "fixture_design", "fixture_pdf_page.py")
+    _spec = importlib.util.spec_from_file_location("fixture_pdf_page", _fpp_path)
+    _fixture_pdf_page = importlib.util.module_from_spec(_spec)
+    _spec.loader.exec_module(_fixture_pdf_page)
+except Exception as _e:
+    pass  # fixture pages are optional; pipeline runs without them
 
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
@@ -723,7 +734,8 @@ def generate_program_sheet(params_data: Dict,
                             output_path: str,
                             part_name:   str = 'Part',
                             programmer:  str = 'CNC-AI',
-                            revision:    str = 'A') -> str:
+                            revision:    str = 'A',
+                            fixture_spec_data: Dict = None) -> str:
     """
     Generate a PDF program sheet from the params JSON.
 
@@ -775,6 +787,10 @@ def generate_program_sheet(params_data: Dict,
         story.append(PageBreak())
         story += warn_section
 
+    # --- Fixture specification pages (optional) ---
+    if fixture_spec_data is not None and _fixture_pdf_page is not None:
+        _fixture_pdf_page.add_fixture_pages_to_story(story, fixture_spec_data)
+
     # Build
     doc.build(
         story,
@@ -820,10 +836,19 @@ if __name__ == '__main__':
     with open(input_path) as f:
         data = json.load(f)
 
+    # Auto-load fixture spec if present alongside params JSON
+    fixture_spec_data = None
+    fixture_spec_path = input_path.replace('_params.json', '_fixture_spec.json')
+    if os.path.isfile(fixture_spec_path):
+        with open(fixture_spec_path) as f:
+            fixture_spec_data = json.load(f)
+        print(f"Fixture spec loaded: {fixture_spec_path}")
+
     out = generate_program_sheet(
         data, output_path,
         part_name=part_name,
         programmer=programmer,
         revision=revision,
+        fixture_spec_data=fixture_spec_data,
     )
     print(f"Program sheet written to: {out}")

@@ -33,10 +33,11 @@ Steps
     3  classify_features.py      _clustered.json -> _classified.json
     4  process_selection.py      _classified.json -> _processes.json
     5  setup_planning.py         _processes.json -> _setups.json
-    6  setup_view_renderer.py    STEP + _setups.json -> _setup_views/
-    7  tool_selection.py         _setups.json -> _tools.json
-    8  parameter_calculation.py  _tools.json -> _params.json
-    9  program_sheet.py          _params.json -> _program_sheet.pdf
+    6  fixture_planner.py        _setups.json + _features.json -> _fixture_spec.json
+    7  setup_view_renderer.py    STEP + _setups.json -> _setup_views/
+    8  tool_selection.py         _setups.json -> _tools.json
+    9  parameter_calculation.py  _tools.json -> _params.json
+   10  program_sheet.py          _params.json -> _program_sheet.pdf
 """
 
 import sys
@@ -210,68 +211,75 @@ def main():
     part_name = args.part_name or base
 
     # Output file paths
-    f_features  = out_dir / f'{base}_features.json'
-    f_clustered = out_dir / f'{base}_clustered.json'
-    f_classified= out_dir / f'{base}_classified.json'
-    f_processes = out_dir / f'{base}_processes.json'
-    f_setups    = out_dir / f'{base}_setups.json'
-    f_tools     = out_dir / f'{base}_tools.json'
-    f_params    = out_dir / f'{base}_params.json'
-    f_pdf       = out_dir / f'{base}_program_sheet.pdf'
-    d_views     = out_dir / f'{base}_setup_views'
+    f_features    = out_dir / f'{base}_features.json'
+    f_clustered   = out_dir / f'{base}_clustered.json'
+    f_classified  = out_dir / f'{base}_classified.json'
+    f_processes   = out_dir / f'{base}_processes.json'
+    f_setups      = out_dir / f'{base}_setups.json'
+    f_fixture_spec= out_dir / f'{base}_fixture_spec.json'
+    f_tools       = out_dir / f'{base}_tools.json'
+    f_params      = out_dir / f'{base}_params.json'
+    f_pdf         = out_dir / f'{base}_program_sheet.pdf'
+    d_views       = out_dir / f'{base}_setup_views'
 
     py = _PYTHON
 
     # Step definitions: (step_number, label, command_list)
     steps = [
-        (1, 'Step 1/9 -- extract_features', [
+        (1, 'Step 1/10 -- extract_features', [
             py, str(SCRIPT_DIR / '1. extract_features.py'),
             str(step_path),
             str(f_features),
         ]),
-        (2, 'Step 2/9 -- cluster_features', [
+        (2, 'Step 2/10 -- cluster_features', [
             py, str(SCRIPT_DIR / '2. cluster_features.py'),
             str(f_features),
             str(f_clustered),
         ]),
-        (3, 'Step 3/9 -- classify_features', [
+        (3, 'Step 3/10 -- classify_features', [
             py, str(SCRIPT_DIR / '3. classify_features.py'),
             str(f_clustered),
             str(f_classified),
             '--mode', args.mode,
         ] + (['--features', str(f_features)] if args.mode == 'ml' else [])),
-        (4, 'Step 4/9 -- process_selection', [
+        (4, 'Step 4/10 -- process_selection', [
             py, str(SCRIPT_DIR / '4. process_selection.py'),
             str(f_classified),
             str(f_processes),
             '--machine', args.machine,
             '--material', args.material,
         ]),
-        (5, 'Step 5/9 -- setup_planning', [
+        (5, 'Step 5/10 -- setup_planning', [
             py, str(SCRIPT_DIR / '5. setup_planning.py'),
             str(f_processes),
             str(f_setups),
         ]),
-        (6, 'Step 6/9 -- setup_view_renderer', [
+        (6, 'Step 6/10 -- fixture_planner', [
+            py, str(SCRIPT_DIR / 'fixture_design' / 'fixture_planner.py'),
+            str(f_setups),
+            str(f_features),
+            '--out', str(f_fixture_spec),
+        ]),
+        (7, 'Step 7/10 -- setup_view_renderer', [
             py, str(SCRIPT_DIR / '6. setup_view_renderer.py'),
             str(step_path),
             str(f_setups),
             str(d_views),
         ]),
-        (7, 'Step 7/9 -- tool_selection', [
+        (8, 'Step 8/10 -- tool_selection', [
             py, str(SCRIPT_DIR / '7. tool_selection.py'),
             str(f_setups),
             str(f_tools),
             '--material', args.material,
         ]),
-        (8, 'Step 8/9 -- parameter_calculation', [
+        (9, 'Step 9/10 -- parameter_calculation', [
             py, str(SCRIPT_DIR / '8. parameter_calculation.py'),
             str(f_tools),
             str(f_params),
             '--max-rpm', args.max_rpm,
             '--coolant', args.coolant,
         ]),
-        (9, 'Step 9/9 -- program_sheet', [
+        (10, 'Step 10/10 -- program_sheet', [
             py, str(SCRIPT_DIR / '9. program_sheet.py'),
             str(f_params),
             str(f_pdf),
@@ -306,9 +314,14 @@ def main():
 
         ok = _run(cmd, label, dry_run=args.dry_run)
         if not ok:
-            # Step 6 (setup view renderer) is optional — cadquery may not be installed
-            if step_num == 6:
+            # Step 7 (setup view renderer) is optional — cadquery may not be installed
+            if step_num == 7:
                 print(f"  [WARN] {label} failed (cadquery not installed?) — continuing without setup views")
+                log.warning(f"Optional step skipped: {label}")
+                continue
+            # Step 6 (fixture_planner) is optional — continue without fixture spec if it fails
+            if step_num == 6:
+                print(f"  [WARN] {label} failed — continuing without fixture spec")
                 log.warning(f"Optional step skipped: {label}")
                 continue
             print(f"\nPipeline aborted at {label}.")

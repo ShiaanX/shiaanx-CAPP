@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ShiaanX Fixture Specification",
+  "description": "Machine-readable fixture specification per CNC setup, produced by fixture_planner.py",
+  "version": "1.0",
+  "type": "object",
+  "properties": {
+    "fixture_type": {
+      "type": "string",
+      "enum": ["vise", "step_jaw_vise", "angle_plate", "sine_plate", "custom_soft_jaw", "fixture_plate"],
+      "description": "Primary workholding device type"
+    },
+    "vise_model": {
+      "type": ["string", "null"],
+      "description": "Specific vise model if known, e.g. 'Kurt D688'. Null if unspecified."
+    },
+    "jaw_type": {
+      "type": "string",
+      "enum": ["standard_hard", "soft_aluminum", "step_jaw", "custom_profile"],
+      "description": "Jaw material and profile type"
+    },
+    "jaw_opening_mm": {
+      "type": "number",
+      "description": "Required jaw opening in mm (part dimension perpendicular to clamped axis + clearance, rounded up to nearest 5mm)"
+    },
+    "jaw_height_mm": {
+      "type": "number",
+      "description": "Standard jaw height in mm. Kurt D688 and similar = 38mm. Affects Z clearance."
+    },
+    "parallels_mm": {
+      "type": ["number", "null"],
+      "description": "Height of parallels under part in mm. Null = no parallels (part sits directly on jaw serrations)."
+    },
+    "clamped_faces": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Which CAD-space face directions the jaws clamp against. e.g. ['+X', '-X']"
+    },
+    "rest_face": {
+      "type": "string",
+      "description": "Which CAD-space face direction sits on the parallels or vise body. e.g. '-Z'"
+    },
+    "datum_face": {
+      "type": "string",
+      "description": "Which face the machinist probes for WCS Z0. e.g. '+Z' means probe top face."
+    },
+    "z_zero_face": {
+      "type": "string",
+      "enum": ["top_of_stock", "top_of_part", "bottom_of_part"],
+      "description": "What Z0 represents. top_of_stock: raw billet top. top_of_part: machined face (setup 2+). bottom_of_part: rarely used."
+    },
+    "wcs_xy_zero": {
+      "type": "string",
+      "enum": ["center_of_part", "corner_of_part"],
+      "description": "Where X0Y0 is in the WCS. center_of_part: symmetric toolpaths. corner_of_part: all coordinates positive."
+    },
+    "clamp_clearance_mm": {
+      "type": "number",
+      "description": "Minimum clearance in mm between top of jaw and lowest tool Z path. Must be > 0 for tool not to hit jaw."
+    },
+    "soft_jaw_required": {
+      "type": "boolean",
+      "description": "True if part geometry requires custom soft jaws instead of standard hard jaws."
+    },
+    "soft_jaw_profile_file": {
+      "type": ["string", "null"],
+      "description": "Filename of generated soft jaw STEP file. Null if not required."
+    },
+    "setup_notes": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Machinist-readable setup instructions and warnings."
+    }
+  },
+  "required": ["fixture_type", "jaw_type", "jaw_opening_mm", "jaw_height_mm", "clamped_faces", "rest_face", "datum_face", "z_zero_face", "wcs_xy_zero", "soft_jaw_required"],
+
+  "motor_mount_examples": [
+    {
+      "_comment": "Motor Mount — Setting 1 (raw billet, long axis in X, short axis gripped)",
+      "fixture_type": "vise",
+      "vise_model": null,
+      "jaw_type": "standard_hard",
+      "jaw_opening_mm": 65.0,
+      "jaw_height_mm": 38.0,
+      "parallels_mm": 10.0,
+      "clamped_faces": ["+Y", "-Y"],
+      "rest_face": "-Z",
+      "datum_face": "+Z",
+      "z_zero_face": "top_of_stock",
+      "wcs_xy_zero": "center_of_part",
+      "clamp_clearance_mm": 1.0,
+      "soft_jaw_required": false,
+      "soft_jaw_profile_file": null,
+      "setup_notes": [
+        "Zero off top face of raw billet",
+        "Long axis (104mm) parallel to machine X-axis",
+        "Ensure parallels are seated and not rocking before torquing vise",
+        "Minimum 25mm jaw engagement each side (55mm part, 65mm jaw opening)",
+        "Apply torque evenly to avoid jaw lift"
+      ]
+    },
+    {
+      "_comment": "Motor Mount — Setting 2 (flip, previously machined face down)",
+      "fixture_type": "vise",
+      "vise_model": null,
+      "jaw_type": "standard_hard",
+      "jaw_opening_mm": 65.0,
+      "jaw_height_mm": 38.0,
+      "parallels_mm": 10.0,
+      "clamped_faces": ["+Y", "-Y"],
+      "rest_face": "+Z",
+      "datum_face": "-Z",
+      "z_zero_face": "top_of_part",
+      "wcs_xy_zero": "center_of_part",
+      "clamp_clearance_mm": 5.0,
+      "soft_jaw_required": false,
+      "soft_jaw_profile_file": null,
+      "setup_notes": [
+        "Flip part 180deg — setting 1 machined face (outer profile) now rests on parallels",
+        "Zero off newly exposed raw top face",
+        "Face mill will remove 10.8mm of stock from top",
+        "Use same parallel height as setting 1 for datum consistency",
+        "Verify part is fully supported — do not clamp over machined pockets from setting 1"
+      ]
+    },
+    {
+      "_comment": "Motor Mount — Setting 3 (side face, angle plate)",
+      "fixture_type": "angle_plate",
+      "vise_model": null,
+      "jaw_type": "standard_hard",
+      "jaw_opening_mm": 25.0,
+      "jaw_height_mm": 38.0,
+      "parallels_mm": null,
+      "clamped_faces": ["+Z", "-Z"],
+      "rest_face": "+Y",
+      "datum_face": "+X",
+      "z_zero_face": "top_of_part",
+      "wcs_xy_zero": "center_of_part",
+      "clamp_clearance_mm": 5.0,
+      "soft_jaw_required": false,
+      "soft_jaw_profile_file": null,
+      "setup_notes": [
+        "Part rotated 90deg to access side face",
+        "Clamp on previously machined top/bottom faces",
+        "Probe off +X side face for Z0",
+        "Only 2 programs — minor operations on this face",
+        "Verify clamp does not obstruct bore access"
+      ]
+    }
+  ]
+}

@@ -166,6 +166,22 @@ Terminal was closed before committing. Output is lost — no branch, no files. T
 
 ---
 
+### Session 10 — Fixture Design Integration (branch: `feature/fixture-design`)
+
+Built and wired the Fixture Design Integration module. Full audit docs in `audit/SESSION_UPDATE_fixture_design.md`.
+
+**New files:** `fixture_design/fixture_schema.json`, `fixture_planner.py`, `soft_jaw_generator.py`, `fixture_pdf_page.py`, `audit/FINDINGS_fixture_gcode.json`, `audit/FINDINGS_fixture_gcode.md`
+
+**Pipeline changes:**
+- `10. run_pipeline.py`: renumbered 9→10 steps; Step 6 = `fixture_planner.py` (between setup_planning and tool_selection); optional/non-fatal
+- `9. program_sheet.py`: added `fixture_spec_data` kwarg; auto-loads `*_fixture_spec.json` alongside params; appends fixture pages before `doc.build()`
+
+**Test results:** Motor Mount + Botlabs Hub both produce correct fixture specs and PDFs with fixture pages. ✓
+
+**Branch `feature/fixture-design` is not yet merged to main.** Soft jaw boolean subtraction path untested on real geometry (no Motor Mount setup requires soft jaws).
+
+---
+
 ## Pipeline Fixes Priority Queue (as of 2026-06-24)
 
 Based on all audit sessions, ordered by impact:
@@ -189,9 +205,11 @@ Based on all audit sessions, ordered by impact:
 
 ---
 
-## Branches — All Merged (as of 2026-06-24)
+## Branches (as of 2026-06-24)
 
-All session branches merged to main and pushed. No pending branches.
+All prior session branches merged to main. One active feature branch:
+
+**`feature/fixture-design`** — active, not yet merged. See Session 10 above.
 
 | Branch | Merged | Notes |
 |--------|--------|-------|
@@ -946,6 +964,39 @@ Generates an Excel inspection template with:
 ## ShiaanX Backend — Deployed API Access
 
 The backend runs on AWS EC2 (Mumbai) behind nginx. The local `shiaanx-backend/` repo is a reference copy — all live data is on the server.
+
+### Deploying code changes to production
+
+1. **Make changes locally** in `shiaanx-backend/`
+2. **Commit and push:**
+   ```bash
+   cd shiaanx-backend
+   git add <changed files>
+   git commit -m "description"
+   git push origin main
+   ```
+3. **SSH into EC2** via AWS Console:
+   - Go to EC2 → Instances → select the instance (`i-0f2af7e81a5c984e2`, named "webServer")
+   - Click **Connect** → **EC2 Instance Connect** tab → click **Connect**
+   - A browser terminal opens (no .pem file needed)
+4. **Pull and restart** in the browser terminal:
+   ```bash
+   cd /var/www/api/shiaanx-backend
+   git pull origin main
+   pm2 restart shiaanx-backend
+   ```
+   - GitHub will ask for username (`siddhantg2311`) and a PAT (Personal Access Token) as password
+   - Generate PAT at: GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic) → repo scope
+   - **Never share the PAT in chat** — generate a fresh one each time if needed
+
+**EC2 details:**
+- Instance ID: `i-0f2af7e81a5c984e2`
+- Public IP: `13.233.172.143` (Mumbai, ap-south-1)
+- OS user: `ubuntu`
+- Backend folder: `/var/www/api/shiaanx-backend`
+- Process manager: **PM2** (not Docker — the docker-compose.yml is a local dev reference only)
+- PM2 process name: `shiaanx-backend` (id=0)
+- Also running: `sx-mqtt-ingestor` (id=1) — do not restart unless intentional
 
 ### Admin panel (browser)
 ```
