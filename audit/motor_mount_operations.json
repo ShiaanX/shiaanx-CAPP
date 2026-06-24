@@ -1,524 +1,451 @@
 {
-  "_meta": {
-    "source": "MOTOR_MOUNT_1/2/3/4 setup sheet PDFs + MPF G-code files",
-    "extracted": "2026-06-22",
-    "pdf_readability": "MACHINE READABLE",
-    "machine": "Sinumerik 828D (3-axis VMC)",
-    "material": "Aluminium 6061-T6",
-    "wcs": "X CENTER Y CENTER TOP (all 4 setups)"
-  },
-  "setup_1": {
-    "part_no": "MOTOR_MOUNT_1_SETUP",
-    "date": "2026-06-06",
-    "total_time_min": 32,
-    "operations": [
-      {
-        "seq": 1,
-        "toolpath_name": "10 ENDMILL DYNAMIC-1 RF",
-        "tool_no": "T1",
-        "tool_desc": "END MILL D10.0mm 2-flute",
-        "op_type": "dynamic_mill_rf",
-        "speed_rpm": 4461,
-        "feed_mmpm": 1491,
-        "depth_mm": -13.8,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "Adaptive/dynamic trochoidal roughing. High Vc (~140 m/min), high fz (~0.167 mm/tooth). No stock left — dynamic mill used as combined RF+FINISH in one adaptive pass."
+  "shop": "TS",
+  "machine": "Sinumerik 828D",
+  "setups": {
+    "setup_1": {
+      "file": "MOTOR_MOUNT_1_SETUP..MPF",
+      "tool_list": {
+        "1": {
+          "type": "END MILL",
+          "dia_mm": 10.0
+        },
+        "2": {
+          "type": "CENTER DRILL",
+          "dia_mm": 2.0
+        },
+        "3": {
+          "type": "DRILL",
+          "dia_mm": 2.5
+        },
+        "4": {
+          "type": "DRILL",
+          "dia_mm": 3.2
+        },
+        "5": {
+          "type": "END MILL",
+          "dia_mm": 8.0
+        },
+        "6": {
+          "type": "END MILL",
+          "dia_mm": 3.0
+        },
+        "7": {
+          "type": "END MILL",
+          "dia_mm": 4.0
+        },
+        "8": {
+          "type": "BULL NOSE MILL",
+          "dia_mm": 8.0
+        },
+        "9": {
+          "type": "BALL NOSE",
+          "dia_mm": 5.0
+        },
+        "10": {
+          "type": "CHAMFER MILL",
+          "dia_mm": 10.0
+        }
       },
-      {
-        "seq": 2,
-        "toolpath_name": "10 ENDMILL STEP-1 BOTTOM FINISH",
-        "tool_no": "T1",
-        "tool_desc": "END MILL D10.0mm 2-flute",
-        "op_type": "face_contour_finish",
-        "speed_rpm": 2800,
-        "feed_mmpm": 800,
-        "depth_mm": -8,
-        "stock_leave_xy_mm": 0.1,
-        "stock_leave_z_mm": 0,
-        "notes": "Step floor finishing. Moderate Vc (88 m/min), fz 0.143. Stock on XY for lateral wall — floor is cleaned to 0."
+      "operations": [
+        {
+          "operation": "10 ENDMILL DYNAMIC-1 RF =  0:09:43",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 10.0
+          },
+          "S": 4461,
+          "F": 10000
+        },
+        {
+          "operation": "10 ENDMILL STEP-1 BOTTOM FINISH- =  0:02:03",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 10.0
+          },
+          "S": 2800,
+          "F": 300
+        },
+        {
+          "operation": "10 ENDMILL OUTER-PROFILE FINISH =  0:01:25",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 10.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "10 ENDMILL STEP-1 FINISH =  0:01:12",
+          "tool": {
+            "type": "CENTER DRILL",
+            "dia_mm": 2.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "CENTER DRILL-BS2 =  0:00:58",
+          "tool": {
+            "type": "DRILL",
+            "dia_mm": 2.5
+          },
+          "S": 1000,
+          "F": 80
+        },
+        {
+          "operation": "2.5 DRILL- =  0:02:06",
+          "tool": {
+            "type": "DRILL",
+            "dia_mm": 3.2
+          },
+          "S": 1500,
+          "F": 70
+        },
+        {
+          "operation": "3.2 DRILL- =  0:01:21",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 8.0
+          },
+          "S": 1200,
+          "F": 80
+        },
+        {
+          "operation": "8 ENDMILL Q11 RF =  0:00:29",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 8.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "8 ENDMILL SP RF =  0:01:18",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 8.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "8 ENDMILL Q11 FINISH =  0:00:18",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 8.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "8 ENDMILL SMALL-POCKET FINISH- =  0:00:20",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 3.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "3 ENDMILL CAVITY-- RF =  0:03:11",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 3.0
+          },
+          "S": 3000,
+          "F": 800
+        },
+        {
+          "operation": "3 ENDMILL CAVITY- FINISH =  0:00:48",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 3.0
+          },
+          "S": 2200,
+          "F": 800
+        },
+        {
+          "operation": "3 ENDMILL SMALL-POCKET CORNER =  0:01:28",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 4.0
+          },
+          "S": 3000,
+          "F": 800
+        },
+        {
+          "operation": "4 ENDMILL OUTER-PROFILE CORNER =  0:01:31",
+          "tool": {
+            "type": "BULL NOSE MILL",
+            "dia_mm": 8.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "8R1 ENDMILL-TOP R FINISH =  0:02:58",
+          "tool": {
+            "type": "BALL NOSE",
+            "dia_mm": 5.0
+          },
+          "S": 4500,
+          "F": 1500
+        },
+        {
+          "operation": "5 BALLNOSE STEP BOTTOM FINISH =  0:00:48",
+          "tool": {
+            "type": "CHAMFER MILL",
+            "dia_mm": 10.0
+          },
+          "S": 2500,
+          "F": 500
+        },
+        {
+          "operation": "CHAMFER CUTTER 10 X 45 =  0:00:51",
+          "tool": {
+            "type": "CHAMFER MILL",
+            "dia_mm": 10.0
+          },
+          "S": 900,
+          "F": 80
+        },
+        {
+          "operation": "CHAMFER CUTTER 10 X 45- =  0:01:03",
+          "tool": {
+            "type": "CHAMFER MILL",
+            "dia_mm": 10.0
+          },
+          "S": 4500,
+          "F": 1000
+        }
+      ]
+    },
+    "setup_2": {
+      "file": "MOTOR_MOUNT_2_SETUP..MPF",
+      "tool_list": {
+        "1": {
+          "type": "END MILL",
+          "dia_mm": 10.0
+        },
+        "11": {
+          "type": "DRILL",
+          "dia_mm": 3.0
+        },
+        "7": {
+          "type": "END MILL",
+          "dia_mm": 4.0
+        },
+        "8": {
+          "type": "BULL NOSE MILL",
+          "dia_mm": 8.0
+        },
+        "9": {
+          "type": "BALL NOSE",
+          "dia_mm": 5.0
+        },
+        "12": {
+          "type": "BALL NOSE",
+          "dia_mm": 3.0
+        }
       },
-      {
-        "seq": 3,
-        "toolpath_name": "10 ENDMILL OUTER_PROFILE FINISH",
-        "tool_no": "T1",
-        "tool_desc": "END MILL D10.0mm 2-flute",
-        "op_type": "contour_mill_finish",
-        "speed_rpm": 2200,
-        "feed_mmpm": 300,
-        "depth_mm": -13.5,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "Outer profile finish pass. Conservative Vc (69 m/min), low feed 300 mmpm for fine surface finish on outer walls."
+      "operations": [
+        {
+          "operation": "10 ENDMILL DYAMNIC-2RF =  0:14:01",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 10.0
+          },
+          "S": 4557,
+          "F": 10000
+        },
+        {
+          "operation": "10 ENDMILL STEP-2 FINISH =  0:00:45",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 10.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "10 ENDMILL LENGHT FINISH CUT =  0:00:24",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 10.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "10 ENDMILL STEP BOTTOM FINISH =  0:02:39",
+          "tool": {
+            "type": "DRILL",
+            "dia_mm": 3.0
+          },
+          "S": 2800,
+          "F": 300
+        },
+        {
+          "operation": "3 DRILL =  0:00:31",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 4.0
+          },
+          "S": 1200,
+          "F": 80
+        },
+        {
+          "operation": "4 ENDMILL STEP POCKET FINISH =  0:00:36",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 4.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "4 ENDMILL STEP-2 FINISH =  0:00:38",
+          "tool": {
+            "type": "BULL NOSE MILL",
+            "dia_mm": 8.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "8R1 ENDMILL =  0:01:53",
+          "tool": {
+            "type": "BALL NOSE",
+            "dia_mm": 5.0
+          },
+          "S": 4500,
+          "F": 1500
+        },
+        {
+          "operation": "5 BALLNOSE STEP-2 BOTTOM R FINISH =  0:00:45",
+          "tool": {
+            "type": "BALL NOSE",
+            "dia_mm": 3.0
+          },
+          "S": 2500,
+          "F": 500
+        },
+        {
+          "operation": "3 BALLNOSE-1 =  0:01:34",
+          "tool": {
+            "type": "BALL NOSE",
+            "dia_mm": 3.0
+          },
+          "S": 4500,
+          "F": 1000
+        },
+        {
+          "operation": "3 BALLNOSE =  0:02:23",
+          "tool": {
+            "type": "BALL NOSE",
+            "dia_mm": 3.0
+          },
+          "S": 4500,
+          "F": 1000
+        }
+      ]
+    },
+    "setup_3_finish": {
+      "file": "MOTOR_MOUNT_3_FINISH_SETUP..MPF",
+      "tool_list": {
+        "1": {
+          "type": "END MILL",
+          "dia_mm": 10.0
+        },
+        "9": {
+          "type": "BALL NOSE",
+          "dia_mm": 5.0
+        }
       },
-      {
-        "seq": 4,
-        "toolpath_name": "10 ENDMILL STEP-1 FINISH",
-        "tool_no": "T1",
-        "tool_desc": "END MILL D10.0mm 2-flute",
-        "op_type": "contour_mill_finish",
-        "speed_rpm": 2200,
-        "feed_mmpm": 300,
-        "depth_mm": -8,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "Step-1 wall finish. Same conservative parameters as outer profile."
+      "operations": [
+        {
+          "operation": "10 ENDMILL STEP-1-1 BOTTOM FINISH =  0:02:03",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 10.0
+          },
+          "S": 2800,
+          "F": 300
+        },
+        {
+          "operation": "10 ENDMILL STEP-1 FINISH-1 =  0:00:41",
+          "tool": {
+            "type": "BALL NOSE",
+            "dia_mm": 5.0
+          },
+          "S": 2200,
+          "F": 500
+        },
+        {
+          "operation": "5 BALLNOSE STEP BOTTOM FINISH- =  0:00:48",
+          "tool": {
+            "type": "BALL NOSE",
+            "dia_mm": 5.0
+          },
+          "S": 2500,
+          "F": 500
+        }
+      ]
+    },
+    "setup_4": {
+      "file": "MOTOR_MOUNT_4_SETUP..MPF",
+      "tool_list": {
+        "13": {
+          "type": "END MILL",
+          "dia_mm": 10.0
+        },
+        "10": {
+          "type": "CHAMFER MILL",
+          "dia_mm": 10.0
+        },
+        "14": {
+          "type": "END MILL",
+          "dia_mm": 3.0
+        }
       },
-      {
-        "seq": 5,
-        "toolpath_name": "CENTER DRILL_BS2",
-        "tool_no": "T2",
-        "tool_desc": "CENTER DRILL D2.0mm",
-        "op_type": "spot_drill",
-        "speed_rpm": 1000,
-        "feed_mmpm": 80,
-        "depth_mm": -10,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "BS2 center drill (British Standard). Very low Vc (6.3 m/min), fpr=0.08 mm/rev. Shallow depth for location only."
-      },
-      {
-        "seq": 6,
-        "toolpath_name": "2.5 DRILL_",
-        "tool_no": "T3",
-        "tool_desc": "DRILL D2.5mm",
-        "op_type": "twist_drill",
-        "speed_rpm": 1500,
-        "feed_mmpm": 70,
-        "depth_mm": -16,
-        "peck_depth_mm": 1.5,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "D2.5 drill at -16mm. DDR=16/2.5=6.4 -> deep peck cycle. Peck=1.5mm. Vc=11.8 m/min (conservative for HSS or shop preference). fpr=0.047."
-      },
-      {
-        "seq": 7,
-        "toolpath_name": "3.2 DRILL_",
-        "tool_no": "T4",
-        "tool_desc": "DRILL D3.2mm",
-        "op_type": "twist_drill",
-        "speed_rpm": 1200,
-        "feed_mmpm": 80,
-        "depth_mm": -14,
-        "peck_depth_mm": 1.5,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "D3.2 drill at -14mm. DDR=14/3.2=4.375 -> peck cycle. Peck=1.5mm. Vc=12.1 m/min, fpr=0.067."
-      },
-      {
-        "seq": 8,
-        "toolpath_name": "8 ENDMILL SP RF",
-        "tool_no": "T5",
-        "tool_desc": "END MILL D8.0mm 2-flute",
-        "op_type": "pocket_mill_rf",
-        "speed_rpm": 2200,
-        "feed_mmpm": 500,
-        "depth_mm": -11.5,
-        "stock_leave_xy_mm": 0.25,
-        "stock_leave_z_mm": 0.1,
-        "notes": "Small pocket RF. Vc=55.3 m/min, fz=0.114. Stock: 0.25mm XY, 0.1mm Z for finish pass."
-      },
-      {
-        "seq": 9,
-        "toolpath_name": "8 ENDMILL Q11 RF",
-        "tool_no": "T5",
-        "tool_desc": "END MILL D8.0mm 2-flute",
-        "op_type": "pocket_mill_rf",
-        "speed_rpm": 2200,
-        "feed_mmpm": 500,
-        "depth_mm": -14,
-        "stock_leave_xy_mm": 0.25,
-        "stock_leave_z_mm": 0.1,
-        "notes": "Q11 pocket RF. Same parameters as SP pocket."
-      },
-      {
-        "seq": 10,
-        "toolpath_name": "8 ENDMILL Q11 FINISH",
-        "tool_no": "T5",
-        "tool_desc": "END MILL D8.0mm 2-flute",
-        "op_type": "pocket_mill_finish",
-        "speed_rpm": 2200,
-        "feed_mmpm": 200,
-        "depth_mm": -11.5,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "Q11 pocket finish. Same speed, reduced feed to 200 mmpm for finish quality. fz=0.045."
-      },
-      {
-        "seq": 11,
-        "toolpath_name": "8 ENDMILL SMALL_POCKET FINISH",
-        "tool_no": "T5",
-        "tool_desc": "END MILL D8.0mm 2-flute",
-        "op_type": "pocket_mill_finish",
-        "speed_rpm": 2200,
-        "feed_mmpm": 200,
-        "depth_mm": -14,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "Small pocket finish pass."
-      },
-      {
-        "seq": 12,
-        "toolpath_name": "3 ENDMILL CAVITY__ RF",
-        "tool_no": "T6",
-        "tool_desc": "END MILL D3.0mm 2-flute",
-        "op_type": "pocket_mill_rf",
-        "speed_rpm": 3000,
-        "feed_mmpm": 800,
-        "depth_mm": -12.25,
-        "stock_leave_xy_mm": 0.25,
-        "stock_leave_z_mm": 0.1,
-        "notes": "Narrow cavity RF with 3mm EM. High RPM (3000) for small tool. Vc=28.3 m/min, fz=0.133."
-      },
-      {
-        "seq": 13,
-        "toolpath_name": "3 ENDMILL CAVITY_ FINISH",
-        "tool_no": "T6",
-        "tool_desc": "END MILL D3.0mm 2-flute",
-        "op_type": "pocket_mill_finish",
-        "speed_rpm": 2200,
-        "feed_mmpm": 250,
-        "depth_mm": -12.25,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "Narrow cavity finish. fz=0.057."
-      },
-      {
-        "seq": 14,
-        "toolpath_name": "3 ENDMILL SMALL_POCKET CORNER",
-        "tool_no": "T6",
-        "tool_desc": "END MILL D3.0mm 2-flute",
-        "op_type": "corner_r_mill",
-        "speed_rpm": 3000,
-        "feed_mmpm": 800,
-        "depth_mm": -14,
-        "stock_leave_xy_mm": 0.25,
-        "stock_leave_z_mm": 0,
-        "notes": "CORNER_R pass — smaller 3mm EM to clear corners that 8mm EM could not reach."
-      },
-      {
-        "seq": 15,
-        "toolpath_name": "4 ENDMILL OUTER_PROFILE CORNER",
-        "tool_no": "T7",
-        "tool_desc": "END MILL D4.0mm 2-flute",
-        "op_type": "corner_r_mill",
-        "speed_rpm": 2200,
-        "feed_mmpm": 500,
-        "depth_mm": -12.5,
-        "stock_leave_xy_mm": 0.3,
-        "stock_leave_z_mm": 0,
-        "notes": "CORNER_R on outer profile — 4mm EM to reach corners where 10mm EM could not. Stock 0.3mm XY."
-      },
-      {
-        "seq": 16,
-        "toolpath_name": "8R1 ENDMILL_TOP R FINISH",
-        "tool_no": "T8",
-        "tool_desc": "BULL NOSE MILL D8.0mm R1.0mm corner radius",
-        "op_type": "bull_nose_radius_finish",
-        "speed_rpm": 4500,
-        "feed_mmpm": 1500,
-        "depth_mm": -4,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "Bull nose EM to machine top fillet/radius blend. High Vc=113 m/min, fz=0.167. Used where sharp-bottom end mill would leave a sharp edge at the top of a step."
-      },
-      {
-        "seq": 17,
-        "toolpath_name": "5 BALLNOSE STEP BOTTOM FINISH",
-        "tool_no": "T9",
-        "tool_desc": "BALL NOSE END MILL D5.0mm R2.5mm",
-        "op_type": "ball_nose_floor_finish",
-        "speed_rpm": 2500,
-        "feed_mmpm": 200,
-        "depth_mm": -8,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "Ball nose for step floor radius finishing. Vc=39.3 m/min, fz=0.04 mm/tooth (very light — for surface finish). Used on features where a flat floor transitions to a radius."
-      },
-      {
-        "seq": 18,
-        "toolpath_name": "CHAMFER CUTTER 10 X 45",
-        "tool_no": "T10",
-        "tool_desc": "CHAMFER MILL D10.0mm 45deg",
-        "op_type": "chamfer_mill_touch",
-        "speed_rpm": 900,
-        "feed_mmpm": 80,
-        "depth_mm": -9.75,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "First chamfer pass — very low speed/feed (Vc=28.3 m/min). Likely a touching/locating pass at very low engagement before the fast contour pass."
-      },
-      {
-        "seq": 19,
-        "toolpath_name": "CHAMFER CUTTER 10 X 45_",
-        "tool_no": "T10",
-        "tool_desc": "CHAMFER MILL D10.0mm 45deg",
-        "op_type": "chamfer_mill_profile",
-        "speed_rpm": 4500,
-        "feed_mmpm": 700,
-        "depth_mm": -9.6,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "Second chamfer pass — high speed profile (Vc=141 m/min, fz=0.078). The primary chamfer cutting pass after the tool is positioned."
-      }
-    ]
-  },
-  "setup_2": {
-    "part_no": "MOTOR_MOUNT_2_SETUP",
-    "date": "2026-06-06",
-    "total_time_min": 25,
-    "operations": [
-      {
-        "seq": 1,
-        "toolpath_name": "10 ENDMILL DYAMNIC-2RF",
-        "tool_no": "T1",
-        "tool_desc": "END MILL D10.0mm 2-flute",
-        "op_type": "dynamic_mill_rf",
-        "speed_rpm": 4065,
-        "feed_mmpm": 1523,
-        "depth_mm": -10.8,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "Dynamic adaptive RF on setup 2 face. Similar parameters to setup 1. Vc=127.7, fz=0.187."
-      },
-      {
-        "seq": 2,
-        "toolpath_name": "10 ENDMILL STEP-2 FINISH",
-        "tool_no": "T1",
-        "tool_desc": "END MILL D10.0mm 2-flute",
-        "op_type": "contour_mill_finish",
-        "speed_rpm": 2200,
-        "feed_mmpm": 300,
-        "depth_mm": -7.5,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "Step wall finish. fz=0.068."
-      },
-      {
-        "seq": 3,
-        "toolpath_name": "10 ENDMILL STEP BOTTOM FINISH",
-        "tool_no": "T1",
-        "tool_desc": "END MILL D10.0mm 2-flute",
-        "op_type": "face_contour_finish",
-        "speed_rpm": 2200,
-        "feed_mmpm": 300,
-        "depth_mm": -10.3,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "Step floor finish."
-      },
-      {
-        "seq": 4,
-        "toolpath_name": "10 ENDMILL LENGHT FINISH CUT",
-        "tool_no": "T1",
-        "tool_desc": "END MILL D10.0mm 2-flute",
-        "op_type": "contour_mill_finish",
-        "speed_rpm": 2800,
-        "feed_mmpm": 800,
-        "depth_mm": -11,
-        "stock_leave_xy_mm": 0.1,
-        "stock_leave_z_mm": 0,
-        "notes": "Length/perimeter finish cut at higher speed and feed. May be a semi-finish or precision wall finish on a specific datum face."
-      },
-      {
-        "seq": 5,
-        "toolpath_name": "3 DRILL",
-        "tool_no": "T11",
-        "tool_desc": "DRILL D3.0mm",
-        "op_type": "twist_drill",
-        "speed_rpm": 1200,
-        "feed_mmpm": 80,
-        "depth_mm": -10.3,
-        "peck_depth_mm": 1.5,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "D3.0 drill. DDR=10.3/3=3.43 -> peck cycle. Peck=1.5mm. Vc=11.3 m/min, fpr=0.067."
-      },
-      {
-        "seq": 6,
-        "toolpath_name": "4 ENDMILL STEP POCKET FINISH",
-        "tool_no": "T7",
-        "tool_desc": "END MILL D4.0mm 2-flute",
-        "op_type": "pocket_mill_finish",
-        "speed_rpm": 2200,
-        "feed_mmpm": 500,
-        "depth_mm": -11,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "Small step pocket finish with 4mm EM."
-      },
-      {
-        "seq": 7,
-        "toolpath_name": "4 ENDMILL STEP-2 FINISH",
-        "tool_no": "T7",
-        "tool_desc": "END MILL D4.0mm 2-flute",
-        "op_type": "pocket_mill_finish",
-        "speed_rpm": 2200,
-        "feed_mmpm": 250,
-        "depth_mm": -7.5,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "Step-2 area finish."
-      },
-      {
-        "seq": 8,
-        "toolpath_name": "8R1 ENDMILL",
-        "tool_no": "T8",
-        "tool_desc": "BULL NOSE MILL D8.0mm R1.0mm corner radius",
-        "op_type": "bull_nose_radius_finish",
-        "speed_rpm": 4500,
-        "feed_mmpm": 1500,
-        "depth_mm": -2.335,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "Bull nose for top radius blend on setup 2. Same S/F as setup 1 bull nose pass."
-      },
-      {
-        "seq": 9,
-        "toolpath_name": "5 BALLNOSE STEP-2 BOTTOM R FINISH",
-        "tool_no": "T9",
-        "tool_desc": "BALL NOSE END MILL D5.0mm R2.5mm",
-        "op_type": "ball_nose_floor_finish",
-        "speed_rpm": 2500,
-        "feed_mmpm": 200,
-        "depth_mm": -7.5,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "Ball nose step floor finish on setup 2. Identical S/F to setup 1."
-      },
-      {
-        "seq": 10,
-        "toolpath_name": "3 BALLNOSE_1",
-        "tool_no": "T12",
-        "tool_desc": "BALL NOSE END MILL D3.0mm R1.5mm",
-        "op_type": "ball_nose_3d_finish",
-        "speed_rpm": 4500,
-        "feed_mmpm": 1000,
-        "depth_mm": -8.995,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0.02,
-        "notes": "3mm ball nose for tight radius 3D contouring. Very high S=4500 for small diameter. Vc=42.4, fz=0.111. 0.02mm Z stock left for ultra-fine finish next pass."
-      },
-      {
-        "seq": 11,
-        "toolpath_name": "3 BALLNOSE",
-        "tool_no": "T12",
-        "tool_desc": "BALL NOSE END MILL D3.0mm R1.5mm",
-        "op_type": "ball_nose_3d_finish",
-        "speed_rpm": 4500,
-        "feed_mmpm": 1000,
-        "depth_mm": -11,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "Second 3mm ball nose pass to full depth with zero stock."
-      }
-    ]
-  },
-  "setup_3": {
-    "part_no": "MOTOR_MOUNT_3_FINISH_SETUP",
-    "date": "2026-06-06",
-    "total_time_min": 3,
-    "notes": "Re-clamp finish setup — only 3 operations, all finishing passes after setups 1+2",
-    "operations": [
-      {
-        "seq": 1,
-        "toolpath_name": "10 ENDMILL STEP-1-1 BOTTOM FINISH",
-        "tool_no": "T1",
-        "tool_desc": "END MILL D10.0mm 2-flute",
-        "op_type": "face_contour_finish",
-        "speed_rpm": 2800,
-        "feed_mmpm": 800,
-        "depth_mm": -8,
-        "stock_leave_xy_mm": 0.1,
-        "stock_leave_z_mm": 0,
-        "notes": "Step floor finish from opposite side after reclamp. XY stock 0.1."
-      },
-      {
-        "seq": 2,
-        "toolpath_name": "10 ENDMILL STEP-1 FINISH_1",
-        "tool_no": "T1",
-        "tool_desc": "END MILL D10.0mm 2-flute",
-        "op_type": "contour_mill_finish",
-        "speed_rpm": 2200,
-        "feed_mmpm": 300,
-        "depth_mm": -8,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "Step-1 wall finish after reclamp."
-      },
-      {
-        "seq": 3,
-        "toolpath_name": "5 BALLNOSE STEP BOTTOM FINISH_",
-        "tool_no": "T9",
-        "tool_desc": "BALL NOSE END MILL D5.0mm R2.5mm",
-        "op_type": "ball_nose_floor_finish",
-        "speed_rpm": 2500,
-        "feed_mmpm": 200,
-        "depth_mm": -8,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "Ball nose step floor finish from opposite side."
-      }
-    ]
-  },
-  "setup_4": {
-    "part_no": "MOTOR_MOUNT_4_SETUP",
-    "date": "2026-06-06",
-    "total_time_min": 6,
-    "notes": "Side setup — bore profile and deep narrow pocket",
-    "operations": [
-      {
-        "seq": 1,
-        "toolpath_name": "10 ENDMILL PROFILE BORE 16.1 RF",
-        "tool_no": "T13",
-        "tool_desc": "END MILL D10.0mm 2-flute",
-        "op_type": "circular_interp_rf",
-        "speed_rpm": 2500,
-        "feed_mmpm": 800,
-        "depth_mm": -37,
-        "stock_leave_xy_mm": 0.3,
-        "stock_leave_z_mm": 0.1,
-        "notes": "CRITICAL: D10 EM used to machine D16.1 bore at 37mm depth via PROFILE (circular interpolation). This is within the 13-32mm range — the pipeline currently only uses circular_interp for >32mm bores. Vc=78.5 m/min, fz=0.16. High DDR=37/16.1=2.3 (low but long reach needed)."
-      },
-      {
-        "seq": 2,
-        "toolpath_name": "10 ENDMILL PROFILE BORE 16.1 FINISH",
-        "tool_no": "T13",
-        "tool_desc": "END MILL D10.0mm 2-flute",
-        "op_type": "circular_interp_finish",
-        "speed_rpm": 2500,
-        "feed_mmpm": 800,
-        "depth_mm": -37,
-        "stock_leave_xy_mm": 18.5,
-        "stock_leave_z_mm": 0,
-        "notes": "Profile bore finish pass. XY stock=18.5 is the radial offset/stock position for the finish spiral. Same S/F as RF — typical for bore profiling where the last pass is the datum."
-      },
-      {
-        "seq": 3,
-        "toolpath_name": "CHAMFER CUTTER 10 X 45_BORE OUTER",
-        "tool_no": "T10",
-        "tool_desc": "CHAMFER MILL D10.0mm 45deg",
-        "op_type": "chamfer_mill",
-        "speed_rpm": 900,
-        "feed_mmpm": 500,
-        "depth_mm": -1.65,
-        "stock_leave_xy_mm": 0,
-        "stock_leave_z_mm": 0,
-        "notes": "Chamfer on bore outer edge. Low speed (Vc=28.3), F=500 for chamfer on bore."
-      },
-      {
-        "seq": 4,
-        "toolpath_name": "3 ENDMILL LONG POCKET RF",
-        "tool_no": "T14",
-        "tool_desc": "END MILL D3.0mm 2-flute (long reach)",
-        "op_type": "pocket_mill_rf",
-        "speed_rpm": 2800,
-        "feed_mmpm": 500,
-        "depth_mm": -41.5,
-        "stock_leave_xy_mm": 0.15,
-        "stock_leave_z_mm": 0,
-        "notes": "CRITICAL: Deep narrow pocket at -41.5mm depth with only D3mm EM. DDR=41.5/3=13.8 — extremely high. Requires long-reach end mill. Stock 0.15mm XY only (no finish pass listed — RF is the primary pass here). Vc=26.4, fz=0.089."
-      }
-    ]
+      "operations": [
+        {
+          "operation": "10 ENDMILL PROFILE BORE 16.1 RF =  0:03:08",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 10.0
+          },
+          "S": 2500,
+          "F": 800
+        },
+        {
+          "operation": "10 ENDMILL PROFILE BORE 16.1 FINISH =  0:00:19",
+          "tool": {
+            "type": "CHAMFER MILL",
+            "dia_mm": 10.0
+          },
+          "S": 2500,
+          "F": 800
+        },
+        {
+          "operation": "CHAMFER CUTTER 10 X 45-BORE OUTER =  0:00:42",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 3.0
+          },
+          "S": 900,
+          "F": 80
+        },
+        {
+          "operation": "3 ENDMILL LONG POCKET RF =  0:01:56",
+          "tool": {
+            "type": "END MILL",
+            "dia_mm": 3.0
+          },
+          "S": 2800,
+          "F": 500
+        }
+      ]
+    }
   }
 }
