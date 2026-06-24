@@ -183,6 +183,7 @@ Based on all audit sessions, ordered by impact:
 | P2 | GBM retrain (XGBoost/LightGBM, 18 features) | Session 3 | `ml_train_classifier_v4.py` |
 | P3 | Face mill size sanity check vs bounding box | Session 7 | `7. tool_selection.py` |
 | P3 | `step_feature` classifier and ops | Session 2 | `3. classify_features.py`, `4. process_selection.py` |
+| DEFERRED | R1: pocket floor vs open face — needs `adjacent_cluster_ids` + `centroid` populated for plane clusters in `cluster_features.py` first; currently both are `None` on all plane-seeded clusters so there is no signal to distinguish floor from open face | Sessions 6+7 | `2. cluster_features.py` then `4. process_selection.py` |
 
 ---
 
