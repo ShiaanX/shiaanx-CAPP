@@ -45,6 +45,158 @@ tool_selection and parameter_calculation default to `7a. tool_database.json` in 
 
 ---
 
+## Multi-Session Audit Results (2026-06-23)
+
+Nine autonomous sessions ran overnight and during the day. Here is what each accomplished and what remains to do.
+
+---
+
+### Session 2 — Program Sheet End-to-End Validation (branch: main)
+
+Full pipeline run on `MOTOR MOUNT.step`. PDF renders cleanly, zero NOT_FOUND fields.
+
+**Pipeline vs vendor:**
+| Metric | Pipeline | Vendor |
+|--------|----------|--------|
+| Setups | **12** | 4 |
+| Total op steps | **187** | 37 |
+| Primary tool (10mm EM) | **NOT selected** | Used 20+ times |
+| Drill RPM (2.5mm) | 10000 (capped) | 1500 |
+| Ballnose ops | **0** | 5 |
+| Step feature ops | **0** | 8 |
+
+**Immediate priority fixes from this session:**
+1. Setup consolidation: merge angled/rare-axis setups → target ≤4–5 setups
+2. RPM conservatism for small drills (≤4mm): cap Vc at 50–60 m/min
+3. New feature types: `step_feature` classifier, ballnose triggered by `internal_corner_radius > 0`
+4. Boss/outer-profile: use largest EM that fits minimum pocket width, not smallest ≥ feature diameter
+
+---
+
+### Session 3 — MFCAD++ Accuracy Post-Fix (branch: main)
+
+Re-evaluated parts 21 and 25 after clustering fix. Cluster counts nearly doubled (24→47 for part 21, 9→23 for part 25) — the connected-component seeding is working.
+
+| | Part 21 | Part 25 | Overall |
+|---|---------|---------|---------|
+| Pre-fix rules | 12.5% (3/24) | 22.2% (2/9) | 15.2% |
+| Post-fix rules | 12.8% (6/47) | 8.7% (2/23) | 11.4% |
+| **Post-fix ML v3** | **59.6% (28/47)** | **47.8% (11/23)** | **55.7%** |
+
+**Conclusion:** Rule-based accuracy is at ceiling for these test parts (dominated by passages/slots with zero rule coverage). Do NOT patch more rules for passages. ML is the right path. Better clustering gave +40pp ML accuracy with no retraining needed.
+
+**Next step:** GBM retrain (XGBoost/LightGBM, same 18 features). Expected +5–10pp.
+
+---
+
+### Session 4 — Two-Pass Chamfer Parameter Differentiation (branch: main, commit 0b6543fc9)
+
+Two bugs fixed + chamfer parameters properly differentiated:
+
+1. **`cluster_features.py` chamfer seeding regression** — merge commit had replaced dot-product cap-plane check with simpler adjacency check that skipped ALL planes near cylinder seeds. Restored: only skip planes where `dot(normal, cyl_axis) > 0.9`.
+2. **`process_selection.py` depth condition** — changed `if depth is not None and depth > 0.5` → `if depth is None or depth > 0.5` so two-pass is the default when depth unknown.
+3. **`parameter_calculation.py`** — added `CHAMFER_TOUCH_VC=28.0`, `CHAMFER_FINISH_VC=140.0`, `CHAMFER_TOUCH_FEED_MAX=80.0` constants. Verified on Motor Mount:
+   - TOUCH: Vc=28, RPM=1490, Vf=80 (capped)
+   - FINISH: Vc=140, RPM=7430, Vf=743
+4. **`rule_sheets/04_cutting_parameters.json`** — chamfer_two_pass section added.
+
+All changes committed to main.
+
+---
+
+### Session 6 — Cube Manifold Audit (branch: audit/cube-manifold)
+
+Pipeline run on `manifold.STEP` (28×28×28mm Al 6061). 39 clusters detected (chamfer=14, through_hole=10, planar_face=9, slot=4, large_bore=1). Inspection: **15/16 PASS** (93.75%), 1 FAIL (Ø4mm hole 3.94mm vs 3.95mm minimum).
+
+**Key finding:** Shop used circular interpolation for ALL holes (Ø4–15mm). Pipeline only routes circ interp for ≥13mm. This is rule gap R2.
+
+**8 new rules proposed (in `audit/motor_mount_new_rules.json`):**
+- R1: add `face_context` to distinguish pocket floors from open planar faces
+- R2: extend `circular_interp` rule down to Ø4mm (not just ≥13mm)
+- R3: add `internal_corner_radius` to feature extraction
+- (R4–R8 in FINDINGS_cube_manifold.md)
+
+**Branch not yet merged:** `audit/cube-manifold`
+
+---
+
+### Session 7 — LIGHT-FCS Aerospace Part Audit (branch: audit/light-fcs)
+
+Pipeline run on `LIGHT-FCS_A06.01.0001.A00.step` (Al 5083 aerospace bracket). 39 clusters detected.
+
+**Critical bugs found:**
+1. **`pocket_mill` tool_diameter_mm = 0mm** on all 24 pocket ops (HIGH) — `tool_selection.py` not receiving pocket width from classifier
+2. **Setup count 3 vs actual 9** — setup planning too coarse for complex multi-face parts
+3. **Al 5083 not in material alias table** — runs as 6061 Vc/fz (MEDIUM)
+4. **Face mill (40mm) selected for 50×30mm part** — overhangs vise (MEDIUM)
+
+**New operations needed:**
+- Sub-2mm end mill ops (1.5mm, 2mm EM) for narrow slots/internal corner reliefs
+- `circular_interp_mill` operation type — shop used circular interp (not drilling) for all holes including tight tolerance Ø10 g8
+
+**Branch not yet merged:** `audit/light-fcs`
+
+---
+
+### Session 8 — Two-Shop Motor Mount Comparison (branch: audit/motor-mount-two-shops)
+
+Parsed G-code from two shops: TS (Sinumerik 828D, 4 MPF setups) and Krishna Engineering (PowerMILL, 3 TAP settings). Both machined the same Al 6061 motor mount.
+
+**6 high-confidence rules (both shops independently agreed):**
+| Rule | Finding |
+|---|---|
+| SR-MM-001 | Bore 14–32mm: use 10mm EM circular interpolation (not boring bar) |
+| SR-MM-002 | Pocket width 8–15mm: use 8mm EM as roughing tool |
+| SR-MM-003 | Add `ball_nose_finish` step for any feature with `fillet_radius > 0` |
+| SR-MM-004 | Separate setup for second major face (flip) is a physics requirement |
+| SR-MM-005 | Bore and long pocket go in last setup (accumulated error minimisation) |
+| SR-MM-008 | Roughing tool = largest EM that fits (max dia for MRR) |
+
+**Notable:** TS 4-setup vs Krishna 3-setup difference is shop preference, not physics — both passed inspection except SL-13 (5mm shoulder, both shops failed → known-difficult feature).
+
+**Branch not yet merged:** `audit/motor-mount-two-shops`
+
+---
+
+### Session 5 — Training Data Inventory
+No SESSION_UPDATE file found on any branch. Session either didn't complete or didn't commit.
+
+### Session 9 — Inspection / Dashboard
+Session merged as part of `feature/dashboard-data-model` branch. See Dashboard Data Model section below.
+
+---
+
+## Pipeline Fixes Priority Queue (as of 2026-06-24)
+
+Based on all audit sessions, ordered by impact:
+
+| Priority | Fix | Source | File |
+|----------|-----|--------|------|
+| P0 | `pocket_mill` tool_diameter_mm=0 bug | Session 7 | `7. tool_selection.py` |
+| P0 | Extend circular_interp to Ø4–32mm (not just ≥13mm) | Sessions 6+7+8 | `4. process_selection.py` |
+| P1 | Setup consolidation: merge anti-parallel axes | Session 2 | `5. setup_planning.py` |
+| P1 | SR-MM-001: 10mm EM circ interp for 14–32mm bores | Session 8 | `7. tool_selection.py` |
+| P1 | SR-MM-003: `ball_nose_finish` step for fillet features | Session 8 | `4. process_selection.py` |
+| P2 | Add 1.5mm and 2mm EM to tool database | Session 7 | `7a. tool_database.json` |
+| P2 | Add Al 5083 to material alias table | Session 7 | `8. parameter_calculation.py` |
+| P2 | RPM conservatism for small drills (≤4mm): cap Vc 50–60 m/min | Session 2 | `8. parameter_calculation.py` |
+| P2 | GBM retrain (XGBoost/LightGBM, 18 features) | Session 3 | `ml_train_classifier_v4.py` |
+| P3 | Face mill size sanity check vs bounding box | Session 7 | `7. tool_selection.py` |
+| P3 | `step_feature` classifier and ops | Session 2 | `3. classify_features.py`, `4. process_selection.py` |
+
+---
+
+## Branches Pending Merge to Main
+
+| Branch | Session | Status |
+|--------|---------|--------|
+| `audit/cube-manifold` | Session 6 | Audit only — safe to merge |
+| `audit/light-fcs` | Session 7 | Audit only — safe to merge |
+| `audit/motor-mount-two-shops` | Session 8 | Audit only + new rules JSON |
+| `feature/dashboard-data-model` | Session 9 | Migrations + inventory files |
+
+---
+
 ## Dashboard Data Model Work (2026-06-22)
 
 Branch: `feature/dashboard-data-model`
@@ -54,8 +206,8 @@ Committed: `FINDINGS_dashboard_data_model.md`, `dashboard_data_model.json`, `aud
 
 **Key findings:**
 - InfluxDB cnc-data: 356,383 rows, 20 fields, 7 programs, date range 2026-05-06 to 2026-05-13
-- InfluxDB cnc-data-v2: 132k+ rows, 80+ programs (program_name as TAG — better for querying), data through 2026-06-06
-- `production_count` is always 0 — part counter not working (P0 fix needed)
+- InfluxDB cnc-data-v2: 132k+ rows, 80+ programs (program_name as TAG — better for querying), data confirmed current to 2026-06-22
+- `production_count` is always 0 — **NOT a bug** — controller limitation, requires manual entry only. Next action: design manual count input UI.
 - `tool_name` stores G-code program text, not tool names (data quality issue)
 - PostgreSQL: 27 tables, empty locally, live on AWS at 13.233.172.143:3003
 - No MinIO — system uses AWS S3 for document storage
@@ -63,12 +215,13 @@ Committed: `FINDINGS_dashboard_data_model.md`, `dashboard_data_model.json`, `aud
 - FAR: PARTIAL — 2 of 7 stages have timestamps (job receipt, delivery)
 - MVP dashboard can show: machine utilization, cycle time per program, alarm rate, pipeline kanban view
 
+**⚠️ InfluxDB session cookie gotcha:** POST /api/v2/signin cookie expires in ~1 hour. Silent failure returns empty results, not a 401. If querying InfluxDB programmatically and results appear empty, the cookie has expired — re-authenticate. The Session D agent incorrectly reported "last data: June 6" due to this exact issue. Developer confirmed data is current to June 22.
+
 **P0 capture gaps:**
 1. Create qc_inspection_results table + form (unblocks FPR)
-2. Fix production_count OPC UA tag on jyotiVMC
+2. production_count: manual entry only (controller limitation) — design manual count input UI
 3. Add capp_generated_at to enquiry_parts (FAR stage 2)
 4. Create program_job_mappings table (links InfluxDB program_name to PostgreSQL order)
-5. Restart telemetry collection (cnc-data is stale since May 13)
 
 ---
 
@@ -1056,33 +1209,25 @@ Key tables: enquiries, enquiry_parts, orders, order_status_history,
 
 ---
 
-## Overnight Task Setup (2026-06-22)
+## Overnight Task Setup (2026-06-22) — COMPLETED
 
-4 autonomous Claude Code sessions launched overnight to audit the Motor Mount and expand rule sheets.
+9 autonomous Claude Code sessions ran on 2026-06-22/23. Tasks that targeted Motor Mount, LIGHT-FCS, cube manifold, and two-shop comparison all completed. See "Multi-Session Audit Results" section above for findings.
 
-**Task files:** `Overnight setups/TASK_1/2/3/4_*.md`
-**Branches created:**
-- `audit/feature-recognition-motor-mount` (TASK 1)
-- `feature/rule-sheet-expansion` (TASK 4)
-- `feature/dashboard-data-model` (TASK 2)
-- `feature/training-data-inventory` (TASK 3, optional)
+**Branches created and status:**
+- `audit/feature-recognition-motor-mount` — MERGED to main (feature recognition + clustering fixes)
+- `feature/rule-sheet-expansion` — MERGED to main (DR-003, PS-AL6061-CIRC-INTERP-001, PS-AL6061-CHAMFER-002)
+- `feature/chamfer-params` — MERGED to main (two-pass chamfer parameters)
+- `feature/dashboard-data-model` — **PENDING MERGE** (audit files + 4 Sequelize migrations)
+- `audit/cube-manifold` — **PENDING MERGE** (manifold audit + 8 new rules)
+- `audit/light-fcs` — **PENDING MERGE** (LIGHT-FCS audit findings)
+- `audit/motor-mount-two-shops` — **PENDING MERGE** (two-shop comparison + 11 rules)
+- `feature/training-data-inventory` — NOT FOUND (Session 5 may not have run)
 
-**Expected output files (check in morning):**
-- `FINDINGS_feature_recognition.md`
-- `FINDINGS_rule_expansion.md`
-- `FINDINGS_dashboard_data_model.md`
-- `audit/accuracy_breakdown_motormount.txt`
-- `proposed_rules.json`
-- `dashboard_data_model.json`
-- `training_data_inventory.csv`
-
-**Auto-resume at 2:10am:** Windows Task Scheduler tasks registered as `ShiaanX-Resume-Task1/2/4`.
-Resume scripts: `Overnight setups/resume_task1/2/4.ps1`
-These launch new Claude sessions that read on-disk progress and continue.
+**Session cadence note:** Tasks designed as "overnight" complete in 20–30 minutes with pre-loaded context (credentials, paths, branch names). Batch more in parallel on future nights.
 
 **To repeat this setup on a future night:**
 1. `docker compose up -d` from `shiaanx-backend/`
 2. Run `Overnight setups/schedule_resumes.ps1 -resetTime "HH:MM"` as Administrator
-3. Open 3 Claude windows: `cd ShiaanX && claude --dangerously-skip-permissions`
-4. Paste task file content prefixed with: "Please read CLAUDE.md first for project context, then follow the task below exactly. Start with Step 1 and work through to the end. If you hit a hard stop condition, write the FINDINGS file and stop."
+3. Open Claude windows: `cd ShiaanX && claude --dangerously-skip-permissions`
+4. Paste task file content prefixed with: "Please read CLAUDE.md first for project context, then follow the task below exactly. Start with Step 1 and work through to the end. Write SESSION_UPDATE_<name>.md to audit/ when done."
 5. Disable sleep (Settings → Power → Screen + Sleep → Never), keep on charge
