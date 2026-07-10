@@ -8,6 +8,12 @@ import OverviewTab from '../components/viewer/tabs/OverviewTab';
 import StrategyTab from '../components/viewer/tabs/StrategyTab';
 import ProgramSheetTab from '../components/viewer/tabs/ProgramSheetTab';
 import FixtureTab from '../components/viewer/tabs/FixtureTab';
+import FeatureMapTab from '../components/viewer/tabs/FeatureMapTab';
+import ClosedLoopTab from '../components/viewer/tabs/ClosedLoopTab';
+import DatumTaggerTab from '../components/viewer/tabs/DatumTaggerTab';
+import InspectionTab from '../components/viewer/tabs/InspectionTab';
+import RuleSheetsTab from '../components/viewer/tabs/RuleSheetsTab';
+import AIFeedTab from '../components/viewer/tabs/AIFeedTab';
 
 const POLL_INTERVAL = 2000;
 
@@ -57,8 +63,14 @@ const CappViewer = () => {
   const tabs = [
     { key: 'overview',       label: 'Overview' },
     { key: 'strategy',       label: 'Strategy' },
-    { key: 'program_sheet',  label: 'Program Sheet' },
+    { key: 'program_sheet',  label: 'Program' },
     { key: 'fixture',        label: 'Fixture' },
+    { key: 'feature_map',    label: 'Features' },
+    { key: 'closed_loop',    label: 'Closed Loop' },
+    { key: 'datum_tagger',   label: 'Datums' },
+    { key: 'inspection',     label: 'Inspection' },
+    { key: 'rule_sheets',    label: 'Rules' },
+    { key: 'ai_feed',        label: 'AI Feed' },
   ];
 
   const stepUrl = getStepUrl(jobId);
@@ -121,7 +133,7 @@ const CappViewer = () => {
         {/* Right panel */}
         <div style={{ width: 340, background: 'white', borderLeft: '1px solid #dde3ef', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
           {/* Tab bar */}
-          <div className="tab-bar" style={{ margin: '0 16px', paddingTop: 12 }}>
+          <div className="tab-bar" style={{ margin: '0 8px', paddingTop: 10, overflowX: 'auto', flexShrink: 0, flexWrap: 'nowrap' }}>
             {tabs.map(t => (
               <div
                 key={t.key}
@@ -166,6 +178,24 @@ const CappViewer = () => {
                 onLoadAssembly={(url) => setViewerUrl(url)}
               />
             )}
+            {activeTab === 'feature_map' && (
+              <FeatureMapTab
+                jobId={jobId}
+                viewerRef={viewerIframeRef}
+                active={activeTab === 'feature_map'}
+              />
+            )}
+            {activeTab === 'closed_loop' && <ClosedLoopTab />}
+            {activeTab === 'datum_tagger' && (
+              <DatumTaggerTab
+                jobId={jobId}
+                viewerRef={viewerIframeRef}
+                active={activeTab === 'datum_tagger'}
+              />
+            )}
+            {activeTab === 'inspection' && <InspectionTab jobId={jobId} />}
+            {activeTab === 'rule_sheets' && <RuleSheetsTab />}
+            {activeTab === 'ai_feed' && <AIFeedTab />}
           </div>
         </div>
       </div>

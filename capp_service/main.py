@@ -23,6 +23,11 @@ app.add_middleware(
 JOBS_DIR = Path(__file__).parent / 'jobs'
 JOBS_DIR.mkdir(exist_ok=True)
 
+_SOFT_JAW_GENERATOR = str(
+    Path(__file__).parent.parent /
+    'Claude output for program sheet' / 'fixture_design' / 'soft_jaw_generator.py'
+)
+
 # In-memory job store: { job_id: { status, stage, stage_name, outputs, error } }
 jobs: dict = {}
 
@@ -194,22 +199,38 @@ def get_fixture_assembly(job_id: str, setup_index: int):
 
     left_jaw_matches = list(job_dir.glob(f'*_setup{setup_index}_soft_jaw_LEFT.step'))
     right_jaw_matches = list(job_dir.glob(f'*_setup{setup_index}_soft_jaw_RIGHT.step'))
+
+    # Auto-generate jaw STEPs if missing and fixture_spec says they're needed
+    if not left_jaw_matches:
+        fixture_spec_files = list(job_dir.glob('*_fixture_spec.json'))
+        if fixture_spec_files:
+            gen = subprocess.run(
+                [_OCC_PYTHON, _SOFT_JAW_GENERATOR,
+                 str(fixture_spec_files[0]), part_step],
+                timeout=120,
+                capture_output=True,
+                text=True,
+                cwd=str(job_dir),
+            )
+            # Refresh matches after generation attempt
+            left_jaw_matches = list(job_dir.glob(f'*_setup{setup_index}_soft_jaw_LEFT.step'))
+            right_jaw_matches = list(job_dir.glob(f'*_setup{setup_index}_soft_jaw_RIGHT.step'))
+
     left_jaw = str(left_jaw_matches[0]) if left_jaw_matches else ''
     right_jaw = str(right_jaw_matches[0]) if right_jaw_matches else ''
 
-    # Write and run the assembly script in the occ env
-    tmp = tempfile.NamedTemporaryFile(suffix='.py', delete=False, mode='w', encoding='utf-8')
-    tmp.write(_ASSEMBLE_SCRIPT)
-    tmp.close()
+    # Write assembly script next to the output (avoids tempfile paths with spaces on Windows)
+    script_path = job_dir / '_assemble_tmp.py'
+    script_path.write_text(_ASSEMBLE_SCRIPT, encoding='utf-8')
     try:
         result = subprocess.run(
-            [_OCC_PYTHON, tmp.name, str(out_path), part_step, left_jaw, right_jaw],
+            [_OCC_PYTHON, str(script_path), str(out_path), part_step, left_jaw, right_jaw],
             timeout=60,
             capture_output=True,
             text=True,
         )
     finally:
-        os.unlink(tmp.name)
+        script_path.unlink(missing_ok=True)
 
     if result.returncode != 0 or not out_path.exists():
         raise HTTPException(
@@ -218,3 +239,84 @@ def get_fixture_assembly(job_id: str, setup_index: int):
         )
 
     return FileResponse(str(out_path), media_type='application/octet-stream')
+
+
+# ── Feature map ──────────────────────────────────────────────────────────────
+
+_INSPECTION_SECTION = {
+    'through_hole': 'Holes', 'blind_hole': 'Holes', 'tapped_hole': 'Holes',
+    'counterbore': 'Holes', 'countersink': 'Holes', 'large_bore': 'Holes',
+    'pocket': 'Pockets', 'rectangular_pocket': 'Pockets', 'circular_pocket': 'Pockets',
+    'slot': 'Slots', 'rectangular_slot': 'Slots',
+    'boss': 'Bosses', 'cylindrical_boss': 'Bosses',
+    'chamfer': 'Chamfers', 'fillet': 'Fillets',
+    'planar_face': 'Faces', 'face': 'Faces',
+}
+
+@app.get('/jobs/{job_id}/faces')
+def get_faces(job_id: str):
+    """Return per-face feature data derived from the classified JSON."""
+    job_dir = JOBS_DIR / job_id
+    matches = list(job_dir.glob('*_classified.json'))
+    if not matches:
+        return {'faces': []}
+    with open(matches[0], encoding='utf-8') as f:
+        data = json.load(f)
+    faces = []
+    for cluster in data.get('clusters', []):
+        fid = str(cluster.get('cluster_id', ''))
+        ftype = cluster.get('feature_type', 'unknown')
+        section = _INSPECTION_SECTION.get(ftype, 'Other')
+        for fi in cluster.get('face_indices', []):
+            faces.append({
+                'feature_id': fid,
+                'feature_type': ftype,
+                'inspection_section': section,
+                'face_index': fi,
+                'centroid': None,
+            })
+    return {'faces': faces}
+
+
+# ── Datums ───────────────────────────────────────────────────────────────────
+
+@app.get('/jobs/{job_id}/datums')
+def get_datums(job_id: str):
+    job_dir = JOBS_DIR / job_id
+    datum_file = job_dir / 'datums.json'
+    if not datum_file.exists():
+        return {'datums': []}
+    with open(datum_file, encoding='utf-8') as f:
+        return json.load(f)
+
+@app.post('/jobs/{job_id}/datums')
+async def save_datums(job_id: str, payload: dict):
+    job_dir = JOBS_DIR / job_id
+    if not job_dir.exists():
+        raise HTTPException(status_code=404, detail='Job not found')
+    datum_file = job_dir / 'datums.json'
+    with open(datum_file, 'w', encoding='utf-8') as f:
+        json.dump(payload, f)
+    return {'ok': True}
+
+
+# ── Tolerances ───────────────────────────────────────────────────────────────
+
+@app.get('/jobs/{job_id}/tolerances')
+def get_tolerances(job_id: str):
+    job_dir = JOBS_DIR / job_id
+    tol_file = job_dir / 'tolerances.json'
+    if not tol_file.exists():
+        return {}
+    with open(tol_file, encoding='utf-8') as f:
+        return json.load(f)
+
+@app.post('/jobs/{job_id}/tolerances')
+async def save_tolerances(job_id: str, payload: dict):
+    job_dir = JOBS_DIR / job_id
+    if not job_dir.exists():
+        raise HTTPException(status_code=404, detail='Job not found')
+    tol_file = job_dir / 'tolerances.json'
+    with open(tol_file, 'w', encoding='utf-8') as f:
+        json.dump(payload, f)
+    return {'ok': True}

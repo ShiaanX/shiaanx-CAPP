@@ -21,7 +21,7 @@ try:
     from OCC.Core.BRep import BRep_Builder
     from OCC.Core.TopoDS import TopoDS_Compound
     from OCC.Core.gp import gp_Pnt, gp_Vec, gp_Trsf, gp_Ax2, gp_Dir, gp_Ax1
-    from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_Transform, BRepBuilderAPI_MirrorShape
+    from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_Transform
     from OCC.Core.TopExp import TopExp_Explorer
     from OCC.Core.TopAbs import TopAbs_EDGE, TopAbs_FACE
     from OCC.Core.BRep import BRep_Tool
@@ -197,9 +197,9 @@ def generate_soft_jaw(
     for note in notes:
         print(note)
 
-    print(f"  Left jaw  → {left_path}")
+    print(f"  Left jaw  -> {left_path}")
     if right_path:
-        print(f"  Right jaw → {right_path}")
+        print(f"  Right jaw -> {right_path}")
 
     return {
         "left_file": left_path if ok_left else None,
