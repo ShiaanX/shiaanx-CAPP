@@ -161,17 +161,17 @@ MFCAD++ dataset: `Claude output for program sheet/Dataset/MFCAD_dataset/MFCAD++_
 ### ML Classifier (Stage 3)
 
 Trained RF models live in `Claude output for program sheet/models/`.
-Current best: `rf_classifier_v3.pkl` — **66.2% accuracy** on full dataset.
+Current best: `rf_classifier_v3.pkl` — **96.46% accuracy on internal holdout, ~91.5% on field test set** (300 test parts). The field number is the honest working baseline, not the holdout number.
 `classify_features.py` accepts `--mode ml` to use the RF model instead of rules.
 
 | Model | Features | Accuracy | Notes |
 |-------|----------|----------|-------|
 | v1 baseline | 10 | 66.0% | Face-level only, trained on H5 |
 | v2 | 15 | 69.2% | Best H5-trained accuracy |
-| v3 | 15 | 66.2% | Pipeline-native features, production model |
+| v3 | 15 | 66.2% pre-retrain → 96.46% holdout / ~91.5% field (post 2026-05-07 autonomous cycle) | Pipeline-native features, production model. Retrained by the autonomous agent on 241,264 faces from the CAD Primitives dataset; weights auto-promoted under the same filename |
 | v4 | 18 | 65.8% | Cluster-proxy features — marginally worse than v3 |
 
-Weak classes: rectangular_blind_slot (F1=0.04), triangular/rectangular through slots (~0.16–0.21).
+Weak classes: rectangular_blind_slot (F1=0.04), triangular/rectangular through slots (~0.16–0.21). (Pre-retrain numbers — recheck `models/perclass_f1_current.json` for current per-class F1.)
 
 ### Autonomous Agent
 
@@ -179,7 +179,7 @@ A self-improving loop that searches Kaggle + GitHub for labeled CAD datasets, re
 
 **Location:** `Claude output for program sheet/Autonomous Agent/`
 **State + setup instructions:** `Claude output for program sheet/Autonomous Agent/AGENT_STATE.md`
-**Status:** Built 2026-05-04. Not yet run — needs Kaggle token + Gemini API key (see AGENT_STATE.md).
+**Status:** Built 2026-05-04. First cycle completed 2026-05-07 (see above) — retrained and auto-promoted `rf_classifier_v3.pkl`. Gemini recommended stop after cycle 2; next worth trying is the MFTRCAD dataset (`xmy2000/mftrcad`, 2.4 GB).
 
 Run (single test cycle):
 ```powershell
