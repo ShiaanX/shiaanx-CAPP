@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShiaanX — Datum Tagger</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0f12;
+    --surface: #141720;
+    --surface2: #1c2030;
+    --border: #252a3a;
+    --accent: #4df0c0;
+    --accent2: #5b8fff;
+    --warn: #ff6b6b;
+    --text: #e0e6f0;
+    --text-dim: #6b7899;
+    --datum-a: #ff6b6b;
+    --datum-b: #4df0c0;
+    --datum-c: #f7c948;
+    --hover: #f97316;
+    --selected: #5b8fff;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 20px;
+    height: 52px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .logo {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .logo span { color: var(--text-dim); }
+  .divider { width: 1px; height: 24px; background: var(--border); }
+
+  .file-info {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+    flex: 1;
+  }
+  .file-info .name { color: var(--text); }
+
+  .btn {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.05em;
+    cursor: pointer; border-radius: 4px;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+    text-transform: uppercase;
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(77,240,192,0.06); }
+  .btn.save { border-color: var(--accent); color: var(--accent); background: rgba(77,240,192,0.08); }
+  .btn.save:hover { background: rgba(77,240,192,0.18); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .main {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+  }
+
+  /* ─── 3D Viewport ─────────────────────────────────────────────────────── */
+  .viewport {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #canvas {
+    width: 100%; height: 100%;
+    display: block;
+    cursor: crosshair;
+  }
+
+  #loading {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 16px;
+    background: rgba(13,15,18,0.95);
+    z-index: 20;
+  }
+  #loading.hidden { display: none; }
+
+  .spinner {
+    width: 36px; height: 36px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .loading-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px; color: var(--text-dim); letter-spacing: 0.05em;
+  }
+
+  #gizmo {
+    position: absolute; bottom: 24px; right: 24px;
+    width: 100px; height: 100px;
+    z-index: 10; pointer-events: none;
+  }
+
+  /* ─── Side Panel ──────────────────────────────────────────────────────── */
+  .panel {
+    width: 280px;
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .panel-section {
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .panel-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; font-weight: 600;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  /* Selected face */
+  #selected-info {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+  }
+
+  .info-row {
+    display: flex; justify-content: space-between;
+    align-items: center; gap: 8px;
+    margin-bottom: 6px; font-size: 11px;
+  }
+  .info-label { color: var(--text-dim); }
+  .info-val { color: var(--text); font-weight: 500; }
+
+  .no-selection {
+    color: var(--text-dim);
+    font-size: 11px;
+    font-style: italic;
+  }
+
+  /* Datum buttons */
+  .datum-btns {
+    display: flex; gap: 8px;
+    margin-top: 12px;
+  }
+
+  .datum-btn {
+    flex: 1; padding: 8px 0;
+    border-radius: 4px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px; font-weight: 600;
+    cursor: pointer; border: 1px solid;
+    transition: background 0.15s;
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+
+  .datum-btn[data-datum="A"] {
+    border-color: var(--datum-a);
+    color: var(--datum-a);
+    background: rgba(255,107,107,0.08);
+  }
+  .datum-btn[data-datum="A"]:hover { background: rgba(255,107,107,0.2); }
+
+  .datum-btn[data-datum="B"] {
+    border-color: var(--datum-b);
+    color: var(--datum-b);
+    background: rgba(77,240,192,0.08);
+  }
+  .datum-btn[data-datum="B"]:hover { background: rgba(77,240,192,0.2); }
+
+  .datum-btn[data-datum="C"] {
+    border-color: var(--datum-c);
+    color: var(--datum-c);
+    background: rgba(247,201,72,0.08);
+  }
+  .datum-btn[data-datum="C"]:hover { background: rgba(247,201,72,0.2); }
+
+  .datum-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .kbd {
+    font-size: 9px; vertical-align: super;
+    color: inherit; opacity: 0.7;
+  }
+
+  /* Tagged datums list */
+  .datum-list { flex: 1; overflow-y: auto; padding: 16px; }
+
+  .datum-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .datum-item:hover { border-color: var(--text-dim); }
+
+  .datum-badge {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .datum-badge.A { background: rgba(255,107,107,0.15); color: var(--datum-a); border: 1px solid var(--datum-a); }
+  .datum-badge.B { background: rgba(77,240,192,0.15); color: var(--datum-b); border: 1px solid var(--datum-b); }
+  .datum-badge.C { background: rgba(247,201,72,0.15); color: var(--datum-c); border: 1px solid var(--datum-c); }
+
+  .datum-details { flex: 1; min-width: 0; }
+  .datum-face-id {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--text);
+    font-weight: 500;
+  }
+  .datum-face-meta {
+    font-size: 10px; color: var(--text-dim);
+    margin-top: 2px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  .untag-btn {
+    width: 20px; height: 20px;
+    border: none; background: none;
+    color: var(--text-dim);
+    cursor: pointer; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 3px;
+    transition: color 0.15s, background 0.15s;
+    flex-shrink: 0;
+  }
+  .untag-btn:hover { color: var(--warn); background: rgba(255,107,107,0.1); }
+
+  .empty-state {
+    text-align: center; padding: 32px 16px;
+    color: var(--text-dim); font-size: 12px; line-height: 1.7;
+  }
+  .empty-state .hint {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; margin-top: 8px;
+  }
+
+  .panel-footer {
+    padding: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .save-status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+    min-height: 16px;
+  }
+  .save-status.ok { color: var(--accent); }
+  .save-status.err { color: var(--warn); }
+
+  /* keyboard hint strip */
+  .key-hints {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 10px; color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .key-hints kbd {
+    display: inline-block;
+    padding: 1px 5px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: var(--surface2);
+    color: var(--text);
+    font-size: 10px;
+    font-family: inherit;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">ShiaanX <span>/ Datum Tagger</span></div>
+  <div class="divider"></div>
+  <div class="file-info" id="header-info">Loading model...</div>
+</header>
+
+<div class="key-hints">
+  <span><kbd>A</kbd> Tag Datum A</span>
+  <span><kbd>B</kbd> Tag Datum B</span>
+  <span><kbd>C</kbd> Tag Datum C</span>
+  <span><kbd>LMB</kbd> Select face</span>
+  <span><kbd>LMB drag</kbd> Orbit</span>
+  <span><kbd>RMB drag</kbd> Pan</span>
+  <span><kbd>Scroll</kbd> Zoom</span>
+</div>
+
+<div class="main">
+  <div class="viewport">
+    <canvas id="canvas"></canvas>
+
+    <div id="loading">
+      <div class="spinner"></div>
+      <div class="loading-text" id="loading-text">Loading model...</div>
+    </div>
+
+    <canvas id="gizmo" width="100" height="100"></canvas>
+  </div>
+
+  <div class="panel">
+    <div class="panel-section">
+      <div class="panel-title">Selected Face</div>
+      <div id="selected-info">
+        <div class="no-selection">Click a face to select it</div>
+      </div>
+      <div class="datum-btns">
+        <button class="datum-btn" data-datum="A" disabled>A <span class="kbd">[A]</span></button>
+        <button class="datum-btn" data-datum="B" disabled>B <span class="kbd">[B]</span></button>
+        <button class="datum-btn" data-datum="C" disabled>C <span class="kbd">[C]</span></button>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="panel-title">Tagged Datums</div>
+    </div>
+
+    <div class="datum-list" id="datum-list">
+      <div class="empty-state">
+        No datums tagged yet.<br>
+        <div class="hint">Select a face, then press A, B, or C</div>
+      </div>
+    </div>
+
+    <div class="panel-footer">
+      <div class="save-status" id="save-status"></div>
+      <button class="btn save" id="save-btn" style="width:100%; justify-content:center;">
+        Save Datums JSON
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script>
+// ─── State ────────────────────────────────────────────────────────────────────
+let scene, camera, renderer, mainGroup;
+let spherical = { theta: 0.6, phi: 1.1, radius: 10 };
+let panOffset = new THREE.Vector3();
+let isDragging = false, isRightDrag = false;
+let prevMouse = { x: 0, y: 0 };
+let clickStart = { x: 0, y: 0 };
+
+const canvas = document.getElementById('canvas');
+const gizmoCanvas = document.getElementById('gizmo');
+const loadingEl = document.getElementById('loading');
+const loadingText = document.getElementById('loading-text');
+const headerInfo = document.getElementById('header-info');
+const selectedInfo = document.getElementById('selected-info');
+const datumList = document.getElementById('datum-list');
+const saveStatus = document.getElementById('save-status');
+
+// face meshes array, indexed by face_index
+let faceMeshes = [];         // THREE.Mesh per face
+let faceData = [];           // raw face JSON from server
+
+let selectedFaceIndex = null;
+let datums = {};             // { "A": faceIndex|null, "B": ..., "C": ... }
+
+const DATUM_COLORS = { A: 0xff6b6b, B: 0x4df0c0, C: 0xf7c948 };
+const COLOR_DEFAULT  = 0x7ab8d4;
+const COLOR_HOVER    = 0xf97316;
+const COLOR_SELECTED = 0x5b8fff;
+const COLOR_TAGGED_A = 0xff6b6b;
+const COLOR_TAGGED_B = 0x4df0c0;
+const COLOR_TAGGED_C = 0xf7c948;
+
+// ─── Three.js init ────────────────────────────────────────────────────────────
+function initThree() {
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setClearColor(0x0d0f12, 1);
+
+  scene = new THREE.Scene();
+
+  camera = new THREE.PerspectiveCamera(45, 1, 0.001, 100000);
+  camera.position.set(5, 4, 5);
+
+  scene.add(new THREE.AmbientLight(0xffffff, 0.45));
+  const d1 = new THREE.DirectionalLight(0xffffff, 0.8); d1.position.set(10, 20, 15); scene.add(d1);
+  const d2 = new THREE.DirectionalLight(0x6090ff, 0.3); d2.position.set(-10, -5, -10); scene.add(d2);
+
+  mainGroup = new THREE.Group();
+  scene.add(mainGroup);
+
+  resize();
+  window.addEventListener('resize', resize);
+  animate();
+}
+
+function resize() {
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
+  drawGizmo();
+}
+
+// ─── Camera ───────────────────────────────────────────────────────────────────
+function updateCamera() {
+  const { theta, phi, radius } = spherical;
+  camera.position.set(
+    panOffset.x + radius * Math.sin(phi) * Math.sin(theta),
+    panOffset.y + radius * Math.cos(phi),
+    panOffset.z + radius * Math.sin(phi) * Math.cos(theta)
+  );
+  camera.lookAt(panOffset);
+}
+
+canvas.addEventListener('mousedown', e => {
+  isDragging = true; isRightDrag = e.button === 2;
+  prevMouse = { x: e.clientX, y: e.clientY };
+  clickStart = { x: e.clientX, y: e.clientY };
+});
+canvas.addEventListener('contextmenu', e => e.preventDefault());
+
+window.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  const dx = e.clientX - prevMouse.x, dy = e.clientY - prevMouse.y;
+  prevMouse = { x: e.clientX, y: e.clientY };
+  if (isRightDrag) {
+    const speed = spherical.radius * 0.001;
+    const right = new THREE.Vector3();
+    right.crossVectors(camera.getWorldDirection(new THREE.Vector3()), camera.up).normalize();
+    panOffset.addScaledVector(right, -dx * speed);
+    panOffset.addScaledVector(camera.up, dy * speed);
+  } else {
+    spherical.theta -= dx * 0.007;
+    spherical.phi = Math.max(0.05, Math.min(Math.PI - 0.05, spherical.phi - dy * 0.007));
+  }
+  updateCamera();
+});
+
+window.addEventListener('mouseup', e => {
+  if (isDragging && Math.abs(e.clientX - clickStart.x) < 4 && Math.abs(e.clientY - clickStart.y) < 4) {
+    handleClick(e);
+  }
+  isDragging = false;
+});
+
+canvas.addEventListener('wheel', e => {
+  e.preventDefault();
+  spherical.radius *= 1 + e.deltaY * 0.001;
+  spherical.radius = Math.max(0.001, Math.min(1e6, spherical.radius));
+  updateCamera();
+}, { passive: false });
+
+// ─── Face Picking ─────────────────────────────────────────────────────────────
+const raycaster = new THREE.Raycaster();
+
+function handleClick(e) {
+  if (faceMeshes.length === 0) return;
+  const rect = canvas.getBoundingClientRect();
+  const mouse = new THREE.Vector2(
+    ((e.clientX - rect.left) / rect.width) * 2 - 1,
+    -((e.clientY - rect.top) / rect.height) * 2 + 1
+  );
+  raycaster.setFromCamera(mouse, camera);
+  const hits = raycaster.intersectObjects(faceMeshes.filter(Boolean));
+  if (hits.length === 0) {
+    selectFace(null);
+    return;
+  }
+  const hitMesh = hits[0].object;
+  const idx = hitMesh.userData.faceIndex;
+  selectFace(idx);
+}
+
+function selectFace(idx) {
+  selectedFaceIndex = idx;
+  updateFaceColors();
+  updateSelectionPanel();
+}
+
+function getFaceColor(idx) {
+  for (const [label, fi] of Object.entries(datums)) {
+    if (fi === idx) return DATUM_COLORS[label];
+  }
+  if (idx === selectedFaceIndex) return COLOR_SELECTED;
+  return COLOR_DEFAULT;
+}
+
+function updateFaceColors() {
+  faceMeshes.forEach((mesh, idx) => {
+    if (!mesh) return;
+    const c = getFaceColor(idx);
+    mesh.material.color.setHex(c);
+    mesh.material.opacity = 1;
+  });
+}
+
+// ─── Load Model from server ───────────────────────────────────────────────────
+async function loadModel() {
+  loadingEl.classList.remove('hidden');
+  loadingText.textContent = 'Fetching tessellation...';
+
+  const resp = await fetch('/api/model');
+  if (!resp.ok) { loadingText.textContent = 'Error: ' + resp.statusText; return; }
+  const data = await resp.json();
+
+  loadingText.textContent = 'Building meshes...';
+  await new Promise(r => setTimeout(r, 30));
+
+  faceData = data.faces;
+
+  data.faces.forEach(face => {
+    if (!face.vertices || face.vertices.length === 0) {
+      faceMeshes[face.face_index] = null;
+      return;
+    }
+
+    const geom = new THREE.BufferGeometry();
+    const verts = new Float32Array(face.vertices);
+    geom.setAttribute('position', new THREE.BufferAttribute(verts, 3));
+    if (face.triangles && face.triangles.length > 0) {
+      geom.setIndex(new THREE.BufferAttribute(new Uint32Array(face.triangles), 1));
+    }
+    geom.computeVertexNormals();
+
+    const mat = new THREE.MeshPhongMaterial({
+      color: COLOR_DEFAULT,
+      specular: 0x223344,
+      shininess: 50,
+      side: THREE.DoubleSide,
+    });
+
+    const mesh = new THREE.Mesh(geom, mat);
+    mesh.userData.faceIndex = face.face_index;
+    mainGroup.add(mesh);
+    faceMeshes[face.face_index] = mesh;
+  });
+
+  // Fit view
+  const box = new THREE.Box3().setFromObject(mainGroup);
+  const center = box.getCenter(new THREE.Vector3());
+  const size = box.getSize(new THREE.Vector3()).length();
+  panOffset.copy(center);
+  spherical.radius = size * 1.6;
+  updateCamera();
+
+  // Grid
+  const gridSize = size * 2.5;
+  const grid = new THREE.GridHelper(gridSize, 20, 0x1c2030, 0x1c2030);
+  grid.position.y = box.min.y - 0.001;
+  scene.add(grid);
+
+  headerInfo.innerHTML = `<span class="name">${data.step_file}</span>&nbsp;&nbsp;·&nbsp;&nbsp;${data.face_count} faces`;
+
+  // Load existing datums if any
+  await loadExistingDatums();
+
+  loadingEl.classList.add('hidden');
+}
+
+async function loadExistingDatums() {
+  const resp = await fetch('/api/datums');
+  if (!resp.ok) return;
+  const data = await resp.json();
+  (data.datums || []).forEach(d => {
+    datums[d.label] = d.face_index;
+  });
+  updateFaceColors();
+  renderDatumList();
+}
+
+// ─── Datum tagging ────────────────────────────────────────────────────────────
+function tagDatum(label) {
+  if (selectedFaceIndex === null) return;
+  // Remove this face from any other datum label it had
+  for (const [l, fi] of Object.entries(datums)) {
+    if (fi === selectedFaceIndex && l !== label) delete datums[l];
+  }
+  datums[label] = selectedFaceIndex;
+  updateFaceColors();
+  renderDatumList();
+}
+
+function untagDatum(label) {
+  delete datums[label];
+  updateFaceColors();
+  renderDatumList();
+}
+
+function updateSelectionPanel() {
+  const btns = document.querySelectorAll('.datum-btn');
+  if (selectedFaceIndex === null) {
+    selectedInfo.innerHTML = '<div class="no-selection">Click a face to select it</div>';
+    btns.forEach(b => b.disabled = true);
+    return;
+  }
+
+  const face = faceData[selectedFaceIndex];
+  const normalStr = face.normal ? face.normal.map(v => v.toFixed(3)).join(', ') : '—';
+  const centroidStr = face.centroid ? face.centroid.map(v => v.toFixed(2)).join(', ') : '—';
+
+  // Is this face already tagged?
+  const tagged = Object.entries(datums).find(([l, fi]) => fi === selectedFaceIndex);
+  const taggedLabel = tagged ? tagged[0] : null;
+
+  selectedInfo.innerHTML = `
+    <div class="info-row"><span class="info-label">Face Index</span><span class="info-val">${selectedFaceIndex}</span></div>
+    <div class="info-row"><span class="info-label">Type</span><span class="info-val">${face.face_type}</span></div>
+    <div class="info-row"><span class="info-label">Normal</span><span class="info-val" style="font-size:10px">${normalStr}</span></div>
+    <div class="info-row"><span class="info-label">Centroid</span><span class="info-val" style="font-size:10px">${centroidStr}</span></div>
+    ${taggedLabel ? `<div class="info-row"><span class="info-label">Tagged As</span><span class="info-val" style="color:var(--datum-${taggedLabel.toLowerCase()})">Datum ${taggedLabel}</span></div>` : ''}
+  `;
+
+  btns.forEach(b => b.disabled = false);
+}
+
+function renderDatumList() {
+  const labels = Object.keys(datums).filter(l => datums[l] !== null && datums[l] !== undefined);
+  if (labels.length === 0) {
+    datumList.innerHTML = `
+      <div class="empty-state">
+        No datums tagged yet.<br>
+        <div class="hint">Select a face, then press A, B, or C</div>
+      </div>`;
+    return;
+  }
+
+  datumList.innerHTML = '';
+  ['A', 'B', 'C'].forEach(label => {
+    if (!(label in datums)) return;
+    const idx = datums[label];
+    const face = faceData[idx] || {};
+    const normalStr = face.normal ? face.normal.map(v => v.toFixed(3)).join(', ') : '—';
+
+    const item = document.createElement('div');
+    item.className = 'datum-item';
+    item.innerHTML = `
+      <div class="datum-badge ${label}">${label}</div>
+      <div class="datum-details">
+        <div class="datum-face-id">Face #${idx} &nbsp;·&nbsp; ${face.face_type || '—'}</div>
+        <div class="datum-face-meta">n: [${normalStr}]</div>
+      </div>
+      <button class="untag-btn" title="Remove datum ${label}">✕</button>
+    `;
+    item.querySelector('.datum-badge, .datum-details').addEventListener && item.addEventListener('click', e => {
+      if (e.target.classList.contains('untag-btn')) return;
+      selectFace(idx);
+    });
+    item.querySelector('.untag-btn').addEventListener('click', () => untagDatum(label));
+    datumList.appendChild(item);
+  });
+}
+
+// ─── Save ─────────────────────────────────────────────────────────────────────
+document.getElementById('save-btn').addEventListener('click', async () => {
+  const payload = { datums: Object.entries(datums).map(([label, fi]) => ({ label, face_index: fi })) };
+  const resp = await fetch('/api/datums', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  const saveEl = document.getElementById('save-status');
+  if (resp.ok) {
+    const data = await resp.json();
+    saveEl.textContent = '✓ Saved to ' + data.path.split(/[\\/]/).pop();
+    saveEl.className = 'save-status ok';
+  } else {
+    saveEl.textContent = '✗ Save failed';
+    saveEl.className = 'save-status err';
+  }
+  setTimeout(() => { saveEl.textContent = ''; saveEl.className = 'save-status'; }, 4000);
+});
+
+// ─── Keyboard shortcuts ───────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const k = e.key.toUpperCase();
+  if (['A', 'B', 'C'].includes(k)) tagDatum(k);
+});
+
+document.querySelectorAll('.datum-btn').forEach(btn => {
+  btn.addEventListener('click', () => tagDatum(btn.dataset.datum));
+});
+
+// ─── Gizmo ────────────────────────────────────────────────────────────────────
+const gizmoCtx = gizmoCanvas.getContext('2d');
+const GC = 50, GL = 36;
+
+function drawGizmo() {
+  const ctx = gizmoCtx;
+  ctx.clearRect(0, 0, 100, 100);
+  ctx.beginPath(); ctx.arc(GC, GC, 44, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(20,23,32,0.85)'; ctx.fill();
+  ctx.strokeStyle = 'rgba(37,42,58,0.8)'; ctx.lineWidth = 1; ctx.stroke();
+
+  const mat = new THREE.Matrix4().extractRotation(camera.matrixWorldInverse);
+  const axes = [
+    { dir: new THREE.Vector3(1,0,0), color: '#ff4d4d', neg: '#7a1a1a', label: 'X' },
+    { dir: new THREE.Vector3(0,1,0), color: '#4dff88', neg: '#1a7a3a', label: 'Y' },
+    { dir: new THREE.Vector3(0,0,1), color: '#4d9fff', neg: '#1a407a', label: 'Z' },
+  ];
+  const projected = axes.map(a => {
+    const v = a.dir.clone().applyMatrix4(mat);
+    return { ...a, x: v.x * GL, y: -v.y * GL, depth: v.z };
+  });
+  [...projected].sort((a, b) => a.depth - b.depth).forEach(({ x, y, depth, color, neg, label }) => {
+    const back = depth < 0;
+    const cx = GC + x, cy = GC + y;
+    ctx.globalAlpha = back ? 0.5 : 1.0;
+    ctx.beginPath(); ctx.moveTo(GC, GC); ctx.lineTo(cx, cy);
+    ctx.strokeStyle = back ? neg : color; ctx.lineWidth = 2; ctx.stroke();
+    ctx.beginPath(); ctx.arc(cx, cy, back ? 4 : 5, 0, Math.PI * 2);
+    ctx.fillStyle = back ? neg : color; ctx.fill();
+    if (!back) {
+      ctx.font = 'bold 10px IBM Plex Mono, monospace';
+      ctx.fillStyle = color; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(label, GC + x * 1.4, GC + y * 1.4);
+    }
+  });
+  ctx.globalAlpha = 1;
+  ctx.beginPath(); ctx.arc(GC, GC, 3, 0, Math.PI * 2);
+  ctx.fillStyle = '#fff'; ctx.fill();
+}
+
+// ─── Boot ─────────────────────────────────────────────────────────────────────
+initThree();
+loadModel();
+</script>
+</body>
+</html>

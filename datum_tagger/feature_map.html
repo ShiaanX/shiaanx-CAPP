@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShiaanX — Feature Map</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0f12;
+    --surface: #141720;
+    --surface2: #1c2030;
+    --border: #252a3a;
+    --accent: #4df0c0;
+    --text: #e0e6f0;
+    --text-dim: #6b7899;
+    --datum-a: #ff6b6b;
+    --datum-b: #4df0c0;
+    --datum-c: #f7c948;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    display: flex; align-items: center; gap: 16px;
+    padding: 0 20px; height: 52px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .logo {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px; font-weight: 600;
+    color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .logo span { color: var(--text-dim); }
+  .divider { width: 1px; height: 24px; background: var(--border); }
+  .file-info { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--text-dim); flex: 1; }
+  .file-info .name { color: var(--text); }
+
+  .tab-bar {
+    display: flex; gap: 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    flex-shrink: 0;
+    padding: 0 20px;
+  }
+  .tab {
+    padding: 8px 18px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; font-weight: 500;
+    color: var(--text-dim); letter-spacing: 0.05em;
+    cursor: pointer; border-bottom: 2px solid transparent;
+    text-decoration: none; transition: color 0.15s;
+    text-transform: uppercase;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .main { flex: 1; display: flex; overflow: hidden; }
+
+  .viewport { flex: 1; position: relative; overflow: hidden; }
+  #canvas { width: 100%; height: 100%; display: block; cursor: crosshair; }
+
+  #loading {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+    background: rgba(13,15,18,0.95); z-index: 20;
+  }
+  #loading.hidden { display: none; }
+  .spinner { width: 36px; height: 36px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-text { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--text-dim); }
+
+  #gizmo { position: absolute; bottom: 24px; right: 24px; width: 100px; height: 100px; z-index: 10; pointer-events: none; }
+
+  /* Hover tooltip */
+  #tooltip {
+    position: absolute;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    pointer-events: none;
+    z-index: 30;
+    display: none;
+    min-width: 200px;
+    line-height: 1.7;
+  }
+  #tooltip .fid {
+    font-size: 13px; font-weight: 600; color: var(--accent);
+    margin-bottom: 4px;
+  }
+  #tooltip .row { color: var(--text-dim); }
+  #tooltip .row span { color: var(--text); }
+
+  /* Side panel */
+  .panel {
+    width: 300px;
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+
+  .panel-header {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; font-weight: 600;
+    color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  .search-box {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .search-box input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 6px 10px;
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    outline: none;
+  }
+  .search-box input:focus { border-color: var(--accent); }
+  .search-box input::placeholder { color: var(--text-dim); }
+
+  .feature-list { flex: 1; overflow-y: auto; }
+
+  .section-header {
+    padding: 6px 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px; font-weight: 600;
+    color: var(--text-dim); letter-spacing: 0.12em; text-transform: uppercase;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 5;
+  }
+
+  .feature-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 14px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(37,42,58,0.5);
+    transition: background 0.1s;
+  }
+  .feature-row:hover, .feature-row.highlighted { background: var(--surface2); }
+  .feature-row.highlighted { border-left: 2px solid var(--accent); }
+
+  .swatch {
+    width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0;
+  }
+
+  .feat-info { flex: 1; min-width: 0; }
+  .feat-id {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; font-weight: 600; color: var(--text);
+  }
+  .feat-meta {
+    font-size: 10px; color: var(--text-dim);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  .face-count {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  /* Legend */
+  .legend {
+    padding: 12px 14px;
+    border-top: 1px solid var(--border);
+    font-size: 10px; color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+    line-height: 1.8;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-swatch { width: 12px; height: 12px; border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">ShiaanX <span>/ Feature Map</span></div>
+  <div class="divider"></div>
+  <div class="file-info" id="header-info">Loading...</div>
+  <a href="/" class="tab" style="margin-left:auto">Datum Tagger</a>
+</header>
+
+<div class="main">
+  <div class="viewport">
+    <canvas id="canvas"></canvas>
+    <div id="loading"><div class="spinner"></div><div class="loading-text" id="loading-text">Loading model...</div></div>
+    <canvas id="gizmo" width="100" height="100"></canvas>
+    <div id="tooltip"></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-header">Features — click to isolate</div>
+    <div class="search-box">
+      <input type="text" id="search" placeholder="Search feature ID or type...">
+    </div>
+    <div class="feature-list" id="feature-list"></div>
+    <div class="legend" id="legend"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script>
+// ─── State ────────────────────────────────────────────────────────────────────
+let scene, camera, renderer, mainGroup;
+let spherical = { theta: 0.6, phi: 1.1, radius: 10 };
+let panOffset = new THREE.Vector3();
+let isDragging = false, isRightDrag = false, prevMouse = { x: 0, y: 0 };
+
+const canvas = document.getElementById('canvas');
+const gizmoCanvas = document.getElementById('gizmo');
+const loadingEl = document.getElementById('loading');
+const loadingText = document.getElementById('loading-text');
+const tooltip = document.getElementById('tooltip');
+
+// face_index → {mesh, feature_id, feature_type, inspection_section, centroid_datum, centroid}
+let faceObjects = {};
+// feature_id → [face_index, ...]
+let featureGroups = {};
+// feature_id → THREE color hex
+let featureColors = {};
+
+let highlightedFeatureId = null;
+let hoveredFaceIndex = null;
+
+const COLOR_DIMMED = 0x1a2535;
+const SECTION_COLORS = {
+  "DATUM_A": [0xff6b6b, 0xff8c8c, 0xffaaaa, 0xffcccc],
+  "DATUM_B": [0x4df0c0, 0x6ef4cc, 0x90f7d8, 0xb2fae4],
+  "DATUM_C": [0xf7c948, 0xf9d56e, 0xfbe093, 0xfdeab8],
+  "GENERAL": [0x5b8fff, 0x7aa3ff, 0x99b8ff, 0xb8ccff,
+               0xc084fc, 0xcf9ef9, 0xdbb8f6, 0xe7d1f3,
+               0xfb923c, 0xfca55e, 0xfdb880, 0xfecba2,
+               0x34d399, 0x5adba8, 0x80e3b7, 0xa6ebc6],
+};
+
+// Assign colors to features grouped by section
+function assignColors(faces) {
+  const sections = {};
+  faces.forEach(f => {
+    const sec = f.inspection_section || "GENERAL";
+    if (!sections[sec]) sections[sec] = [];
+    const fid = f.feature_id;
+    if (!sections[sec].includes(fid)) sections[sec].push(fid);
+  });
+
+  Object.entries(sections).forEach(([sec, fids]) => {
+    const palette = SECTION_COLORS[sec] || SECTION_COLORS["GENERAL"];
+    fids.forEach((fid, i) => {
+      featureColors[fid] = palette[i % palette.length];
+    });
+  });
+}
+
+// ─── Three.js ─────────────────────────────────────────────────────────────────
+function initThree() {
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setClearColor(0x0d0f12, 1);
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(45, 1, 0.001, 100000);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+  const d1 = new THREE.DirectionalLight(0xffffff, 0.7); d1.position.set(10, 20, 15); scene.add(d1);
+  const d2 = new THREE.DirectionalLight(0x6090ff, 0.3); d2.position.set(-10, -5, -10); scene.add(d2);
+  mainGroup = new THREE.Group(); scene.add(mainGroup);
+  resize(); window.addEventListener('resize', resize); animate();
+}
+
+function resize() {
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+}
+
+function animate() {
+  requestAnimationFrame(animate); renderer.render(scene, camera); drawGizmo();
+}
+
+function updateCamera() {
+  const { theta, phi, radius } = spherical;
+  camera.position.set(
+    panOffset.x + radius * Math.sin(phi) * Math.sin(theta),
+    panOffset.y + radius * Math.cos(phi),
+    panOffset.z + radius * Math.sin(phi) * Math.cos(theta)
+  );
+  camera.lookAt(panOffset);
+}
+
+canvas.addEventListener('mousedown', e => {
+  isDragging = true; isRightDrag = e.button === 2;
+  prevMouse = { x: e.clientX, y: e.clientY };
+});
+canvas.addEventListener('contextmenu', e => e.preventDefault());
+window.addEventListener('mousemove', e => {
+  if (isDragging) {
+    const dx = e.clientX - prevMouse.x, dy = e.clientY - prevMouse.y;
+    prevMouse = { x: e.clientX, y: e.clientY };
+    if (isRightDrag) {
+      const speed = spherical.radius * 0.001;
+      const right = new THREE.Vector3();
+      right.crossVectors(camera.getWorldDirection(new THREE.Vector3()), camera.up).normalize();
+      panOffset.addScaledVector(right, -dx * speed);
+      panOffset.addScaledVector(camera.up, dy * speed);
+    } else {
+      spherical.theta -= dx * 0.007;
+      spherical.phi = Math.max(0.05, Math.min(Math.PI - 0.05, spherical.phi - dy * 0.007));
+    }
+    updateCamera();
+  } else {
+    handleHover(e);
+  }
+});
+window.addEventListener('mouseup', () => { isDragging = false; });
+canvas.addEventListener('wheel', e => {
+  e.preventDefault();
+  spherical.radius *= 1 + e.deltaY * 0.001;
+  spherical.radius = Math.max(0.001, Math.min(1e6, spherical.radius));
+  updateCamera();
+}, { passive: false });
+
+// ─── Raycasting for hover ─────────────────────────────────────────────────────
+const raycaster = new THREE.Raycaster();
+const mouse2d = new THREE.Vector2();
+
+function handleHover(e) {
+  const rect = canvas.getBoundingClientRect();
+  mouse2d.set(
+    ((e.clientX - rect.left) / rect.width) * 2 - 1,
+    -((e.clientY - rect.top) / rect.height) * 2 + 1
+  );
+  raycaster.setFromCamera(mouse2d, camera);
+  const meshes = Object.values(faceObjects).map(o => o.mesh).filter(Boolean);
+  const hits = raycaster.intersectObjects(meshes);
+
+  if (hits.length === 0) {
+    hoveredFaceIndex = null;
+    tooltip.style.display = 'none';
+    return;
+  }
+
+  const hitMesh = hits[0].object;
+  const idx = hitMesh.userData.faceIndex;
+  if (idx === hoveredFaceIndex) return;
+  hoveredFaceIndex = idx;
+
+  const fo = faceObjects[idx];
+  if (!fo) return;
+
+  // Show tooltip
+  const c = fo.centroid || [];
+  const cd = fo.centroid_datum || [];
+  const cdStr = cd.length ? `[${cd.map(v => v.toFixed(2)).join(', ')}]` : '—';
+  const cStr  = c.length  ? `[${c.map(v => v.toFixed(2)).join(', ')}]`  : '—';
+  tooltip.innerHTML = `
+    <div class="fid">${fo.feature_id}</div>
+    <div class="row">Type &nbsp;&nbsp;&nbsp;: <span>${fo.feature_type}</span></div>
+    <div class="row">Section: <span>${fo.inspection_section}</span></div>
+    <div class="row">Face # &nbsp;: <span>${idx}</span></div>
+    <div class="row">Centroid (model): <span style="font-size:10px">${cStr}</span></div>
+    <div class="row">Centroid (datum): <span style="font-size:10px">${cdStr}</span></div>
+  `;
+  tooltip.style.display = 'block';
+  tooltip.style.left = (e.clientX - rect.left + 16) + 'px';
+  tooltip.style.top  = (e.clientY - rect.top  - 10) + 'px';
+
+  // Scroll side panel to this feature
+  scrollToFeature(fo.feature_id);
+}
+
+canvas.addEventListener('click', e => {
+  if (hoveredFaceIndex === null) {
+    isolateFeature(null);
+    return;
+  }
+  const fo = faceObjects[hoveredFaceIndex];
+  if (fo) isolateFeature(fo.feature_id);
+});
+
+// ─── Feature isolation ────────────────────────────────────────────────────────
+function isolateFeature(featureId) {
+  highlightedFeatureId = featureId === highlightedFeatureId ? null : featureId;
+  applyColors();
+  renderFeatureList();
+}
+
+function applyColors() {
+  Object.entries(faceObjects).forEach(([idx, fo]) => {
+    if (!fo.mesh) return;
+    const fid = fo.feature_id;
+    const baseColor = featureColors[fid] || 0x5b8fff;
+
+    if (highlightedFeatureId === null) {
+      // Show all with their feature color
+      fo.mesh.material.color.setHex(baseColor);
+      fo.mesh.material.opacity = 1;
+      fo.mesh.material.transparent = false;
+    } else if (fid === highlightedFeatureId) {
+      fo.mesh.material.color.setHex(baseColor);
+      fo.mesh.material.opacity = 1;
+      fo.mesh.material.transparent = false;
+    } else {
+      fo.mesh.material.color.setHex(0x1a2535);
+      fo.mesh.material.opacity = 0.12;
+      fo.mesh.material.transparent = true;
+    }
+  });
+}
+
+// ─── Load model ───────────────────────────────────────────────────────────────
+async function loadModel() {
+  loadingEl.classList.remove('hidden');
+  loadingText.textContent = 'Fetching feature data...';
+
+  const resp = await fetch('/api/feature_map_data');
+  if (!resp.ok) { loadingText.textContent = 'Error: ' + resp.statusText; return; }
+  const data = await resp.json();
+
+  loadingText.textContent = 'Assigning feature colors...';
+  assignColors(data.faces);
+
+  loadingText.textContent = 'Building meshes...';
+  await new Promise(r => setTimeout(r, 30));
+
+  data.faces.forEach(face => {
+    if (!face.vertices || face.vertices.length === 0) return;
+
+    const geom = new THREE.BufferGeometry();
+    geom.setAttribute('position', new THREE.BufferAttribute(new Float32Array(face.vertices), 3));
+    if (face.triangles && face.triangles.length > 0) {
+      geom.setIndex(new THREE.BufferAttribute(new Uint32Array(face.triangles), 1));
+    }
+    geom.computeVertexNormals();
+
+    const color = featureColors[face.feature_id] || 0x5b8fff;
+    const mat = new THREE.MeshPhongMaterial({
+      color, specular: 0x223344, shininess: 50, side: THREE.DoubleSide,
+    });
+
+    const mesh = new THREE.Mesh(geom, mat);
+    mesh.userData.faceIndex = face.face_index;
+    mainGroup.add(mesh);
+
+    faceObjects[face.face_index] = {
+      mesh,
+      feature_id: face.feature_id,
+      feature_type: face.feature_type,
+      inspection_section: face.inspection_section,
+      centroid: face.centroid,
+      centroid_datum: face.centroid_datum,
+    };
+
+    if (!featureGroups[face.feature_id]) featureGroups[face.feature_id] = [];
+    featureGroups[face.feature_id].push(face.face_index);
+  });
+
+  // Fit view
+  const box = new THREE.Box3().setFromObject(mainGroup);
+  const center = box.getCenter(new THREE.Vector3());
+  const size = box.getSize(new THREE.Vector3()).length();
+  panOffset.copy(center);
+  spherical.radius = size * 1.6;
+  updateCamera();
+  const grid = new THREE.GridHelper(size * 2.5, 20, 0x1c2030, 0x1c2030);
+  grid.position.y = box.min.y - 0.001;
+  scene.add(grid);
+
+  document.getElementById('header-info').innerHTML =
+    `<span class="name">${data.step_file}</span>&nbsp;·&nbsp;${Object.keys(featureGroups).length} features&nbsp;·&nbsp;${data.face_count} faces`;
+
+  renderFeatureList();
+  loadingEl.classList.add('hidden');
+}
+
+// ─── Side panel ───────────────────────────────────────────────────────────────
+function renderFeatureList(filter = '') {
+  const list = document.getElementById('feature-list');
+  list.innerHTML = '';
+
+  // Group features by section
+  const sections = {};
+  Object.keys(featureGroups).forEach(fid => {
+    const fo = faceObjects[featureGroups[fid][0]];
+    if (!fo) return;
+    const sec = fo.inspection_section || 'GENERAL';
+    if (!sections[sec]) sections[sec] = [];
+    sections[sec].push(fid);
+  });
+
+  const filterLow = filter.toLowerCase();
+
+  ['DATUM_A', 'DATUM_B', 'DATUM_C', 'GENERAL'].forEach(sec => {
+    const fids = sections[sec];
+    if (!fids || fids.length === 0) return;
+
+    const filtered = fids.filter(fid => {
+      if (!filter) return true;
+      const fo = faceObjects[featureGroups[fid][0]];
+      return fid.toLowerCase().includes(filterLow) ||
+             (fo && fo.feature_type.toLowerCase().includes(filterLow));
+    });
+    if (filtered.length === 0) return;
+
+    const sh = document.createElement('div');
+    sh.className = 'section-header';
+    sh.textContent = sec.replace('_', ' ');
+    list.appendChild(sh);
+
+    filtered.forEach(fid => {
+      const fo = faceObjects[featureGroups[fid][0]];
+      if (!fo) return;
+      const color = featureColors[fid] || 0x5b8fff;
+      const hex = '#' + color.toString(16).padStart(6, '0');
+      const faceCount = featureGroups[fid].length;
+
+      const row = document.createElement('div');
+      row.className = 'feature-row' + (fid === highlightedFeatureId ? ' highlighted' : '');
+      row.id = `feat-${fid}`;
+      row.innerHTML = `
+        <div class="swatch" style="background:${hex}"></div>
+        <div class="feat-info">
+          <div class="feat-id">${fid}</div>
+          <div class="feat-meta">${fo.feature_type.replace(/_/g,' ')}</div>
+        </div>
+        <div class="face-count">${faceCount}f</div>
+      `;
+      row.addEventListener('click', () => isolateFeature(fid));
+      list.appendChild(row);
+    });
+  });
+}
+
+function scrollToFeature(fid) {
+  const el = document.getElementById(`feat-${fid}`);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+document.getElementById('search').addEventListener('input', e => {
+  renderFeatureList(e.target.value);
+});
+
+// ─── Gizmo ────────────────────────────────────────────────────────────────────
+const gizmoCtx = gizmoCanvas.getContext('2d');
+const GC = 50, GL = 36;
+function drawGizmo() {
+  const ctx = gizmoCtx;
+  ctx.clearRect(0, 0, 100, 100);
+  ctx.beginPath(); ctx.arc(GC, GC, 44, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(20,23,32,0.85)'; ctx.fill();
+  ctx.strokeStyle = 'rgba(37,42,58,0.8)'; ctx.lineWidth = 1; ctx.stroke();
+  const mat = new THREE.Matrix4().extractRotation(camera.matrixWorldInverse);
+  const axes = [
+    { dir: new THREE.Vector3(1,0,0), color: '#ff4d4d', neg: '#7a1a1a', label: 'X' },
+    { dir: new THREE.Vector3(0,1,0), color: '#4dff88', neg: '#1a7a3a', label: 'Y' },
+    { dir: new THREE.Vector3(0,0,1), color: '#4d9fff', neg: '#1a407a', label: 'Z' },
+  ];
+  const proj = axes.map(a => { const v = a.dir.clone().applyMatrix4(mat); return {...a, x: v.x*GL, y: -v.y*GL, depth: v.z}; });
+  [...proj].sort((a,b)=>a.depth-b.depth).forEach(({x,y,depth,color,neg,label})=>{
+    const back = depth < 0, cx = GC+x, cy = GC+y;
+    ctx.globalAlpha = back ? 0.5 : 1;
+    ctx.beginPath(); ctx.moveTo(GC,GC); ctx.lineTo(cx,cy);
+    ctx.strokeStyle = back ? neg : color; ctx.lineWidth = 2; ctx.stroke();
+    ctx.beginPath(); ctx.arc(cx,cy,back?4:5,0,Math.PI*2); ctx.fillStyle = back?neg:color; ctx.fill();
+    if (!back) { ctx.font='bold 10px IBM Plex Mono,monospace'; ctx.fillStyle=color; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(label,GC+x*1.4,GC+y*1.4); }
+  });
+  ctx.globalAlpha = 1; ctx.beginPath(); ctx.arc(GC,GC,3,0,Math.PI*2); ctx.fillStyle='#fff'; ctx.fill();
+}
+
+// ─── Boot ─────────────────────────────────────────────────────────────────────
+initThree();
+loadModel();
+</script>
+</body>
+</html>
