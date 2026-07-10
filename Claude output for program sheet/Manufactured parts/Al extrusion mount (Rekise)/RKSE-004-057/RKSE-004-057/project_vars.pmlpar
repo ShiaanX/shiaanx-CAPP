@@ -1,0 +1,24 @@
+{
+	"type" : "Project",
+	"time" : "1651057807",
+	"version" : "0"
+}
+{
+	"Customer" "S" "Name of customer that this project refers to." "18563f2062662b370003318300000000" : "",
+	"TextBlocks" "M" "A place holder for text objects." "18563ec062662b370003318500000000" : {
+	},
+	"ThicknessSets" "M" "A place holder for thickness sets." "18561db062662b370003318700000000" : {
+	},
+	"PartName" "S" "Part name for this project." "18561d4062662b370003318900000000" : "",
+	"ProjectHistory" "LM" "project history." "18563f6062662b370003318b00000000" : (
+		{
+			"ClientName" "S" "Client product name." "1856347062662b370003318d00000000" : "PowerMILL",
+			"ClientVersion" "S" "Client product version." "1856341062662b370003318f00000000" : "10006",
+			"DmkCodebase" "S" "delcam libraries codebase number." "185633d062662b370003319100000000" : "1117241"
+		}
+	),
+	"Tolerances" "M" "A place holder for tolerance values." "1856335062662b370003319300000000" : {
+	},
+	"OrderNumber" "S" "Order number for this project." "18565bf062662b370003319500000000" : "",
+	"Notes" "S" "Notes for this project." "1856353062662b370003319700000000" : ""
+}

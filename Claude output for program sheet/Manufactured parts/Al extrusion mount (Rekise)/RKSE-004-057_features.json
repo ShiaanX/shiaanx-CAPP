@@ -1,0 +1,7705 @@
+{
+  "file": "C:\\Users\\Siddhant Gupta\\Documents\\ShiaanX\\Claude output for program sheet\\Manufactured parts\\Al extrusion mount (Rekise)\\RKSE-004-057.stp",
+  "topology_counts": {
+    "Compounds": 0,
+    "CompSolids": 0,
+    "Solids": 1,
+    "Shells": 1,
+    "Faces": 71,
+    "Wires": 83,
+    "Edges": 166,
+    "Vertices": 97
+  },
+  "bounding_box": {
+    "xmin": -192.131742,
+    "ymin": -62.631262,
+    "zmin": -31.145142,
+    "xmax": -173.750378,
+    "ymax": -22.540979,
+    "zmax": 31.145142,
+    "length_x": 18.381364,
+    "length_y": 40.090283,
+    "length_z": 62.290283,
+    "diagonal": 76.322898
+  },
+  "mass_properties": {
+    "volume": 13181.606606,
+    "center_of_mass": {
+      "x": -180.619281,
+      "y": -38.382722,
+      "z": 0.010601
+    },
+    "matrix_of_inertia": [
+      [
+        4902472.260603,
+        186940.135507,
+        -696.571265
+      ],
+      [
+        186940.135507,
+        3195634.140782,
+        1318.605038
+      ],
+      [
+        -696.571265,
+        1318.605038,
+        2485050.558571
+      ]
+    ]
+  },
+  "surface_area": 7506.133339,
+  "faces": {
+    "total_faces": 71,
+    "total_area": 7506.133335,
+    "surface_type_counts": {
+      "Plane": 42,
+      "Cylinder": 14,
+      "Cone": 11,
+      "Torus": 2,
+      "BSpline": 2
+    },
+    "faces": [
+      {
+        "surface_type": "Plane",
+        "area": 305.22669,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -183.3644,
+            "y": -27.58612,
+            "z": -25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 86.163533,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -183.3644,
+            "y": -27.58612,
+            "z": -25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 86.163523,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -183.3644,
+            "y": -27.58612,
+            "z": -25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 34.292462,
+        "orientation": "Reversed",
+        "plane": {
+          "origin": {
+            "x": -191.907067,
+            "y": -27.58612,
+            "z": -19.1
+          },
+          "normal": {
+            "x": 0.940674,
+            "y": 0.0,
+            "z": 0.339311
+          }
+        }
+      },
+      {
+        "surface_type": "Cylinder",
+        "area": 56.273548,
+        "orientation": "Forward",
+        "cylinder": {
+          "radius": 6.0,
+          "axis_direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -183.3644,
+            "y": -27.58612,
+            "z": -25.1
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 37.646539,
+        "orientation": "Reversed",
+        "plane": {
+          "origin": {
+            "x": -177.963485,
+            "y": -27.58612,
+            "z": -27.71345
+          },
+          "normal": {
+            "x": -0.900152,
+            "y": 0.0,
+            "z": 0.435575
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 1315.379884,
+        "orientation": "Reversed",
+        "plane": {
+          "origin": {
+            "x": -173.79552,
+            "y": -27.58612,
+            "z": -19.1
+          },
+          "normal": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 37.650299,
+        "orientation": "Reversed",
+        "plane": {
+          "origin": {
+            "x": -173.79552,
+            "y": -27.58612,
+            "z": 19.1
+          },
+          "normal": {
+            "x": -0.900152,
+            "y": 0.0,
+            "z": -0.435575
+          }
+        }
+      },
+      {
+        "surface_type": "Cylinder",
+        "area": 56.273548,
+        "orientation": "Forward",
+        "cylinder": {
+          "radius": 6.0,
+          "axis_direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -183.3644,
+            "y": -27.58612,
+            "z": 25.1
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 34.264478,
+        "orientation": "Reversed",
+        "plane": {
+          "origin": {
+            "x": -189.008445,
+            "y": -27.58612,
+            "z": 27.135867
+          },
+          "normal": {
+            "x": 0.940674,
+            "y": 0.0,
+            "z": -0.339311
+          }
+        }
+      },
+      {
+        "surface_type": "Cylinder",
+        "area": 100.530965,
+        "orientation": "Reversed",
+        "cylinder": {
+          "radius": 3.2,
+          "axis_direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -183.3644,
+            "y": -27.58612,
+            "z": -25.1
+          }
+        }
+      },
+      {
+        "surface_type": "Cylinder",
+        "area": 40.212386,
+        "orientation": "Reversed",
+        "cylinder": {
+          "radius": 3.2,
+          "axis_direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -185.4,
+            "y": -27.58612,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 379.231432,
+        "orientation": "Reversed",
+        "plane": {
+          "origin": {
+            "x": -191.907067,
+            "y": -27.58612,
+            "z": -15.1
+          },
+          "normal": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "surface_type": "Cylinder",
+        "area": 100.530965,
+        "orientation": "Reversed",
+        "cylinder": {
+          "radius": 3.2,
+          "axis_direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -183.3644,
+            "y": -27.58612,
+            "z": 25.1
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 827.508535,
+        "orientation": "Reversed",
+        "plane": {
+          "origin": {
+            "x": -183.3644,
+            "y": -22.58612,
+            "z": -25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 402.928458,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -191.907067,
+            "y": -62.58612,
+            "z": -15.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 1.0
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 940.730091,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -177.79552,
+            "y": -62.58612,
+            "z": -15.1
+          },
+          "normal": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 402.928458,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -177.79552,
+            "y": -62.58612,
+            "z": 15.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 490.816911,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -191.907067,
+            "y": -62.58612,
+            "z": 19.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 1.0
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 490.81691,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -173.79552,
+            "y": -62.58612,
+            "z": -19.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 196.269281,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": 0.0,
+            "y": -62.58612,
+            "z": 0.0
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "surface_type": "Cylinder",
+        "area": 54.192473,
+        "orientation": "Reversed",
+        "cylinder": {
+          "radius": 1.0,
+          "axis_direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -178.79552,
+            "y": -62.58612,
+            "z": -14.1
+          }
+        }
+      },
+      {
+        "surface_type": "Cylinder",
+        "area": 54.192473,
+        "orientation": "Reversed",
+        "cylinder": {
+          "radius": 1.0,
+          "axis_direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -178.79552,
+            "y": -62.58612,
+            "z": 14.1
+          }
+        }
+      },
+      {
+        "surface_type": "Cylinder",
+        "area": 24.291453,
+        "orientation": "Reversed",
+        "cylinder": {
+          "radius": 1.0,
+          "axis_direction": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -183.3644,
+            "y": -28.58612,
+            "z": -20.1
+          }
+        }
+      },
+      {
+        "surface_type": "Cylinder",
+        "area": 24.290455,
+        "orientation": "Reversed",
+        "cylinder": {
+          "radius": 1.0,
+          "axis_direction": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -183.3644,
+            "y": -28.58612,
+            "z": 20.1
+          }
+        }
+      },
+      {
+        "surface_type": "Cone",
+        "area": 125.289299,
+        "orientation": "Reversed",
+        "cone": {
+          "semi_angle_deg": 45.0,
+          "apex": {
+            "x": -185.4,
+            "y": -21.38612,
+            "z": 0.0
+          },
+          "axis_direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -185.4,
+            "y": -24.58612,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "surface_type": "Torus",
+        "area": 8.097782,
+        "orientation": "Forward",
+        "torus": {
+          "major_radius": 3.0,
+          "minor_radius": 2.0
+        }
+      },
+      {
+        "surface_type": "Cylinder",
+        "area": 105.243354,
+        "orientation": "Forward",
+        "cylinder": {
+          "radius": 2.0,
+          "axis_direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -175.79552,
+            "y": -27.58612,
+            "z": -17.1
+          }
+        }
+      },
+      {
+        "surface_type": "Torus",
+        "area": 8.090129,
+        "orientation": "Forward",
+        "torus": {
+          "major_radius": 3.0,
+          "minor_radius": 2.0
+        }
+      },
+      {
+        "surface_type": "Cylinder",
+        "area": 105.243354,
+        "orientation": "Forward",
+        "cylinder": {
+          "radius": 2.0,
+          "axis_direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -175.79552,
+            "y": -62.58612,
+            "z": 17.1
+          }
+        }
+      },
+      {
+        "surface_type": "Cylinder",
+        "area": 80.424772,
+        "orientation": "Reversed",
+        "cylinder": {
+          "radius": 3.2,
+          "axis_direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          },
+          "axis_location": {
+            "x": -184.407067,
+            "y": -47.58612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "surface_type": "Cylinder",
+        "area": 80.424772,
+        "orientation": "Reversed",
+        "cylinder": {
+          "radius": 3.2,
+          "axis_direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          },
+          "axis_location": {
+            "x": -184.407067,
+            "y": -47.58612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "surface_type": "Cylinder",
+        "area": 80.424772,
+        "orientation": "Reversed",
+        "cylinder": {
+          "radius": 3.2,
+          "axis_direction": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -173.79552,
+            "y": -47.58612,
+            "z": -1.1
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 6.725697,
+        "orientation": "Reversed",
+        "plane": {
+          "origin": {
+            "x": -177.963485,
+            "y": -23.08612,
+            "z": -27.71345
+          },
+          "normal": {
+            "x": -0.636504,
+            "y": -0.707107,
+            "z": 0.307998
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 26.930433,
+        "orientation": "Reversed",
+        "plane": {
+          "origin": {
+            "x": -173.79552,
+            "y": -23.08612,
+            "z": -19.1
+          },
+          "normal": {
+            "x": -0.707107,
+            "y": -0.707107,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "surface_type": "Cone",
+        "area": 9.533358,
+        "orientation": "Forward",
+        "cone": {
+          "semi_angle_deg": 45.0,
+          "apex": {
+            "x": -183.3644,
+            "y": -17.08612,
+            "z": -25.1
+          },
+          "axis_direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -183.3644,
+            "y": -23.08612,
+            "z": -25.1
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 6.725697,
+        "orientation": "Reversed",
+        "plane": {
+          "origin": {
+            "x": -173.79552,
+            "y": -23.08612,
+            "z": 19.1
+          },
+          "normal": {
+            "x": -0.636504,
+            "y": -0.707107,
+            "z": -0.307998
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 6.00967,
+        "orientation": "Reversed",
+        "plane": {
+          "origin": {
+            "x": -191.907067,
+            "y": -23.08612,
+            "z": -19.1
+          },
+          "normal": {
+            "x": 0.665157,
+            "y": -0.707107,
+            "z": 0.239929
+          }
+        }
+      },
+      {
+        "surface_type": "Cone",
+        "area": 9.533358,
+        "orientation": "Forward",
+        "cone": {
+          "semi_angle_deg": 45.0,
+          "apex": {
+            "x": -183.3644,
+            "y": -17.08612,
+            "z": 25.1
+          },
+          "axis_direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -183.3644,
+            "y": -23.08612,
+            "z": 25.1
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 26.949663,
+        "orientation": "Reversed",
+        "plane": {
+          "origin": {
+            "x": -191.907067,
+            "y": -23.08612,
+            "z": -15.1
+          },
+          "normal": {
+            "x": 0.707107,
+            "y": -0.707107,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 6.00967,
+        "orientation": "Reversed",
+        "plane": {
+          "origin": {
+            "x": -189.008445,
+            "y": -23.08612,
+            "z": 27.135867
+          },
+          "normal": {
+            "x": 0.665157,
+            "y": -0.707107,
+            "z": -0.239929
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 5.587156,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -158.730948,
+            "y": -27.58612,
+            "z": -13.180111
+          },
+          "normal": {
+            "x": 0.636504,
+            "y": -0.707107,
+            "z": 0.307998
+          }
+        }
+      },
+      {
+        "surface_type": "Cone",
+        "area": 9.533358,
+        "orientation": "Forward",
+        "cone": {
+          "semi_angle_deg": 45.0,
+          "apex": {
+            "x": -183.3644,
+            "y": -33.08612,
+            "z": 25.1
+          },
+          "axis_direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -183.3644,
+            "y": -27.58612,
+            "z": 25.1
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 5.161345,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -204.561004,
+            "y": -27.58612,
+            "z": -17.454161
+          },
+          "normal": {
+            "x": -0.665157,
+            "y": -0.707107,
+            "z": 0.239929
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 24.395184,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -191.407067,
+            "y": -62.58612,
+            "z": 15.1
+          },
+          "normal": {
+            "x": -0.707107,
+            "y": 0.0,
+            "z": -0.707107
+          }
+        }
+      },
+      {
+        "surface_type": "BSpline",
+        "area": 0.996594,
+        "orientation": "Forward"
+      },
+      {
+        "surface_type": "Plane",
+        "area": 0.216506,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": 15.6
+          },
+          "normal": {
+            "x": -0.57735,
+            "y": -0.57735,
+            "z": -0.57735
+          }
+        }
+      },
+      {
+        "surface_type": "Cone",
+        "area": 0.573193,
+        "orientation": "Reversed",
+        "cone": {
+          "semi_angle_deg": 45.0,
+          "apex": {
+            "x": -190.407067,
+            "y": -28.58612,
+            "z": 20.1
+          },
+          "axis_direction": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -191.907067,
+            "y": -28.58612,
+            "z": 20.1
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 8.91771,
+        "orientation": "Reversed",
+        "plane": {
+          "origin": {
+            "x": -177.79552,
+            "y": -62.08612,
+            "z": 15.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 0.707107,
+            "z": 0.707107
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 2.12132,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": -15.1
+          },
+          "normal": {
+            "x": -0.707107,
+            "y": -0.707107,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 23.688077,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -191.907067,
+            "y": -27.58612,
+            "z": 18.6
+          },
+          "normal": {
+            "x": -0.707107,
+            "y": 0.0,
+            "z": 0.707107
+          }
+        }
+      },
+      {
+        "surface_type": "Cone",
+        "area": 1.388401,
+        "orientation": "Reversed",
+        "cone": {
+          "semi_angle_deg": 45.0,
+          "apex": {
+            "x": -178.79552,
+            "y": -61.08612,
+            "z": 14.1
+          },
+          "axis_direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -178.79552,
+            "y": -62.58612,
+            "z": 14.1
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 0.216506,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": 18.6
+          },
+          "normal": {
+            "x": -0.57735,
+            "y": -0.57735,
+            "z": 0.57735
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 19.940411,
+        "orientation": "Reversed",
+        "plane": {
+          "origin": {
+            "x": -177.79552,
+            "y": -62.08612,
+            "z": -15.1
+          },
+          "normal": {
+            "x": 0.707107,
+            "y": 0.707107,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 11.039031,
+        "orientation": "Reversed",
+        "plane": {
+          "origin": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": 19.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 0.707107,
+            "z": -0.707107
+          }
+        }
+      },
+      {
+        "surface_type": "Cone",
+        "area": 1.388401,
+        "orientation": "Reversed",
+        "cone": {
+          "semi_angle_deg": 45.0,
+          "apex": {
+            "x": -178.79552,
+            "y": -61.08612,
+            "z": -14.1
+          },
+          "axis_direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -178.79552,
+            "y": -62.58612,
+            "z": -14.1
+          }
+        }
+      },
+      {
+        "surface_type": "Cone",
+        "area": 1.943761,
+        "orientation": "Forward",
+        "cone": {
+          "semi_angle_deg": 45.0,
+          "apex": {
+            "x": -175.79552,
+            "y": -64.08612,
+            "z": 17.1
+          },
+          "axis_direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -175.79552,
+            "y": -62.58612,
+            "z": 17.1
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 24.395184,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -191.907067,
+            "y": -27.58612,
+            "z": -15.6
+          },
+          "normal": {
+            "x": -0.707107,
+            "y": 0.0,
+            "z": 0.707107
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 8.91771,
+        "orientation": "Reversed",
+        "plane": {
+          "origin": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": -15.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 0.707107,
+            "z": -0.707107
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 24.183052,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -173.79552,
+            "y": -62.08612,
+            "z": -19.1
+          },
+          "normal": {
+            "x": 0.707107,
+            "y": -0.707107,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 0.216506,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": -15.6
+          },
+          "normal": {
+            "x": -0.57735,
+            "y": -0.57735,
+            "z": 0.57735
+          }
+        }
+      },
+      {
+        "surface_type": "Cone",
+        "area": 1.943761,
+        "orientation": "Forward",
+        "cone": {
+          "semi_angle_deg": 45.0,
+          "apex": {
+            "x": -175.79552,
+            "y": -64.08612,
+            "z": -17.1
+          },
+          "axis_direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -175.79552,
+            "y": -62.58612,
+            "z": -17.1
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 2.12132,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": -15.1
+          },
+          "normal": {
+            "x": -0.707107,
+            "y": -0.707107,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 11.039031,
+        "orientation": "Reversed",
+        "plane": {
+          "origin": {
+            "x": -173.79552,
+            "y": -62.08612,
+            "z": -19.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 0.707107,
+            "z": 0.707107
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 0.216506,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": -18.6
+          },
+          "normal": {
+            "x": -0.57735,
+            "y": -0.57735,
+            "z": -0.57735
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 23.688077,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -191.407067,
+            "y": -62.58612,
+            "z": -19.1
+          },
+          "normal": {
+            "x": -0.707107,
+            "y": 0.0,
+            "z": -0.707107
+          }
+        }
+      },
+      {
+        "surface_type": "Cone",
+        "area": 0.563771,
+        "orientation": "Reversed",
+        "cone": {
+          "semi_angle_deg": 45.0,
+          "apex": {
+            "x": -190.407067,
+            "y": -28.58612,
+            "z": -20.1
+          },
+          "axis_direction": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -191.407067,
+            "y": -28.58612,
+            "z": -20.1
+          }
+        }
+      },
+      {
+        "surface_type": "BSpline",
+        "area": 0.994697,
+        "orientation": "Forward"
+      },
+      {
+        "surface_type": "Plane",
+        "area": 5.161345,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -188.538108,
+            "y": -27.58612,
+            "z": -26.966211
+          },
+          "normal": {
+            "x": -0.665157,
+            "y": -0.707107,
+            "z": -0.239929
+          }
+        }
+      },
+      {
+        "surface_type": "Cone",
+        "area": 9.533358,
+        "orientation": "Forward",
+        "cone": {
+          "semi_angle_deg": 45.0,
+          "apex": {
+            "x": -183.3644,
+            "y": -33.08612,
+            "z": -25.1
+          },
+          "axis_direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "axis_location": {
+            "x": -183.3644,
+            "y": -27.58612,
+            "z": -25.1
+          }
+        }
+      },
+      {
+        "surface_type": "Plane",
+        "area": 5.590533,
+        "orientation": "Forward",
+        "plane": {
+          "origin": {
+            "x": -178.413561,
+            "y": -27.58612,
+            "z": -27.495663
+          },
+          "normal": {
+            "x": 0.636504,
+            "y": -0.707107,
+            "z": -0.307998
+          }
+        }
+      }
+    ]
+  },
+  "edges": {
+    "total_edges": 332,
+    "total_length": 3511.67282,
+    "curve_type_counts": {
+      "Circle": 82,
+      "Line": 208,
+      "BSpline": 42
+    },
+    "edges": [
+      {
+        "curve_type": "Circle",
+        "length": 38.955749,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 6.2,
+          "center": {
+            "x": -185.4,
+            "y": -27.58612,
+            "z": 0.0
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 31.2,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -27.58612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.707107,
+            "y": 0.0,
+            "z": 0.707107
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -27.58612,
+            "z": -15.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 12.611547,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -27.58612,
+            "z": -15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 1.570796,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 1.0,
+          "center": {
+            "x": -178.79552,
+            "y": -27.58612,
+            "z": -14.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 28.2,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 1.0
+          },
+          "location": {
+            "x": -177.79552,
+            "y": -27.58612,
+            "z": -15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 1.570796,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 1.0,
+          "center": {
+            "x": -178.79552,
+            "y": -27.58612,
+            "z": 14.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 12.611547,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -177.79552,
+            "y": -27.58612,
+            "z": 15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": 0.0,
+            "z": 0.707107
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -27.58612,
+            "z": 15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 20.106193,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -183.3644,
+            "y": -27.58612,
+            "z": 25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 12.896022,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 5.5,
+          "center": {
+            "x": -183.3644,
+            "y": -27.58612,
+            "z": 25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 7.299245,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.339311,
+            "y": 0.0,
+            "z": -0.940674
+          },
+          "location": {
+            "x": -191.076019,
+            "y": -27.58612,
+            "z": 19.930344
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 15.219303,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -27.58612,
+            "z": 20.1
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 0.880328,
+        "orientation": "Forward"
+      },
+      {
+        "curve_type": "Line",
+        "length": 7.633556,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.435575,
+            "y": 0.0,
+            "z": 0.900152
+          },
+          "location": {
+            "x": -178.413561,
+            "y": -27.58612,
+            "z": 27.495663
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 20.106193,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -183.3644,
+            "y": -27.58612,
+            "z": -25.1
+          },
+          "normal": {
+            "x": -0.0,
+            "y": 1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 12.896022,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 5.5,
+          "center": {
+            "x": -183.3644,
+            "y": -27.58612,
+            "z": -25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 7.633556,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.435575,
+            "y": 0.0,
+            "z": 0.900152
+          },
+          "location": {
+            "x": -175.150963,
+            "y": -27.58612,
+            "z": -20.753229
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 0.880328,
+        "orientation": "Forward"
+      },
+      {
+        "curve_type": "Line",
+        "length": 15.219303,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -27.58612,
+            "z": -20.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 7.299245,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.339311,
+            "y": 0.0,
+            "z": -0.940674
+          },
+          "location": {
+            "x": -188.538108,
+            "y": -27.58612,
+            "z": -26.966211
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 4.386966,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -27.58612,
+            "z": -19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 8.542667,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.339311,
+            "y": 0.0,
+            "z": -0.940674
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -23.08612,
+            "z": -19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 4.0,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -189.008445,
+            "y": -27.58612,
+            "z": -27.135867
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 7.299245,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.339311,
+            "y": 0.0,
+            "z": 0.940674
+          },
+          "location": {
+            "x": -191.546356,
+            "y": -27.08612,
+            "z": -20.1
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 1.339554,
+        "orientation": "Forward"
+      },
+      {
+        "curve_type": "Line",
+        "length": 4.0,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -189.008445,
+            "y": -27.58612,
+            "z": -27.135867
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 14.068387,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 6.0,
+          "center": {
+            "x": -183.3644,
+            "y": -23.08612,
+            "z": -25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 4.0,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -177.963485,
+            "y": -27.58612,
+            "z": -27.71345
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 14.068387,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 6.0,
+          "center": {
+            "x": -183.3644,
+            "y": -27.08612,
+            "z": -25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 4.0,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -177.963485,
+            "y": -27.58612,
+            "z": -27.71345
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 9.56888,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.435575,
+            "y": 0.0,
+            "z": 0.900152
+          },
+          "location": {
+            "x": -177.963485,
+            "y": -23.08612,
+            "z": -27.71345
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 2.671573,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -27.58612,
+            "z": -19.1
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 2.090046,
+        "orientation": "Forward"
+      },
+      {
+        "curve_type": "Line",
+        "length": 8.100781,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.435575,
+            "y": 0.0,
+            "z": -0.900152
+          },
+          "location": {
+            "x": -177.963485,
+            "y": -27.08612,
+            "z": -27.71345
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 20.106193,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -173.79552,
+            "y": -47.58612,
+            "z": -1.1
+          },
+          "normal": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 2.671573,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -27.58612,
+            "z": -19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 38.2,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 1.0
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -23.08612,
+            "z": -19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 2.671573,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -27.58612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 3.692878,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 3.0,
+          "center": {
+            "x": -173.79552,
+            "y": -28.58612,
+            "z": 20.1
+          },
+          "normal": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 33.5,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -62.58612,
+            "z": 17.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 34.2,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -62.08612,
+            "z": -17.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 33.5,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -28.58612,
+            "z": -17.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 3.692878,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 3.0,
+          "center": {
+            "x": -173.79552,
+            "y": -28.58612,
+            "z": -20.1
+          },
+          "normal": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 2.671573,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -27.58612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 9.56888,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.435575,
+            "y": 0.0,
+            "z": 0.900152
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -23.08612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 4.0,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -177.963485,
+            "y": -27.58612,
+            "z": 27.71345
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 8.100781,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.435575,
+            "y": 0.0,
+            "z": -0.900152
+          },
+          "location": {
+            "x": -174.700887,
+            "y": -27.08612,
+            "z": 20.971017
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 2.096958,
+        "orientation": "Forward"
+      },
+      {
+        "curve_type": "Line",
+        "length": 4.0,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -177.963485,
+            "y": -27.58612,
+            "z": 27.71345
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 14.068387,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 6.0,
+          "center": {
+            "x": -183.3644,
+            "y": -23.08612,
+            "z": 25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 4.0,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -189.008445,
+            "y": -27.58612,
+            "z": 27.135867
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 14.068387,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 6.0,
+          "center": {
+            "x": -183.3644,
+            "y": -27.08612,
+            "z": 25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 4.0,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -189.008445,
+            "y": -27.58612,
+            "z": 27.135867
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 8.542667,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.339311,
+            "y": 0.0,
+            "z": -0.940674
+          },
+          "location": {
+            "x": -189.008445,
+            "y": -23.08612,
+            "z": 27.135867
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 4.388001,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -27.58612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 1.339913,
+        "orientation": "Forward"
+      },
+      {
+        "curve_type": "Line",
+        "length": 7.299245,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.339311,
+            "y": 0.0,
+            "z": 0.940674
+          },
+          "location": {
+            "x": -189.008445,
+            "y": -27.08612,
+            "z": 27.135867
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 20.106193,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -183.3644,
+            "y": -27.58612,
+            "z": -25.1
+          },
+          "normal": {
+            "x": -0.0,
+            "y": 1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 5.0,
+        "orientation": "Reversed"
+      },
+      {
+        "curve_type": "Circle",
+        "length": 20.106193,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -183.3644,
+            "y": -22.58612,
+            "z": -25.1
+          },
+          "normal": {
+            "x": -0.0,
+            "y": 1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 5.0,
+        "orientation": "Forward"
+      },
+      {
+        "curve_type": "Circle",
+        "length": 15.079645,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -185.4,
+            "y": -24.58612,
+            "z": 0.0
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 2.0,
+        "orientation": "Reversed"
+      },
+      {
+        "curve_type": "Circle",
+        "length": 20.106193,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -185.4,
+            "y": -22.58612,
+            "z": 0.0
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 2.0,
+        "orientation": "Forward"
+      },
+      {
+        "curve_type": "Circle",
+        "length": 5.026548,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -185.4,
+            "y": -24.58612,
+            "z": 0.0
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 4.388001,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -27.58612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 38.2,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -23.08612,
+            "z": -15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 4.386966,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -27.58612,
+            "z": -19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 1.258261,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 1.5,
+          "center": {
+            "x": -191.907067,
+            "y": -28.58612,
+            "z": -20.1
+          },
+          "normal": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 33.5,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.58612,
+            "z": -18.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 3.0,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 1.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": -15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 34.5,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -27.58612,
+            "z": -15.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 31.2,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -27.58612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 34.5,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.58612,
+            "z": 15.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 3.0,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 1.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 33.5,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -28.58612,
+            "z": 18.6
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 1.256695,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 1.5,
+          "center": {
+            "x": -191.907067,
+            "y": -28.58612,
+            "z": 20.1
+          },
+          "normal": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 20.106193,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -183.3644,
+            "y": -27.58612,
+            "z": 25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 5.0,
+        "orientation": "Reversed"
+      },
+      {
+        "curve_type": "Circle",
+        "length": 20.106193,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -183.3644,
+            "y": -22.58612,
+            "z": 25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 5.0,
+        "orientation": "Forward"
+      },
+      {
+        "curve_type": "Line",
+        "length": 38.025158,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 1.0
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -22.58612,
+            "z": -25.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 8.455246,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.339311,
+            "y": 0.0,
+            "z": 0.940674
+          },
+          "location": {
+            "x": -204.561004,
+            "y": -22.58612,
+            "z": -17.454161
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 12.896022,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 5.5,
+          "center": {
+            "x": -183.3644,
+            "y": -22.58612,
+            "z": 25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 9.454264,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.435575,
+            "y": 0.0,
+            "z": -0.900152
+          },
+          "location": {
+            "x": -158.730948,
+            "y": -22.58612,
+            "z": -13.180111
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 37.970768,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          },
+          "location": {
+            "x": -174.29552,
+            "y": -22.58612,
+            "z": -25.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 9.454264,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.435575,
+            "y": 0.0,
+            "z": -0.900152
+          },
+          "location": {
+            "x": -178.413561,
+            "y": -22.58612,
+            "z": -27.495663
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 12.896022,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 5.5,
+          "center": {
+            "x": -183.3644,
+            "y": -22.58612,
+            "z": -25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 8.455246,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.339311,
+            "y": 0.0,
+            "z": 0.940674
+          },
+          "location": {
+            "x": -188.538108,
+            "y": -22.58612,
+            "z": -26.966211
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 20.106193,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -185.4,
+            "y": -22.58612,
+            "z": 0.0
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 20.106193,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -183.3644,
+            "y": -22.58612,
+            "z": -25.1
+          },
+          "normal": {
+            "x": -0.0,
+            "y": 1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 20.106193,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -183.3644,
+            "y": -22.58612,
+            "z": 25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 10.053096,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -184.407067,
+            "y": -47.58612,
+            "z": -15.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 1.0
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 10.053096,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -184.407067,
+            "y": -47.58612,
+            "z": -15.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 1.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 12.611547,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -27.58612,
+            "z": -15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 34.5,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -62.58612,
+            "z": -15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 12.611547,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": -15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 34.5,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -178.79552,
+            "y": -27.58612,
+            "z": -15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 20.106193,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -177.79552,
+            "y": -47.58612,
+            "z": -1.1
+          },
+          "normal": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 34.5,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -177.79552,
+            "y": -62.58612,
+            "z": -14.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 28.2,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 1.0
+          },
+          "location": {
+            "x": -177.79552,
+            "y": -62.08612,
+            "z": -15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 34.5,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -177.79552,
+            "y": -27.58612,
+            "z": 14.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 28.2,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 1.0
+          },
+          "location": {
+            "x": -177.79552,
+            "y": -27.58612,
+            "z": -15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 20.106193,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -184.407067,
+            "y": -47.58612,
+            "z": 15.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 12.611547,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -177.79552,
+            "y": -62.08612,
+            "z": 15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 34.5,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -27.58612,
+            "z": 15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 12.611547,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -177.79552,
+            "y": -27.58612,
+            "z": 15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 34.5,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -178.79552,
+            "y": -62.58612,
+            "z": 15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 20.106193,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -184.407067,
+            "y": -47.58612,
+            "z": 19.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 15.611559,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -28.58612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 33.5,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -62.58612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 15.611547,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 33.5,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -175.79552,
+            "y": -28.58612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 20.106193,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -184.407067,
+            "y": -47.58612,
+            "z": -19.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 15.611547,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -62.08612,
+            "z": -19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 33.5,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -28.58612,
+            "z": -19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 15.611597,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -28.58612,
+            "z": -19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 33.5,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -175.79552,
+            "y": -62.58612,
+            "z": -19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 3.0,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -62.58612,
+            "z": -19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 15.611547,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": 0.0,
+            "y": -62.58612,
+            "z": -18.6
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 2.356194,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 1.5,
+          "center": {
+            "x": -175.79552,
+            "y": -62.58612,
+            "z": -17.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 34.2,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 1.0
+          },
+          "location": {
+            "x": -174.29552,
+            "y": -62.58612,
+            "z": 17.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 2.356194,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 1.5,
+          "center": {
+            "x": -175.79552,
+            "y": -62.58612,
+            "z": 17.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 15.611547,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": 0.0,
+            "y": -62.58612,
+            "z": 18.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 3.0,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -62.58612,
+            "z": 15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 12.611547,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": 0.0,
+            "y": -62.58612,
+            "z": 15.6
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 2.356194,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 1.5,
+          "center": {
+            "x": -178.79552,
+            "y": -62.58612,
+            "z": 14.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 28.2,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          },
+          "location": {
+            "x": -177.29552,
+            "y": -62.58612,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 2.356194,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 1.5,
+          "center": {
+            "x": -178.79552,
+            "y": -62.58612,
+            "z": -14.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 12.611547,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": 0.0,
+            "y": -62.58612,
+            "z": -15.6
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 1.570796,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 1.0,
+          "center": {
+            "x": -178.79552,
+            "y": -27.58612,
+            "z": -14.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 34.5,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -177.79552,
+            "y": -62.58612,
+            "z": -14.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 1.570796,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 1.0,
+          "center": {
+            "x": -178.79552,
+            "y": -62.08612,
+            "z": -14.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 34.5,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -178.79552,
+            "y": -27.58612,
+            "z": -15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 1.570796,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 1.0,
+          "center": {
+            "x": -178.79552,
+            "y": -27.58612,
+            "z": 14.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 34.5,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -178.79552,
+            "y": -62.58612,
+            "z": 15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 1.570796,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 1.0,
+          "center": {
+            "x": -178.79552,
+            "y": -62.08612,
+            "z": 14.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 34.5,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -177.79552,
+            "y": -27.58612,
+            "z": 14.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 1.570796,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 1.0,
+          "center": {
+            "x": -175.79552,
+            "y": -28.58612,
+            "z": -20.1
+          },
+          "normal": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": -0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 15.219303,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -27.58612,
+            "z": -20.1
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 1.62995,
+        "orientation": "Forward"
+      },
+      {
+        "curve_type": "Line",
+        "length": 15.611597,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -28.58612,
+            "z": -19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 1.570796,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 1.0,
+          "center": {
+            "x": -175.79552,
+            "y": -28.58612,
+            "z": 20.1
+          },
+          "normal": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": -0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 15.611559,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -28.58612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 1.627941,
+        "orientation": "Forward"
+      },
+      {
+        "curve_type": "Line",
+        "length": 15.219303,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -27.58612,
+            "z": 20.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 38.955749,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 6.2,
+          "center": {
+            "x": -185.4,
+            "y": -27.58612,
+            "z": 0.0
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 4.242641,
+        "orientation": "Forward"
+      },
+      {
+        "curve_type": "Circle",
+        "length": 5.026548,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -185.4,
+            "y": -24.58612,
+            "z": 0.0
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 15.079645,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -185.4,
+            "y": -24.58612,
+            "z": 0.0
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 4.242641,
+        "orientation": "Reversed"
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 0.880328,
+        "orientation": "Reversed"
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 0.855528,
+        "orientation": "Forward"
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 2.090046,
+        "orientation": "Reversed"
+      },
+      {
+        "curve_type": "Circle",
+        "length": 3.692878,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 3.0,
+          "center": {
+            "x": -173.79552,
+            "y": -28.58612,
+            "z": -20.1
+          },
+          "normal": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 3.141593,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 2.0,
+          "center": {
+            "x": -175.79552,
+            "y": -28.58612,
+            "z": -17.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 1.570796,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 1.0,
+          "center": {
+            "x": -175.79552,
+            "y": -28.58612,
+            "z": -20.1
+          },
+          "normal": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": -0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 33.5,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -28.58612,
+            "z": -17.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 3.141593,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 2.0,
+          "center": {
+            "x": -175.79552,
+            "y": -62.08612,
+            "z": -17.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 33.5,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -175.79552,
+            "y": -62.58612,
+            "z": -19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 3.141593,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 2.0,
+          "center": {
+            "x": -175.79552,
+            "y": -28.58612,
+            "z": -17.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 2.096958,
+        "orientation": "Reversed"
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 0.855377,
+        "orientation": "Forward"
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 0.880328,
+        "orientation": "Reversed"
+      },
+      {
+        "curve_type": "Circle",
+        "length": 1.570796,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 1.0,
+          "center": {
+            "x": -175.79552,
+            "y": -28.58612,
+            "z": 20.1
+          },
+          "normal": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": -0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 3.141593,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 2.0,
+          "center": {
+            "x": -175.79552,
+            "y": -28.58612,
+            "z": 17.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 3.692878,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 3.0,
+          "center": {
+            "x": -173.79552,
+            "y": -28.58612,
+            "z": 20.1
+          },
+          "normal": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 33.5,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -175.79552,
+            "y": -28.58612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 3.141593,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 2.0,
+          "center": {
+            "x": -175.79552,
+            "y": -62.08612,
+            "z": 17.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 33.5,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -62.58612,
+            "z": 17.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 3.141593,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 2.0,
+          "center": {
+            "x": -175.79552,
+            "y": -28.58612,
+            "z": 17.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 10.053096,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -184.407067,
+            "y": -47.58612,
+            "z": -15.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 1.0
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 4.0,
+        "orientation": "Reversed"
+      },
+      {
+        "curve_type": "Circle",
+        "length": 20.106193,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -184.407067,
+            "y": -47.58612,
+            "z": -19.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 4.0,
+        "orientation": "Forward"
+      },
+      {
+        "curve_type": "Circle",
+        "length": 10.053096,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -184.407067,
+            "y": -47.58612,
+            "z": -15.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 1.0
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 20.106193,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -184.407067,
+            "y": -47.58612,
+            "z": 15.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 4.0,
+        "orientation": "Forward"
+      },
+      {
+        "curve_type": "Circle",
+        "length": 20.106193,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -184.407067,
+            "y": -47.58612,
+            "z": 19.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 4.0,
+        "orientation": "Reversed"
+      },
+      {
+        "curve_type": "Circle",
+        "length": 20.106193,
+        "orientation": "Forward",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -177.79552,
+            "y": -47.58612,
+            "z": -1.1
+          },
+          "normal": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 4.0,
+        "orientation": "Forward"
+      },
+      {
+        "curve_type": "Circle",
+        "length": 20.106193,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 3.2,
+          "center": {
+            "x": -173.79552,
+            "y": -47.58612,
+            "z": -1.1
+          },
+          "normal": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 4.0,
+        "orientation": "Reversed"
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.636504,
+            "y": -0.707107,
+            "z": -0.307998
+          },
+          "location": {
+            "x": -178.413561,
+            "y": -22.58612,
+            "z": -27.495663
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 9.454264,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.435575,
+            "y": 0.0,
+            "z": -0.900152
+          },
+          "location": {
+            "x": -178.413561,
+            "y": -22.58612,
+            "z": -27.495663
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.716336,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.697997,
+            "y": 0.697997,
+            "z": 0.160003
+          },
+          "location": {
+            "x": -174.864187,
+            "y": -22.017453,
+            "z": -18.855028
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 9.56888,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.435575,
+            "y": 0.0,
+            "z": 0.900152
+          },
+          "location": {
+            "x": -177.963485,
+            "y": -23.08612,
+            "z": -27.71345
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.716336,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.697997,
+            "y": 0.697997,
+            "z": 0.160003
+          },
+          "location": {
+            "x": -174.864187,
+            "y": -22.017453,
+            "z": -18.855028
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 37.970768,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          },
+          "location": {
+            "x": -174.29552,
+            "y": -22.58612,
+            "z": -25.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.716336,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.697997,
+            "y": 0.697997,
+            "z": -0.160003
+          },
+          "location": {
+            "x": -178.061755,
+            "y": -18.819885,
+            "z": 18.122044
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 38.2,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 1.0
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -23.08612,
+            "z": -19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.636504,
+            "y": -0.707107,
+            "z": -0.307998
+          },
+          "location": {
+            "x": -178.413561,
+            "y": -22.58612,
+            "z": -27.495663
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 14.068387,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 6.0,
+          "center": {
+            "x": -183.3644,
+            "y": -23.08612,
+            "z": -25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.665157,
+            "y": -0.707107,
+            "z": -0.239929
+          },
+          "location": {
+            "x": -188.538108,
+            "y": -22.58612,
+            "z": -26.966211
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 12.896022,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 5.5,
+          "center": {
+            "x": -183.3644,
+            "y": -22.58612,
+            "z": -25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.716336,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.697997,
+            "y": 0.697997,
+            "z": -0.160003
+          },
+          "location": {
+            "x": -178.061755,
+            "y": -18.819885,
+            "z": 18.122044
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 9.454264,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.435575,
+            "y": 0.0,
+            "z": -0.900152
+          },
+          "location": {
+            "x": -158.730948,
+            "y": -22.58612,
+            "z": -13.180111
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.636504,
+            "y": 0.707107,
+            "z": -0.307998
+          },
+          "location": {
+            "x": -177.963485,
+            "y": -23.08612,
+            "z": 27.71345
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 9.56888,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.435575,
+            "y": 0.0,
+            "z": 0.900152
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -23.08612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.665157,
+            "y": -0.707107,
+            "z": -0.239929
+          },
+          "location": {
+            "x": -188.538108,
+            "y": -22.58612,
+            "z": -26.966211
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 8.542667,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.339311,
+            "y": 0.0,
+            "z": -0.940674
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -23.08612,
+            "z": -19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.71249,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.701764,
+            "y": -0.701764,
+            "z": -0.122698
+          },
+          "location": {
+            "x": -191.562647,
+            "y": -22.741701,
+            "z": -19.039781
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 8.455246,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.339311,
+            "y": 0.0,
+            "z": 0.940674
+          },
+          "location": {
+            "x": -188.538108,
+            "y": -22.58612,
+            "z": -26.966211
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.636504,
+            "y": 0.707107,
+            "z": -0.307998
+          },
+          "location": {
+            "x": -177.963485,
+            "y": -23.08612,
+            "z": 27.71345
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 12.896022,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 5.5,
+          "center": {
+            "x": -183.3644,
+            "y": -22.58612,
+            "z": 25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.665157,
+            "y": 0.707107,
+            "z": -0.239929
+          },
+          "location": {
+            "x": -189.008445,
+            "y": -23.08612,
+            "z": 27.135867
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 14.068387,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 6.0,
+          "center": {
+            "x": -183.3644,
+            "y": -23.08612,
+            "z": 25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.71249,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.701764,
+            "y": -0.701764,
+            "z": -0.122698
+          },
+          "location": {
+            "x": -191.562647,
+            "y": -22.741701,
+            "z": -19.039781
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 38.2,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -23.08612,
+            "z": -15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.71249,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.701764,
+            "y": -0.701764,
+            "z": 0.122698
+          },
+          "location": {
+            "x": -188.962281,
+            "y": -20.141335,
+            "z": 18.585128
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 38.025158,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 1.0
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -22.58612,
+            "z": -25.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.665157,
+            "y": 0.707107,
+            "z": -0.239929
+          },
+          "location": {
+            "x": -189.008445,
+            "y": -23.08612,
+            "z": 27.135867
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 8.455246,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.339311,
+            "y": 0.0,
+            "z": 0.940674
+          },
+          "location": {
+            "x": -204.561004,
+            "y": -22.58612,
+            "z": -17.454161
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.71249,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.701764,
+            "y": -0.701764,
+            "z": 0.122698
+          },
+          "location": {
+            "x": -188.962281,
+            "y": -20.141335,
+            "z": 18.585128
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 8.542667,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.339311,
+            "y": 0.0,
+            "z": -0.940674
+          },
+          "location": {
+            "x": -189.008445,
+            "y": -23.08612,
+            "z": 27.135867
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 0.855377,
+        "orientation": "Reversed"
+      },
+      {
+        "curve_type": "Line",
+        "length": 8.100781,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.435575,
+            "y": 0.0,
+            "z": -0.900152
+          },
+          "location": {
+            "x": -174.700887,
+            "y": -27.08612,
+            "z": 20.971017
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.636504,
+            "y": 0.707107,
+            "z": 0.307998
+          },
+          "location": {
+            "x": -178.413561,
+            "y": -27.58612,
+            "z": 27.495663
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 7.633556,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.435575,
+            "y": 0.0,
+            "z": 0.900152
+          },
+          "location": {
+            "x": -178.413561,
+            "y": -27.58612,
+            "z": 27.495663
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.636504,
+            "y": 0.707107,
+            "z": 0.307998
+          },
+          "location": {
+            "x": -178.413561,
+            "y": -27.58612,
+            "z": 27.495663
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 14.068387,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 6.0,
+          "center": {
+            "x": -183.3644,
+            "y": -27.08612,
+            "z": 25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.665157,
+            "y": 0.707107,
+            "z": 0.239929
+          },
+          "location": {
+            "x": -188.538108,
+            "y": -27.58612,
+            "z": 26.966211
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 12.896022,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 5.5,
+          "center": {
+            "x": -183.3644,
+            "y": -27.58612,
+            "z": 25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.665157,
+            "y": 0.707107,
+            "z": 0.239929
+          },
+          "location": {
+            "x": -188.538108,
+            "y": -27.58612,
+            "z": 26.966211
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 7.299245,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.339311,
+            "y": 0.0,
+            "z": 0.940674
+          },
+          "location": {
+            "x": -189.008445,
+            "y": -27.08612,
+            "z": 27.135867
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 0.707107,
+        "orientation": "Reversed"
+      },
+      {
+        "curve_type": "Line",
+        "length": 7.299245,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.339311,
+            "y": 0.0,
+            "z": -0.940674
+          },
+          "location": {
+            "x": -191.076019,
+            "y": -27.58612,
+            "z": 19.930344
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": 0.0,
+            "z": 0.707107
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -27.58612,
+            "z": 15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 34.5,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -27.58612,
+            "z": 15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.707107,
+            "y": -0.0,
+            "z": -0.707107
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": 15.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 34.5,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.58612,
+            "z": 15.6
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 0.707107,
+        "orientation": "Forward"
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 1.339913,
+        "orientation": "Reversed"
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 1.247671,
+        "orientation": "Reversed"
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 1.627941,
+        "orientation": "Reversed"
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.707107,
+            "y": -0.707107,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": 15.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.707107,
+            "y": -0.0,
+            "z": -0.707107
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": 15.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.707107,
+            "z": -0.707107
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -62.33612,
+            "z": 15.35
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707098,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": 0.0,
+            "z": -0.707107
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -28.58612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 1.256695,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 1.5,
+          "center": {
+            "x": -191.907067,
+            "y": -28.58612,
+            "z": 20.1
+          },
+          "normal": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 1.247671,
+        "orientation": "Forward"
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.707107,
+            "z": -0.707107
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -62.33612,
+            "z": 15.35
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 12.611547,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -177.79552,
+            "y": -62.08612,
+            "z": 15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.707107,
+            "z": -0.707107
+          },
+          "location": {
+            "x": -178.79552,
+            "y": -62.58612,
+            "z": 15.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 12.611547,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": 0.0,
+            "y": -62.58612,
+            "z": 15.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.707107,
+            "y": -0.707107,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": 15.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 3.0,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -62.58612,
+            "z": 15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.707107,
+            "y": -0.707107,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": 18.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 3.0,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 1.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707098,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": 0.0,
+            "z": -0.707107
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -28.58612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 33.5,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -28.58612,
+            "z": 18.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": -0.0,
+            "z": -0.707107
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": 18.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 33.5,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -62.58612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 2.356194,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 1.5,
+          "center": {
+            "x": -178.79552,
+            "y": -62.58612,
+            "z": 14.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": 0.707107,
+            "z": 0.0
+          },
+          "location": {
+            "x": -177.29552,
+            "y": -62.58612,
+            "z": 14.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 1.570796,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 1.0,
+          "center": {
+            "x": -178.79552,
+            "y": -62.08612,
+            "z": 14.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.707107,
+            "z": -0.707107
+          },
+          "location": {
+            "x": -178.79552,
+            "y": -62.58612,
+            "z": 15.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": -0.0,
+            "z": -0.707107
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": 18.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.707107,
+            "y": -0.707107,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": 18.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.0,
+            "y": -0.707107,
+            "z": -0.707107
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -62.33612,
+            "z": 18.85
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": 0.707107,
+            "z": 0.0
+          },
+          "location": {
+            "x": -177.29552,
+            "y": -62.58612,
+            "z": 14.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 28.2,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 1.0
+          },
+          "location": {
+            "x": -177.79552,
+            "y": -62.08612,
+            "z": -15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": 0.707107,
+            "z": 0.0
+          },
+          "location": {
+            "x": -177.29552,
+            "y": -62.58612,
+            "z": -14.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 28.2,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          },
+          "location": {
+            "x": -177.29552,
+            "y": -62.58612,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.0,
+            "y": -0.707107,
+            "z": -0.707107
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -62.33612,
+            "z": 18.85
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 15.611547,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": 0.0,
+            "y": -62.58612,
+            "z": 18.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": -0.707107,
+            "z": -0.707107
+          },
+          "location": {
+            "x": -175.79552,
+            "y": -62.08612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 15.611547,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 2.356194,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 1.5,
+          "center": {
+            "x": -178.79552,
+            "y": -62.58612,
+            "z": -14.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.707107,
+            "z": 0.707107
+          },
+          "location": {
+            "x": -178.79552,
+            "y": -62.58612,
+            "z": -15.6
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 1.570796,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 1.0,
+          "center": {
+            "x": -178.79552,
+            "y": -62.08612,
+            "z": -14.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": 0.707107,
+            "z": 0.0
+          },
+          "location": {
+            "x": -177.29552,
+            "y": -62.58612,
+            "z": -14.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": -0.707107,
+            "z": -0.707107
+          },
+          "location": {
+            "x": -175.79552,
+            "y": -62.08612,
+            "z": 19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 2.356194,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 1.5,
+          "center": {
+            "x": -175.79552,
+            "y": -62.58612,
+            "z": 17.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": -0.707107,
+            "z": 0.0
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -62.08612,
+            "z": 17.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 3.141593,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 2.0,
+          "center": {
+            "x": -175.79552,
+            "y": -62.08612,
+            "z": 17.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.707107,
+            "y": 0.0,
+            "z": 0.707107
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -27.58612,
+            "z": -15.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 34.5,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -27.58612,
+            "z": -15.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": 0.0,
+            "z": -0.707107
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": -15.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 34.5,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -62.58612,
+            "z": -15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.707107,
+            "z": 0.707107
+          },
+          "location": {
+            "x": -178.79552,
+            "y": -62.58612,
+            "z": -15.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 12.611547,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": -15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.707107,
+            "z": 0.707107
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -62.33612,
+            "z": -15.35
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 12.611547,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": 0.0,
+            "y": -62.58612,
+            "z": -15.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": -0.707107,
+            "z": 0.0
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -62.08612,
+            "z": 17.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 34.2,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 1.0
+          },
+          "location": {
+            "x": -174.29552,
+            "y": -62.58612,
+            "z": 17.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": -0.707107,
+            "z": 0.0
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -62.08612,
+            "z": -17.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 34.2,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -62.08612,
+            "z": -17.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.707107,
+            "z": 0.707107
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -62.33612,
+            "z": -15.35
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": 0.0,
+            "z": -0.707107
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": -15.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": 0.707107,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": -15.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": -0.707107,
+            "z": 0.0
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -62.08612,
+            "z": -17.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 2.356194,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 1.5,
+          "center": {
+            "x": -175.79552,
+            "y": -62.58612,
+            "z": -17.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": -0.707107,
+            "z": 0.707107
+          },
+          "location": {
+            "x": -175.79552,
+            "y": -62.08612,
+            "z": -19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 3.141593,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 2.0,
+          "center": {
+            "x": -175.79552,
+            "y": -62.08612,
+            "z": -17.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": 0.707107,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": -15.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 3.0,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 1.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": -15.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": 0.707107,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": -18.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 3.0,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -62.58612,
+            "z": -19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": -0.707107,
+            "z": 0.707107
+          },
+          "location": {
+            "x": -175.79552,
+            "y": -62.08612,
+            "z": -19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 15.611547,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": 0.0,
+            "y": -62.58612,
+            "z": -18.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": -0.707107,
+            "z": 0.707107
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -62.33612,
+            "z": -18.85
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 15.611547,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -1.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -173.79552,
+            "y": -62.08612,
+            "z": -19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": -0.707107,
+            "z": 0.707107
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -62.33612,
+            "z": -18.85
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": 0.707107,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": -18.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": 0.0,
+            "z": 0.707107
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": -18.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": 0.0,
+            "z": 0.707107
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.08612,
+            "z": -18.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 33.5,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.907067,
+            "y": -62.58612,
+            "z": -18.6
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707026,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": 0.0,
+            "z": 0.707107
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -28.58612,
+            "z": -19.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 33.5,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -28.58612,
+            "z": -19.1
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 1.2476,
+        "orientation": "Reversed"
+      },
+      {
+        "curve_type": "Circle",
+        "length": 1.258261,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 1.5,
+          "center": {
+            "x": -191.907067,
+            "y": -28.58612,
+            "z": -20.1
+          },
+          "normal": {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707026,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.707107,
+            "y": 0.0,
+            "z": 0.707107
+          },
+          "location": {
+            "x": -191.407067,
+            "y": -28.58612,
+            "z": -19.1
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 1.2476,
+        "orientation": "Forward"
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 1.339554,
+        "orientation": "Reversed"
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 0.707107,
+        "orientation": "Reversed"
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 1.62995,
+        "orientation": "Reversed"
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 0.707107,
+        "orientation": "Forward"
+      },
+      {
+        "curve_type": "Line",
+        "length": 7.299245,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.339311,
+            "y": 0.0,
+            "z": 0.940674
+          },
+          "location": {
+            "x": -191.546356,
+            "y": -27.08612,
+            "z": -20.1
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.665157,
+            "y": 0.707107,
+            "z": -0.239929
+          },
+          "location": {
+            "x": -188.538108,
+            "y": -27.58612,
+            "z": -26.966211
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 7.299245,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.339311,
+            "y": 0.0,
+            "z": -0.940674
+          },
+          "location": {
+            "x": -188.538108,
+            "y": -27.58612,
+            "z": -26.966211
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": -0.665157,
+            "y": 0.707107,
+            "z": -0.239929
+          },
+          "location": {
+            "x": -188.538108,
+            "y": -27.58612,
+            "z": -26.966211
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 14.068387,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 6.0,
+          "center": {
+            "x": -183.3644,
+            "y": -27.08612,
+            "z": -25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.636504,
+            "y": 0.707107,
+            "z": -0.307998
+          },
+          "location": {
+            "x": -178.413561,
+            "y": -27.58612,
+            "z": -27.495663
+          }
+        }
+      },
+      {
+        "curve_type": "Circle",
+        "length": 12.896022,
+        "orientation": "Reversed",
+        "circle": {
+          "radius": 5.5,
+          "center": {
+            "x": -183.3644,
+            "y": -27.58612,
+            "z": -25.1
+          },
+          "normal": {
+            "x": 0.0,
+            "y": -1.0,
+            "z": 0.0
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 0.707107,
+        "orientation": "Forward",
+        "line": {
+          "direction": {
+            "x": 0.636504,
+            "y": 0.707107,
+            "z": -0.307998
+          },
+          "location": {
+            "x": -178.413561,
+            "y": -27.58612,
+            "z": -27.495663
+          }
+        }
+      },
+      {
+        "curve_type": "Line",
+        "length": 8.100781,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": -0.435575,
+            "y": 0.0,
+            "z": -0.900152
+          },
+          "location": {
+            "x": -177.963485,
+            "y": -27.08612,
+            "z": -27.71345
+          }
+        }
+      },
+      {
+        "curve_type": "BSpline",
+        "length": 0.855528,
+        "orientation": "Reversed"
+      },
+      {
+        "curve_type": "Line",
+        "length": 7.633556,
+        "orientation": "Reversed",
+        "line": {
+          "direction": {
+            "x": 0.435575,
+            "y": 0.0,
+            "z": 0.900152
+          },
+          "location": {
+            "x": -175.150963,
+            "y": -27.58612,
+            "z": -20.753229
+          }
+        }
+      }
+    ]
+  },
+  "vertices": {
+    "total_unique_vertices": 97,
+    "vertices": [
+      {
+        "x": -185.4,
+        "y": -27.58612,
+        "z": -6.2
+      },
+      {
+        "x": -191.907067,
+        "y": -27.58612,
+        "z": 15.6
+      },
+      {
+        "x": -191.907067,
+        "y": -27.58612,
+        "z": -15.6
+      },
+      {
+        "x": -191.407067,
+        "y": -27.58612,
+        "z": -15.1
+      },
+      {
+        "x": -178.79552,
+        "y": -27.58612,
+        "z": -15.1
+      },
+      {
+        "x": -177.79552,
+        "y": -27.58612,
+        "z": -14.1
+      },
+      {
+        "x": -177.79552,
+        "y": -27.58612,
+        "z": 14.1
+      },
+      {
+        "x": -178.79552,
+        "y": -27.58612,
+        "z": 15.1
+      },
+      {
+        "x": -191.407067,
+        "y": -27.58612,
+        "z": 15.1
+      },
+      {
+        "x": -180.1644,
+        "y": -27.58612,
+        "z": 25.1
+      },
+      {
+        "x": -178.413561,
+        "y": -27.58612,
+        "z": 27.495663
+      },
+      {
+        "x": -188.538108,
+        "y": -27.58612,
+        "z": 26.966211
+      },
+      {
+        "x": -191.014822,
+        "y": -27.58612,
+        "z": 20.1
+      },
+      {
+        "x": -175.79552,
+        "y": -27.58612,
+        "z": 20.1
+      },
+      {
+        "x": -175.088575,
+        "y": -27.58612,
+        "z": 20.624299
+      },
+      {
+        "x": -180.1644,
+        "y": -27.58612,
+        "z": -25.1
+      },
+      {
+        "x": -188.538108,
+        "y": -27.58612,
+        "z": -26.966211
+      },
+      {
+        "x": -178.413561,
+        "y": -27.58612,
+        "z": -27.495663
+      },
+      {
+        "x": -175.088575,
+        "y": -27.58612,
+        "z": -20.624299
+      },
+      {
+        "x": -175.79552,
+        "y": -27.58612,
+        "z": -20.1
+      },
+      {
+        "x": -191.014822,
+        "y": -27.58612,
+        "z": -20.1
+      },
+      {
+        "x": -191.907067,
+        "y": -27.473086,
+        "z": -19.1
+      },
+      {
+        "x": -191.907067,
+        "y": -23.08612,
+        "z": -19.1
+      },
+      {
+        "x": -189.008445,
+        "y": -23.08612,
+        "z": -27.135867
+      },
+      {
+        "x": -189.008445,
+        "y": -27.08612,
+        "z": -27.135867
+      },
+      {
+        "x": -191.48516,
+        "y": -27.08612,
+        "z": -20.269656
+      },
+      {
+        "x": -177.963485,
+        "y": -23.08612,
+        "z": -27.71345
+      },
+      {
+        "x": -177.963485,
+        "y": -27.08612,
+        "z": -27.71345
+      },
+      {
+        "x": -173.79552,
+        "y": -23.08612,
+        "z": -19.1
+      },
+      {
+        "x": -173.79552,
+        "y": -25.757693,
+        "z": -19.1
+      },
+      {
+        "x": -174.434987,
+        "y": -27.08612,
+        "z": -20.421513
+      },
+      {
+        "x": -173.79552,
+        "y": -47.58612,
+        "z": 2.1
+      },
+      {
+        "x": -173.79552,
+        "y": -23.08612,
+        "z": 19.1
+      },
+      {
+        "x": -173.79552,
+        "y": -25.757693,
+        "z": 19.1
+      },
+      {
+        "x": -173.79552,
+        "y": -28.58612,
+        "z": 17.1
+      },
+      {
+        "x": -173.79552,
+        "y": -62.08612,
+        "z": 17.1
+      },
+      {
+        "x": -173.79552,
+        "y": -62.08612,
+        "z": -17.1
+      },
+      {
+        "x": -173.79552,
+        "y": -28.58612,
+        "z": -17.1
+      },
+      {
+        "x": -177.963485,
+        "y": -23.08612,
+        "z": 27.71345
+      },
+      {
+        "x": -177.963485,
+        "y": -27.08612,
+        "z": 27.71345
+      },
+      {
+        "x": -174.434987,
+        "y": -27.08612,
+        "z": 20.421513
+      },
+      {
+        "x": -189.008445,
+        "y": -23.08612,
+        "z": 27.135867
+      },
+      {
+        "x": -189.008445,
+        "y": -27.08612,
+        "z": 27.135867
+      },
+      {
+        "x": -191.907067,
+        "y": -23.08612,
+        "z": 19.1
+      },
+      {
+        "x": -191.905088,
+        "y": -27.474121,
+        "z": 19.098829
+      },
+      {
+        "x": -191.48516,
+        "y": -27.08612,
+        "z": 20.269656
+      },
+      {
+        "x": -180.1644,
+        "y": -22.58612,
+        "z": -25.1
+      },
+      {
+        "x": -182.2,
+        "y": -24.58612,
+        "z": 0.0
+      },
+      {
+        "x": -185.4,
+        "y": -24.58612,
+        "z": -3.2
+      },
+      {
+        "x": -182.2,
+        "y": -22.58612,
+        "z": -0.0
+      },
+      {
+        "x": -191.907067,
+        "y": -28.58612,
+        "z": -18.6
+      },
+      {
+        "x": -191.907067,
+        "y": -62.08612,
+        "z": -18.6
+      },
+      {
+        "x": -191.907067,
+        "y": -62.08612,
+        "z": -15.6
+      },
+      {
+        "x": -191.907067,
+        "y": -62.08612,
+        "z": 15.6
+      },
+      {
+        "x": -191.907067,
+        "y": -62.08612,
+        "z": 18.6
+      },
+      {
+        "x": -191.907067,
+        "y": -28.58612,
+        "z": 18.6
+      },
+      {
+        "x": -180.1644,
+        "y": -22.58612,
+        "z": 25.1
+      },
+      {
+        "x": -191.407067,
+        "y": -22.58612,
+        "z": -19.012579
+      },
+      {
+        "x": -191.407067,
+        "y": -22.58612,
+        "z": 19.012579
+      },
+      {
+        "x": -188.538108,
+        "y": -22.58612,
+        "z": 26.966211
+      },
+      {
+        "x": -178.413561,
+        "y": -22.58612,
+        "z": 27.495663
+      },
+      {
+        "x": -174.29552,
+        "y": -22.58612,
+        "z": 18.985384
+      },
+      {
+        "x": -174.29552,
+        "y": -22.58612,
+        "z": -18.985384
+      },
+      {
+        "x": -178.413561,
+        "y": -22.58612,
+        "z": -27.495663
+      },
+      {
+        "x": -188.538108,
+        "y": -22.58612,
+        "z": -26.966211
+      },
+      {
+        "x": -187.607067,
+        "y": -47.58612,
+        "z": -15.1
+      },
+      {
+        "x": -181.207067,
+        "y": -47.58612,
+        "z": -15.1
+      },
+      {
+        "x": -191.407067,
+        "y": -62.08612,
+        "z": -15.1
+      },
+      {
+        "x": -178.79552,
+        "y": -62.08612,
+        "z": -15.1
+      },
+      {
+        "x": -177.79552,
+        "y": -47.58612,
+        "z": 2.1
+      },
+      {
+        "x": -177.79552,
+        "y": -62.08612,
+        "z": -14.1
+      },
+      {
+        "x": -177.79552,
+        "y": -62.08612,
+        "z": 14.1
+      },
+      {
+        "x": -187.607067,
+        "y": -47.58612,
+        "z": 15.1
+      },
+      {
+        "x": -178.79552,
+        "y": -62.08612,
+        "z": 15.1
+      },
+      {
+        "x": -191.407067,
+        "y": -62.08612,
+        "z": 15.1
+      },
+      {
+        "x": -187.607067,
+        "y": -47.58612,
+        "z": 19.1
+      },
+      {
+        "x": -175.79552,
+        "y": -28.58612,
+        "z": 19.1
+      },
+      {
+        "x": -191.407079,
+        "y": -28.58612,
+        "z": 19.1
+      },
+      {
+        "x": -191.407067,
+        "y": -62.08612,
+        "z": 19.1
+      },
+      {
+        "x": -175.79552,
+        "y": -62.08612,
+        "z": 19.1
+      },
+      {
+        "x": -187.607067,
+        "y": -47.58612,
+        "z": -19.1
+      },
+      {
+        "x": -175.79552,
+        "y": -62.08612,
+        "z": -19.1
+      },
+      {
+        "x": -191.407067,
+        "y": -62.08612,
+        "z": -19.1
+      },
+      {
+        "x": -191.407116,
+        "y": -28.58612,
+        "z": -19.099935
+      },
+      {
+        "x": -175.79552,
+        "y": -28.58612,
+        "z": -19.1
+      },
+      {
+        "x": -191.407067,
+        "y": -62.58612,
+        "z": -15.6
+      },
+      {
+        "x": -191.407067,
+        "y": -62.58612,
+        "z": -18.6
+      },
+      {
+        "x": -175.79552,
+        "y": -62.58612,
+        "z": -18.6
+      },
+      {
+        "x": -174.29552,
+        "y": -62.58612,
+        "z": -17.1
+      },
+      {
+        "x": -174.29552,
+        "y": -62.58612,
+        "z": 17.1
+      },
+      {
+        "x": -175.79552,
+        "y": -62.58612,
+        "z": 18.6
+      },
+      {
+        "x": -191.407067,
+        "y": -62.58612,
+        "z": 18.6
+      },
+      {
+        "x": -191.407067,
+        "y": -62.58612,
+        "z": 15.6
+      },
+      {
+        "x": -178.79552,
+        "y": -62.58612,
+        "z": 15.6
+      },
+      {
+        "x": -177.29552,
+        "y": -62.58612,
+        "z": 14.1
+      },
+      {
+        "x": -177.29552,
+        "y": -62.58612,
+        "z": -14.1
+      },
+      {
+        "x": -178.79552,
+        "y": -62.58612,
+        "z": -15.6
+      }
+    ]
+  },
+  "holes_detected": [
+    {
+      "face_index": 4,
+      "radius": 6.0,
+      "diameter": 12.0,
+      "axis_direction": {
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0
+      },
+      "axis_location": {
+        "x": -183.3644,
+        "y": -27.58612,
+        "z": -25.1
+      }
+    },
+    {
+      "face_index": 8,
+      "radius": 6.0,
+      "diameter": 12.0,
+      "axis_direction": {
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0
+      },
+      "axis_location": {
+        "x": -183.3644,
+        "y": -27.58612,
+        "z": 25.1
+      }
+    },
+    {
+      "face_index": 10,
+      "radius": 3.2,
+      "diameter": 6.4,
+      "axis_direction": {
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0
+      },
+      "axis_location": {
+        "x": -183.3644,
+        "y": -27.58612,
+        "z": -25.1
+      }
+    },
+    {
+      "face_index": 11,
+      "radius": 3.2,
+      "diameter": 6.4,
+      "axis_direction": {
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0
+      },
+      "axis_location": {
+        "x": -185.4,
+        "y": -27.58612,
+        "z": 0.0
+      }
+    },
+    {
+      "face_index": 13,
+      "radius": 3.2,
+      "diameter": 6.4,
+      "axis_direction": {
+        "x": 0.0,
+        "y": 1.0,
+        "z": 0.0
+      },
+      "axis_location": {
+        "x": -183.3644,
+        "y": -27.58612,
+        "z": 25.1
+      }
+    },
+    {
+      "face_index": 21,
+      "radius": 1.0,
+      "diameter": 2.0,
+      "axis_direction": {
+        "x": 0.0,
+        "y": -1.0,
+        "z": 0.0
+      },
+      "axis_location": {
+        "x": -178.79552,
+        "y": -62.58612,
+        "z": -14.1
+      }
+    },
+    {
+      "face_index": 22,
+      "radius": 1.0,
+      "diameter": 2.0,
+      "axis_direction": {
+        "x": 0.0,
+        "y": -1.0,
+        "z": 0.0
+      },
+      "axis_location": {
+        "x": -178.79552,
+        "y": -62.58612,
+        "z": 14.1
+      }
+    },
+    {
+      "face_index": 23,
+      "radius": 1.0,
+      "diameter": 2.0,
+      "axis_direction": {
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "axis_location": {
+        "x": -183.3644,
+        "y": -28.58612,
+        "z": -20.1
+      }
+    },
+    {
+      "face_index": 24,
+      "radius": 1.0,
+      "diameter": 2.0,
+      "axis_direction": {
+        "x": -1.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "axis_location": {
+        "x": -183.3644,
+        "y": -28.58612,
+        "z": 20.1
+      }
+    },
+    {
+      "face_index": 27,
+      "radius": 2.0,
+      "diameter": 4.0,
+      "axis_direction": {
+        "x": 0.0,
+        "y": -1.0,
+        "z": 0.0
+      },
+      "axis_location": {
+        "x": -175.79552,
+        "y": -27.58612,
+        "z": -17.1
+      }
+    },
+    {
+      "face_index": 29,
+      "radius": 2.0,
+      "diameter": 4.0,
+      "axis_direction": {
+        "x": 0.0,
+        "y": -1.0,
+        "z": 0.0
+      },
+      "axis_location": {
+        "x": -175.79552,
+        "y": -62.58612,
+        "z": 17.1
+      }
+    },
+    {
+      "face_index": 30,
+      "radius": 3.2,
+      "diameter": 6.4,
+      "axis_direction": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -1.0
+      },
+      "axis_location": {
+        "x": -184.407067,
+        "y": -47.58612,
+        "z": 19.1
+      }
+    },
+    {
+      "face_index": 31,
+      "radius": 3.2,
+      "diameter": 6.4,
+      "axis_direction": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -1.0
+      },
+      "axis_location": {
+        "x": -184.407067,
+        "y": -47.58612,
+        "z": 19.1
+      }
+    },
+    {
+      "face_index": 32,
+      "radius": 3.2,
+      "diameter": 6.4,
+      "axis_direction": {
+        "x": -1.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "axis_location": {
+        "x": -173.79552,
+        "y": -47.58612,
+        "z": -1.1
+      }
+    }
+  ],
+  "is_valid": true,
+  "face_adjacency": {
+    "0": [
+      12,
+      15,
+      16,
+      17,
+      21,
+      22,
+      25,
+      44,
+      57
+    ],
+    "1": [
+      13,
+      24,
+      28,
+      41,
+      42,
+      43
+    ],
+    "2": [
+      10,
+      23,
+      26,
+      68,
+      69,
+      70
+    ],
+    "3": [
+      4,
+      12,
+      37,
+      67,
+      68
+    ],
+    "4": [
+      3,
+      5,
+      35,
+      69
+    ],
+    "5": [
+      4,
+      6,
+      26,
+      33,
+      70
+    ],
+    "6": [
+      5,
+      7,
+      26,
+      27,
+      28,
+      29,
+      32,
+      34,
+      59
+    ],
+    "7": [
+      6,
+      8,
+      28,
+      36,
+      41
+    ],
+    "8": [
+      7,
+      9,
+      38,
+      42
+    ],
+    "9": [
+      8,
+      12,
+      40,
+      43,
+      45
+    ],
+    "10": [
+      2,
+      14
+    ],
+    "11": [
+      14,
+      25
+    ],
+    "12": [
+      0,
+      3,
+      9,
+      39,
+      44,
+      47,
+      49,
+      50,
+      57,
+      62,
+      65,
+      66
+    ],
+    "13": [
+      1,
+      14
+    ],
+    "14": [
+      10,
+      11,
+      13,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40
+    ],
+    "15": [
+      0,
+      21,
+      30,
+      57,
+      58
+    ],
+    "16": [
+      0,
+      21,
+      22,
+      32,
+      53
+    ],
+    "17": [
+      0,
+      22,
+      31,
+      44,
+      48
+    ],
+    "18": [
+      24,
+      29,
+      31,
+      50,
+      54
+    ],
+    "19": [
+      23,
+      27,
+      30,
+      63,
+      65
+    ],
+    "20": [
+      48,
+      49,
+      51,
+      53,
+      54,
+      55,
+      56,
+      58,
+      59,
+      61,
+      62,
+      63
+    ],
+    "21": [
+      0,
+      15,
+      16,
+      55
+    ],
+    "22": [
+      0,
+      16,
+      17,
+      51
+    ],
+    "23": [
+      2,
+      19,
+      26,
+      67
+    ],
+    "24": [
+      1,
+      18,
+      28,
+      45
+    ],
+    "25": [
+      0,
+      11
+    ],
+    "26": [
+      2,
+      5,
+      6,
+      23,
+      27,
+      70
+    ],
+    "27": [
+      6,
+      19,
+      26,
+      61
+    ],
+    "28": [
+      1,
+      6,
+      7,
+      24,
+      29,
+      41
+    ],
+    "29": [
+      6,
+      18,
+      28,
+      56
+    ],
+    "30": [
+      15,
+      19
+    ],
+    "31": [
+      17,
+      18
+    ],
+    "32": [
+      6,
+      16
+    ],
+    "33": [
+      5,
+      14,
+      34,
+      35
+    ],
+    "34": [
+      6,
+      14,
+      33,
+      36
+    ],
+    "35": [
+      4,
+      14,
+      33,
+      37
+    ],
+    "36": [
+      7,
+      14,
+      34,
+      38
+    ],
+    "37": [
+      3,
+      14,
+      35,
+      39
+    ],
+    "38": [
+      8,
+      14,
+      36,
+      40
+    ],
+    "39": [
+      12,
+      14,
+      37,
+      40
+    ],
+    "40": [
+      9,
+      14,
+      38,
+      39
+    ],
+    "41": [
+      1,
+      7,
+      28,
+      42
+    ],
+    "42": [
+      1,
+      8,
+      41,
+      43
+    ],
+    "43": [
+      1,
+      9,
+      42,
+      45
+    ],
+    "44": [
+      0,
+      12,
+      17,
+      46
+    ],
+    "45": [
+      9,
+      24,
+      43,
+      47
+    ],
+    "46": [
+      44,
+      48,
+      49
+    ],
+    "47": [
+      12,
+      45,
+      50
+    ],
+    "48": [
+      17,
+      20,
+      46,
+      51
+    ],
+    "49": [
+      12,
+      20,
+      46,
+      52
+    ],
+    "50": [
+      12,
+      18,
+      47,
+      52
+    ],
+    "51": [
+      20,
+      22,
+      48,
+      53
+    ],
+    "52": [
+      49,
+      50,
+      54
+    ],
+    "53": [
+      16,
+      20,
+      51,
+      55
+    ],
+    "54": [
+      18,
+      20,
+      52,
+      56
+    ],
+    "55": [
+      20,
+      21,
+      53,
+      58
+    ],
+    "56": [
+      20,
+      29,
+      54,
+      59
+    ],
+    "57": [
+      0,
+      12,
+      15,
+      60
+    ],
+    "58": [
+      15,
+      20,
+      55,
+      60
+    ],
+    "59": [
+      6,
+      20,
+      56,
+      61
+    ],
+    "60": [
+      57,
+      58,
+      62
+    ],
+    "61": [
+      20,
+      27,
+      59,
+      63
+    ],
+    "62": [
+      12,
+      20,
+      60,
+      64
+    ],
+    "63": [
+      19,
+      20,
+      61,
+      64
+    ],
+    "64": [
+      62,
+      63,
+      65
+    ],
+    "65": [
+      12,
+      19,
+      64,
+      66
+    ],
+    "66": [
+      12,
+      65,
+      67
+    ],
+    "67": [
+      3,
+      23,
+      66,
+      68
+    ],
+    "68": [
+      2,
+      3,
+      67,
+      69
+    ],
+    "69": [
+      2,
+      4,
+      68,
+      70
+    ],
+    "70": [
+      2,
+      5,
+      26,
+      69
+    ]
+  }
+}

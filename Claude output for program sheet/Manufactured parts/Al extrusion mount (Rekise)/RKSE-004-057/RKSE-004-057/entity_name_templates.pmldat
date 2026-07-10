@@ -1,0 +1,13 @@
+12 1 # Entity Name Templates (DO NOT EDIT!)
+pmlEntPattern ''
+pmlEntNCProgram ''
+pmlEntWorkplane ''
+pmlEntFeature ''
+dmkFeaturePocket ''
+dmkFeatureBoss ''
+dmkFeatureSlot ''
+dmkFeatureHole ''
+dmkFeatureCompHole ''
+pmlEntToolpath ''
+pmlEntTool ''
+pmlEntBoundary ''

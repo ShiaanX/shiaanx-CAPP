@@ -1,0 +1,3938 @@
+{
+  "clusters": [
+    {
+      "cluster_id": 0,
+      "seed_face_index": 10,
+      "seed_type": "bore",
+      "face_indices": [
+        2,
+        10
+      ],
+      "face_count": 2,
+      "feature_axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "depth": 5.0,
+      "radii": [
+        3.2
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "through_hole",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 6.4,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=6.400mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 6.4,
+          "depth_mm": 5.0,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=6.400mm depth=5.0mm DDR=0.781 -> standard cycle",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 2
+    },
+    {
+      "cluster_id": 1,
+      "seed_face_index": 11,
+      "seed_type": "bore",
+      "face_indices": [
+        11
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "depth": 2.0,
+      "radii": [
+        3.2
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "through_hole",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 6.4,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=6.400mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 6.4,
+          "depth_mm": 2.0,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=6.400mm depth=2.0mm DDR=0.312 -> standard cycle",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 2
+    },
+    {
+      "cluster_id": 2,
+      "seed_face_index": 13,
+      "seed_type": "bore",
+      "face_indices": [
+        1,
+        13
+      ],
+      "face_count": 2,
+      "feature_axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "depth": 5.0,
+      "radii": [
+        3.2
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "through_hole",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 6.4,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=6.400mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 6.4,
+          "depth_mm": 5.0,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=6.400mm depth=5.0mm DDR=0.781 -> standard cycle",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 2
+    },
+    {
+      "cluster_id": 3,
+      "seed_face_index": 21,
+      "seed_type": "bore",
+      "face_indices": [
+        21
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "depth": 8.625,
+      "radii": [
+        1.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "blind_hole",
+      "confidence": "low",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 2.0,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=2.000mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 2.0,
+          "depth_mm": 8.625,
+          "drill_cycle": "peck",
+          "reason": "Drill to d=2.000mm depth=8.625mm DDR=4.312 -> peck cycle \u2014 blind hole, stop at depth",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 1
+    },
+    {
+      "cluster_id": 4,
+      "seed_face_index": 22,
+      "seed_type": "bore",
+      "face_indices": [
+        22
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "depth": 8.625,
+      "radii": [
+        1.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "blind_hole",
+      "confidence": "low",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 2.0,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=2.000mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 2.0,
+          "depth_mm": 8.625,
+          "drill_cycle": "peck",
+          "reason": "Drill to d=2.000mm depth=8.625mm DDR=4.312 -> peck cycle \u2014 blind hole, stop at depth",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 1
+    },
+    {
+      "cluster_id": 5,
+      "seed_face_index": 23,
+      "seed_type": "bore",
+      "face_indices": [
+        23
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "depth": 3.8661,
+      "radii": [
+        1.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "blind_hole",
+      "confidence": "low",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 2.0,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=2.000mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 2.0,
+          "depth_mm": 3.8661,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=2.000mm depth=3.8661mm DDR=1.933 -> standard cycle \u2014 blind hole, stop at depth",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 4
+    },
+    {
+      "cluster_id": 6,
+      "seed_face_index": 24,
+      "seed_type": "bore",
+      "face_indices": [
+        24
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "depth": 3.8659,
+      "radii": [
+        1.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "blind_hole",
+      "confidence": "low",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 2.0,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=2.000mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 2.0,
+          "depth_mm": 3.8659,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=2.000mm depth=3.8659mm DDR=1.933 -> standard cycle \u2014 blind hole, stop at depth",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 3
+    },
+    {
+      "cluster_id": 7,
+      "seed_face_index": 30,
+      "seed_type": "bore",
+      "face_indices": [
+        30
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "depth": 4.0,
+      "radii": [
+        3.2
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "blind_hole",
+      "confidence": "low",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 6.4,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=6.400mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 6.4,
+          "depth_mm": 4.0,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=6.400mm depth=4.0mm DDR=0.625 -> standard cycle \u2014 blind hole, stop at depth",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 5
+    },
+    {
+      "cluster_id": 8,
+      "seed_face_index": 32,
+      "seed_type": "bore",
+      "face_indices": [
+        32
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "depth": 4.0,
+      "radii": [
+        3.2
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "blind_hole",
+      "confidence": "low",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 drilling is milling-machine operation",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "spot_drill",
+          "machine": "milling",
+          "diameter_mm": 6.4,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Locate for d=6.400mm hole \u2014 prevents drill wandering",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        },
+        {
+          "step": 2,
+          "operation": "twist_drill",
+          "machine": "milling",
+          "diameter_mm": 6.4,
+          "depth_mm": 4.0,
+          "drill_cycle": "standard",
+          "reason": "Drill to d=6.400mm depth=4.0mm DDR=0.625 -> standard cycle \u2014 blind hole, stop at depth",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 3
+    },
+    {
+      "cluster_id": 9,
+      "seed_face_index": 27,
+      "seed_type": "fillet",
+      "face_indices": [
+        27
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "depth": 8.375,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "none",
+      "machine_selected": "no operation \u2014 fillet is a design feature",
+      "process_sequence": [],
+      "setup_id": null
+    },
+    {
+      "cluster_id": 10,
+      "seed_face_index": 29,
+      "seed_type": "fillet",
+      "face_indices": [
+        29
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "depth": 8.375,
+      "radii": [
+        2.0
+      ],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "fillet",
+      "confidence": "high",
+      "machine_type": "none",
+      "machine_selected": "no operation \u2014 fillet is a design feature",
+      "process_sequence": [],
+      "setup_id": null
+    },
+    {
+      "cluster_id": 11,
+      "seed_face_index": 25,
+      "seed_type": "countersink",
+      "face_indices": [
+        25
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_cone": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "countersink",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 countersink cutter",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "countersink",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Countersink conical entry"
+        }
+      ],
+      "setup_id": 1
+    },
+    {
+      "cluster_id": 12,
+      "seed_face_index": 35,
+      "seed_type": "countersink",
+      "face_indices": [
+        35
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_cone": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "countersink",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 countersink cutter",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "countersink",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Countersink conical entry"
+        }
+      ],
+      "setup_id": 1
+    },
+    {
+      "cluster_id": 13,
+      "seed_face_index": 38,
+      "seed_type": "countersink",
+      "face_indices": [
+        38
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_cone": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "countersink",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 countersink cutter",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "countersink",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Countersink conical entry"
+        }
+      ],
+      "setup_id": 1
+    },
+    {
+      "cluster_id": 14,
+      "seed_face_index": 47,
+      "seed_type": "countersink",
+      "face_indices": [
+        47
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_cone": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "countersink",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 countersink cutter",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "countersink",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Countersink conical entry"
+        }
+      ],
+      "setup_id": 3
+    },
+    {
+      "cluster_id": 15,
+      "seed_face_index": 51,
+      "seed_type": "countersink",
+      "face_indices": [
+        51
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_cone": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "countersink",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 countersink cutter",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "countersink",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Countersink conical entry"
+        }
+      ],
+      "setup_id": 1
+    },
+    {
+      "cluster_id": 16,
+      "seed_face_index": 55,
+      "seed_type": "countersink",
+      "face_indices": [
+        55
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_cone": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "countersink",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 countersink cutter",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "countersink",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Countersink conical entry"
+        }
+      ],
+      "setup_id": 1
+    },
+    {
+      "cluster_id": 17,
+      "seed_face_index": 56,
+      "seed_type": "countersink",
+      "face_indices": [
+        56
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_cone": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "countersink",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 countersink cutter",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "countersink",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Countersink conical entry"
+        }
+      ],
+      "setup_id": 2
+    },
+    {
+      "cluster_id": 18,
+      "seed_face_index": 61,
+      "seed_type": "countersink",
+      "face_indices": [
+        61
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_cone": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "countersink",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 countersink cutter",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "countersink",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Countersink conical entry"
+        }
+      ],
+      "setup_id": 2
+    },
+    {
+      "cluster_id": 19,
+      "seed_face_index": 66,
+      "seed_type": "countersink",
+      "face_indices": [
+        66
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_cone": true,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "countersink",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 countersink cutter",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "countersink",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Countersink conical entry"
+        }
+      ],
+      "setup_id": 3
+    },
+    {
+      "cluster_id": 20,
+      "seed_face_index": 0,
+      "seed_type": "plane",
+      "face_indices": [
+        0
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 6,
+      "internal_corner_radius": 1.0,
+      "face_area": 305.22669,
+      "feature_type": "pocket",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 pocket mill RF + FINISH",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 roughing pass (RF)",
+          "pass_type": "RF",
+          "stock_to_leave_xy": 0.1,
+          "stock_to_leave_z": 0.1
+        },
+        {
+          "step": 2,
+          "operation": "pocket_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Pocket mill \u2014 RF + FINISH passes \u2014 finishing pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ],
+      "setup_id": 1
+    },
+    {
+      "cluster_id": 21,
+      "seed_face_index": 3,
+      "seed_type": "plane",
+      "face_indices": [
+        3
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.940674,
+        0.0,
+        0.339311
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": 6.0,
+      "face_area": 34.292462,
+      "feature_type": "chamfer",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 7
+    },
+    {
+      "cluster_id": 22,
+      "seed_face_index": 5,
+      "seed_type": "plane",
+      "face_indices": [
+        5
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        -0.900152,
+        0.0,
+        0.435575
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": 6.0,
+      "face_area": 37.646539,
+      "feature_type": "chamfer",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 8
+    },
+    {
+      "cluster_id": 23,
+      "seed_face_index": 6,
+      "seed_type": "plane",
+      "face_indices": [
+        6
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": 2.0,
+      "face_area": 1315.379884,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ],
+      "setup_id": 3
+    },
+    {
+      "cluster_id": 24,
+      "seed_face_index": 7,
+      "seed_type": "plane",
+      "face_indices": [
+        7
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        -0.900152,
+        0.0,
+        -0.435575
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": 6.0,
+      "face_area": 37.650299,
+      "feature_type": "chamfer",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 9
+    },
+    {
+      "cluster_id": 25,
+      "seed_face_index": 9,
+      "seed_type": "plane",
+      "face_indices": [
+        9
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.940674,
+        0.0,
+        -0.339311
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": 6.0,
+      "face_area": 34.264478,
+      "feature_type": "chamfer",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 10
+    },
+    {
+      "cluster_id": 26,
+      "seed_face_index": 15,
+      "seed_type": "plane",
+      "face_indices": [
+        15
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": true,
+      "has_cone": false,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 1,
+      "internal_corner_radius": 1.0,
+      "face_area": 402.928458,
+      "feature_type": "planar_face",
+      "confidence": "high",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 only option for planar faces",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "face_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "face_subtype": "full_surface",
+          "entry_method": "outside",
+          "reason": "Face mill flat planar surface (subtype=full_surface, entry=outside) \u2014 single finish pass",
+          "pass_type": "FINISH",
+          "stock_to_leave_xy": 0.0,
+          "stock_to_leave_z": 0.0
+        }
+      ],
+      "setup_id": 6
+    },
+    {
+      "cluster_id": 27,
+      "seed_face_index": 33,
+      "seed_type": "plane",
+      "face_indices": [
+        33
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        -0.636504,
+        -0.707107,
+        0.307998
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 6.725697,
+      "feature_type": "chamfer",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 11
+    },
+    {
+      "cluster_id": 28,
+      "seed_face_index": 34,
+      "seed_type": "plane",
+      "face_indices": [
+        34
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        -0.707107,
+        -0.707107,
+        0.0
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 26.930433,
+      "feature_type": "chamfer",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 12
+    },
+    {
+      "cluster_id": 29,
+      "seed_face_index": 36,
+      "seed_type": "plane",
+      "face_indices": [
+        36
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        -0.636504,
+        -0.707107,
+        -0.307998
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 6.725697,
+      "feature_type": "chamfer",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 13
+    },
+    {
+      "cluster_id": 30,
+      "seed_face_index": 37,
+      "seed_type": "plane",
+      "face_indices": [
+        37
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.665157,
+        -0.707107,
+        0.239929
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 6.00967,
+      "feature_type": "chamfer",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 14
+    },
+    {
+      "cluster_id": 31,
+      "seed_face_index": 39,
+      "seed_type": "plane",
+      "face_indices": [
+        39
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.707107,
+        -0.707107,
+        0.0
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 26.949663,
+      "feature_type": "chamfer",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 15
+    },
+    {
+      "cluster_id": 32,
+      "seed_face_index": 40,
+      "seed_type": "plane",
+      "face_indices": [
+        40
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.665157,
+        -0.707107,
+        -0.239929
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 6.00967,
+      "feature_type": "chamfer",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 16
+    },
+    {
+      "cluster_id": 33,
+      "seed_face_index": 41,
+      "seed_type": "plane",
+      "face_indices": [
+        41
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.636504,
+        -0.707107,
+        0.307998
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 5.587156,
+      "feature_type": "chamfer",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 17
+    },
+    {
+      "cluster_id": 34,
+      "seed_face_index": 43,
+      "seed_type": "plane",
+      "face_indices": [
+        43
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        -0.665157,
+        -0.707107,
+        0.239929
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 5.161345,
+      "feature_type": "chamfer",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 18
+    },
+    {
+      "cluster_id": 35,
+      "seed_face_index": 44,
+      "seed_type": "plane",
+      "face_indices": [
+        44
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        -0.707107,
+        0.0,
+        -0.707107
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": true,
+      "perp_wall_count": 1,
+      "internal_corner_radius": null,
+      "face_area": 24.395184,
+      "feature_type": "chamfer",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 19
+    },
+    {
+      "cluster_id": 36,
+      "seed_face_index": 48,
+      "seed_type": "plane",
+      "face_indices": [
+        48
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.707107,
+        0.707107
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 8.91771,
+      "feature_type": "chamfer",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 20
+    },
+    {
+      "cluster_id": 37,
+      "seed_face_index": 50,
+      "seed_type": "plane",
+      "face_indices": [
+        50
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        -0.707107,
+        0.0,
+        0.707107
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 23.688077,
+      "feature_type": "chamfer",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 21
+    },
+    {
+      "cluster_id": 38,
+      "seed_face_index": 54,
+      "seed_type": "plane",
+      "face_indices": [
+        54
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.0,
+        0.707107,
+        -0.707107
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 11.039031,
+      "feature_type": "chamfer",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 22
+    },
+    {
+      "cluster_id": 39,
+      "seed_face_index": 68,
+      "seed_type": "plane",
+      "face_indices": [
+        68
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        -0.665157,
+        -0.707107,
+        -0.239929
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 5.161345,
+      "feature_type": "chamfer",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 23
+    },
+    {
+      "cluster_id": 40,
+      "seed_face_index": 70,
+      "seed_type": "plane",
+      "face_indices": [
+        70
+      ],
+      "face_count": 1,
+      "feature_axis": [
+        0.636504,
+        -0.707107,
+        -0.307998
+      ],
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": false,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": 5.590533,
+      "feature_type": "chamfer",
+      "confidence": "medium",
+      "machine_type": "milling",
+      "machine_selected": "milling \u2014 chamfer mill along edge",
+      "process_sequence": [
+        {
+          "step": 1,
+          "operation": "chamfer_mill",
+          "machine": "milling",
+          "diameter_mm": null,
+          "depth_mm": null,
+          "drill_cycle": null,
+          "reason": "Chamfer mill \u2014 single pass along chamfer edge",
+          "pass_type": null,
+          "stock_to_leave_xy": null,
+          "stock_to_leave_z": null
+        }
+      ],
+      "setup_id": 24
+    },
+    {
+      "cluster_id": 41,
+      "seed_face_index": null,
+      "seed_type": "background",
+      "face_indices": [
+        4,
+        8,
+        12,
+        14,
+        16,
+        17,
+        18,
+        19,
+        20,
+        26,
+        28,
+        31,
+        42,
+        45,
+        46,
+        49,
+        52,
+        53,
+        57,
+        58,
+        59,
+        60,
+        62,
+        63,
+        64,
+        65,
+        67,
+        69
+      ],
+      "feature_axis": null,
+      "depth": null,
+      "radii": [],
+      "is_principal_axis": null,
+      "face_count": 28,
+      "has_cone": false,
+      "has_perpendicular_walls": false,
+      "perp_wall_count": 0,
+      "internal_corner_radius": null,
+      "face_area": null,
+      "feature_type": "background",
+      "confidence": "high",
+      "machine_type": "none",
+      "machine_selected": "not a machined feature",
+      "process_sequence": [],
+      "setup_id": null
+    }
+  ],
+  "file": "C:\\Users\\Siddhant Gupta\\Documents\\ShiaanX\\Claude output for program sheet\\Manufactured parts\\Al extrusion mount (Rekise)\\RKSE-004-057.stp",
+  "bounding_box": {
+    "xmin": -192.131742,
+    "ymin": -62.631262,
+    "zmin": -31.145142,
+    "xmax": -173.750378,
+    "ymax": -22.540979,
+    "zmax": 31.145142,
+    "length_x": 18.381364,
+    "length_y": 40.090283,
+    "length_z": 62.290283,
+    "diagonal": 76.322898
+  },
+  "mass_properties": {
+    "volume": 13181.606606,
+    "center_of_mass": {
+      "x": -180.619281,
+      "y": -38.382722,
+      "z": 0.010601
+    },
+    "matrix_of_inertia": [
+      [
+        4902472.260603,
+        186940.135507,
+        -696.571265
+      ],
+      [
+        186940.135507,
+        3195634.140782,
+        1318.605038
+      ],
+      [
+        -696.571265,
+        1318.605038,
+        2485050.558571
+      ]
+    ]
+  },
+  "surface_area": 7506.133339,
+  "topology_counts": {
+    "Compounds": 0,
+    "CompSolids": 0,
+    "Solids": 1,
+    "Shells": 1,
+    "Faces": 71,
+    "Wires": 83,
+    "Edges": 166,
+    "Vertices": 97
+  },
+  "setups": [
+    {
+      "setup_id": 1,
+      "setup_type": "principal",
+      "spindle_direction": [
+        -0.0,
+        1.0,
+        -0.0
+      ],
+      "feature_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "axis_label": "+Y approach (top \u2014 default VMC position)",
+      "description": "Standard top-face setup. Clamp part with top face accessible to spindle. Machine all features in this setup before repositioning.",
+      "fixture_note": "Standard vise or fixture plate, jaws on side faces.",
+      "rotation_from_default": null,
+      "wcs": "G54",
+      "origin_x": "CENTER (X=-182.941mm, 9.19mm from xmin edge)",
+      "origin_y": "CENTER (Z=0.000mm, 31.15mm from zmin edge)",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": -182.9411,
+        "y_mm": 0.0,
+        "z_mm": -22.541,
+        "origin_x": "CENTER (X=-182.941mm, 9.19mm from xmin edge)",
+        "origin_y": "CENTER (Z=0.000mm, 31.15mm from zmin edge)",
+        "origin_z": "TOP",
+        "note": "Probe top face for Z0 (Y=-22.541mm in CAD). X0: CENTER (X=-182.941mm, 9.19mm from xmin edge). Y0: CENTER (Z=0.000mm, 31.15mm from zmin edge). Part envelope: 18.38 \u00d7 62.29 \u00d7 40.09mm (X \u00d7 Z \u00d7 Y)."
+      },
+      "setup_face_width": 18.3814,
+      "setup_face_height": 62.2903,
+      "setup_depth": 40.0903,
+      "cluster_ids": [
+        3,
+        4,
+        11,
+        12,
+        13,
+        15,
+        16,
+        20
+      ],
+      "operation_count": 11,
+      "machining_sequence": [
+        {
+          "cluster_id": 11,
+          "feature_type": "countersink",
+          "operations": [
+            "countersink"
+          ]
+        },
+        {
+          "cluster_id": 12,
+          "feature_type": "countersink",
+          "operations": [
+            "countersink"
+          ]
+        },
+        {
+          "cluster_id": 13,
+          "feature_type": "countersink",
+          "operations": [
+            "countersink"
+          ]
+        },
+        {
+          "cluster_id": 15,
+          "feature_type": "countersink",
+          "operations": [
+            "countersink"
+          ]
+        },
+        {
+          "cluster_id": 16,
+          "feature_type": "countersink",
+          "operations": [
+            "countersink"
+          ]
+        },
+        {
+          "cluster_id": 3,
+          "feature_type": "blind_hole",
+          "operations": [
+            "spot_drill",
+            "twist_drill"
+          ]
+        },
+        {
+          "cluster_id": 4,
+          "feature_type": "blind_hole",
+          "operations": [
+            "spot_drill",
+            "twist_drill"
+          ]
+        },
+        {
+          "cluster_id": 20,
+          "feature_type": "pocket",
+          "operations": [
+            "pocket_mill",
+            "pocket_mill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "vise",
+        "clamp_faces": [
+          "+X",
+          "-X"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "+Y"
+        ],
+        "jaw_opening_mm": 18.38,
+        "datum_from_setup": null,
+        "notes": "Workholding from rule sheet (Sheet 6). Verify clamp and clearance faces."
+      },
+      "stock": {
+        "type": "raw_billet",
+        "source_setup_id": null,
+        "remaining_faces": [
+          "+X",
+          "-X",
+          "+Y",
+          "-Y",
+          "+Z",
+          "-Z"
+        ],
+        "machined_faces": []
+      }
+    },
+    {
+      "setup_id": 2,
+      "setup_type": "principal",
+      "spindle_direction": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "feature_axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "axis_label": "-Y approach (bottom \u2014 part flipped upside down)",
+      "description": "Flipped setup \u2014 part inverted so bottom face is accessible to spindle. Clamp on previously machined top features or use step-jaw vise.",
+      "fixture_note": "Step-jaw vise or fixture plate with bosses as datums.",
+      "rotation_from_default": null,
+      "wcs": "G55",
+      "origin_x": "CENTER (X=-182.941mm, 9.19mm from xmin edge)",
+      "origin_y": "CENTER (Z=0.000mm, 31.15mm from zmin edge)",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": -182.9411,
+        "y_mm": 0.0,
+        "z_mm": -62.6313,
+        "origin_x": "CENTER (X=-182.941mm, 9.19mm from xmin edge)",
+        "origin_y": "CENTER (Z=0.000mm, 31.15mm from zmin edge)",
+        "origin_z": "TOP",
+        "note": "Probe bottom face for Z0 (Y=-62.631mm in CAD). X0: CENTER (X=-182.941mm, 9.19mm from xmin edge). Y0: CENTER (Z=0.000mm, 31.15mm from zmin edge). Part envelope: 18.38 \u00d7 62.29 \u00d7 40.09mm (X \u00d7 Z \u00d7 Y)."
+      },
+      "setup_face_width": 18.3814,
+      "setup_face_height": 62.2903,
+      "setup_depth": 40.0903,
+      "cluster_ids": [
+        0,
+        1,
+        2,
+        17,
+        18
+      ],
+      "operation_count": 8,
+      "machining_sequence": [
+        {
+          "cluster_id": 17,
+          "feature_type": "countersink",
+          "operations": [
+            "countersink"
+          ]
+        },
+        {
+          "cluster_id": 18,
+          "feature_type": "countersink",
+          "operations": [
+            "countersink"
+          ]
+        },
+        {
+          "cluster_id": 0,
+          "feature_type": "through_hole",
+          "operations": [
+            "spot_drill",
+            "twist_drill"
+          ]
+        },
+        {
+          "cluster_id": 1,
+          "feature_type": "through_hole",
+          "operations": [
+            "spot_drill",
+            "twist_drill"
+          ]
+        },
+        {
+          "cluster_id": 2,
+          "feature_type": "through_hole",
+          "operations": [
+            "spot_drill",
+            "twist_drill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "step_jaw_vise",
+        "clamp_faces": [
+          "+X",
+          "-X"
+        ],
+        "rest_face": "+Y",
+        "clearance_faces": [
+          "-Y"
+        ],
+        "jaw_opening_mm": 18.38,
+        "datum_from_setup": 1,
+        "notes": "Workholding from rule sheet (Sheet 6). Verify clamp and clearance faces."
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 1,
+        "remaining_faces": [
+          "+X",
+          "-X",
+          "-Y",
+          "+Z",
+          "-Z"
+        ],
+        "machined_faces": [
+          "+Y"
+        ]
+      }
+    },
+    {
+      "setup_id": 3,
+      "setup_type": "principal",
+      "spindle_direction": [
+        1.0,
+        -0.0,
+        -0.0
+      ],
+      "feature_axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "axis_label": "+X approach (right side face)",
+      "description": "Right-side face setup. Rotate part 90\u00b0 so right face is accessible. Clamp on bottom and left faces.",
+      "fixture_note": "90\u00b0 angle plate or tombstone fixture.",
+      "rotation_from_default": null,
+      "wcs": "G56",
+      "origin_x": "CENTER (Y=-42.586mm)",
+      "origin_y": "CENTER (Z=0.000mm)",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": -42.5861,
+        "y_mm": 0.0,
+        "z_mm": -173.7504,
+        "origin_x": "CENTER (Y=-42.586mm)",
+        "origin_y": "CENTER (Z=0.000mm)",
+        "origin_z": "TOP",
+        "note": "Probe right face for Z0 (X=-173.750mm in CAD). X0: CENTER (Y=-42.586mm). Y0: CENTER (Z=0.000mm). Part envelope: 40.09 \u00d7 62.29 \u00d7 18.38mm."
+      },
+      "setup_face_width": 40.0903,
+      "setup_face_height": 62.2903,
+      "setup_depth": 18.3814,
+      "cluster_ids": [
+        6,
+        8,
+        14,
+        19,
+        23
+      ],
+      "operation_count": 7,
+      "machining_sequence": [
+        {
+          "cluster_id": 14,
+          "feature_type": "countersink",
+          "operations": [
+            "countersink"
+          ]
+        },
+        {
+          "cluster_id": 19,
+          "feature_type": "countersink",
+          "operations": [
+            "countersink"
+          ]
+        },
+        {
+          "cluster_id": 23,
+          "feature_type": "planar_face",
+          "operations": [
+            "face_mill"
+          ]
+        },
+        {
+          "cluster_id": 6,
+          "feature_type": "blind_hole",
+          "operations": [
+            "spot_drill",
+            "twist_drill"
+          ]
+        },
+        {
+          "cluster_id": 8,
+          "feature_type": "blind_hole",
+          "operations": [
+            "spot_drill",
+            "twist_drill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "angle_plate",
+        "clamp_faces": [
+          "-Y",
+          "+Z"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "+X"
+        ],
+        "jaw_opening_mm": 62.29,
+        "datum_from_setup": 2,
+        "notes": "Workholding from rule sheet (Sheet 6). Verify clamp and clearance faces."
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 2,
+        "remaining_faces": [
+          "+X",
+          "-X",
+          "+Z",
+          "-Z"
+        ],
+        "machined_faces": [
+          "+Y",
+          "-Y"
+        ]
+      }
+    },
+    {
+      "setup_id": 4,
+      "setup_type": "principal",
+      "spindle_direction": [
+        -1.0,
+        -0.0,
+        -0.0
+      ],
+      "feature_axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "axis_label": "-X approach (left side face)",
+      "description": "Left-side face setup. Rotate part 90\u00b0 so left face is accessible. Clamp on bottom and right faces.",
+      "fixture_note": "90\u00b0 angle plate or tombstone fixture.",
+      "rotation_from_default": null,
+      "wcs": "G57",
+      "origin_x": "CENTER (Y=-42.586mm)",
+      "origin_y": "CENTER (Z=0.000mm)",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": -42.5861,
+        "y_mm": 0.0,
+        "z_mm": -192.1317,
+        "origin_x": "CENTER (Y=-42.586mm)",
+        "origin_y": "CENTER (Z=0.000mm)",
+        "origin_z": "TOP",
+        "note": "Probe left face for Z0 (X=-192.132mm in CAD). X0: CENTER (Y=-42.586mm). Y0: CENTER (Z=0.000mm). Part envelope: 40.09 \u00d7 62.29 \u00d7 18.38mm."
+      },
+      "setup_face_width": 40.0903,
+      "setup_face_height": 62.2903,
+      "setup_depth": 18.3814,
+      "cluster_ids": [
+        5
+      ],
+      "operation_count": 2,
+      "machining_sequence": [
+        {
+          "cluster_id": 5,
+          "feature_type": "blind_hole",
+          "operations": [
+            "spot_drill",
+            "twist_drill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "angle_plate",
+        "clamp_faces": [
+          "-Y",
+          "+Z"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "-X"
+        ],
+        "jaw_opening_mm": 62.29,
+        "datum_from_setup": 3,
+        "notes": "Workholding from rule sheet (Sheet 6). Verify clamp and clearance faces."
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 3,
+        "remaining_faces": [
+          "-X",
+          "+Z",
+          "-Z"
+        ],
+        "machined_faces": [
+          "+Y",
+          "-Y",
+          "+X"
+        ]
+      }
+    },
+    {
+      "setup_id": 5,
+      "setup_type": "principal",
+      "spindle_direction": [
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "feature_axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "axis_label": "+Z approach (front face)",
+      "description": "Front-face setup. Rotate part 90\u00b0 so front face is accessible to spindle.",
+      "fixture_note": "90\u00b0 angle plate or tombstone fixture.",
+      "rotation_from_default": null,
+      "wcs": "G58",
+      "origin_x": "CENTER (X=-182.941mm)",
+      "origin_y": "CENTER (Y=-42.586mm)",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": -182.9411,
+        "y_mm": -42.5861,
+        "z_mm": 31.1451,
+        "origin_x": "CENTER (X=-182.941mm)",
+        "origin_y": "CENTER (Y=-42.586mm)",
+        "origin_z": "TOP",
+        "note": "Probe front face for Z0 (Z=31.145mm in CAD). X0: CENTER (X=-182.941mm). Y0: CENTER (Y=-42.586mm). Part envelope: 18.38 \u00d7 40.09 \u00d7 62.29mm."
+      },
+      "setup_face_width": 18.3814,
+      "setup_face_height": 40.0903,
+      "setup_depth": 62.2903,
+      "cluster_ids": [
+        7
+      ],
+      "operation_count": 2,
+      "machining_sequence": [
+        {
+          "cluster_id": 7,
+          "feature_type": "blind_hole",
+          "operations": [
+            "spot_drill",
+            "twist_drill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "angle_plate",
+        "clamp_faces": [
+          "-Y",
+          "+X"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "+Z"
+        ],
+        "jaw_opening_mm": 18.38,
+        "datum_from_setup": 4,
+        "notes": "Workholding from rule sheet (Sheet 6). Verify clamp and clearance faces."
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 4,
+        "remaining_faces": [
+          "+Z",
+          "-Z"
+        ],
+        "machined_faces": [
+          "+Y",
+          "-Y",
+          "+X",
+          "-X"
+        ]
+      }
+    },
+    {
+      "setup_id": 6,
+      "setup_type": "principal",
+      "spindle_direction": [
+        -0.0,
+        -0.0,
+        -1.0
+      ],
+      "feature_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "axis_label": "-Z approach (rear face)",
+      "description": "Rear-face setup. Rotate part 90\u00b0 so rear face is accessible to spindle.",
+      "fixture_note": "90\u00b0 angle plate or tombstone fixture.",
+      "rotation_from_default": null,
+      "wcs": "G59",
+      "origin_x": "CENTER (X=-182.941mm)",
+      "origin_y": "CENTER (Y=-42.586mm)",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": -182.9411,
+        "y_mm": -42.5861,
+        "z_mm": -31.1451,
+        "origin_x": "CENTER (X=-182.941mm)",
+        "origin_y": "CENTER (Y=-42.586mm)",
+        "origin_z": "TOP",
+        "note": "Probe rear face for Z0 (Z=-31.145mm in CAD). X0: CENTER (X=-182.941mm). Y0: CENTER (Y=-42.586mm). Part envelope: 18.38 \u00d7 40.09 \u00d7 62.29mm."
+      },
+      "setup_face_width": 18.3814,
+      "setup_face_height": 40.0903,
+      "setup_depth": 62.2903,
+      "cluster_ids": [
+        26
+      ],
+      "operation_count": 1,
+      "machining_sequence": [
+        {
+          "cluster_id": 26,
+          "feature_type": "planar_face",
+          "operations": [
+            "face_mill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "angle_plate",
+        "clamp_faces": [
+          "-Y",
+          "+X"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "-Z"
+        ],
+        "jaw_opening_mm": 18.38,
+        "datum_from_setup": 5,
+        "notes": "Workholding from rule sheet (Sheet 6). Verify clamp and clearance faces."
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 5,
+        "remaining_faces": [
+          "-Z"
+        ],
+        "machined_faces": [
+          "+Y",
+          "-Y",
+          "+X",
+          "-X",
+          "+Z"
+        ]
+      }
+    },
+    {
+      "setup_id": 7,
+      "setup_type": "angled",
+      "spindle_direction": [
+        -0.9407,
+        -0.0,
+        -0.3393
+      ],
+      "feature_axis": [
+        0.9407,
+        0.0,
+        0.3393
+      ],
+      "axis_label": "angled approach [-0.941, -0.0, -0.339]",
+      "description": "Angled setup. Tilt part 90.0\u00b0 around -Z axis (B-axis tilt) from the default orientation. Verify with dial indicator before machining. All features in this setup share the same angled axis and can be machined without re-clamping.",
+      "fixture_note": "Sine plate or angled fixture set to 90.0\u00b0, or 4th/5th axis rotary table if available.",
+      "rotation_from_default": {
+        "angle_deg": 90.0,
+        "rotation_axis": [
+          0.3393,
+          0.0,
+          -0.9407
+        ],
+        "rotation_axis_label": "-Z axis (B-axis tilt)"
+      },
+      "wcs": "G59",
+      "origin_x": "CENTER (Y=-42.586mm)",
+      "origin_y": "CENTER (Z=0.000mm)",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": -42.5861,
+        "y_mm": 0.0,
+        "z_mm": -192.1317,
+        "origin_x": "CENTER (Y=-42.586mm)",
+        "origin_y": "CENTER (Z=0.000mm)",
+        "origin_z": "TOP",
+        "note": "Probe left face for Z0 (X=-192.132mm in CAD). X0: CENTER (Y=-42.586mm). Y0: CENTER (Z=0.000mm). Part envelope: 40.09 \u00d7 62.29 \u00d7 18.38mm."
+      },
+      "setup_face_width": 40.0903,
+      "setup_face_height": 62.2903,
+      "setup_depth": 18.3814,
+      "cluster_ids": [
+        21
+      ],
+      "operation_count": 1,
+      "machining_sequence": [
+        {
+          "cluster_id": 21,
+          "feature_type": "chamfer",
+          "operations": [
+            "chamfer_mill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "sine_plate",
+        "clamp_faces": [
+          "+X",
+          "-X"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "+Y"
+        ],
+        "jaw_opening_mm": 18.38,
+        "datum_from_setup": 6,
+        "notes": "Sine plate angle + rotation_axis_label; verify with indicator (angle=90.0\u00b0, axis=-Z axis (B-axis tilt))"
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 6,
+        "remaining_faces": [],
+        "machined_faces": [
+          "+Y",
+          "-Y",
+          "+X",
+          "-X",
+          "+Z",
+          "-Z"
+        ]
+      }
+    },
+    {
+      "setup_id": 8,
+      "setup_type": "angled",
+      "spindle_direction": [
+        0.9002,
+        -0.0,
+        -0.4356
+      ],
+      "feature_axis": [
+        -0.9002,
+        0.0,
+        0.4356
+      ],
+      "axis_label": "angled approach [0.9, -0.0, -0.436]",
+      "description": "Angled setup. Tilt part 90.0\u00b0 around +Z axis (B-axis tilt) from the default orientation. Verify with dial indicator before machining. All features in this setup share the same angled axis and can be machined without re-clamping.",
+      "fixture_note": "Sine plate or angled fixture set to 90.0\u00b0, or 4th/5th axis rotary table if available.",
+      "rotation_from_default": {
+        "angle_deg": 90.0,
+        "rotation_axis": [
+          0.4356,
+          0.0,
+          0.9002
+        ],
+        "rotation_axis_label": "+Z axis (B-axis tilt)"
+      },
+      "wcs": "G59",
+      "origin_x": "CENTER (Y=-42.586mm)",
+      "origin_y": "CENTER (Z=0.000mm)",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": -42.5861,
+        "y_mm": 0.0,
+        "z_mm": -173.7504,
+        "origin_x": "CENTER (Y=-42.586mm)",
+        "origin_y": "CENTER (Z=0.000mm)",
+        "origin_z": "TOP",
+        "note": "Probe right face for Z0 (X=-173.750mm in CAD). X0: CENTER (Y=-42.586mm). Y0: CENTER (Z=0.000mm). Part envelope: 40.09 \u00d7 62.29 \u00d7 18.38mm."
+      },
+      "setup_face_width": 40.0903,
+      "setup_face_height": 62.2903,
+      "setup_depth": 18.3814,
+      "cluster_ids": [
+        22
+      ],
+      "operation_count": 1,
+      "machining_sequence": [
+        {
+          "cluster_id": 22,
+          "feature_type": "chamfer",
+          "operations": [
+            "chamfer_mill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "sine_plate",
+        "clamp_faces": [
+          "+X",
+          "-X"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "+Y"
+        ],
+        "jaw_opening_mm": 18.38,
+        "datum_from_setup": 7,
+        "notes": "Sine plate angle + rotation_axis_label; verify with indicator (angle=90.0\u00b0, axis=+Z axis (B-axis tilt))"
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 7,
+        "remaining_faces": [],
+        "machined_faces": [
+          "+Y",
+          "-Y",
+          "+X",
+          "-X",
+          "+Z",
+          "-Z"
+        ]
+      }
+    },
+    {
+      "setup_id": 9,
+      "setup_type": "angled",
+      "spindle_direction": [
+        0.9002,
+        -0.0,
+        0.4356
+      ],
+      "feature_axis": [
+        -0.9002,
+        0.0,
+        -0.4356
+      ],
+      "axis_label": "angled approach [0.9, -0.0, 0.436]",
+      "description": "Angled setup. Tilt part 90.0\u00b0 around +Z axis (B-axis tilt) from the default orientation. Verify with dial indicator before machining. All features in this setup share the same angled axis and can be machined without re-clamping.",
+      "fixture_note": "Sine plate or angled fixture set to 90.0\u00b0, or 4th/5th axis rotary table if available.",
+      "rotation_from_default": {
+        "angle_deg": 90.0,
+        "rotation_axis": [
+          -0.4356,
+          0.0,
+          0.9002
+        ],
+        "rotation_axis_label": "+Z axis (B-axis tilt)"
+      },
+      "wcs": "G59",
+      "origin_x": "CENTER (Y=-42.586mm)",
+      "origin_y": "CENTER (Z=0.000mm)",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": -42.5861,
+        "y_mm": 0.0,
+        "z_mm": -173.7504,
+        "origin_x": "CENTER (Y=-42.586mm)",
+        "origin_y": "CENTER (Z=0.000mm)",
+        "origin_z": "TOP",
+        "note": "Probe right face for Z0 (X=-173.750mm in CAD). X0: CENTER (Y=-42.586mm). Y0: CENTER (Z=0.000mm). Part envelope: 40.09 \u00d7 62.29 \u00d7 18.38mm."
+      },
+      "setup_face_width": 40.0903,
+      "setup_face_height": 62.2903,
+      "setup_depth": 18.3814,
+      "cluster_ids": [
+        24
+      ],
+      "operation_count": 1,
+      "machining_sequence": [
+        {
+          "cluster_id": 24,
+          "feature_type": "chamfer",
+          "operations": [
+            "chamfer_mill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "sine_plate",
+        "clamp_faces": [
+          "+X",
+          "-X"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "+Y"
+        ],
+        "jaw_opening_mm": 18.38,
+        "datum_from_setup": 8,
+        "notes": "Sine plate angle + rotation_axis_label; verify with indicator (angle=90.0\u00b0, axis=+Z axis (B-axis tilt))"
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 8,
+        "remaining_faces": [],
+        "machined_faces": [
+          "+Y",
+          "-Y",
+          "+X",
+          "-X",
+          "+Z",
+          "-Z"
+        ]
+      }
+    },
+    {
+      "setup_id": 10,
+      "setup_type": "angled",
+      "spindle_direction": [
+        -0.9407,
+        -0.0,
+        0.3393
+      ],
+      "feature_axis": [
+        0.9407,
+        0.0,
+        -0.3393
+      ],
+      "axis_label": "angled approach [-0.941, -0.0, 0.339]",
+      "description": "Angled setup. Tilt part 90.0\u00b0 around -Z axis (B-axis tilt) from the default orientation. Verify with dial indicator before machining. All features in this setup share the same angled axis and can be machined without re-clamping.",
+      "fixture_note": "Sine plate or angled fixture set to 90.0\u00b0, or 4th/5th axis rotary table if available.",
+      "rotation_from_default": {
+        "angle_deg": 90.0,
+        "rotation_axis": [
+          -0.3393,
+          -0.0,
+          -0.9407
+        ],
+        "rotation_axis_label": "-Z axis (B-axis tilt)"
+      },
+      "wcs": "G59",
+      "origin_x": "CENTER (Y=-42.586mm)",
+      "origin_y": "CENTER (Z=0.000mm)",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": -42.5861,
+        "y_mm": 0.0,
+        "z_mm": -192.1317,
+        "origin_x": "CENTER (Y=-42.586mm)",
+        "origin_y": "CENTER (Z=0.000mm)",
+        "origin_z": "TOP",
+        "note": "Probe left face for Z0 (X=-192.132mm in CAD). X0: CENTER (Y=-42.586mm). Y0: CENTER (Z=0.000mm). Part envelope: 40.09 \u00d7 62.29 \u00d7 18.38mm."
+      },
+      "setup_face_width": 40.0903,
+      "setup_face_height": 62.2903,
+      "setup_depth": 18.3814,
+      "cluster_ids": [
+        25
+      ],
+      "operation_count": 1,
+      "machining_sequence": [
+        {
+          "cluster_id": 25,
+          "feature_type": "chamfer",
+          "operations": [
+            "chamfer_mill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "sine_plate",
+        "clamp_faces": [
+          "+X",
+          "-X"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "+Y"
+        ],
+        "jaw_opening_mm": 18.38,
+        "datum_from_setup": 9,
+        "notes": "Sine plate angle + rotation_axis_label; verify with indicator (angle=90.0\u00b0, axis=-Z axis (B-axis tilt))"
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 9,
+        "remaining_faces": [],
+        "machined_faces": [
+          "+Y",
+          "-Y",
+          "+X",
+          "-X",
+          "+Z",
+          "-Z"
+        ]
+      }
+    },
+    {
+      "setup_id": 11,
+      "setup_type": "angled",
+      "spindle_direction": [
+        0.6365,
+        0.7071,
+        -0.308
+      ],
+      "feature_axis": [
+        -0.6365,
+        -0.7071,
+        0.308
+      ],
+      "axis_label": "angled approach [0.637, 0.707, -0.308]",
+      "description": "Angled setup. Tilt part 45.0\u00b0 around +Z axis (B-axis tilt) from the default orientation. Verify with dial indicator before machining. All features in this setup share the same angled axis and can be machined without re-clamping.",
+      "fixture_note": "Sine plate or angled fixture set to 45.0\u00b0, or 4th/5th axis rotary table if available.",
+      "rotation_from_default": {
+        "angle_deg": 45.0,
+        "rotation_axis": [
+          0.4356,
+          0.0,
+          0.9002
+        ],
+        "rotation_axis_label": "+Z axis (B-axis tilt)"
+      },
+      "wcs": "G59",
+      "origin_x": "CENTER",
+      "origin_y": "CENTER",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": null,
+        "origin_x": "CENTER",
+        "origin_y": "CENTER",
+        "origin_z": "TOP",
+        "note": "Unusual spindle direction \u2014 set zero at part centre by inspection."
+      },
+      "setup_face_width": null,
+      "setup_face_height": null,
+      "setup_depth": null,
+      "cluster_ids": [
+        27
+      ],
+      "operation_count": 1,
+      "machining_sequence": [
+        {
+          "cluster_id": 27,
+          "feature_type": "chamfer",
+          "operations": [
+            "chamfer_mill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "sine_plate",
+        "clamp_faces": [
+          "+X",
+          "-X"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "+Y"
+        ],
+        "jaw_opening_mm": 18.38,
+        "datum_from_setup": 10,
+        "notes": "Sine plate angle + rotation_axis_label; verify with indicator (angle=45.0\u00b0, axis=+Z axis (B-axis tilt))"
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 10,
+        "remaining_faces": [],
+        "machined_faces": [
+          "+Y",
+          "-Y",
+          "+X",
+          "-X",
+          "+Z",
+          "-Z"
+        ]
+      }
+    },
+    {
+      "setup_id": 12,
+      "setup_type": "angled",
+      "spindle_direction": [
+        0.7071,
+        0.7071,
+        -0.0
+      ],
+      "feature_axis": [
+        -0.7071,
+        -0.7071,
+        0.0
+      ],
+      "axis_label": "angled approach [0.707, 0.707, -0.0]",
+      "description": "Angled setup. Tilt part 45.0\u00b0 around +Z axis (B-axis tilt) from the default orientation. Verify with dial indicator before machining. All features in this setup share the same angled axis and can be machined without re-clamping.",
+      "fixture_note": "Sine plate or angled fixture set to 45.0\u00b0, or 4th/5th axis rotary table if available.",
+      "rotation_from_default": {
+        "angle_deg": 45.0,
+        "rotation_axis": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rotation_axis_label": "+Z axis (B-axis tilt)"
+      },
+      "wcs": "G59",
+      "origin_x": "CENTER",
+      "origin_y": "CENTER",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": null,
+        "origin_x": "CENTER",
+        "origin_y": "CENTER",
+        "origin_z": "TOP",
+        "note": "Unusual spindle direction \u2014 set zero at part centre by inspection."
+      },
+      "setup_face_width": null,
+      "setup_face_height": null,
+      "setup_depth": null,
+      "cluster_ids": [
+        28
+      ],
+      "operation_count": 1,
+      "machining_sequence": [
+        {
+          "cluster_id": 28,
+          "feature_type": "chamfer",
+          "operations": [
+            "chamfer_mill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "sine_plate",
+        "clamp_faces": [
+          "+X",
+          "-X"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "+Y"
+        ],
+        "jaw_opening_mm": 18.38,
+        "datum_from_setup": 11,
+        "notes": "Sine plate angle + rotation_axis_label; verify with indicator (angle=45.0\u00b0, axis=+Z axis (B-axis tilt))"
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 11,
+        "remaining_faces": [],
+        "machined_faces": [
+          "+Y",
+          "-Y",
+          "+X",
+          "-X",
+          "+Z",
+          "-Z"
+        ]
+      }
+    },
+    {
+      "setup_id": 13,
+      "setup_type": "angled",
+      "spindle_direction": [
+        0.6365,
+        0.7071,
+        0.308
+      ],
+      "feature_axis": [
+        -0.6365,
+        -0.7071,
+        -0.308
+      ],
+      "axis_label": "angled approach [0.637, 0.707, 0.308]",
+      "description": "Angled setup. Tilt part 45.0\u00b0 around +Z axis (B-axis tilt) from the default orientation. Verify with dial indicator before machining. All features in this setup share the same angled axis and can be machined without re-clamping.",
+      "fixture_note": "Sine plate or angled fixture set to 45.0\u00b0, or 4th/5th axis rotary table if available.",
+      "rotation_from_default": {
+        "angle_deg": 45.0,
+        "rotation_axis": [
+          -0.4356,
+          0.0,
+          0.9002
+        ],
+        "rotation_axis_label": "+Z axis (B-axis tilt)"
+      },
+      "wcs": "G59",
+      "origin_x": "CENTER",
+      "origin_y": "CENTER",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": null,
+        "origin_x": "CENTER",
+        "origin_y": "CENTER",
+        "origin_z": "TOP",
+        "note": "Unusual spindle direction \u2014 set zero at part centre by inspection."
+      },
+      "setup_face_width": null,
+      "setup_face_height": null,
+      "setup_depth": null,
+      "cluster_ids": [
+        29
+      ],
+      "operation_count": 1,
+      "machining_sequence": [
+        {
+          "cluster_id": 29,
+          "feature_type": "chamfer",
+          "operations": [
+            "chamfer_mill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "sine_plate",
+        "clamp_faces": [
+          "+X",
+          "-X"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "+Y"
+        ],
+        "jaw_opening_mm": 18.38,
+        "datum_from_setup": 12,
+        "notes": "Sine plate angle + rotation_axis_label; verify with indicator (angle=45.0\u00b0, axis=+Z axis (B-axis tilt))"
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 12,
+        "remaining_faces": [],
+        "machined_faces": [
+          "+Y",
+          "-Y",
+          "+X",
+          "-X",
+          "+Z",
+          "-Z"
+        ]
+      }
+    },
+    {
+      "setup_id": 14,
+      "setup_type": "angled",
+      "spindle_direction": [
+        -0.6652,
+        0.7071,
+        -0.2399
+      ],
+      "feature_axis": [
+        0.6652,
+        -0.7071,
+        0.2399
+      ],
+      "axis_label": "angled approach [-0.665, 0.707, -0.24]",
+      "description": "Angled setup. Tilt part 45.0\u00b0 around -Z axis (B-axis tilt) from the default orientation. Verify with dial indicator before machining. All features in this setup share the same angled axis and can be machined without re-clamping.",
+      "fixture_note": "Sine plate or angled fixture set to 45.0\u00b0, or 4th/5th axis rotary table if available.",
+      "rotation_from_default": {
+        "angle_deg": 45.0,
+        "rotation_axis": [
+          0.3393,
+          0.0,
+          -0.9407
+        ],
+        "rotation_axis_label": "-Z axis (B-axis tilt)"
+      },
+      "wcs": "G59",
+      "origin_x": "CENTER",
+      "origin_y": "CENTER",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": null,
+        "origin_x": "CENTER",
+        "origin_y": "CENTER",
+        "origin_z": "TOP",
+        "note": "Unusual spindle direction \u2014 set zero at part centre by inspection."
+      },
+      "setup_face_width": null,
+      "setup_face_height": null,
+      "setup_depth": null,
+      "cluster_ids": [
+        30
+      ],
+      "operation_count": 1,
+      "machining_sequence": [
+        {
+          "cluster_id": 30,
+          "feature_type": "chamfer",
+          "operations": [
+            "chamfer_mill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "sine_plate",
+        "clamp_faces": [
+          "+X",
+          "-X"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "+Y"
+        ],
+        "jaw_opening_mm": 18.38,
+        "datum_from_setup": 13,
+        "notes": "Sine plate angle + rotation_axis_label; verify with indicator (angle=45.0\u00b0, axis=-Z axis (B-axis tilt))"
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 13,
+        "remaining_faces": [],
+        "machined_faces": [
+          "+Y",
+          "-Y",
+          "+X",
+          "-X",
+          "+Z",
+          "-Z"
+        ]
+      }
+    },
+    {
+      "setup_id": 15,
+      "setup_type": "angled",
+      "spindle_direction": [
+        -0.7071,
+        0.7071,
+        -0.0
+      ],
+      "feature_axis": [
+        0.7071,
+        -0.7071,
+        0.0
+      ],
+      "axis_label": "angled approach [-0.707, 0.707, -0.0]",
+      "description": "Angled setup. Tilt part 45.0\u00b0 around -Z axis (B-axis tilt) from the default orientation. Verify with dial indicator before machining. All features in this setup share the same angled axis and can be machined without re-clamping.",
+      "fixture_note": "Sine plate or angled fixture set to 45.0\u00b0, or 4th/5th axis rotary table if available.",
+      "rotation_from_default": {
+        "angle_deg": 45.0,
+        "rotation_axis": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "rotation_axis_label": "-Z axis (B-axis tilt)"
+      },
+      "wcs": "G59",
+      "origin_x": "CENTER",
+      "origin_y": "CENTER",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": null,
+        "origin_x": "CENTER",
+        "origin_y": "CENTER",
+        "origin_z": "TOP",
+        "note": "Unusual spindle direction \u2014 set zero at part centre by inspection."
+      },
+      "setup_face_width": null,
+      "setup_face_height": null,
+      "setup_depth": null,
+      "cluster_ids": [
+        31
+      ],
+      "operation_count": 1,
+      "machining_sequence": [
+        {
+          "cluster_id": 31,
+          "feature_type": "chamfer",
+          "operations": [
+            "chamfer_mill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "sine_plate",
+        "clamp_faces": [
+          "+X",
+          "-X"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "+Y"
+        ],
+        "jaw_opening_mm": 18.38,
+        "datum_from_setup": 14,
+        "notes": "Sine plate angle + rotation_axis_label; verify with indicator (angle=45.0\u00b0, axis=-Z axis (B-axis tilt))"
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 14,
+        "remaining_faces": [],
+        "machined_faces": [
+          "+Y",
+          "-Y",
+          "+X",
+          "-X",
+          "+Z",
+          "-Z"
+        ]
+      }
+    },
+    {
+      "setup_id": 16,
+      "setup_type": "angled",
+      "spindle_direction": [
+        -0.6652,
+        0.7071,
+        0.2399
+      ],
+      "feature_axis": [
+        0.6652,
+        -0.7071,
+        -0.2399
+      ],
+      "axis_label": "angled approach [-0.665, 0.707, 0.24]",
+      "description": "Angled setup. Tilt part 45.0\u00b0 around -Z axis (B-axis tilt) from the default orientation. Verify with dial indicator before machining. All features in this setup share the same angled axis and can be machined without re-clamping.",
+      "fixture_note": "Sine plate or angled fixture set to 45.0\u00b0, or 4th/5th axis rotary table if available.",
+      "rotation_from_default": {
+        "angle_deg": 45.0,
+        "rotation_axis": [
+          -0.3393,
+          -0.0,
+          -0.9407
+        ],
+        "rotation_axis_label": "-Z axis (B-axis tilt)"
+      },
+      "wcs": "G59",
+      "origin_x": "CENTER",
+      "origin_y": "CENTER",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": null,
+        "origin_x": "CENTER",
+        "origin_y": "CENTER",
+        "origin_z": "TOP",
+        "note": "Unusual spindle direction \u2014 set zero at part centre by inspection."
+      },
+      "setup_face_width": null,
+      "setup_face_height": null,
+      "setup_depth": null,
+      "cluster_ids": [
+        32
+      ],
+      "operation_count": 1,
+      "machining_sequence": [
+        {
+          "cluster_id": 32,
+          "feature_type": "chamfer",
+          "operations": [
+            "chamfer_mill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "sine_plate",
+        "clamp_faces": [
+          "+X",
+          "-X"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "+Y"
+        ],
+        "jaw_opening_mm": 18.38,
+        "datum_from_setup": 15,
+        "notes": "Sine plate angle + rotation_axis_label; verify with indicator (angle=45.0\u00b0, axis=-Z axis (B-axis tilt))"
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 15,
+        "remaining_faces": [],
+        "machined_faces": [
+          "+Y",
+          "-Y",
+          "+X",
+          "-X",
+          "+Z",
+          "-Z"
+        ]
+      }
+    },
+    {
+      "setup_id": 17,
+      "setup_type": "angled",
+      "spindle_direction": [
+        -0.6365,
+        0.7071,
+        -0.308
+      ],
+      "feature_axis": [
+        0.6365,
+        -0.7071,
+        0.308
+      ],
+      "axis_label": "angled approach [-0.637, 0.707, -0.308]",
+      "description": "Angled setup. Tilt part 45.0\u00b0 around -Z axis (B-axis tilt) from the default orientation. Verify with dial indicator before machining. All features in this setup share the same angled axis and can be machined without re-clamping.",
+      "fixture_note": "Sine plate or angled fixture set to 45.0\u00b0, or 4th/5th axis rotary table if available.",
+      "rotation_from_default": {
+        "angle_deg": 45.0,
+        "rotation_axis": [
+          0.4356,
+          0.0,
+          -0.9002
+        ],
+        "rotation_axis_label": "-Z axis (B-axis tilt)"
+      },
+      "wcs": "G59",
+      "origin_x": "CENTER",
+      "origin_y": "CENTER",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": null,
+        "origin_x": "CENTER",
+        "origin_y": "CENTER",
+        "origin_z": "TOP",
+        "note": "Unusual spindle direction \u2014 set zero at part centre by inspection."
+      },
+      "setup_face_width": null,
+      "setup_face_height": null,
+      "setup_depth": null,
+      "cluster_ids": [
+        33
+      ],
+      "operation_count": 1,
+      "machining_sequence": [
+        {
+          "cluster_id": 33,
+          "feature_type": "chamfer",
+          "operations": [
+            "chamfer_mill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "sine_plate",
+        "clamp_faces": [
+          "+X",
+          "-X"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "+Y"
+        ],
+        "jaw_opening_mm": 18.38,
+        "datum_from_setup": 16,
+        "notes": "Sine plate angle + rotation_axis_label; verify with indicator (angle=45.0\u00b0, axis=-Z axis (B-axis tilt))"
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 16,
+        "remaining_faces": [],
+        "machined_faces": [
+          "+Y",
+          "-Y",
+          "+X",
+          "-X",
+          "+Z",
+          "-Z"
+        ]
+      }
+    },
+    {
+      "setup_id": 18,
+      "setup_type": "angled",
+      "spindle_direction": [
+        0.6652,
+        0.7071,
+        -0.2399
+      ],
+      "feature_axis": [
+        -0.6652,
+        -0.7071,
+        0.2399
+      ],
+      "axis_label": "angled approach [0.665, 0.707, -0.24]",
+      "description": "Angled setup. Tilt part 45.0\u00b0 around +Z axis (B-axis tilt) from the default orientation. Verify with dial indicator before machining. All features in this setup share the same angled axis and can be machined without re-clamping.",
+      "fixture_note": "Sine plate or angled fixture set to 45.0\u00b0, or 4th/5th axis rotary table if available.",
+      "rotation_from_default": {
+        "angle_deg": 45.0,
+        "rotation_axis": [
+          0.3393,
+          0.0,
+          0.9407
+        ],
+        "rotation_axis_label": "+Z axis (B-axis tilt)"
+      },
+      "wcs": "G59",
+      "origin_x": "CENTER",
+      "origin_y": "CENTER",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": null,
+        "origin_x": "CENTER",
+        "origin_y": "CENTER",
+        "origin_z": "TOP",
+        "note": "Unusual spindle direction \u2014 set zero at part centre by inspection."
+      },
+      "setup_face_width": null,
+      "setup_face_height": null,
+      "setup_depth": null,
+      "cluster_ids": [
+        34
+      ],
+      "operation_count": 1,
+      "machining_sequence": [
+        {
+          "cluster_id": 34,
+          "feature_type": "chamfer",
+          "operations": [
+            "chamfer_mill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "sine_plate",
+        "clamp_faces": [
+          "+X",
+          "-X"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "+Y"
+        ],
+        "jaw_opening_mm": 18.38,
+        "datum_from_setup": 17,
+        "notes": "Sine plate angle + rotation_axis_label; verify with indicator (angle=45.0\u00b0, axis=+Z axis (B-axis tilt))"
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 17,
+        "remaining_faces": [],
+        "machined_faces": [
+          "+Y",
+          "-Y",
+          "+X",
+          "-X",
+          "+Z",
+          "-Z"
+        ]
+      }
+    },
+    {
+      "setup_id": 19,
+      "setup_type": "angled",
+      "spindle_direction": [
+        0.7071,
+        -0.0,
+        0.7071
+      ],
+      "feature_axis": [
+        -0.7071,
+        0.0,
+        -0.7071
+      ],
+      "axis_label": "angled approach [0.707, -0.0, 0.707]",
+      "description": "Angled setup. Tilt part 90.0\u00b0 around compound axis [-0.707, 0.0, 0.707] \u2014 use sine plate or 5-axis fixture from the default orientation. Verify with dial indicator before machining. All features in this setup share the same angled axis and can be machined without re-clamping.",
+      "fixture_note": "Sine plate or angled fixture set to 90.0\u00b0, or 4th/5th axis rotary table if available.",
+      "rotation_from_default": {
+        "angle_deg": 90.0,
+        "rotation_axis": [
+          -0.7071,
+          0.0,
+          0.7071
+        ],
+        "rotation_axis_label": "compound axis [-0.707, 0.0, 0.707] \u2014 use sine plate or 5-axis fixture"
+      },
+      "wcs": "G59",
+      "origin_x": "CENTER",
+      "origin_y": "CENTER",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": null,
+        "origin_x": "CENTER",
+        "origin_y": "CENTER",
+        "origin_z": "TOP",
+        "note": "Unusual spindle direction \u2014 set zero at part centre by inspection."
+      },
+      "setup_face_width": null,
+      "setup_face_height": null,
+      "setup_depth": null,
+      "cluster_ids": [
+        35
+      ],
+      "operation_count": 1,
+      "machining_sequence": [
+        {
+          "cluster_id": 35,
+          "feature_type": "chamfer",
+          "operations": [
+            "chamfer_mill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "sine_plate",
+        "clamp_faces": [
+          "+X",
+          "-X"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "+Y"
+        ],
+        "jaw_opening_mm": 18.38,
+        "datum_from_setup": 18,
+        "notes": "Sine plate angle + rotation_axis_label; verify with indicator (angle=90.0\u00b0, axis=compound axis [-0.707, 0.0, 0.707] \u2014 use sine plate or 5-axis fixture)"
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 18,
+        "remaining_faces": [],
+        "machined_faces": [
+          "+Y",
+          "-Y",
+          "+X",
+          "-X",
+          "+Z",
+          "-Z"
+        ]
+      }
+    },
+    {
+      "setup_id": 20,
+      "setup_type": "angled",
+      "spindle_direction": [
+        -0.0,
+        -0.7071,
+        -0.7071
+      ],
+      "feature_axis": [
+        0.0,
+        0.7071,
+        0.7071
+      ],
+      "axis_label": "angled approach [-0.0, -0.707, -0.707]",
+      "description": "Angled setup. Tilt part 135.0\u00b0 around +X axis (A-axis tilt) from the default orientation. Verify with dial indicator before machining. All features in this setup share the same angled axis and can be machined without re-clamping.",
+      "fixture_note": "Sine plate or angled fixture set to 135.0\u00b0, or 4th/5th axis rotary table if available.",
+      "rotation_from_default": {
+        "angle_deg": 135.0,
+        "rotation_axis": [
+          1.0,
+          0.0,
+          -0.0
+        ],
+        "rotation_axis_label": "+X axis (A-axis tilt)"
+      },
+      "wcs": "G59",
+      "origin_x": "CENTER",
+      "origin_y": "CENTER",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": null,
+        "origin_x": "CENTER",
+        "origin_y": "CENTER",
+        "origin_z": "TOP",
+        "note": "Unusual spindle direction \u2014 set zero at part centre by inspection."
+      },
+      "setup_face_width": null,
+      "setup_face_height": null,
+      "setup_depth": null,
+      "cluster_ids": [
+        36
+      ],
+      "operation_count": 1,
+      "machining_sequence": [
+        {
+          "cluster_id": 36,
+          "feature_type": "chamfer",
+          "operations": [
+            "chamfer_mill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "sine_plate",
+        "clamp_faces": [
+          "+X",
+          "-X"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "+Y"
+        ],
+        "jaw_opening_mm": 18.38,
+        "datum_from_setup": 19,
+        "notes": "Sine plate angle + rotation_axis_label; verify with indicator (angle=135.0\u00b0, axis=+X axis (A-axis tilt))"
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 19,
+        "remaining_faces": [],
+        "machined_faces": [
+          "+Y",
+          "-Y",
+          "+X",
+          "-X",
+          "+Z",
+          "-Z"
+        ]
+      }
+    },
+    {
+      "setup_id": 21,
+      "setup_type": "angled",
+      "spindle_direction": [
+        0.7071,
+        -0.0,
+        -0.7071
+      ],
+      "feature_axis": [
+        -0.7071,
+        0.0,
+        0.7071
+      ],
+      "axis_label": "angled approach [0.707, -0.0, -0.707]",
+      "description": "Angled setup. Tilt part 90.0\u00b0 around compound axis [0.707, 0.0, 0.707] \u2014 use sine plate or 5-axis fixture from the default orientation. Verify with dial indicator before machining. All features in this setup share the same angled axis and can be machined without re-clamping.",
+      "fixture_note": "Sine plate or angled fixture set to 90.0\u00b0, or 4th/5th axis rotary table if available.",
+      "rotation_from_default": {
+        "angle_deg": 90.0,
+        "rotation_axis": [
+          0.7071,
+          0.0,
+          0.7071
+        ],
+        "rotation_axis_label": "compound axis [0.707, 0.0, 0.707] \u2014 use sine plate or 5-axis fixture"
+      },
+      "wcs": "G59",
+      "origin_x": "CENTER",
+      "origin_y": "CENTER",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": null,
+        "origin_x": "CENTER",
+        "origin_y": "CENTER",
+        "origin_z": "TOP",
+        "note": "Unusual spindle direction \u2014 set zero at part centre by inspection."
+      },
+      "setup_face_width": null,
+      "setup_face_height": null,
+      "setup_depth": null,
+      "cluster_ids": [
+        37
+      ],
+      "operation_count": 1,
+      "machining_sequence": [
+        {
+          "cluster_id": 37,
+          "feature_type": "chamfer",
+          "operations": [
+            "chamfer_mill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "sine_plate",
+        "clamp_faces": [
+          "+X",
+          "-X"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "+Y"
+        ],
+        "jaw_opening_mm": 18.38,
+        "datum_from_setup": 20,
+        "notes": "Sine plate angle + rotation_axis_label; verify with indicator (angle=90.0\u00b0, axis=compound axis [0.707, 0.0, 0.707] \u2014 use sine plate or 5-axis fixture)"
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 20,
+        "remaining_faces": [],
+        "machined_faces": [
+          "+Y",
+          "-Y",
+          "+X",
+          "-X",
+          "+Z",
+          "-Z"
+        ]
+      }
+    },
+    {
+      "setup_id": 22,
+      "setup_type": "angled",
+      "spindle_direction": [
+        -0.0,
+        -0.7071,
+        0.7071
+      ],
+      "feature_axis": [
+        0.0,
+        0.7071,
+        -0.7071
+      ],
+      "axis_label": "angled approach [-0.0, -0.707, 0.707]",
+      "description": "Angled setup. Tilt part 135.0\u00b0 around -X axis (A-axis tilt) from the default orientation. Verify with dial indicator before machining. All features in this setup share the same angled axis and can be machined without re-clamping.",
+      "fixture_note": "Sine plate or angled fixture set to 135.0\u00b0, or 4th/5th axis rotary table if available.",
+      "rotation_from_default": {
+        "angle_deg": 135.0,
+        "rotation_axis": [
+          -1.0,
+          -0.0,
+          -0.0
+        ],
+        "rotation_axis_label": "-X axis (A-axis tilt)"
+      },
+      "wcs": "G59",
+      "origin_x": "CENTER",
+      "origin_y": "CENTER",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": null,
+        "origin_x": "CENTER",
+        "origin_y": "CENTER",
+        "origin_z": "TOP",
+        "note": "Unusual spindle direction \u2014 set zero at part centre by inspection."
+      },
+      "setup_face_width": null,
+      "setup_face_height": null,
+      "setup_depth": null,
+      "cluster_ids": [
+        38
+      ],
+      "operation_count": 1,
+      "machining_sequence": [
+        {
+          "cluster_id": 38,
+          "feature_type": "chamfer",
+          "operations": [
+            "chamfer_mill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "sine_plate",
+        "clamp_faces": [
+          "+X",
+          "-X"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "+Y"
+        ],
+        "jaw_opening_mm": 18.38,
+        "datum_from_setup": 21,
+        "notes": "Sine plate angle + rotation_axis_label; verify with indicator (angle=135.0\u00b0, axis=-X axis (A-axis tilt))"
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 21,
+        "remaining_faces": [],
+        "machined_faces": [
+          "+Y",
+          "-Y",
+          "+X",
+          "-X",
+          "+Z",
+          "-Z"
+        ]
+      }
+    },
+    {
+      "setup_id": 23,
+      "setup_type": "angled",
+      "spindle_direction": [
+        0.6652,
+        0.7071,
+        0.2399
+      ],
+      "feature_axis": [
+        -0.6652,
+        -0.7071,
+        -0.2399
+      ],
+      "axis_label": "angled approach [0.665, 0.707, 0.24]",
+      "description": "Angled setup. Tilt part 45.0\u00b0 around +Z axis (B-axis tilt) from the default orientation. Verify with dial indicator before machining. All features in this setup share the same angled axis and can be machined without re-clamping.",
+      "fixture_note": "Sine plate or angled fixture set to 45.0\u00b0, or 4th/5th axis rotary table if available.",
+      "rotation_from_default": {
+        "angle_deg": 45.0,
+        "rotation_axis": [
+          -0.3393,
+          0.0,
+          0.9407
+        ],
+        "rotation_axis_label": "+Z axis (B-axis tilt)"
+      },
+      "wcs": "G59",
+      "origin_x": "CENTER",
+      "origin_y": "CENTER",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": null,
+        "origin_x": "CENTER",
+        "origin_y": "CENTER",
+        "origin_z": "TOP",
+        "note": "Unusual spindle direction \u2014 set zero at part centre by inspection."
+      },
+      "setup_face_width": null,
+      "setup_face_height": null,
+      "setup_depth": null,
+      "cluster_ids": [
+        39
+      ],
+      "operation_count": 1,
+      "machining_sequence": [
+        {
+          "cluster_id": 39,
+          "feature_type": "chamfer",
+          "operations": [
+            "chamfer_mill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "sine_plate",
+        "clamp_faces": [
+          "+X",
+          "-X"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "+Y"
+        ],
+        "jaw_opening_mm": 18.38,
+        "datum_from_setup": 22,
+        "notes": "Sine plate angle + rotation_axis_label; verify with indicator (angle=45.0\u00b0, axis=+Z axis (B-axis tilt))"
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 22,
+        "remaining_faces": [],
+        "machined_faces": [
+          "+Y",
+          "-Y",
+          "+X",
+          "-X",
+          "+Z",
+          "-Z"
+        ]
+      }
+    },
+    {
+      "setup_id": 24,
+      "setup_type": "angled",
+      "spindle_direction": [
+        -0.6365,
+        0.7071,
+        0.308
+      ],
+      "feature_axis": [
+        0.6365,
+        -0.7071,
+        -0.308
+      ],
+      "axis_label": "angled approach [-0.637, 0.707, 0.308]",
+      "description": "Angled setup. Tilt part 45.0\u00b0 around -Z axis (B-axis tilt) from the default orientation. Verify with dial indicator before machining. All features in this setup share the same angled axis and can be machined without re-clamping.",
+      "fixture_note": "Sine plate or angled fixture set to 45.0\u00b0, or 4th/5th axis rotary table if available.",
+      "rotation_from_default": {
+        "angle_deg": 45.0,
+        "rotation_axis": [
+          -0.4356,
+          -0.0,
+          -0.9002
+        ],
+        "rotation_axis_label": "-Z axis (B-axis tilt)"
+      },
+      "wcs": "G59",
+      "origin_x": "CENTER",
+      "origin_y": "CENTER",
+      "origin_z": "TOP",
+      "wcs_origin_mm": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": null,
+        "origin_x": "CENTER",
+        "origin_y": "CENTER",
+        "origin_z": "TOP",
+        "note": "Unusual spindle direction \u2014 set zero at part centre by inspection."
+      },
+      "setup_face_width": null,
+      "setup_face_height": null,
+      "setup_depth": null,
+      "cluster_ids": [
+        40
+      ],
+      "operation_count": 1,
+      "machining_sequence": [
+        {
+          "cluster_id": 40,
+          "feature_type": "chamfer",
+          "operations": [
+            "chamfer_mill"
+          ]
+        }
+      ],
+      "workholding": {
+        "type": "sine_plate",
+        "clamp_faces": [
+          "+X",
+          "-X"
+        ],
+        "rest_face": "-Y",
+        "clearance_faces": [
+          "+Y"
+        ],
+        "jaw_opening_mm": 18.38,
+        "datum_from_setup": 23,
+        "notes": "Sine plate angle + rotation_axis_label; verify with indicator (angle=45.0\u00b0, axis=-Z axis (B-axis tilt))"
+      },
+      "stock": {
+        "type": "previous_setup",
+        "source_setup_id": 23,
+        "remaining_faces": [],
+        "machined_faces": [
+          "+Y",
+          "-Y",
+          "+X",
+          "-X",
+          "+Z",
+          "-Z"
+        ]
+      }
+    }
+  ],
+  "setup_count": 24
+}
