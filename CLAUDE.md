@@ -164,12 +164,14 @@ Trained RF models live in `Claude output for program sheet/models/`.
 Current best: `rf_classifier_v3.pkl` — **96.46% accuracy on internal holdout, ~91.5% on field test set** (300 test parts). The field number is the honest working baseline, not the holdout number.
 `classify_features.py` accepts `--mode ml` to use the RF model instead of rules.
 
+**Naming trap: `v4` is NOT the latest.** `rf_classifier_v4.pkl` (18 features, cluster-proxy, 65.8%) is a dead-end experiment from 2026-05-02 that predates the autonomous agent's retrain and was never touched by it. The file called `v3` is the one that got retrained on 2026-05-07 (agent cycle 2, 241,264 faces from the CAD Primitives dataset) and auto-promoted in place — its filename never changed, only its contents did. `v3`'s on-disk timestamp (2026-05-07) is newer than `v4`'s (2026-05-02); trust the timestamp, not the version number.
+
 | Model | Features | Accuracy | Notes |
 |-------|----------|----------|-------|
 | v1 baseline | 10 | 66.0% | Face-level only, trained on H5 |
 | v2 | 15 | 69.2% | Best H5-trained accuracy |
-| v3 | 15 | 66.2% pre-retrain → 96.46% holdout / ~91.5% field (post 2026-05-07 autonomous cycle) | Pipeline-native features, production model. Retrained by the autonomous agent on 241,264 faces from the CAD Primitives dataset; weights auto-promoted under the same filename |
-| v4 | 18 | 65.8% | Cluster-proxy features — marginally worse than v3 |
+| v3 | 15 | 66.2% pre-retrain → 96.46% holdout / ~91.5% field (post 2026-05-07 autonomous cycle) | Pipeline-native features, **current production model**. Retrained by the autonomous agent on 241,264 faces from the CAD Primitives dataset; weights auto-promoted under the same filename |
+| v4 | 18 | 65.8% | Cluster-proxy features, dated 2026-05-02 — marginally worse than pre-retrain v3, and now far behind current v3. Stale, not in use |
 
 Weak classes: rectangular_blind_slot (F1=0.04), triangular/rectangular through slots (~0.16–0.21). (Pre-retrain numbers — recheck `models/perclass_f1_current.json` for current per-class F1.)
 
