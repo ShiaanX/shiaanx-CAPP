@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(for * in *)",
+      "Bash(curl -sk *)",
+      "Bash(curl -s *)",
+      "Bash(pm2 *)",
+      "Bash(conda run *)",
+      "PowerShell(Get-Content *)",
+      "PowerShell(Get-ChildItem *)"
+    ]
+  }
+}

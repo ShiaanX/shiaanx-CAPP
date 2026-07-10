@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>investor_demo_plan.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="shiaanx-investor-demo-plan">ShiaanX Investor Demo Plan</h1>
+<h2 id="context">Context</h2>
+<p>We want to share an investor demo of what we are looking to build. The goal is to show a working, credible closed-loop manufacturing intelligence platform — not slides, but a live system processing a real part. You have a real vendor part (referred to below as <strong>DEMO-PART-001</strong>, a precision aluminium component) with nearly complete data: CAD ✅, CAM ✅, Controller logs ✅, inspection template ✅. The pipeline outputs can be generated for this part.</p>
+<p>The strongest story for investors in aerospace/defense manufacturing is not just &quot;AI generates a process plan&quot; — it's <strong>&quot;here is a real part, here is what our AI planned, here is what the machine actually cut, here is how it came out.&quot;</strong> That closed loop — CAD → AI plan → machine execution → QC — is the moat and the differentiator.</p>
+<hr>
+<h2 id="demo-narrative-the-story-to-tell">Demo Narrative (the story to tell)</h2>
+<p><strong>&quot;A component, from STEP file to inspected part, in one platform.&quot;</strong></p>
+<ol>
+<li><strong>Drop the STEP file</strong> → pipeline runs live, 3D viewer shows the part, 9 stages complete in ~10s</li>
+<li><strong>Process plan appears</strong> → setups, operations, cutting conditions, tool list, WCS — all AI-generated</li>
+<li><strong>Program sheet PDF</strong> → &quot;this is what goes to the machinist&quot;</li>
+<li><strong>&quot;Here's where it gets interesting&quot;</strong> → show the same part already machined by the vendor
+<ul>
+<li>Side-by-side: AI plan vs actual CAM program the machinist used</li>
+<li>Show where they match, where they differ (honest — this builds credibility)</li>
+</ul>
+</li>
+<li><strong>Inspection close-out</strong> → open the filled Excel template with actual QC measurements
+<ul>
+<li>Green PASS / red FAIL cells showing real dimensional data</li>
+<li>&quot;This is the traceability record that aerospace customers require&quot;</li>
+</ul>
+</li>
+<li><strong>Controller log</strong> → &quot;and this is what the machine actually did — spindle load, feed overrides, cycle time — feeding back to improve the next plan&quot;</li>
+</ol>
+<p><strong>Punchline:</strong> &quot;Every part that goes through this system teaches it. No one in India has this closed loop.&quot;</p>
+<hr>
+<h2 id="what-to-build--complete-in-the-next-few-days">What to Build / Complete in the Next Few Days</h2>
+<h3 id="priority-1--complete-the-vendor-dataset-your-action-not-code">Priority 1 — Complete the vendor dataset (your action, not code)</h3>
+<p>You need from the vendor for DEMO-PART-001:</p>
+<ul>
+<li><strong>Controller log</strong> — any CNC controller output: cycle time, spindle overrides, alarm history, actual feed/speed data. Even a screenshot or printout works for demo.</li>
+<li><strong>QC report</strong> — CMM report or hand-measured inspection sheet with actual dimensions</li>
+<li><strong>CAM program</strong> — the actual NC G-code or CAM toolpath summary (operations used, tools, cycle time)</li>
+</ul>
+<p>These don't need to be in a database — printed on screen next to your inspection template is enough for a demo.</p>
+<h4 id="why-the-controller-log-matters">Why the controller log matters</h4>
+<p>A controller log contains: spindle load over time, actual feed/speed overrides the machinist applied, cycle time per operation, alarms, tool wear flags, and sometimes axis position data.</p>
+<p><strong>For the demo, it does three things:</strong></p>
+<ol>
+<li>
+<p><strong>Proves the closed loop is real</strong> — without it, you're just an AI outputting a plan into a void. The controller log is evidence that the plan was actually executed and you can show the delta: if the AI said 8000 RPM and the machinist dialled it to 6500 RPM due to chatter, that deviation is your training signal and your improvement flywheel.</p>
+</li>
+<li>
+<p><strong>Differentiates from pure software</strong> — investors in manufacturing know the gap between &quot;plan&quot; and &quot;reality&quot; is where every other software company fails. Showing controller data says &quot;we are connected to the machine, not just the office.&quot;</p>
+</li>
+<li>
+<p><strong>Sets up the feedback loop story</strong> — &quot;Every deviation the machine records feeds back to refine the next process plan. This is how we get better with every part, without hiring more process engineers.&quot;</p>
+</li>
+</ol>
+<p>If the vendor can't provide a full log, even a hand-written note from the machinist (&quot;actual cycle time 47 mins, reduced feed on Setup 2 due to chatter&quot;) is enough to make the point live.</p>
+<h3 id="priority-2--demo-polish-on-the-frontend-code-work">Priority 2 — Demo polish on the frontend (code work)</h3>
+<p>The existing React frontend already handles upload → 3D viewer → program sheet. Two targeted additions will make the demo compelling:</p>
+<p><strong>2a. &quot;Real Part&quot; mode in the viewer</strong> — add a toggle or tab in CappViewer that shows:</p>
+<ul>
+<li>The AI-generated program sheet PDF (already works)</li>
+<li>A side-by-side comparison panel: &quot;AI Plan vs Actual&quot; — a simple table showing AI operations vs what the vendor actually did (hardcoded for demo using the real data you collect)</li>
+</ul>
+<p><strong>2b. Inspection tab — fill in actuals</strong> — the InspectionTab.js is already wired. Populate the inspection template with actual QC measurements so the PASS/FAIL cells light up live in the demo. This is the highest-impact single screen for investors.</p>
+<p><strong>2c. Pre-load the demo part</strong> — ensure DEMO-PART-001.stp is uploaded and pre-processed in the demo backend so the pipeline doesn't need to run from scratch (removes live failure risk). Have it as a &quot;load demo part&quot; button or URL param.</p>
+<h3 id="priority-3--rehearsal-script">Priority 3 — Rehearsal script</h3>
+<p>Prepare a 5-minute spoken walkthrough:</p>
+<ol>
+<li>(30s) Problem statement: &quot;Getting from CAD to first good part takes weeks of manual work by expensive engineers&quot;</li>
+<li>(90s) Live upload + pipeline run — let it breathe, show the 3D viewer</li>
+<li>(90s) Walk the program sheet — point to a specific operation and explain what it means</li>
+<li>(90s) Show the real machined part + QC data — &quot;this part was actually machined&quot;</li>
+<li>(30s) Punchline + ask</li>
+</ol>
+<hr>
+<h2 id="what-not-to-build-for-this-demo">What NOT to build for this demo</h2>
+<ul>
+<li>Do NOT spend time on the autonomous agent (needs API keys, not demo-stable)</li>
+<li>Do NOT try to get Fusion 360 running live (too many manual steps, high failure risk)</li>
+<li>Do NOT build new backend features — the FastAPI pipeline is solid as-is</li>
+<li>Do NOT polish ML accuracy — 66% is fine; frame it as &quot;baseline before real-part feedback&quot;</li>
+</ul>
+<hr>
+<h2 id="files-checklist-for-demo-part">Files checklist for demo part</h2>
+<p>Replace with your chosen part's files before the meeting.</p>
+<table>
+<thead>
+<tr>
+<th>Asset</th>
+<th>What you need</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>STEP file</td>
+<td><code>&lt;part&gt;.stp</code> — the CAD input</td>
+</tr>
+<tr>
+<td>Program sheet PDF</td>
+<td><code>&lt;part&gt;_program_sheet.pdf</code> — AI-generated output</td>
+</tr>
+<tr>
+<td>Inspection template (Excel)</td>
+<td><code>&lt;part&gt;_inspection_template.xlsx</code> — with real QC actuals filled in</td>
+</tr>
+<tr>
+<td>CAM project</td>
+<td>Vendor CAM program or toolpath summary</td>
+</tr>
+<tr>
+<td>Controller log</td>
+<td>Vendor-supplied log, or machinist notes on overrides + cycle time</td>
+</tr>
+<tr>
+<td>Tolerances</td>
+<td><code>tolerances.json</code> — filled from the engineering drawing</td>
+</tr>
+<tr>
+<td>Datumed features</td>
+<td><code>&lt;part&gt;_features_datumed.json</code> — for inspection section grouping</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="verification">Verification</h2>
+<p>To confirm the demo is runnable end-to-end:</p>
+<ol>
+<li>Start backend: <code>&amp; &quot;C:\Users\Siddhant Gupta\miniconda3\envs\occ\python.exe&quot; -m uvicorn main:app --reload --port 8001</code> (from <code>capp_service/</code>)</li>
+<li>Start frontend: <code>npm start</code> (from <code>capp-frontend/</code>)</li>
+<li>Upload your demo part <code>.stp</code> via the UI</li>
+<li>Confirm all 9 pipeline stages complete, 3D viewer renders, PDF appears</li>
+<li>Open inspection template in Excel — confirm PASS/FAIL formulas work with real QC data</li>
+<li>Have the controller log / machinist notes open in a second window</li>
+<li>Run through the 5-minute script once solo before the investor meeting</li>
+</ol>
+
+</body>
+</html>
