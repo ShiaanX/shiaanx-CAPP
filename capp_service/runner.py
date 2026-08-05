@@ -54,7 +54,26 @@ def run_pipeline(job_id: str, step_path: str, material: str, part_name: str, job
     watcher.start()
 
     try:
-        occ_python = r'C:\Users\Siddhant Gupta\miniconda3\envs\occ\python.exe'
+        occ_python = sys.executable
+        try:
+            import OCC
+        except ImportError:
+            env_occ = os.environ.get('OCC_PYTHON')
+            candidate_paths = [
+                env_occ,
+                '/opt/homebrew/Caskroom/miniconda/base/envs/occ/bin/python',
+                os.path.expanduser('~/miniconda3/envs/occ/bin/python'),
+                os.path.expanduser('~/anaconda3/envs/occ/bin/python'),
+                r'C:\Users\Siddhant Gupta\miniconda3\envs\occ\python.exe'
+            ]
+            found = False
+            for cand in candidate_paths:
+                if cand and os.path.exists(cand):
+                    occ_python = cand
+                    found = True
+                    break
+            if not found:
+                print("WARNING: OCC environment not found in current interpreter or candidate paths.")
         cmd = [
             occ_python,
             str(PIPELINE_SCRIPT),

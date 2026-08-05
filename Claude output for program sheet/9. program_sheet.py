@@ -74,12 +74,12 @@ def _styles():
     s = {}
 
     s['title'] = ParagraphStyle('title',
-        fontSize=20, fontName='Helvetica-Bold',
-        textColor=C_WHITE, alignment=TA_LEFT, spaceAfter=2)
+        fontSize=20, fontName='Helvetica-Bold', leading=24,
+        textColor=C_WHITE, alignment=TA_LEFT, spaceAfter=8)
 
     s['subtitle'] = ParagraphStyle('subtitle',
-        fontSize=10, fontName='Helvetica',
-        textColor=C_LIGHT, alignment=TA_LEFT, spaceAfter=0)
+        fontSize=10, fontName='Helvetica', leading=14,
+        textColor=C_LIGHT, alignment=TA_LEFT, spaceAfter=3)
 
     s['h1'] = ParagraphStyle('h1',
         fontSize=13, fontName='Helvetica-Bold',
@@ -110,6 +110,14 @@ def _styles():
         fontSize=7.5, fontName='Helvetica-Bold',
         textColor=C_BLACK, leading=10)
 
+    s['cell_header'] = ParagraphStyle('cell_header',
+        fontSize=7.5, fontName='Helvetica-Bold',
+        textColor=C_WHITE, leading=10, alignment=TA_CENTER)
+
+    s['cell_center'] = ParagraphStyle('cell_center',
+        fontSize=7.5, fontName='Helvetica',
+        textColor=C_BLACK, leading=10, alignment=TA_CENTER)
+
     s['cell_small'] = ParagraphStyle('cell_small',
         fontSize=6.5, fontName='Helvetica',
         textColor=C_GRAY, leading=9)
@@ -123,8 +131,9 @@ def _styles():
 
 def _p(text, style):
     """Safe Paragraph — escapes & < > for reportlab XML parser."""
-    text = str(text).replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
-    return Paragraph(text, style)
+    s_text = str(text).replace('&amp;', '&')
+    s_text = s_text.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+    return Paragraph(s_text, style)
 
 
 def _fmt_time(seconds) -> str:
@@ -307,28 +316,38 @@ def _build_coord_system(data: Dict, S) -> list:
     note = cs.get('notes', '')
 
     flowables = []
-    flowables.append(_p('COORDINATE SYSTEM &amp; WORK ZERO (G54)', S['h2']))
+    flowables.append(_p('COORDINATE SYSTEM & WORK ZERO (G54)', S['h2']))
 
     info_rows = [
-        ['Work zero convention', conv,
-         'Part height (Y)', f'{mbb.get("length_y", "--")} mm'],
-        ['CAD up-axis', up,
-         'X range (machine)', f'{mbb.get("xmin","--")} to {mbb.get("xmax","--")} mm'],
-        ['Work zero in CAD',
-         f'X={round(wz[0],3)}  Y={round(wz[1],3)}  Z={round(wz[2],3)}',
-         'Z range (machine)', f'{mbb.get("zmin","--")} to {mbb.get("zmax","--")} mm'],
-        ['G54 meaning',
-         'Set controller G54 offset so that X0 Y0 Z0 = top face centre of part',
-         'Safe rapid Y', f'{round(mbb.get("ymax", 5) + 5, 1)} mm above work zero'],
+        [
+            _p('Work zero convention', S['cell_bold']),
+            _p(conv, S['cell']),
+            _p('Part height (Y)', S['cell_bold']),
+            _p(f'{mbb.get("length_y", "--")} mm', S['cell'])
+        ],
+        [
+            _p('CAD up-axis', S['cell_bold']),
+            _p(up, S['cell']),
+            _p('X range (machine)', S['cell_bold']),
+            _p(f'{mbb.get("xmin","--")} to {mbb.get("xmax","--")} mm', S['cell'])
+        ],
+        [
+            _p('Work zero in CAD', S['cell_bold']),
+            _p(f'X={round(wz[0],3)}  Y={round(wz[1],3)}  Z={round(wz[2],2)}', S['cell']),
+            _p('Z range (machine)', S['cell_bold']),
+            _p(f'{mbb.get("zmin","--")} to {mbb.get("zmax","--")} mm', S['cell'])
+        ],
+        [
+            _p('G54 meaning', S['cell_bold']),
+            _p('Set controller G54 offset so that X0 Y0 Z0 = top face centre of part', S['cell']),
+            _p('Safe rapid Y', S['cell_bold']),
+            _p(f'{round(mbb.get("ymax", 5) + 5, 1)} mm above work zero', S['cell'])
+        ],
     ]
 
     col_w = (A4[0] - 20*mm) / 4
     t = Table(info_rows, colWidths=[col_w*1.1, col_w*1.4, col_w*0.9, col_w*0.6])
     t.setStyle(TableStyle([
-        ('FONTNAME',  (0,0), (-1,-1), 'Helvetica'),
-        ('FONTSIZE',  (0,0), (-1,-1), 8),
-        ('FONTNAME',  (0,0), (0,-1), 'Helvetica-Bold'),
-        ('FONTNAME',  (2,0), (2,-1), 'Helvetica-Bold'),
         ('BACKGROUND',(0,0), (-1,-1), C_LIGHT),
         ('BACKGROUND',(0,0), (0,-1), colors.HexColor('#d0dff8')),
         ('BACKGROUND',(2,0), (2,-1), colors.HexColor('#d0dff8')),
@@ -337,6 +356,7 @@ def _build_coord_system(data: Dict, S) -> list:
         ('TOPPADDING',(0,0), (-1,-1), 4),
         ('BOTTOMPADDING',(0,0),(-1,-1), 4),
         ('LEFTPADDING',(0,0),(-1,-1), 5),
+        ('VALIGN',    (0,0), (-1,-1), 'TOP'),
     ]))
     flowables.append(t)
     flowables.append(Spacer(1, 4*mm))
@@ -374,38 +394,41 @@ def _build_tool_list(data: Dict, S) -> list:
     t_numbers = {tid: i+1 for i, (tid, _) in enumerate(sorted_tools)}
 
     # Table
-    headers = ['T#', 'Tool ID', 'Description', 'Dia (mm)',
-               'Manufacturer', 'Grade', 'Used for']
+    headers = [
+        _p('T#', S['cell_header']),
+        _p('Tool ID', S['cell_header']),
+        _p('Description', S['cell_header']),
+        _p('Dia (mm)', S['cell_header']),
+        _p('Manufacturer', S['cell_header']),
+        _p('Grade', S['cell_header']),
+        _p('Used for', S['cell_header'])
+    ]
     rows = [headers]
     for tid, step in sorted_tools:
         ops_str = ', '.join(sorted(tool_ops[tid]))
         rows.append([
-            f'T{t_numbers[tid]:02d}',
-            tid,
-            step.get('tool_description', '--'),
-            str(step.get('tool_diameter_mm', '--')),
-            step.get('manufacturer', '--'),
-            step.get('grade', '--'),
-            ops_str,
+            _p(f'T{t_numbers[tid]:02d}', S['cell_center']),
+            _p(tid, S['cell_bold']),
+            _p(step.get('tool_description', '--'), S['cell']),
+            _p(str(step.get('tool_diameter_mm', '--')), S['cell_center']),
+            _p(step.get('manufacturer', '--'), S['cell']),
+            _p(step.get('grade', '--'), S['cell']),
+            _p(ops_str, S['cell']),
         ])
 
     w = A4[0] - 20*mm
-    col_w = [w*0.05, w*0.13, w*0.28, w*0.07, w*0.15, w*0.07, w*0.25]
+    col_w = [w*0.06, w*0.14, w*0.27, w*0.08, w*0.16, w*0.07, w*0.22]
     t = Table(rows, colWidths=col_w, repeatRows=1)
     t.setStyle(TableStyle([
         # Header
         ('BACKGROUND', (0,0), (-1,0), C_ACCENT),
-        ('TEXTCOLOR',  (0,0), (-1,0), C_WHITE),
-        ('FONTNAME',   (0,0), (-1,0), 'Helvetica-Bold'),
-        ('FONTSIZE',   (0,0), (-1,-1), 7.5),
-        ('FONTNAME',   (0,1), (-1,-1), 'Helvetica'),
         ('ROWBACKGROUNDS', (0,1), (-1,-1), [C_WHITE, C_LIGHT]),
         ('GRID',       (0,0), (-1,-1), 0.3, C_LGRAY),
-        ('TOPPADDING', (0,0), (-1,-1), 3),
-        ('BOTTOMPADDING',(0,0),(-1,-1), 3),
+        ('TOPPADDING', (0,0), (-1,-1), 4),
+        ('BOTTOMPADDING',(0,0),(-1,-1), 4),
         ('LEFTPADDING',(0,0),(-1,-1), 4),
-        ('ALIGN',      (3,0), (3,-1), 'CENTER'),
-        ('ALIGN',      (0,0), (0,-1), 'CENTER'),
+        ('RIGHTPADDING',(0,0),(-1,-1), 4),
+        ('VALIGN',     (0,0), (-1,-1), 'MIDDLE'),
     ]))
     flowables.append(t)
 

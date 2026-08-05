@@ -1,7 +1,9 @@
 import uuid
 import os
+import io
+import importlib.util
 from pathlib import Path
-from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 import aiofiles
@@ -19,6 +21,13 @@ app.add_middleware(
 
 JOBS_DIR = Path(__file__).parent / 'jobs'
 JOBS_DIR.mkdir(exist_ok=True)
+
+# Load 9. program_sheet.py for on-demand PDF generation
+PIPELINE_DIR = Path(__file__).parent.parent / 'Claude output for program sheet'
+program_sheet_script = PIPELINE_DIR / '9. program_sheet.py'
+spec = importlib.util.spec_from_file_location('program_sheet', str(program_sheet_script))
+ps_module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(ps_module)
 
 # In-memory job store: { job_id: { status, stage, stage_name, outputs, error } }
 jobs: dict = {}
@@ -113,3 +122,43 @@ def get_step_file(job_id: str):
     if not step_files:
         raise HTTPException(status_code=404, detail='STEP file not found')
     return FileResponse(step_files[0], media_type='application/octet-stream')
+
+
+from fastapi.concurrency import run_in_threadpool
+
+@app.post('/pdf/generate')
+async def generate_pdf_on_demand(request: Request):
+    """
+    On-demand PDF program sheet generation directly from JSON data payload.
+    Never saves PDF files to disk.
+    """
+    try:
+        data = await request.json()
+        if not data:
+            raise HTTPException(status_code=400, detail='Invalid or empty JSON body')
+        
+        # If payload is full state, extract pipeline_output or params if present
+        params_data = data.get('pipeline_output') or data.get('params') or data
+        part_name = data.get('partName') or data.get('part_name') or 'Part'
+        
+        def _build_pdf():
+            buf = io.BytesIO()
+            ps_module.generate_program_sheet(
+                params_data=params_data,
+                output_path=buf,
+                part_name=part_name,
+                programmer='CNC-AI'
+            )
+            return buf.getvalue()
+
+        pdf_bytes = await run_in_threadpool(_build_pdf)
+        
+        return Response(
+            content=pdf_bytes,
+            media_type='application/pdf',
+            headers={
+                'Content-Disposition': f'attachment; filename="{part_name}_program_sheet.pdf"'
+            }
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f'Failed to generate PDF: {str(e)}')
