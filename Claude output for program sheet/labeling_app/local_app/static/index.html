@@ -1,0 +1,993 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script>
+    if (window.location.protocol === 'file:') {
+      const destination = new URL('http://127.0.0.1:8780/');
+      destination.search = window.location.search;
+      window.location.replace(destination.toString());
+    }
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MFCAD++ STEP Feature Recognition</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #18211d;
+      --muted: #617069;
+      --line: #d7ded9;
+      --paper: #f4f6f3;
+      --panel: #ffffff;
+      --accent: #156b4f;
+      --accent-strong: #0c4f39;
+      --warn: #9a5d07;
+      --error: #a42d2d;
+      --viewer: #111614;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+    button, input, select, textarea { font: inherit; letter-spacing: 0; }
+    button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+      outline: 3px solid rgba(21, 107, 79, .25);
+      outline-offset: 2px;
+    }
+    .shell {
+      height: 100vh;
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto auto minmax(0, 1fr);
+    }
+    .topbar {
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+    }
+    .brand { font-size: 16px; font-weight: 750; }
+    .top-actions { display: flex; align-items: center; gap: 18px; }
+    .nav-link { color: var(--accent-strong); font-size: 11px; font-weight: 750; text-decoration: none; }
+    .model-state { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+    .state-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(290px, 360px) minmax(0, 1fr);
+      height: calc(100vh - 58px);
+      min-height: 0;
+      overflow: hidden;
+    }
+    .rail {
+      border-right: 1px solid var(--line);
+      background: var(--panel);
+      padding: 20px;
+      overflow: auto;
+    }
+    h1 { margin: 0 0 6px; font-size: 21px; line-height: 1.25; }
+    .subhead { margin: 0 0 18px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .dropzone {
+      min-height: 158px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border: 1px dashed #93a39a;
+      background: #f9fbf9;
+      padding: 22px;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+    }
+    .dropzone.dragging { border-color: var(--accent); background: #edf6f1; }
+    .dropzone strong { display: block; font-size: 14px; margin-bottom: 5px; }
+    .dropzone span { color: var(--muted); font-size: 12px; }
+    #fileInput { position: absolute; opacity: 0; pointer-events: none; }
+    .selected-file {
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 0;
+      color: var(--muted);
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+    .primary {
+      width: 100%;
+      height: 42px;
+      border: 0;
+      border-radius: 4px;
+      background: var(--accent);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .primary:hover { background: var(--accent-strong); }
+    .primary:disabled { cursor: not-allowed; opacity: .5; }
+    .benchmark {
+      margin-top: 20px;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+    }
+    .benchmark-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .benchmark-value { font-size: 25px; color: var(--ink); font-weight: 760; }
+    .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+    .metric { border: 1px solid var(--line); padding: 10px; }
+    .metric span { display: block; color: var(--muted); font-size: 10px; text-transform: uppercase; }
+    .metric strong { display: block; margin-top: 4px; font-size: 14px; }
+    .caveat { margin: 10px 0 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
+    .main {
+      min-width: 0;
+      min-height: 0;
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      overflow: hidden;
+    }
+    .statusbar {
+      min-height: 58px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 20px;
+      padding: 10px 20px;
+      border-bottom: 1px solid var(--line);
+      background: #fafbfa;
+    }
+    .status-title { font-size: 13px; font-weight: 700; }
+    .status-detail { margin-top: 4px; font-size: 11px; color: var(--muted); }
+    .progress-track { width: min(280px, 30vw); height: 6px; background: #dde3df; overflow: hidden; }
+    .progress-bar { width: 0; height: 100%; background: var(--accent); transition: width .25s ease; }
+    .empty {
+      min-height: 0;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      color: var(--muted);
+      text-align: center;
+    }
+    .empty-inner { max-width: 390px; }
+    .empty-mark {
+      width: 74px;
+      height: 74px;
+      margin: 0 auto 16px;
+      border: 1px solid #aab6af;
+      background:
+        linear-gradient(90deg, transparent 49%, #cbd3ce 50%, transparent 51%),
+        linear-gradient(transparent 49%, #cbd3ce 50%, transparent 51%);
+      background-size: 24px 24px;
+    }
+    .empty strong { display: block; color: var(--ink); font-size: 15px; margin-bottom: 6px; }
+    .empty span { font-size: 12px; line-height: 1.5; }
+    .results {
+      display: none;
+      min-height: 0;
+      height: 100%;
+      grid-template-columns: minmax(0, 1fr) 390px;
+      overflow: hidden;
+    }
+    .viewer-wrap { min-height: 0; background: var(--viewer); position: relative; }
+    #viewer { width: 100%; height: 100%; min-height: 0; border: 0; display: block; }
+    .inspector {
+      min-width: 0;
+      border-left: 1px solid var(--line);
+      background: var(--panel);
+      display: grid;
+      grid-template-rows: auto auto minmax(0, 1fr) auto;
+      overflow: hidden;
+    }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid var(--line);
+    }
+    .summary-cell { padding: 13px 12px; border-right: 1px solid var(--line); }
+    .summary-cell:last-child { border-right: 0; }
+    .summary-cell span { display: block; color: var(--muted); font-size: 9px; text-transform: uppercase; }
+    .summary-cell strong { display: block; margin-top: 4px; font-size: 16px; }
+    .inspector-tabs {
+      display: grid;
+      grid-template-columns: 1fr;
+      border-bottom: 1px solid var(--line);
+    }
+    .inspector-tab {
+      height: 42px;
+      border: 0;
+      border-right: 1px solid var(--line);
+      background: #f7f9f7;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 750;
+      cursor: pointer;
+    }
+    .inspector-tab:last-child { border-right: 0; }
+    .inspector-tab.active { background: white; color: var(--ink); box-shadow: inset 0 -3px var(--accent); }
+    .tab-panels { min-height: 0; overflow: hidden; }
+    .tab-panel { display: none; height: 100%; min-height: 0; }
+    .tab-panel.active { display: grid; }
+    .predictions-panel { grid-template-rows: auto minmax(0, 1fr); }
+    .filters { padding: 12px; border-bottom: 1px solid var(--line); }
+    #search {
+      width: 100%;
+      height: 36px;
+      border: 1px solid #b8c2bc;
+      border-radius: 3px;
+      padding: 0 10px;
+      color: var(--ink);
+      background: white;
+    }
+    .mapping-state {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+    .mapping-state.ok { color: var(--accent-strong); }
+    .mapping-state.error { color: var(--error); }
+    .feature-list { min-height: 0; overflow: auto; }
+    .section-head {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      padding: 7px 12px;
+      background: #eef1ef;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 750;
+      text-transform: uppercase;
+    }
+    .feature-row {
+      width: 100%;
+      min-height: 62px;
+      display: grid;
+      grid-template-columns: 8px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border: 0;
+      border-bottom: 1px solid #e6ebe8;
+      background: white;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+    .feature-row:hover, .feature-row.active { background: #edf6f1; }
+    .swatch { width: 8px; height: 34px; background: var(--accent); }
+    .feature-name { font-size: 12px; font-weight: 700; text-transform: capitalize; overflow-wrap: anywhere; }
+    .feature-meta { margin-top: 4px; color: var(--muted); font-size: 10px; }
+    .face-count { color: var(--muted); font-size: 10px; }
+    .annotation-panel { grid-template-rows: auto auto minmax(0, 1fr) auto; }
+    .annotation-editor { padding: 12px; border-bottom: 1px solid var(--line); }
+    .selection-tools { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+    .mode-button, .secondary, .save-button {
+      min-height: 36px;
+      border: 1px solid #aebbb4;
+      border-radius: 3px;
+      background: white;
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .mode-button.active { border-color: var(--accent); background: #e8f3ed; color: var(--accent-strong); }
+    .secondary { padding: 0 12px; color: var(--muted); }
+    .selection-summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin: 10px 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .selection-summary strong { color: var(--ink); font-size: 16px; }
+    .field-label { display: block; margin: 9px 0 5px; color: var(--muted); font-size: 10px; font-weight: 700; text-transform: uppercase; }
+    #labelSelect, #annotationNotes {
+      width: 100%;
+      border: 1px solid #b8c2bc;
+      border-radius: 3px;
+      background: white;
+      color: var(--ink);
+    }
+    #labelSelect { height: 38px; padding: 0 9px; }
+    #annotationNotes { min-height: 58px; padding: 8px 9px; resize: vertical; }
+    .apply-label { margin-top: 9px; }
+    .annotation-message { min-height: 16px; margin-top: 7px; font-size: 10px; color: var(--muted); }
+    .annotation-message.error { color: var(--error); }
+    .coverage { padding: 10px 12px; border-bottom: 1px solid var(--line); }
+    .coverage-line { display: flex; justify-content: space-between; color: var(--muted); font-size: 10px; }
+    .coverage-line strong { color: var(--ink); }
+    .coverage-track { height: 5px; margin-top: 7px; background: #e2e7e4; overflow: hidden; }
+    .coverage-bar { width: 0; height: 100%; background: var(--accent); }
+    .annotation-list { min-height: 0; overflow: auto; }
+    .annotation-empty { padding: 28px 18px; color: var(--muted); text-align: center; font-size: 11px; line-height: 1.5; }
+    .annotation-row {
+      min-height: 58px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 36px;
+      border-bottom: 1px solid #e6ebe8;
+      background: white;
+    }
+    .annotation-row.active { background: #edf6f1; }
+    .annotation-main { border: 0; background: transparent; text-align: left; padding: 9px 12px; cursor: pointer; }
+    .annotation-label { display: block; font-size: 12px; font-weight: 750; }
+    .annotation-meta { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; }
+    .delete-label { border: 0; background: transparent; color: var(--muted); font-size: 20px; cursor: pointer; }
+    .delete-label:hover { color: var(--error); }
+    .annotation-actions { display: grid; grid-template-columns: 1fr auto auto; gap: 6px; padding: 10px 12px; border-top: 1px solid var(--line); }
+    .save-button { border-color: var(--accent); background: var(--accent); color: white; }
+    .export-link {
+      min-width: 48px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border: 1px solid #aebbb4;
+      border-radius: 3px;
+      color: var(--accent-strong);
+      font-size: 10px;
+      font-weight: 750;
+      text-decoration: none;
+    }
+    .export-link[aria-disabled="true"] { pointer-events: none; opacity: .4; }
+    .downloads { border-top: 1px solid var(--line); padding: 10px 12px; }
+    .downloads summary { cursor: pointer; font-size: 11px; font-weight: 700; }
+    .download-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 9px; }
+    .download-grid a {
+      color: var(--accent-strong);
+      font-size: 10px;
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+    .error { color: var(--error); }
+    @media (max-width: 980px) {
+      .workspace { grid-template-columns: 300px minmax(0, 1fr); }
+      .results { grid-template-columns: minmax(0, 1fr); overflow: auto; }
+      .viewer-wrap, #viewer { height: 58vh; min-height: 420px; }
+      .inspector { min-height: 500px; border-left: 0; border-top: 1px solid var(--line); }
+    }
+    @media (max-width: 720px) {
+      .topbar { padding: 0 14px; }
+      .model-state span:last-child { display: none; }
+      .shell { display: block; height: auto; min-height: 100vh; overflow: visible; }
+      .workspace { display: block; height: auto; overflow: visible; }
+      .rail { border-right: 0; border-bottom: 1px solid var(--line); }
+      .main { overflow: visible; }
+      .statusbar { grid-template-columns: 1fr; }
+      .progress-track { width: 100%; }
+      .results { display: none; height: auto; overflow: visible; }
+      .results.ready { display: grid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">STEP Feature Recognition</div>
+      <div class="top-actions">
+        <a class="nav-link" href="/label">Manual labeling</a>
+        <div class="model-state"><span class="state-dot"></span><span id="modelState">Checking model</span></div>
+      </div>
+    </header>
+    <div class="workspace">
+      <aside class="rail">
+        <h1>Classify a STEP part</h1>
+        <p class="subhead">MFCAD++ 25-class face recognition with grouped feature review.</p>
+        <label class="dropzone" id="dropzone" for="fileInput">
+          <div>
+            <strong>Select STEP file</strong>
+            <span>.step or .stp, up to 500 MB</span>
+          </div>
+        </label>
+        <input id="fileInput" type="file" accept=".step,.stp">
+        <div class="selected-file" id="selectedFile">No file selected</div>
+        <button class="primary" id="runButton" disabled>Run recognition</button>
+
+        <section class="benchmark">
+          <div class="benchmark-title">
+            <span>MFCAD++ validation accuracy</span>
+            <strong class="benchmark-value">93.82%</strong>
+          </div>
+          <div class="metric-grid">
+            <div class="metric"><span>Macro F1</span><strong>91.87%</strong></div>
+            <div class="metric"><span>Weighted F1</span><strong>93.80%</strong></div>
+          </div>
+          <p class="caveat">Held-out MFCAD++ validation benchmark. Uploaded STEP correctness requires review and is not inferred from model confidence.</p>
+        </section>
+      </aside>
+
+      <main class="main">
+        <div class="statusbar">
+          <div>
+            <div class="status-title" id="statusTitle">Ready</div>
+            <div class="status-detail" id="statusDetail">Upload a STEP file to start a new recognition job.</div>
+          </div>
+          <div class="progress-track" aria-label="Processing progress">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+        </div>
+
+        <section class="empty" id="emptyState">
+          <div class="empty-inner">
+            <div class="empty-mark"></div>
+            <strong>No part loaded</strong>
+            <span>The processed model and feature groups will appear here.</span>
+          </div>
+        </section>
+
+        <section class="results" id="results">
+          <div class="viewer-wrap"><iframe id="viewer" title="STEP 3D viewer"></iframe></div>
+          <aside class="inspector">
+            <div class="summary">
+              <div class="summary-cell"><span>Features</span><strong id="featureTotal">0</strong></div>
+              <div class="summary-cell"><span>Faces</span><strong id="faceTotal">0</strong></div>
+              <div class="summary-cell"><span>Missing</span><strong id="missingTotal">0</strong></div>
+            </div>
+            <div class="inspector-tabs" role="tablist" aria-label="Inspector view">
+              <button class="inspector-tab active" id="predictionsTab" role="tab" aria-selected="true">Predictions</button>
+              <button class="inspector-tab" id="annotationsTab" role="tab" aria-selected="false" hidden>Manual labels <span id="annotationBadge">0</span></button>
+            </div>
+            <div class="tab-panels">
+              <section class="tab-panel predictions-panel active" id="predictionsPanel" role="tabpanel">
+                <div class="filters">
+                  <input id="search" type="search" placeholder="Search model labels">
+                  <div class="mapping-state" id="mappingState">Waiting for viewer face map</div>
+                </div>
+                <div class="feature-list" id="featureList"></div>
+              </section>
+              <section class="tab-panel annotation-panel" id="annotationsPanel" role="tabpanel">
+                <div class="annotation-editor">
+                  <div class="selection-tools">
+                    <button class="mode-button active" id="faceSelectButton" type="button">Select faces</button>
+                    <button class="secondary" id="clearSelectionButton" type="button">Clear</button>
+                  </div>
+                  <div class="selection-summary"><span>Surfaces in feature</span><strong><span id="selectionCount">0</span> selected</strong></div>
+                  <label class="field-label" for="labelSelect">Correct label</label>
+                  <select id="labelSelect"></select>
+                  <label class="field-label" for="annotationNotes">Notes</label>
+                  <textarea id="annotationNotes" maxlength="2000" placeholder="Optional reviewer note"></textarea>
+                  <button class="primary apply-label" id="applyLabelButton" type="button" disabled>Create feature instance</button>
+                  <div class="annotation-message" id="annotationMessage" aria-live="polite"></div>
+                </div>
+                <div class="coverage">
+                  <div class="coverage-line"><span>Surface coverage</span><strong id="coverageText">0 / 0 faces</strong></div>
+                  <div class="coverage-track"><div class="coverage-bar" id="coverageBar"></div></div>
+                </div>
+                <div class="annotation-list" id="annotationList"></div>
+                <div class="annotation-actions">
+                  <button class="save-button" id="saveLabelsButton" type="button" disabled>Save labels</button>
+                  <a class="export-link" id="jsonExport" aria-disabled="true" title="Download JSON">JSON</a>
+                  <a class="export-link" id="csvExport" aria-disabled="true" title="Download CSV">CSV</a>
+                </div>
+              </section>
+            </div>
+            <details class="downloads">
+              <summary>Reports and intermediate files</summary>
+              <div class="download-grid" id="downloadGrid"></div>
+            </details>
+          </aside>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const dropzone = document.getElementById('dropzone');
+    const selectedFile = document.getElementById('selectedFile');
+    const runButton = document.getElementById('runButton');
+    const statusTitle = document.getElementById('statusTitle');
+    const statusDetail = document.getElementById('statusDetail');
+    const progressBar = document.getElementById('progressBar');
+    const emptyState = document.getElementById('emptyState');
+    const results = document.getElementById('results');
+    const viewer = document.getElementById('viewer');
+    const featureList = document.getElementById('featureList');
+    const search = document.getElementById('search');
+    const predictionsTab = document.getElementById('predictionsTab');
+    const annotationsTab = document.getElementById('annotationsTab');
+    const predictionsPanel = document.getElementById('predictionsPanel');
+    const annotationsPanel = document.getElementById('annotationsPanel');
+    const faceSelectButton = document.getElementById('faceSelectButton');
+    const clearSelectionButton = document.getElementById('clearSelectionButton');
+    const selectionCount = document.getElementById('selectionCount');
+    const labelSelect = document.getElementById('labelSelect');
+    const annotationNotes = document.getElementById('annotationNotes');
+    const applyLabelButton = document.getElementById('applyLabelButton');
+    const annotationMessage = document.getElementById('annotationMessage');
+    const annotationList = document.getElementById('annotationList');
+    const annotationBadge = document.getElementById('annotationBadge');
+    const coverageText = document.getElementById('coverageText');
+    const coverageBar = document.getElementById('coverageBar');
+    const saveLabelsButton = document.getElementById('saveLabelsButton');
+    const jsonExport = document.getElementById('jsonExport');
+    const csvExport = document.getElementById('csvExport');
+    const TAXONOMY = [
+      'Chamfer', 'Through hole', 'Triangular passage', 'Rectangular passage', '6-sided passage',
+      'Triangular through slot', 'Rectangular through slot', 'Circular through slot',
+      'Rectangular through step', '2-sided through step', 'Slanted through step', 'O-ring',
+      'Blind hole', 'Triangular pocket', 'Rectangular pocket', '6-sided pocket',
+      'Circular end pocket', 'Rectangular blind slot', 'Vertical circular end blind slot',
+      'Horizontal circular end blind slot', 'Triangular blind step', 'Circular blind step',
+      'Rectangular blind step', 'Round', 'Stock'
+    ];
+    let selected = null;
+    let currentFeatures = [];
+    let activeFeature = null;
+    let expectedViewerFaces = null;
+    let pollTimer = null;
+    let currentJobId = null;
+    let activeTab = 'predictions';
+    let selectedFaces = new Set();
+    let annotations = [];
+    let activeAnnotationId = null;
+    let annotationsDirty = false;
+
+    labelSelect.innerHTML = TAXONOMY
+      .map((label, id) => `<option value="${id}">${id} · ${escapeHtml(label)}</option>`)
+      .join('');
+
+    function setSelected(file) {
+      selected = file || null;
+      selectedFile.textContent = file ? `${file.name} · ${(file.size / 1024 / 1024).toFixed(2)} MB` : 'No file selected';
+      runButton.disabled = !file;
+    }
+
+    fileInput.addEventListener('change', () => setSelected(fileInput.files[0]));
+    ['dragenter', 'dragover'].forEach(name => dropzone.addEventListener(name, event => {
+      event.preventDefault();
+      dropzone.classList.add('dragging');
+    }));
+    ['dragleave', 'drop'].forEach(name => dropzone.addEventListener(name, event => {
+      event.preventDefault();
+      dropzone.classList.remove('dragging');
+    }));
+    dropzone.addEventListener('drop', event => {
+      const file = event.dataTransfer.files[0];
+      if (file) setSelected(file);
+    });
+
+    async function health() {
+      try {
+        const response = await fetch('/api/health');
+        const data = await response.json();
+        document.getElementById('modelState').textContent = data.ok
+          ? `${data.model.checkpoint} ready`
+          : 'Pipeline dependency missing';
+        document.querySelector('.state-dot').style.background = data.ok ? 'var(--accent)' : 'var(--error)';
+      } catch {
+        document.getElementById('modelState').textContent = 'Local service unavailable';
+        document.querySelector('.state-dot').style.background = 'var(--error)';
+      }
+    }
+
+    runButton.addEventListener('click', async () => {
+      if (!selected) return;
+      clearTimeout(pollTimer);
+      runButton.disabled = true;
+      results.classList.remove('ready');
+      results.style.display = 'none';
+      emptyState.style.display = 'grid';
+      statusTitle.textContent = 'Uploading';
+      statusDetail.textContent = selected.name;
+      progressBar.style.width = '2%';
+      const form = new FormData();
+      form.append('file', selected);
+      try {
+        const response = await fetch('/api/jobs', { method: 'POST', body: form });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.detail || 'Upload failed');
+        history.replaceState(null, '', `?job=${encodeURIComponent(data.job_id)}`);
+        poll(data.job_id);
+      } catch (error) {
+        showError(error.message);
+      }
+    });
+
+    async function poll(jobId) {
+      try {
+        const response = await fetch(`/api/jobs/${jobId}`);
+        const job = await response.json();
+        if (!response.ok) throw new Error(job.detail || 'Could not read job');
+        statusTitle.textContent = job.phase;
+        statusDetail.textContent = `${job.original_name} · classified by ${job.benchmark.checkpoint}`;
+        progressBar.style.width = `${job.progress || 0}%`;
+        if (job.status === 'completed') {
+          await showResult(job);
+          runButton.disabled = false;
+          return;
+        }
+        if (job.status === 'failed') throw new Error(job.error || 'Processing failed');
+        pollTimer = setTimeout(() => poll(jobId), 1200);
+      } catch (error) {
+        showError(error.message);
+      }
+    }
+
+    function setActiveTab(tab) {
+      activeTab = tab;
+      const manual = tab === 'annotations';
+      predictionsTab.classList.toggle('active', !manual);
+      annotationsTab.classList.toggle('active', manual);
+      predictionsPanel.classList.toggle('active', !manual);
+      annotationsPanel.classList.toggle('active', manual);
+      predictionsTab.setAttribute('aria-selected', String(!manual));
+      annotationsTab.setAttribute('aria-selected', String(manual));
+      viewer.contentWindow?.postMessage({
+        type: 'setInteractionMode',
+        mode: manual && faceSelectButton.classList.contains('active') ? 'select' : 'orbit'
+      }, '*');
+      if (manual) refreshViewerSelection({ fit: false });
+    }
+
+    function setFaceSelectionEnabled(enabled) {
+      faceSelectButton.classList.toggle('active', enabled);
+      faceSelectButton.textContent = enabled ? 'Select faces' : 'Rotate only';
+      viewer.contentWindow?.postMessage({
+        type: 'setInteractionMode',
+        mode: activeTab === 'annotations' && enabled ? 'select' : 'orbit'
+      }, '*');
+    }
+
+    function setAnnotationMessage(message, isError = false) {
+      annotationMessage.textContent = message;
+      annotationMessage.classList.toggle('error', isError);
+    }
+
+    const LABELED_COLOR = '#2fae60';
+    const SELECTED_COLOR = '#f97316';
+
+    function showLabeledColors(badgeLabel) {
+      const colors = {};
+      annotations.forEach(annotation => {
+        annotation.face_indices.forEach(index => { colors[index] = LABELED_COLOR; });
+      });
+      selectedFaces.forEach(index => { colors[index] = SELECTED_COLOR; });
+      viewer.contentWindow?.postMessage({ type: 'setFeatureColors', colors, label: badgeLabel || null }, '*');
+    }
+
+    function refreshViewerSelection({ fit = false, label = 'Manual selection' } = {}) {
+      const indices = [...selectedFaces].sort((a, b) => a - b);
+      showLabeledColors(indices.length ? `${label} · ${indices.length} surface${indices.length === 1 ? '' : 's'}` : null);
+      if (fit && indices.length) {
+        viewer.contentWindow?.postMessage({ type: 'focusFaces', faceIndices: indices }, '*');
+      }
+      selectionCount.textContent = indices.length;
+      applyLabelButton.disabled = indices.length === 0;
+    }
+
+    function clearManualSelection() {
+      selectedFaces = new Set();
+      activeAnnotationId = null;
+      activeFeature = null;
+      annotationNotes.value = '';
+      applyLabelButton.textContent = 'Create feature instance';
+      setAnnotationMessage('');
+      refreshViewerSelection();
+      renderAnnotations();
+      renderFeatures();
+    }
+
+    function setExportLinks(payload) {
+      const ready = Boolean(payload?.saved && payload?.downloads);
+      for (const [element, key] of [[jsonExport, 'json'], [csvExport, 'csv']]) {
+        element.setAttribute('aria-disabled', String(!ready));
+        if (ready) element.href = payload.downloads[key];
+        else element.removeAttribute('href');
+      }
+    }
+
+    function renderAnnotations() {
+      const labeledFaces = new Set(annotations.flatMap(item => item.face_indices));
+      const total = Number(expectedViewerFaces || 0);
+      const percent = total ? Math.min(100, labeledFaces.size / total * 100) : 0;
+      annotationBadge.textContent = annotations.length;
+      coverageText.textContent = `${labeledFaces.size} / ${total} faces`;
+      coverageBar.style.width = `${percent}%`;
+      saveLabelsButton.disabled = !annotationsDirty || !currentJobId;
+      selectionCount.textContent = selectedFaces.size;
+      applyLabelButton.disabled = selectedFaces.size === 0;
+      showLabeledColors();
+
+      if (!annotations.length) {
+        annotationList.innerHTML = '<div class="annotation-empty">No feature instances saved for this part.</div>';
+        return;
+      }
+      annotationList.innerHTML = '';
+      annotations.forEach(annotation => {
+        const row = document.createElement('div');
+        row.className = `annotation-row${annotation.annotation_id === activeAnnotationId ? ' active' : ''}`;
+        const main = document.createElement('button');
+        main.type = 'button';
+        main.className = 'annotation-main';
+        main.innerHTML = `
+          <span class="annotation-label">${escapeHtml(annotation.label)}</span>
+          <span class="annotation-meta">Class ${annotation.label_id} · ${annotation.face_indices.length} surfaces</span>`;
+        main.addEventListener('click', () => selectAnnotation(annotation.annotation_id));
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.className = 'delete-label';
+        remove.textContent = '×';
+        remove.title = `Delete ${annotation.label}`;
+        remove.setAttribute('aria-label', `Delete ${annotation.label}`);
+        remove.addEventListener('click', () => deleteAnnotation(annotation.annotation_id));
+        row.append(main, remove);
+        annotationList.appendChild(row);
+      });
+    }
+
+    function selectAnnotation(annotationId) {
+      const annotation = annotations.find(item => item.annotation_id === annotationId);
+      if (!annotation) return;
+      activeAnnotationId = annotationId;
+      activeFeature = null;
+      selectedFaces = new Set(annotation.face_indices);
+      labelSelect.value = String(annotation.label_id);
+      annotationNotes.value = annotation.notes || '';
+      applyLabelButton.textContent = 'Update feature instance';
+      setAnnotationMessage('Editing feature instance');
+      refreshViewerSelection({ fit: true, label: annotation.label });
+      renderAnnotations();
+      renderFeatures();
+    }
+
+    function deleteAnnotation(annotationId) {
+      const annotation = annotations.find(item => item.annotation_id === annotationId);
+      if (!annotation || !confirm(`Delete manual label “${annotation.label}”?`)) return;
+      annotations = annotations.filter(item => item.annotation_id !== annotationId);
+      if (activeAnnotationId === annotationId) clearManualSelection();
+      annotationsDirty = true;
+      setAnnotationMessage('Label removed. Save to persist.');
+      renderAnnotations();
+    }
+
+    function applyManualLabel() {
+      if (!selectedFaces.size) {
+        setAnnotationMessage('Select at least one face.', true);
+        return;
+      }
+      const labelId = Number(labelSelect.value);
+      const baseId = activeAnnotationId;
+      const selectedIndices = [...selectedFaces].sort((a, b) => a - b);
+
+      annotations = annotations
+        .filter(item => !(baseId && item.annotation_id === baseId))
+        .map(item => ({
+          ...item,
+          face_indices: item.face_indices.filter(faceIndex => !selectedFaces.has(faceIndex))
+        }))
+        .filter(item => item.face_indices.length);
+      annotations.push({
+        annotation_id: baseId || `feature_${Date.now().toString(36)}`,
+        label_id: labelId,
+        label: TAXONOMY[labelId],
+        face_indices: selectedIndices,
+        notes: annotationNotes.value.trim()
+      });
+      annotationsDirty = true;
+      const appliedLabel = TAXONOMY[labelId];
+      const appliedCount = selectedIndices.length;
+      selectedFaces = new Set();
+      activeAnnotationId = null;
+      annotationNotes.value = '';
+      applyLabelButton.textContent = 'Create feature instance';
+      setAnnotationMessage(`${appliedLabel} feature created from ${appliedCount} surface${appliedCount === 1 ? '' : 's'}. Save to persist.`);
+      refreshViewerSelection({ fit: false });
+      renderAnnotations();
+    }
+
+    async function saveAnnotations() {
+      if (!currentJobId) return;
+      saveLabelsButton.disabled = true;
+      setAnnotationMessage('Saving labels…');
+      try {
+        const response = await fetch(`/api/jobs/${currentJobId}/annotations`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ annotations })
+        });
+        const payload = await response.json();
+        if (!response.ok) throw new Error(payload.detail || 'Could not save labels');
+        annotations = payload.annotations || [];
+        annotationsDirty = false;
+        setExportLinks(payload);
+        setAnnotationMessage(`Saved ${payload.labeled_face_count} labeled faces.`);
+        renderAnnotations();
+      } catch (error) {
+        setAnnotationMessage(error.message, true);
+        saveLabelsButton.disabled = false;
+      }
+    }
+
+    async function loadAnnotations() {
+      annotations = [];
+      annotationsDirty = false;
+      setExportLinks(null);
+      if (!currentJobId) return;
+      try {
+        const response = await fetch(`/api/jobs/${currentJobId}/annotations`);
+        const payload = await response.json();
+        if (!response.ok) throw new Error(payload.detail || 'Could not load manual labels');
+        annotations = payload.annotations || [];
+        setExportLinks(payload);
+      } catch (error) {
+        setAnnotationMessage(error.message, true);
+      }
+      renderAnnotations();
+    }
+
+    async function showResult(job) {
+      const result = job.result;
+      const response = await fetch(result.faces_url);
+      const payload = await response.json();
+      currentFeatures = payload.features || [];
+      currentJobId = job.job_id;
+      expectedViewerFaces = payload.metadata?.total_faces_in_step_extraction ?? result.face_count;
+      activeFeature = null;
+      activeAnnotationId = null;
+      selectedFaces = new Set();
+      viewer.src = result.viewer_url;
+      document.getElementById('featureTotal').textContent = result.feature_count;
+      document.getElementById('faceTotal').textContent = result.face_count;
+      document.getElementById('missingTotal').textContent = result.missing_face_count;
+      document.getElementById('downloadGrid').innerHTML = result.outputs
+        .map(item => `<a href="${item.url}" target="_blank" rel="noopener">${escapeHtml(item.label)}</a>`)
+        .join('');
+      renderFeatures();
+      await loadAnnotations();
+      emptyState.style.display = 'none';
+      results.style.display = 'grid';
+      results.classList.add('ready');
+      statusTitle.textContent = 'Recognition complete';
+      statusDetail.textContent = `${result.feature_count} grouped features · ${result.classification_source} · ${result.label_taxonomy}`;
+      progressBar.style.width = '100%';
+    }
+
+    function renderFeatures() {
+      const query = search.value.trim().toLowerCase();
+      const filtered = currentFeatures.filter(feature =>
+        !query ||
+        feature.raw_feature_type.toLowerCase().includes(query) ||
+        feature.feature_id.toLowerCase().includes(query)
+      );
+      const groups = {};
+      filtered.forEach(feature => (groups[feature.inspection_section] ||= []).push(feature));
+      featureList.innerHTML = '';
+      Object.keys(groups).sort().forEach(section => {
+        const heading = document.createElement('div');
+        heading.className = 'section-head';
+        heading.textContent = `${section} (${groups[section].length})`;
+        featureList.appendChild(heading);
+        groups[section].forEach(feature => {
+          const row = document.createElement('button');
+          row.className = `feature-row${feature.feature_id === activeFeature ? ' active' : ''}`;
+          row.type = 'button';
+          const confidence = feature.model_vote_fraction == null
+            ? 'n/a'
+            : `${(feature.model_vote_fraction * 100).toFixed(1)}% vote`;
+          row.innerHTML = `
+            <span class="swatch"></span>
+            <span>
+              <span class="feature-name">${escapeHtml(feature.raw_feature_type.replaceAll('_', ' '))}</span>
+              <span class="feature-meta">Cluster ${feature.cluster_id} · ${confidence}</span>
+            </span>
+            <span class="face-count">${feature.face_count} faces</span>`;
+          row.addEventListener('click', () => highlight(feature));
+          featureList.appendChild(row);
+        });
+      });
+    }
+
+    function highlight(feature) {
+      activeFeature = activeFeature === feature.feature_id ? null : feature.feature_id;
+      const selectedFeature = activeFeature
+        ? currentFeatures.find(item => item.feature_id === activeFeature)
+        : null;
+      activeAnnotationId = null;
+      selectedFaces = new Set(selectedFeature?.face_indices || []);
+      annotationNotes.value = '';
+      if (selectedFeature) {
+        const normalizedLabel = selectedFeature.raw_feature_type.replaceAll('_', ' ').toLowerCase();
+        const labelId = TAXONOMY.findIndex(label => label.toLowerCase() === normalizedLabel);
+        if (labelId >= 0) labelSelect.value = String(labelId);
+      }
+      refreshViewerSelection({
+        fit: true,
+        label: selectedFeature ? selectedFeature.raw_feature_type.replaceAll('_', ' ') : 'Manual selection'
+      });
+      renderFeatures();
+      renderAnnotations();
+    }
+
+    window.addEventListener('message', event => {
+      if (event.source !== viewer.contentWindow || !event.data) return;
+      if (event.data.type === 'viewerReady') {
+        const actual = Number(event.data.faceCount);
+        const mappingState = document.getElementById('mappingState');
+        if (actual === Number(expectedViewerFaces)) {
+          mappingState.textContent = `Face map aligned by count · ${actual} / ${expectedViewerFaces}`;
+          mappingState.className = 'mapping-state ok';
+        } else {
+          mappingState.textContent = `Face map mismatch · viewer ${actual}, extractor ${expectedViewerFaces}`;
+          mappingState.className = 'mapping-state error';
+        }
+        viewer.contentWindow.postMessage({
+          type: 'setInteractionMode',
+          mode: activeTab === 'annotations' && faceSelectButton.classList.contains('active') ? 'select' : 'orbit'
+        }, '*');
+        refreshViewerSelection({ fit: false });
+      } else if (
+        event.data.type === 'faceClicked' &&
+        activeTab === 'annotations' &&
+        faceSelectButton.classList.contains('active')
+      ) {
+        const faceIndex = Number(event.data.faceIndex);
+        if (!Number.isInteger(faceIndex) || faceIndex < 0 || faceIndex >= Number(expectedViewerFaces)) return;
+        activeFeature = null;
+        if (selectedFaces.has(faceIndex)) selectedFaces.delete(faceIndex);
+        else selectedFaces.add(faceIndex);
+        setAnnotationMessage(selectedFaces.size ? `${selectedFaces.size} faces selected` : 'Selection cleared');
+        refreshViewerSelection({ fit: false });
+        renderAnnotations();
+        renderFeatures();
+      } else if (
+        event.data.type === 'facesBoxSelected' &&
+        activeTab === 'annotations' &&
+        faceSelectButton.classList.contains('active')
+      ) {
+        const indices = (event.data.faceIndices || [])
+          .map(Number)
+          .filter(index => Number.isInteger(index) && index >= 0 && index < Number(expectedViewerFaces));
+        activeFeature = null;
+        indices.forEach(index => selectedFaces.add(index));
+        setAnnotationMessage(`${indices.length} face${indices.length === 1 ? '' : 's'} added · ${selectedFaces.size} selected`);
+        refreshViewerSelection({ fit: false });
+        renderAnnotations();
+        renderFeatures();
+      }
+    });
+
+    function showError(message) {
+      clearTimeout(pollTimer);
+      runButton.disabled = !selected;
+      statusTitle.textContent = 'Processing failed';
+      statusTitle.classList.add('error');
+      statusDetail.textContent = message;
+      progressBar.style.width = '0%';
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, char => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+      }[char]));
+    }
+
+    search.addEventListener('input', renderFeatures);
+    predictionsTab.addEventListener('click', () => setActiveTab('predictions'));
+    annotationsTab.addEventListener('click', () => setActiveTab('annotations'));
+    faceSelectButton.addEventListener('click', () => {
+      setFaceSelectionEnabled(!faceSelectButton.classList.contains('active'));
+    });
+    clearSelectionButton.addEventListener('click', clearManualSelection);
+    applyLabelButton.addEventListener('click', applyManualLabel);
+    saveLabelsButton.addEventListener('click', saveAnnotations);
+    health();
+    const initialJobId = new URLSearchParams(location.search).get('job');
+    if (initialJobId) {
+      runButton.disabled = true;
+      poll(initialJobId);
+    }
+  </script>
+</body>
+</html>
