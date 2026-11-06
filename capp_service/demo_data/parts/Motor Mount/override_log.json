@@ -1,0 +1,229 @@
+{
+  "overrides": [
+    {
+      "setup": 1,
+      "type": "tool_used_not_predicted",
+      "tool_diameter_mm": 12.0,
+      "category": "milling",
+      "detail": "Actual program uses this milling tool diameter; CAPP did not predict it for this setup."
+    },
+    {
+      "setup": 1,
+      "type": "tool_predicted_not_used",
+      "tool_diameter_mm": 2.0,
+      "category": "drilling",
+      "detail": "CAPP predicted this drilling tool diameter for this setup; actual program does not use it."
+    },
+    {
+      "setup": 1,
+      "type": "tool_predicted_not_used",
+      "tool_diameter_mm": 2.5,
+      "category": "drilling",
+      "detail": "CAPP predicted this drilling tool diameter for this setup; actual program does not use it."
+    },
+    {
+      "setup": 1,
+      "type": "tool_predicted_not_used",
+      "tool_diameter_mm": 3.2,
+      "category": "drilling",
+      "detail": "CAPP predicted this drilling tool diameter for this setup; actual program does not use it."
+    },
+    {
+      "setup": 1,
+      "type": "tool_predicted_not_used",
+      "tool_diameter_mm": 4.0,
+      "category": "drilling",
+      "detail": "CAPP predicted this drilling tool diameter for this setup; actual program does not use it."
+    },
+    {
+      "setup": 1,
+      "type": "tool_predicted_not_used",
+      "tool_diameter_mm": 6.0,
+      "category": "drilling",
+      "detail": "CAPP predicted this drilling tool diameter for this setup; actual program does not use it."
+    },
+    {
+      "setup": 1,
+      "type": "tool_predicted_not_used",
+      "tool_diameter_mm": 10.0,
+      "category": "drilling",
+      "detail": "CAPP predicted this drilling tool diameter for this setup; actual program does not use it."
+    },
+    {
+      "setup": 1,
+      "type": "tool_predicted_not_used",
+      "tool_diameter_mm": 20.0,
+      "category": "milling",
+      "detail": "CAPP predicted this milling tool diameter for this setup; actual program does not use it."
+    },
+    {
+      "setup": 1,
+      "type": "tool_predicted_not_used",
+      "tool_diameter_mm": 40.0,
+      "category": "milling",
+      "detail": "CAPP predicted this milling tool diameter for this setup; actual program does not use it."
+    },
+    {
+      "setup": 1,
+      "type": "tool_predicted_not_used",
+      "tool_diameter_mm": 50.0,
+      "category": "milling",
+      "detail": "CAPP predicted this milling tool diameter for this setup; actual program does not use it."
+    },
+    {
+      "setup": 1,
+      "type": "rpm_delta",
+      "category": "milling",
+      "tool_diameter_mm": 2.0,
+      "predicted_rpm": 4500,
+      "actual_rpm": 7500.0,
+      "detail": "Predicted 4500 rpm, shop program ran 7500.0 rpm (67% delta)."
+    },
+    {
+      "setup": 1,
+      "type": "rpm_delta",
+      "category": "milling",
+      "tool_diameter_mm": 4.0,
+      "predicted_rpm": 3580,
+      "actual_rpm": 4500.0,
+      "detail": "Predicted 3580 rpm, shop program ran 4500.0 rpm (26% delta)."
+    },
+    {
+      "setup": 2,
+      "type": "tool_used_not_predicted",
+      "tool_diameter_mm": 2.0,
+      "category": "milling",
+      "detail": "Actual program uses this milling tool diameter; CAPP did not predict it for this setup."
+    },
+    {
+      "setup": 2,
+      "type": "tool_used_not_predicted",
+      "tool_diameter_mm": 3.0,
+      "category": "milling",
+      "detail": "Actual program uses this milling tool diameter; CAPP did not predict it for this setup."
+    },
+    {
+      "setup": 2,
+      "type": "tool_used_not_predicted",
+      "tool_diameter_mm": 8.0,
+      "category": "milling",
+      "detail": "Actual program uses this milling tool diameter; CAPP did not predict it for this setup."
+    },
+    {
+      "setup": 2,
+      "type": "tool_used_not_predicted",
+      "tool_diameter_mm": 12.0,
+      "category": "milling",
+      "detail": "Actual program uses this milling tool diameter; CAPP did not predict it for this setup."
+    },
+    {
+      "setup": 2,
+      "type": "tool_predicted_not_used",
+      "tool_diameter_mm": 4.0,
+      "category": "drilling",
+      "detail": "CAPP predicted this drilling tool diameter for this setup; actual program does not use it."
+    },
+    {
+      "setup": 2,
+      "type": "tool_predicted_not_used",
+      "tool_diameter_mm": 5.0,
+      "category": "drilling",
+      "detail": "CAPP predicted this drilling tool diameter for this setup; actual program does not use it."
+    },
+    {
+      "setup": 2,
+      "type": "tool_predicted_not_used",
+      "tool_diameter_mm": 6.0,
+      "category": "drilling",
+      "detail": "CAPP predicted this drilling tool diameter for this setup; actual program does not use it."
+    },
+    {
+      "setup": 2,
+      "type": "tool_predicted_not_used",
+      "tool_diameter_mm": 6.0,
+      "category": "milling",
+      "detail": "CAPP predicted this milling tool diameter for this setup; actual program does not use it."
+    },
+    {
+      "setup": 2,
+      "type": "tool_predicted_not_used",
+      "tool_diameter_mm": 10.0,
+      "category": "drilling",
+      "detail": "CAPP predicted this drilling tool diameter for this setup; actual program does not use it."
+    },
+    {
+      "setup": 2,
+      "type": "tool_predicted_not_used",
+      "tool_diameter_mm": 16.0,
+      "category": "drilling",
+      "detail": "CAPP predicted this drilling tool diameter for this setup; actual program does not use it."
+    },
+    {
+      "setup": 2,
+      "type": "rpm_delta",
+      "category": "milling",
+      "tool_diameter_mm": 4.0,
+      "predicted_rpm": 3580,
+      "actual_rpm": 3000.0,
+      "detail": "Predicted 3580 rpm, shop program ran 3000.0 rpm (16% delta)."
+    },
+    {
+      "setup": 3,
+      "type": "tool_used_not_predicted",
+      "tool_diameter_mm": 10.0,
+      "category": "milling",
+      "detail": "Actual program uses this milling tool diameter; CAPP did not predict it for this setup."
+    },
+    {
+      "setup": 3,
+      "type": "tool_predicted_not_used",
+      "tool_diameter_mm": 2.0,
+      "category": "drilling",
+      "detail": "CAPP predicted this drilling tool diameter for this setup; actual program does not use it."
+    },
+    {
+      "setup": 3,
+      "type": "tool_predicted_not_used",
+      "tool_diameter_mm": 3.0,
+      "category": "drilling",
+      "detail": "CAPP predicted this drilling tool diameter for this setup; actual program does not use it."
+    },
+    {
+      "setup": 3,
+      "type": "tool_predicted_not_used",
+      "tool_diameter_mm": 4.0,
+      "category": "drilling",
+      "detail": "CAPP predicted this drilling tool diameter for this setup; actual program does not use it."
+    },
+    {
+      "setup": 3,
+      "type": "tool_predicted_not_used",
+      "tool_diameter_mm": 5.0,
+      "category": "drilling",
+      "detail": "CAPP predicted this drilling tool diameter for this setup; actual program does not use it."
+    },
+    {
+      "setup": 3,
+      "type": "tool_predicted_not_used",
+      "tool_diameter_mm": 6.0,
+      "category": "milling",
+      "detail": "CAPP predicted this milling tool diameter for this setup; actual program does not use it."
+    },
+    {
+      "setup": 3,
+      "type": "tool_predicted_not_used",
+      "tool_diameter_mm": 40.0,
+      "category": "milling",
+      "detail": "CAPP predicted this milling tool diameter for this setup; actual program does not use it."
+    },
+    {
+      "setup": 3,
+      "type": "rpm_delta",
+      "category": "milling",
+      "tool_diameter_mm": 4.0,
+      "predicted_rpm": 3580,
+      "actual_rpm": 3000.0,
+      "detail": "Predicted 3580 rpm, shop program ran 3000.0 rpm (16% delta)."
+    }
+  ]
+}

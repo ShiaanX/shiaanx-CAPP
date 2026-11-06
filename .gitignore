@@ -28,8 +28,23 @@ ShiaanX Vision.docx
 
 # Separate independent repo (AD-007)
 shiaanx-backend/
+shiaanx-frontend-admin/
+
+# Windows Explorer / PowerMILL folder-view artifacts
+desktop.ini
+lockfile
+
+# Personal - AS9100 supplier analysis (scraped OASIS data + scripts, not for the repo)
+AS9100 companies analysis/
 shiaanx-backend-fork/
 *.pkl
 
 # Frontend dependencies
 capp-frontend/node_modules/
+
+# capp_service job runs (uploaded STEP copies + outputs)
+capp_service/jobs/
+# local copy of dev.shiaanx.com data (real client data) - never commit
+demo_backup/devcopy/
+# PowerMill projects from the live v3 run (1 GB+); kept locally for the demo, never committed
+demo_backup/v3_motor_mount/

@@ -1,3 +1,4 @@
+import sys
 import uuid
 import os
 import subprocess
@@ -9,7 +10,10 @@ from fastapi.responses import FileResponse, JSONResponse
 import aiofiles
 import json
 
-from runner import start_pipeline
+from runner import start_pipeline, STAGE_OUTPUTS
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+import job_manifest
 
 app = FastAPI(title='ShiaanX CAPP Service')
 
@@ -27,9 +31,50 @@ _SOFT_JAW_GENERATOR = str(
     Path(__file__).parent.parent /
     'Claude output for program sheet' / 'fixture_design' / 'soft_jaw_generator.py'
 )
+_INSPECTION_TEMPLATE_GENERATOR = str(Path(__file__).parent.parent / 'inspection' / 'template_generator.py')
+_DATUM_TRANSFORM = str(Path(__file__).parent.parent / 'datum_transform' / 'datum_transform.py')
 
 # In-memory job store: { job_id: { status, stage, stage_name, outputs, error } }
+# Rehydrated from each job folder's job.json + on-disk artifacts on startup so
+# job state survives a service restart (previously in-memory only — see
+# job_manifest.py for why).
 jobs: dict = {}
+
+
+def _hydrate_jobs_from_disk():
+    for job_dir in JOBS_DIR.iterdir():
+        if not job_dir.is_dir():
+            continue
+        manifest = job_manifest.load(job_dir)
+        if manifest is None:
+            continue
+        outputs = {}
+        for _, _, suffix in STAGE_OUTPUTS:
+            matches = list(job_dir.glob(f'*{suffix}'))
+            if not matches:
+                continue
+            key = suffix.lstrip('_').replace('.json', '').replace('.pdf', '')
+            if suffix.endswith('.json'):
+                try:
+                    with open(matches[0], encoding='utf-8') as f:
+                        outputs[key] = json.load(f)
+                except Exception:
+                    pass
+            elif suffix.endswith('.pdf'):
+                outputs['pdf_path'] = str(matches[0])
+        jobs[manifest['job_id']] = {
+            'job_id': manifest['job_id'],
+            'part_name': manifest.get('part_name', 'Part'),
+            'material': manifest.get('material', 'aluminium'),
+            'status': manifest.get('pipeline_status', 'COMPLETE' if 'pdf_path' in outputs else 'UNKNOWN'),
+            'stage': manifest.get('pipeline_stage', 9 if 'pdf_path' in outputs else 0),
+            'stage_name': manifest.get('pipeline_stage_name', 'complete' if 'pdf_path' in outputs else 'unknown'),
+            'outputs': outputs,
+            'error': manifest.get('pipeline_error'),
+        }
+
+
+_hydrate_jobs_from_disk()
 
 
 @app.post('/jobs')
@@ -43,6 +88,11 @@ async def create_job(
     job_dir.mkdir()
 
     filename = step_file.filename or 'part.step'
+    # Browser uploads often omit part_name — fall back to the uploaded file's stem
+    # (e.g. "MOTOR MOUNT") rather than the generic 'Part', so the job can be mapped
+    # to its real part folder (demo_modules/part_data.py).
+    if (not part_name or part_name == 'Part') and step_file.filename:
+        part_name = Path(filename).stem
     safe_name = part_name.replace(' ', '_') or Path(filename).stem
     step_path = job_dir / f'{safe_name}.step'
 
@@ -60,10 +110,15 @@ async def create_job(
         'outputs': {},
         'error': None,
     }
+    job_manifest.create_job(job_dir, job_id, part_name, material, status='QUEUED')
+    job_manifest.update_fields(job_dir, original_filename=filename)
 
     start_pipeline(job_id, str(step_path), material, part_name, jobs)
+    # Demo analyses run in the background too, so /dfm, /quote and /cmm are warm
+    # by the time the UI asks for them. Never blocks the upload response.
+    _start_demo_background(job_id, job_dir)
 
-    return {'job_id': job_id}
+    return {'job_id': job_id, 'part_name': part_name, 'original_filename': filename}
 
 
 @app.get('/jobs/{job_id}')
@@ -71,6 +126,23 @@ def get_job(job_id: str):
     if job_id not in jobs:
         raise HTTPException(status_code=404, detail='Job not found')
     job = jobs[job_id]
+
+    # Piggyback manifest persistence on the status poll the frontend already does
+    # continuously while a job runs — cheaper than adding a dedicated sync thread,
+    # and it means job.json stays current without slowing down the pipeline itself.
+    job_dir = JOBS_DIR / job_id
+    try:
+        job_manifest.update_fields(
+            job_dir,
+            pipeline_status=job['status'],
+            pipeline_stage=job['stage'],
+            pipeline_stage_name=job['stage_name'],
+            pipeline_error=job['error'],
+        )
+        job_manifest.refresh_artifacts(job_dir)
+    except FileNotFoundError:
+        pass  # job predates job_manifest.py — nothing to sync yet
+
     # Don't return the full outputs in the status poll — too large
     # Return only metadata + lightweight classified/setups/params summaries
     return {
@@ -320,3 +392,322 @@ async def save_tolerances(job_id: str, payload: dict):
     with open(tol_file, 'w', encoding='utf-8') as f:
         json.dump(payload, f)
     return {'ok': True}
+
+
+# ── Inspection template ─────────────────────────────────────────────────────
+# NOTE: the frontend's InspectionTab.js has called GET /jobs/{id}/inspection
+# since it was built, but no route implemented it — every "Download Template"
+# click 404'd. This wires it to the two existing standalone scripts
+# (datum_transform.py, inspection/template_generator.py) that were never
+# connected to capp_service's per-job folder convention.
+
+@app.get('/jobs/{job_id}/inspection')
+def get_inspection_template(job_id: str):
+    job_dir = JOBS_DIR / job_id
+    if not job_dir.exists():
+        raise HTTPException(status_code=404, detail='Job not found')
+
+    datum_file = job_dir / 'datums.json'
+    if not datum_file.exists():
+        raise HTTPException(status_code=400, detail='Save datums first (Datum Tagger tab)')
+
+    features_matches = list(job_dir.glob('*_classified.json'))
+    if not features_matches:
+        raise HTTPException(status_code=400, detail='Feature classification not complete yet')
+    features_path = features_matches[0]
+
+    datumed_path = job_dir / (features_path.stem + '_datumed.json')
+    if not datumed_path.exists():
+        result = subprocess.run(
+            [sys.executable, _DATUM_TRANSFORM, str(features_path), str(datum_file)],
+            cwd=str(job_dir),
+            capture_output=True,
+            text=True,
+            timeout=60,
+        )
+        if result.returncode != 0 or not datumed_path.exists():
+            raise HTTPException(
+                status_code=500,
+                detail=f'Datum transform failed: {result.stderr[-500:] if result.stderr else "unknown error"}'
+            )
+
+    tol_file = job_dir / 'tolerances.json'
+    params_matches = list(job_dir.glob('*_params.json'))
+
+    output_path = job_dir / (features_path.stem.replace('_classified', '') + '_inspection_template.xlsx')
+    cmd = [sys.executable, _INSPECTION_TEMPLATE_GENERATOR, str(datumed_path)]
+    cmd.append(str(tol_file) if tol_file.exists() else '')
+    if params_matches:
+        cmd += ['--metadata', str(params_matches[0])]
+    cmd += ['--output', str(output_path)]
+
+    result = subprocess.run(cmd, cwd=str(job_dir), capture_output=True, text=True, timeout=60)
+    if result.returncode != 0 or not output_path.exists():
+        raise HTTPException(
+            status_code=500,
+            detail=f'Inspection template generation failed: {result.stderr[-500:] if result.stderr else "unknown error"}'
+        )
+
+    try:
+        job_manifest.register_artifact(job_dir, 'inspection_template', output_path.name)
+        job_manifest.register_artifact(job_dir, 'features_datumed', datumed_path.name)
+    except FileNotFoundError:
+        pass
+
+    return FileResponse(
+        str(output_path),
+        media_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        filename=output_path.name,
+    )
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Investor-demo endpoints: DFM, quote, reply draft, CMM program, tracking.
+# Logic lives in demo_modules/; contract documented in demo_modules/API.md.
+# ══════════════════════════════════════════════════════════════════════════════
+
+import threading
+from typing import Literal, Optional
+from pydantic import BaseModel
+
+from demo_modules import v3_cache, dfm as demo_dfm, quote as demo_quote, reply as demo_reply
+from demo_modules import cmm as demo_cmm, tracking as demo_tracking, part_data, step_geometry
+
+_geometry_locks: dict = {}
+_geometry_locks_guard = threading.Lock()
+
+
+def _geometry_lock(job_id: str) -> threading.Lock:
+    with _geometry_locks_guard:
+        return _geometry_locks.setdefault(job_id, threading.Lock())
+
+
+def _warm_geometry(job_id: str, job_dir: Path):
+    try:
+        steps = part_data.job_step_files(job_dir)
+        if steps:
+            with _geometry_lock(job_id):
+                step_geometry.load_or_extract(job_dir, steps[0])
+    except Exception:
+        pass  # /cmm will surface the error when asked
+
+
+def _start_demo_background(job_id: str, job_dir: Path):
+    try:
+        v3_cache.start(job_id, job_dir)
+    except Exception:
+        pass
+    threading.Thread(target=_warm_geometry, args=(job_id, job_dir), daemon=True).start()
+
+
+def _demo_job_dir(job_id: str) -> Path:
+    job_dir = JOBS_DIR / job_id
+    if not job_dir.is_dir() or not all(c.isalnum() or c == '-' for c in job_id):
+        raise HTTPException(status_code=404, detail='Job not found')
+    return job_dir
+
+
+def _part_name(job_id: str, job_dir: Path) -> str:
+    if job_id in jobs:
+        return jobs[job_id].get('part_name') or 'Part'
+    m = job_manifest.load(job_dir) or {}
+    return m.get('part_name') or 'Part'
+
+
+def _v3_or_response(job_id: str, job_dir: Path):
+    """(v3_dict, None) when ready, else (None, JSONResponse) for running/unavailable/failed."""
+    state, payload = v3_cache.get(job_id, job_dir)
+    if state == 'ready':
+        return payload, None
+    if state == 'running':
+        return None, JSONResponse({'status': 'running', **payload})
+    if state == 'unavailable':
+        return None, JSONResponse(status_code=503, content={
+            'status': 'unavailable', 'error': 'v3 analysis not available', **payload})
+    return None, JSONResponse(status_code=500, content={
+        'status': 'failed', 'error': 'v3 analysis failed', 'detail': payload.get('error')})
+
+
+@app.get('/jobs/{job_id}/dfm')
+def get_dfm(job_id: str, retry: bool = False):
+    from demo_modules import dfm_geometry
+    job_dir = _demo_job_dir(job_id)
+    steps = part_data.job_step_files(job_dir)
+    lock = _geometry_lock(job_id + ':dfm')
+
+    def face_geometry():
+        # face-level facts from the job's STEP, cached in <job>/dfm_geometry.json
+        with lock:
+            return dfm_geometry.load_or_extract(job_dir, steps[0])
+
+    # warm the face-level geometry while v3 is still running (first call ~6 s on Motor Mount)
+    if steps and not (job_dir / dfm_geometry.CACHE_NAME).exists() and not lock.locked():
+        threading.Thread(target=lambda: face_geometry(), daemon=True).start()
+    if retry:
+        v3_cache.retry(job_id, job_dir)
+    v3, resp = _v3_or_response(job_id, job_dir)
+    if resp is not None:
+        return resp
+    geometry, geom_err = None, None
+    if steps:
+        try:
+            geometry = face_geometry()
+        except Exception as e:
+            geom_err = f'{type(e).__name__}: {e}'
+    out = {'status': 'ok', **demo_dfm.build(v3, geometry), 'v3_origin': v3.get('v3_origin'),
+           'v3_runtime_s': v3.get('runtime_s')}
+    if geom_err:
+        out['geometry_error'] = geom_err
+    return out
+
+
+@app.get('/jobs/{job_id}/quote')
+def get_quote(job_id: str, qty: int = 1, material: str = 'aluminium_6061'):
+    job_dir = _demo_job_dir(job_id)
+    if qty < 1 or qty > 100000:
+        raise HTTPException(status_code=400, detail='qty must be between 1 and 100000')
+    v3, resp = _v3_or_response(job_id, job_dir)
+    if resp is not None:
+        return resp
+    if not (v3.get('plan') or {}).get('total_minutes'):
+        return JSONResponse(status_code=422, content={
+            'status': 'incomplete', 'error': 'v3 analysis has no machining plan (plan.total_minutes missing)'})
+    return demo_quote.build(v3, job_dir, qty, material)
+
+
+class ReplyDraftRequest(BaseModel):
+    client_comment: str
+    topic: Literal['price', 'lead_time', 'tolerance', 'finish']
+    qty: Optional[int] = None
+    material: Optional[str] = 'aluminium_6061'
+
+
+@app.post('/jobs/{job_id}/reply-draft')
+def post_reply_draft(job_id: str, body: ReplyDraftRequest):
+    job_dir = _demo_job_dir(job_id)
+    if not body.client_comment.strip():
+        raise HTTPException(status_code=400, detail='client_comment is empty')
+    part_dir = part_data.find_part_dir(job_dir)
+
+    state, v3 = v3_cache.get(job_id, job_dir)
+    quote = dfm = None
+    if state == 'ready':
+        dfm = demo_dfm.build(v3)
+        if (v3.get('plan') or {}).get('total_minutes'):
+            qty = body.qty or 1
+            quote = demo_quote.build(v3, job_dir, qty, body.material or 'aluminium_6061')
+    tolerances = part_data.load_inspection_characteristics(part_dir)
+
+    if body.topic in ('price', 'lead_time') and quote is None:
+        return JSONResponse(status_code=503, content={
+            'status': state, 'error': f'cannot ground a {body.topic} reply: quote not available yet (v3 analysis {state})'})
+    facts = demo_reply.collect_facts(body.topic, quote, dfm, tolerances)
+    if not facts:
+        return JSONResponse(status_code=409, content={
+            'status': 'no_facts', 'error': 'No quote, DFM or drawing tolerances available to ground a reply on'})
+    try:
+        return demo_reply.draft(body.client_comment, body.topic, _part_name(job_id, job_dir), facts)
+    except demo_reply.ReplyError as e:
+        return JSONResponse(status_code=e.status, content={'error': e.message, 'grounded_on': facts})
+
+
+@app.get('/jobs/{job_id}/cmm')
+def get_cmm(job_id: str):
+    job_dir = _demo_job_dir(job_id)
+    try:
+        with _geometry_lock(job_id):
+            return demo_cmm.build(job_dir, _part_name(job_id, job_dir))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f'CMM program generation failed: {type(e).__name__}: {e}')
+
+
+@app.get('/jobs/{job_id}/tracking')
+def get_tracking(job_id: str):
+    job_dir = _demo_job_dir(job_id)
+    result = demo_tracking.build(job_dir)
+    if result.get('available'):
+        state, v3 = v3_cache.get(job_id, job_dir)
+        if state == 'ready' and (v3.get('plan') or {}).get('total_minutes'):
+            cyc = demo_quote.cycle_minutes(v3)
+            result['summary']['v3_plan_minutes'] = cyc['total_minutes']          # quoted cycle (ATC tool changes)
+            result['summary']['v3_raw_total_minutes'] = cyc['v3_total_minutes']  # v3's own, 15 min/manual change
+    return result
+
+
+# ── Program (v3 plan + live PowerMill run) and production history ──────────
+from demo_modules import program as demo_program, production_history as demo_history
+
+
+class ProgramApproveRequest(BaseModel):
+    by: str
+
+
+@app.get('/jobs/{job_id}/program')
+def get_program(job_id: str):
+    job_dir = _demo_job_dir(job_id)
+    state, v3 = v3_cache.get(job_id, job_dir)
+    return demo_program.build(job_dir, state, v3)
+
+
+@app.get('/jobs/{job_id}/program/image/{name:path}')
+def get_program_image(job_id: str, name: str):
+    job_dir = _demo_job_dir(job_id)
+    p = demo_program.image_path(demo_program.part_key_for_job(job_dir), name)
+    if p is None:
+        raise HTTPException(status_code=404, detail='Image not found')
+    return FileResponse(str(p))
+
+
+@app.post('/jobs/{job_id}/program/approve')
+def post_program_approve(job_id: str, body: ProgramApproveRequest):
+    job_dir = _demo_job_dir(job_id)
+    if not body.by.strip():
+        raise HTTPException(status_code=400, detail='by is empty')
+    return {'status': 'ok', 'approved': demo_program.approve(job_dir, body.by)}
+
+
+@app.get('/parts/{part_key}/production-history')
+def get_part_production_history(part_key: str):
+    return demo_history.build_for_key(part_key)
+
+
+@app.get('/jobs/{job_id}/production-history')
+def get_job_production_history(job_id: str):
+    job_dir = _demo_job_dir(job_id)
+    return demo_history.build(part_data.find_part_dir(job_dir), _part_name(job_id, job_dir))
+
+
+def _warm_demo_caches():
+    """Background warm-up so the first /program, /production-history, /tracking and /quote
+    of the demo parts are served from the in-process file caches (keyed by file mtimes)."""
+    import time as _t
+    t0 = _t.time()
+    for key in sorted(set(demo_program.LIVE_RUNS) | set(demo_history.EXTERNAL_BATCHES)):
+        try:
+            demo_program.live_program(key)
+            pd = demo_history.find_part_dir_by_key(key)
+            demo_history.build(pd, key)                        # .tap parses, inspection xlsx, G: drive MPFs
+            part_data.load_inspection_characteristics(pd)     # /tracking QC, /reply-draft
+            part_data.load_previous_quote(pd)                 # /quote
+            if pd is not None:
+                part_data.shop_cycle_references(pd, demo_tracking._cl())
+        except Exception as e:
+            print(f'[warm] {key}: {type(e).__name__}: {e}', flush=True)
+    print(f'[warm] demo caches ready in {_t.time() - t0:.1f}s', flush=True)
+
+
+threading.Thread(target=_warm_demo_caches, daemon=True, name='warm-demo-caches').start()
+
+
+# ── Rohit's v3 console: start on demand for the /proto "Open v3 console" button ──────────────────
+from demo_modules import v3_console as demo_v3_console
+
+
+@app.post('/v3-console/ensure')
+def v3_console_ensure():
+    """Launch the v3 console (ui/server.py, port 8765) if it isn't running; return its URL."""
+    if demo_v3_console.disabled():   # V3_DISABLED=1: server mode, v3 is not installed here
+        return JSONResponse(status_code=501, content={
+            'status': 'unavailable',
+            'error': 'The v3 console is not available on this environment (V3_DISABLED=1).'})
+    return demo_v3_console.ensure_running()

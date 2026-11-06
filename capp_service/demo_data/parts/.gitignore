@@ -1,0 +1,2 @@
+# NC programs are stored as .tap.gz; part_data expands them next to the .gz at start-up
+*.tap

@@ -1,0 +1,28 @@
+[
+ {
+  "label": "Shop program B: Sinumerik MPF (TS machine)",
+  "source": "G:/My Drive/Closed Loop/Clean Data/Motor Mount_TS/CAM files_TS",
+  "setups": 4,
+  "files": 4,
+  "by_setup": [
+   {
+    "setup": "MOTOR_MOUNT_1_SETUP..MPF",
+    "minutes": 33.93
+   },
+   {
+    "setup": "MOTOR_MOUNT_2_SETUP..MPF",
+    "minutes": 26.2
+   },
+   {
+    "setup": "MOTOR_MOUNT_3_FINISH_SETUP..MPF",
+    "minutes": 3.55
+   },
+   {
+    "setup": "MOTOR_MOUNT_4_SETUP..MPF",
+    "minutes": 6.1
+   }
+  ],
+  "minutes_per_part": 69.8,
+  "basis": "sum of the programmer's ';time =' header lines (CAM-estimated machining time; load/unload and changeovers excluded)"
+ }
+]

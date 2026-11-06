@@ -1,0 +1,52 @@
+{
+  "step_file": "RKSE-004-057.stp",
+  "step_file_hash": "49b5de88c91dada2c855645d65b11a35260ab25cd8c3287009104123e65c5a7e",
+  "tagged_at": "2026-05-14T12:06:02Z",
+  "datums": [
+    {
+      "label": "A",
+      "face_index": 20,
+      "face_type": "plane",
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "centroid": [
+        -179.501185,
+        -62.58612,
+        -0.0
+      ]
+    },
+    {
+      "label": "B",
+      "face_index": 6,
+      "face_type": "plane",
+      "normal": [
+        1.0,
+        -0.0,
+        -0.0
+      ],
+      "centroid": [
+        -173.79552,
+        -42.278594,
+        0.026902
+      ]
+    },
+    {
+      "label": "C",
+      "face_index": 19,
+      "face_type": "plane",
+      "normal": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "centroid": [
+        -183.54848,
+        -45.188647,
+        -19.1
+      ]
+    }
+  ]
+}

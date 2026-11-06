@@ -1,0 +1,330 @@
+{
+ "part_key": "motormount",
+ "batch_id": "run2",
+ "fetched_at": "2026-11-05T12:41:24+00:00",
+ "bucket": "cnc-data-v2",
+ "measurement": "cnc_telemetry",
+ "decode": {
+  "machine_state": {
+   "1": "running",
+   "2": "hold / interrupted",
+   "0": "stopped / reset"
+  },
+  "machine_mode": {
+   "2": "AUTO",
+   "0": "JOG / MDI"
+  },
+  "cycle_time": "seconds; resets at cycle start, holds after M30",
+  "cutting_time": "always 0 on this machine; not used"
+ },
+ "queries": [
+  {
+   "setup": 1,
+   "program_name": "MOTOR_MOUNT_1_SETUP.",
+   "range": [
+    "2026-06-06T00:00:00Z",
+    "2026-06-09T00:00:00Z"
+   ],
+   "rows": 58747,
+   "seconds": 1.2,
+   "flux": "from(bucket: \"cnc-data-v2\")\n  |> range(start: 2026-06-06T00:00:00Z, stop: 2026-06-09T00:00:00Z)\n  |> filter(fn: (r) => r._measurement == \"cnc_telemetry\" and r.factory_id == \"ts\" and r.machine_id == \"jyotiVMC\" and r.program_name == \"MOTOR_MOUNT_1_SETUP.\")\n  |> filter(fn: (r) => r._field == \"machine_state\" or r._field == \"machine_mode\" or r._field == \"spindle_speed\" or r._field == \"feed_override\" or r._field == \"spindle_override\" or r._field == \"cycle_time\" or r._field == \"alarm_active\" or r._field == \"tool_number\")\n  |> drop(columns: [\"program\", \"tool_name\"])\n  |> pivot(rowKey: [\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")"
+  },
+  {
+   "setup": 1,
+   "program_name": "MOTOR_MOUNT_1_SETUP.",
+   "range": [
+    "2026-07-03T00:00:00Z",
+    "2026-07-06T00:00:00Z"
+   ],
+   "rows": 14075,
+   "seconds": 0.5,
+   "flux": "from(bucket: \"cnc-data-v2\")\n  |> range(start: 2026-07-03T00:00:00Z, stop: 2026-07-06T00:00:00Z)\n  |> filter(fn: (r) => r._measurement == \"cnc_telemetry\" and r.factory_id == \"ts\" and r.machine_id == \"jyotiVMC\" and r.program_name == \"MOTOR_MOUNT_1_SETUP.\")\n  |> filter(fn: (r) => r._field == \"machine_state\" or r._field == \"machine_mode\" or r._field == \"spindle_speed\" or r._field == \"feed_override\" or r._field == \"spindle_override\" or r._field == \"cycle_time\" or r._field == \"alarm_active\" or r._field == \"tool_number\")\n  |> drop(columns: [\"program\", \"tool_name\"])\n  |> pivot(rowKey: [\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")"
+  },
+  {
+   "setup": 2,
+   "program_name": "MOTOR_MOUNT_2_SETUP.",
+   "range": [
+    "2026-06-08T00:00:00Z",
+    "2026-06-14T00:00:00Z"
+   ],
+   "rows": 74064,
+   "seconds": 2.1,
+   "flux": "from(bucket: \"cnc-data-v2\")\n  |> range(start: 2026-06-08T00:00:00Z, stop: 2026-06-14T00:00:00Z)\n  |> filter(fn: (r) => r._measurement == \"cnc_telemetry\" and r.factory_id == \"ts\" and r.machine_id == \"jyotiVMC\" and r.program_name == \"MOTOR_MOUNT_2_SETUP.\")\n  |> filter(fn: (r) => r._field == \"machine_state\" or r._field == \"machine_mode\" or r._field == \"spindle_speed\" or r._field == \"feed_override\" or r._field == \"spindle_override\" or r._field == \"cycle_time\" or r._field == \"alarm_active\" or r._field == \"tool_number\")\n  |> drop(columns: [\"program\", \"tool_name\"])\n  |> pivot(rowKey: [\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")"
+  },
+  {
+   "setup": 2,
+   "program_name": "MOTOR_MOUNT_2_SETUP.",
+   "range": [
+    "2026-07-03T00:00:00Z",
+    "2026-07-06T00:00:00Z"
+   ],
+   "rows": 15149,
+   "seconds": 1.1,
+   "flux": "from(bucket: \"cnc-data-v2\")\n  |> range(start: 2026-07-03T00:00:00Z, stop: 2026-07-06T00:00:00Z)\n  |> filter(fn: (r) => r._measurement == \"cnc_telemetry\" and r.factory_id == \"ts\" and r.machine_id == \"jyotiVMC\" and r.program_name == \"MOTOR_MOUNT_2_SETUP.\")\n  |> filter(fn: (r) => r._field == \"machine_state\" or r._field == \"machine_mode\" or r._field == \"spindle_speed\" or r._field == \"feed_override\" or r._field == \"spindle_override\" or r._field == \"cycle_time\" or r._field == \"alarm_active\" or r._field == \"tool_number\")\n  |> drop(columns: [\"program\", \"tool_name\"])\n  |> pivot(rowKey: [\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")"
+  },
+  {
+   "setup": 4,
+   "program_name": "MOTOR_MOUNT_4_SETUP.",
+   "range": [
+    "2026-06-13T00:00:00Z",
+    "2026-06-15T00:00:00Z"
+   ],
+   "rows": 18878,
+   "seconds": 0.6,
+   "flux": "from(bucket: \"cnc-data-v2\")\n  |> range(start: 2026-06-13T00:00:00Z, stop: 2026-06-15T00:00:00Z)\n  |> filter(fn: (r) => r._measurement == \"cnc_telemetry\" and r.factory_id == \"ts\" and r.machine_id == \"jyotiVMC\" and r.program_name == \"MOTOR_MOUNT_4_SETUP.\")\n  |> filter(fn: (r) => r._field == \"machine_state\" or r._field == \"machine_mode\" or r._field == \"spindle_speed\" or r._field == \"feed_override\" or r._field == \"spindle_override\" or r._field == \"cycle_time\" or r._field == \"alarm_active\" or r._field == \"tool_number\")\n  |> drop(columns: [\"program\", \"tool_name\"])\n  |> pivot(rowKey: [\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")"
+  }
+ ],
+ "machine_data": {
+  "available": true,
+  "source": "InfluxDB cnc_telemetry · ts/jyotiVMC",
+  "fetched_at": "2026-11-05T12:41:24+00:00",
+  "parts_inspected": 9,
+  "setups": [
+   {
+    "setup": 1,
+    "program_name": "MOTOR_MOUNT_1_SETUP.",
+    "programmed_minutes": 33.9,
+    "recorded": true,
+    "sessions": [
+     {
+      "label": "7–8 Jun 2026",
+      "first": "2026-06-07T04:26:28Z",
+      "last": "2026-06-08T14:46:50Z",
+      "logging_sessions": 5,
+      "full_cycles": 18,
+      "median_cycle_minutes": 37.4,
+      "other_runs": 11,
+      "repeated_short_runs": [],
+      "used_for_headline": true
+     },
+     {
+      "label": "4 Jul 2026",
+      "first": "2026-07-04T09:19:20Z",
+      "last": "2026-07-04T13:43:05Z",
+      "logging_sessions": 1,
+      "full_cycles": 3,
+      "median_cycle_minutes": 39.4,
+      "other_runs": 5,
+      "repeated_short_runs": [],
+      "used_for_headline": false
+     }
+    ],
+    "first": "2026-06-07T04:26:28Z",
+    "last": "2026-07-04T13:43:05Z",
+    "samples": 72822,
+    "full_cycles": 18,
+    "cycle_minutes_range": [
+     33.4,
+     38.3
+    ],
+    "actual_machine_minutes": 37.4,
+    "ratio": 1.1,
+    "load_unload_median_minutes": 1.3,
+    "spindle": {
+     "programmed_rpm": 3000.0,
+     "actual_median_rpm": 3000,
+     "at_programmed_pct": 96.7,
+     "basis": "programmed = minutes-weighted median S of the setup ops; actual = median RPM while running in AUTO; at_programmed = share of spindle-on running samples within ±3% of one of the setup's programmed S values"
+    },
+    "feed_override": {
+     "median_pct": 100,
+     "min_pct": 95,
+     "max_pct": 105,
+     "extreme_min_pct": 2,
+     "extreme_max_pct": 110,
+     "range_basis": "min/max = settings held for >= 1% of run time (momentary values while the knob is turned excluded)",
+     "off_default_pct": 3.7,
+     "median_when_changed_pct": 95
+    },
+    "state_split": {
+     "running_pct": 70.6,
+     "hold_pct": 0.0,
+     "manual_pct": 19.8,
+     "idle_pct": 9.6,
+     "alarm_pct": 0.2,
+     "cutting_pct": null,
+     "air_pct": null,
+     "logged_hours": 18.3,
+     "running_minutes": 776.1,
+     "manual_minutes": 217.7,
+     "hold_events": 13
+    },
+    "interventions": {
+     "feed_hold_events": 13,
+     "manual_minutes": 217.7
+    },
+    "headline": "Setup 1: 37.4 min real cycle vs 33.9 programmed (+10%), 18 full cycles; spindle at programmed S 97% of the time; feed override 95–105%, off 100% for 4% of run time."
+   },
+   {
+    "setup": 2,
+    "program_name": "MOTOR_MOUNT_2_SETUP.",
+    "programmed_minutes": 26.2,
+    "recorded": true,
+    "sessions": [
+     {
+      "label": "8–13 Jun 2026",
+      "first": "2026-06-08T14:46:51Z",
+      "last": "2026-06-13T04:17:07Z",
+      "logging_sessions": 10,
+      "full_cycles": 16,
+      "median_cycle_minutes": 28.5,
+      "other_runs": 26,
+      "repeated_short_runs": [
+       {
+        "minutes": 11.5,
+        "count": 15
+       }
+      ],
+      "used_for_headline": true
+     },
+     {
+      "label": "4–5 Jul 2026",
+      "first": "2026-07-04T13:43:06Z",
+      "last": "2026-07-05T06:18:33Z",
+      "logging_sessions": 2,
+      "full_cycles": 4,
+      "median_cycle_minutes": 28.7,
+      "other_runs": 0,
+      "repeated_short_runs": [],
+      "used_for_headline": false
+     }
+    ],
+    "first": "2026-06-08T14:46:51Z",
+    "last": "2026-07-05T06:18:33Z",
+    "samples": 89213,
+    "full_cycles": 16,
+    "cycle_minutes_range": [
+     20.5,
+     34.0
+    ],
+    "actual_machine_minutes": 28.5,
+    "ratio": 1.09,
+    "load_unload_median_minutes": 11.0,
+    "spindle": {
+     "programmed_rpm": 4557.0,
+     "actual_median_rpm": 4500,
+     "at_programmed_pct": 99.1,
+     "basis": "programmed = minutes-weighted median S of the setup ops; actual = median RPM while running in AUTO; at_programmed = share of spindle-on running samples within ±3% of one of the setup's programmed S values"
+    },
+    "feed_override": {
+     "median_pct": 100,
+     "min_pct": 80,
+     "max_pct": 110,
+     "extreme_min_pct": 2,
+     "extreme_max_pct": 120,
+     "range_basis": "min/max = settings held for >= 1% of run time (momentary values while the knob is turned excluded)",
+     "off_default_pct": 18.8,
+     "median_when_changed_pct": 95
+    },
+    "state_split": {
+     "running_pct": 53.4,
+     "hold_pct": 0.3,
+     "manual_pct": 36.5,
+     "idle_pct": 9.8,
+     "alarm_pct": 0.7,
+     "cutting_pct": null,
+     "air_pct": null,
+     "logged_hours": 23.1,
+     "running_minutes": 740.3,
+     "manual_minutes": 505.6,
+     "hold_events": 41
+    },
+    "interventions": {
+     "feed_hold_events": 41,
+     "manual_minutes": 505.6
+    },
+    "headline": "Setup 2: 28.5 min real cycle vs 26.2 programmed (+9%), 16 full cycles; plus 15 runs of a shorter 11.5-min version of the program; spindle at programmed S 99% of the time; feed override 80–110%, off 100% for 19% of run time."
+   },
+   {
+    "setup": 3,
+    "program_name": null,
+    "programmed_minutes": 3.5,
+    "recorded": false,
+    "sessions": [],
+    "first": null,
+    "last": null,
+    "actual_machine_minutes": null,
+    "ratio": null,
+    "spindle": null,
+    "feed_override": null,
+    "state_split": null,
+    "headline": "Setup 3: not recorded in the controller log.",
+    "not_recorded_reason": "No program with a Motor/Mount name for the finish setup was found in the controller log."
+   },
+   {
+    "setup": 4,
+    "program_name": "MOTOR_MOUNT_4_SETUP.",
+    "programmed_minutes": 6.1,
+    "recorded": true,
+    "sessions": [
+     {
+      "label": "13–14 Jun 2026",
+      "first": "2026-06-13T05:56:38Z",
+      "last": "2026-06-14T04:57:22Z",
+      "logging_sessions": 3,
+      "full_cycles": 18,
+      "median_cycle_minutes": 7.1,
+      "other_runs": 1,
+      "repeated_short_runs": [],
+      "used_for_headline": true
+     }
+    ],
+    "first": "2026-06-13T05:56:38Z",
+    "last": "2026-06-14T04:57:22Z",
+    "samples": 18878,
+    "full_cycles": 18,
+    "cycle_minutes_range": [
+     5.3,
+     7.7
+    ],
+    "actual_machine_minutes": 7.1,
+    "ratio": 1.17,
+    "load_unload_median_minutes": 3.6,
+    "spindle": {
+     "programmed_rpm": 2500.0,
+     "actual_median_rpm": 2500,
+     "at_programmed_pct": 99.3,
+     "basis": "programmed = minutes-weighted median S of the setup ops; actual = median RPM while running in AUTO; at_programmed = share of spindle-on running samples within ±3% of one of the setup's programmed S values"
+    },
+    "feed_override": {
+     "median_pct": 100,
+     "min_pct": 70,
+     "max_pct": 110,
+     "extreme_min_pct": 2,
+     "extreme_max_pct": 110,
+     "range_basis": "min/max = settings held for >= 1% of run time (momentary values while the knob is turned excluded)",
+     "off_default_pct": 37.3,
+     "median_when_changed_pct": 95
+    },
+    "state_split": {
+     "running_pct": 37.5,
+     "hold_pct": 0.2,
+     "manual_pct": 45.1,
+     "idle_pct": 17.3,
+     "alarm_pct": 0.1,
+     "cutting_pct": null,
+     "air_pct": null,
+     "logged_hours": 5.9,
+     "running_minutes": 132.4,
+     "manual_minutes": 159.1,
+     "hold_events": 11
+    },
+    "interventions": {
+     "feed_hold_events": 11,
+     "manual_minutes": 159.1
+    },
+    "headline": "Setup 4: 7.1 min real cycle vs 6.1 programmed (+17%), 18 full cycles; spindle at programmed S 99% of the time; feed override 70–110%, off 100% for 37% of run time."
+   }
+  ],
+  "summary": {
+   "headline_lines": [
+    "Real machine time per part was 73 min against 66 min programmed for setups 1, 2, 4 (+10%); every setup ran longer than the programmer's estimate.",
+    "Median full-cycle minutes, real vs programmed: S1 37.4 vs 33.9; S2 28.5 vs 26.2; S4 7.1 vs 6.1. Setup 3 (finish) is not in the controller log.",
+    "Spindle held the programmed RPM 97–99% of the time; the operator moved the feed knob between 70% and 110%, off 100% for 4–37% of run time.",
+    "Figures are from the 7–14 Jun 2026 run; a later 4–5 Jul 2026 run of setups 1, 2 (7 more full cycles) is listed separately."
+   ],
+   "note": "The log holds 16–18 full cycles per setup in the first run, more than the 9 parts in the inspection report, so the report likely covers a sample of a larger lot. Minutes are per cycle (one part per clamping assumed)."
+  },
+  "method": "Full cycle = a program run whose start was observed and whose controller cycle time reached >= 75% of the programmed time; actual minutes = median full cycle of the first lot. State split is over logged time (the collector only logs while a program is loaded). cutting_time is always 0 on this machine, so no cutting-vs-air split is given."
+ }
+}

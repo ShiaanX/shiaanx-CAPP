@@ -1,0 +1,7 @@
+--images
+shiaanx-dev/nginx:local b4918775f18f 9 days ago 87.9MB
+shiaanx-dev/qc:local 96592dda274f 9 days ago 2.2GB
+shiaanx-dev/capp:local 8dee8e895416 9 days ago 1.59GB
+shiaanx-dev/backend:local 701b35106547 9 days ago 287MB
+--source size
+15M	/opt/shiaanx-dev

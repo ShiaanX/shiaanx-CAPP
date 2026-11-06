@@ -1,0 +1,12 @@
+{
+  "_note": "SAMPLE inventory - every entry is illustrative (sample: true). Replace with the real stock register. dims_mm: plate/flat = [thickness, width, length]; round_bar = [diameter, length].",
+  "items": [
+    {"id": "INV-AL6061-PL-12", "grade": "aluminium_6061", "temper": "T6", "form": "plate", "dims_mm": [12, 300, 600], "qty": 2, "price_inr_per_kg": 420, "location": "Rack A1", "sample": true},
+    {"id": "INV-AL6061-PL-25", "grade": "aluminium_6061", "temper": "T6", "form": "plate", "dims_mm": [25, 300, 500], "qty": 1, "price_inr_per_kg": 420, "location": "Rack A2", "sample": true},
+    {"id": "INV-AL6061-PL-40", "grade": "aluminium_6061", "temper": "T651", "form": "plate", "dims_mm": [40, 250, 400], "qty": 1, "price_inr_per_kg": 435, "location": "Rack A3", "sample": true},
+    {"id": "INV-AL6061-FB-20x80", "grade": "aluminium_6061", "temper": "T6", "form": "flat_bar", "dims_mm": [20, 80, 1000], "qty": 3, "price_inr_per_kg": 410, "location": "Rack B1", "sample": true},
+    {"id": "INV-AL6061-RB-50", "grade": "aluminium_6061", "temper": "T6", "form": "round_bar", "dims_mm": [50, 1000], "qty": 2, "price_inr_per_kg": 400, "location": "Rack C1", "sample": true},
+    {"id": "INV-AL7075-PL-16", "grade": "aluminium_7075", "temper": "T651", "form": "plate", "dims_mm": [16, 200, 300], "qty": 1, "price_inr_per_kg": 980, "location": "Rack D1", "sample": true},
+    {"id": "INV-AL7075-RB-30", "grade": "aluminium_7075", "temper": "T6", "form": "round_bar", "dims_mm": [30, 500], "qty": 1, "price_inr_per_kg": 950, "location": "Rack D2", "sample": true}
+  ]
+}

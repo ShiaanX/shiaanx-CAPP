@@ -1,0 +1,77 @@
+  holes: will be drilled BEFORE any end mill touches each face
+
+  Run folder: C:/Users/Siddhant Gupta/Documents/shiaanx_v3_standalone/database_runtime/RKSE-004-057_20261104_160553
+    part/ live_models/ pipeline/ checkpoints/ logs/
+    rapid 3500 mm/min | finishing lead-in vertical_arc | 1st-choice link on_surface below 10 mm | plunge distance 2 mm
+    tools: face milling auto | sized features free_and_features | ball nose finishing curved_surfaces | bull nose finishing matching_fillets | steel grade tools gap_fill | spot drilling deep_holes | tap threads ask
+
+  Measuring the part (PythonOCC)...
+      part volume          13181.6 mm3   (target)
+      block volume         45902.6 mm3
+      to remove            32721.0 mm3
+      block size      18.4 x 40.1 x 62.3 mm
+
+  CAPP pipeline: skipped (--no-pipeline)
+      preparing the CAD surface types in the background, while PowerMill is set up and the faces are chosen
+
+  PowerMill
+      dry run - not connecting
+
+  Model, workplanes and tools
+
+  The part is now in PowerMill - inspect it to see which face is which.
+  billet stock: XMin 2  XMax 2  YMin 2  YMax 2  ZMin 2  ZMax 2 mm
+      6 principal workplanes + full tool library (28 milling tools usable for 3D stages)
+
+  Holes
+      6 hole(s) in the CAD
+      dry run - PowerMill recognition skipped, so nothing will be drilled
+
+      CAPP FEATURES (33) - the old pipeline, stages 1-3
+
+      id   type           depth  rad    centroid                 conf      faces ranked (least hurdle first)
+      ----------------------------------------------------------------------------------------------------
+      0    counterbore    6.49   6.0    -183.36,-26.59,-25.1     high      +Y:0  -Y:0  -Z:2  -X:3
+      1    through_hole   2.0    3.2    -185.4,-24.49,0.0        high      +Y:0  -Y:0  -X:3  +X:8
+      2    counterbore    6.49   6.0    -183.36,-26.59,15.06     high      -Y:0  +Y:4  -X:8  +X:9
+      3    through_hole   8.0    3.2    -184.41,-47.59,19.1      high      +Z:0  -Z:0  -X:4  +X:6
+      4    blind_hole     4.0    3.2    -173.8,-47.59,-1.1       low       +X:0  +Y:0  +Z:0  -X:0
+      5    boss           8.38   2.0    -175.8,-45.84,-17.1      high      -Z:2  +X:2  -X:11  -Y:16
+      6    boss           8.38   2.0    -175.8,-63.34,17.1       high      +X:0  +Y:0  +Z:0  -X:0
+      7    chamfer        0.0    -      -191.91,-27.59,-19.1     high      +Y:0  +Z:0  -X:0  -Y:0
+      8    chamfer        0.0    -      -177.96,-27.59,-27.71    high      +X:0  -X:0  -Y:0  -Z:0
+      9    chamfer        0.0    -      -173.8,-27.59,19.1       high      +X:0  +Y:0  +Z:0  -Y:0
+      10   chamfer        0.0    -      -189.01,-27.59,27.14     high      +X:0  +Y:0  +Z:0  -X:0
+      15   chamfer        0.0    -      -177.96,-23.09,-27.71    high      +X:0  +Y:0  -Z:0  -Y:4
+      16   chamfer        0.0    -      -173.8,-23.09,-19.1      high      +X:0  +Y:0  +Z:0  -Y:0
+      17   chamfer        0.0    -      -177.8,-62.09,-15.1      high      -Y:0  -Z:4  +X:4  -X:14
+      18   chamfer        0.0    -      -173.8,-23.09,19.1       high      +X:0  +Y:0  +Z:0  -Y:0
+      19   chamfer        0.0    -      -191.91,-23.09,-19.1     high      +Y:0  +Z:0  -X:0  -Y:0
+      20   chamfer        0.0    -      -191.91,-23.09,-15.1     high      +Y:0  +Z:0  -X:0  -Y:0
+      21   chamfer        0.0    -      -173.8,-62.09,-19.1      high      +X:0  +Y:0  +Z:0  -X:0
+      22   chamfer        0.0    -      -189.01,-23.09,27.14     high      +Y:0  +Z:0  -X:0  -Y:0
+      23   chamfer        0.0    -      -158.73,-27.59,-13.18    high      +X:0  +Y:0  +Z:0  -X:0
+      24   chamfer        0.0    -      -204.56,-27.59,-17.45    high      +X:0  +Y:0  +Z:0  -X:0
+      25   chamfer        0.0    -      -191.41,-62.59,15.1      high      +X:0  +Z:0  -X:0  -Y:0
+      26   chamfer        0.0    -      -191.41,-62.59,-19.1     high      +X:0  +Z:0  -X:0  -Y:0
+      27   chamfer        0.0    -      -177.8,-62.09,15.1       high      -X:0  -Y:0  +X:4  +Z:4
+      28   chamfer        0.0    -      -173.8,-62.09,-19.1      high      +X:0  +Y:0  +Z:0  -X:0
+      29   chamfer        0.0    -      -191.91,-27.59,18.6      high      +Y:0  +Z:0  -X:0  -Y:0
+      30   chamfer        0.0    -      -191.91,-27.59,-15.6     high      +Y:0  +Z:0  -X:0  -Y:0
+      31   chamfer        0.0    -      -191.91,-62.09,19.1      high      +Y:0  +Z:0  -X:0  -Y:0
+      32   chamfer        0.0    -      -191.91,-62.09,-15.1     high      +Y:0  +Z:0  -X:0  -Y:0
+      33   chamfer        0.0    -      -188.54,-27.59,-26.97    high      +X:0  -X:0  -Y:0  -Z:0
+      34   chamfer        0.0    -      -178.41,-27.59,-27.5     high      +X:0  -X:0  -Y:0  -Z:0
+      36   slot           8.62   1.0    -178.8,-61.84,0.0        high      -X:0  -Y:0  +X:4  +Z:4
+      37   slot           3.87   1.0    -183.36,-28.59,0.0       high      +Y:0  -X:0  -Y:0  +X:4
+      -> C:/Users/Siddhant Gupta/Documents/shiaanx_v3_standalone/database_runtime/RKSE-004-057_20261104_160553/logs/feature_table.json
+
+      faces to machine: -Y, +Y
+      -Y: end mill only - NOTHING in this run recognised any holes, so this is a fact about the run, not about the face
+      -Y: free (from --faces)
+
+      hold     machining YMIN_WP, jaws on X (the shorter side) 6.0 mm deep, seated on YMax
+      jaws     close to 22.38 mm, measured from billet
+      reach    38.09 mm of depth available (44.1 mm tall minus the 6.0 mm held)
+      vise     nothing cut below the jaw top, toolpaths 2.0 mm clear of it
+      CAD surface types: 71 faces on the planning grid, from the cache (0.0 s here)

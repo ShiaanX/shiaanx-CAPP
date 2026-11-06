@@ -1,0 +1,36 @@
+{
+  "_note": "Shop rates used by GET /jobs/{id}/quote. machine_inr_per_hr and tool_change_s are real figures. Every other value is a placeholder planning assumption (listed in _sample_fields) for the team to tune.",
+  "_sample_fields": [
+    "margin_pct",
+    "setup_minutes_per_setup",
+    "shift_hours_per_day",
+    "machine_utilization_pct",
+    "qc_dispatch_days",
+    "stock_allowance_mm"
+  ],
+  "machine_inr_per_hr": 700,
+  "machine_rate_source": "real - ShiaanX partner 3-axis VMC hourly rate",
+  "tool_change_s": 15,
+  "tool_change_source": "real - founder: shop VMC has an automatic tool changer, 15 s per tool change (replaces v3 default of 15 min per manual change)",
+  "margin_pct": 25,
+  "margin_source": "placeholder - edit",
+  "setup_minutes_per_setup": 30,
+  "setup_minutes_note": "placeholder (sample) - vise setup + part zeroing + first-off check, per setup, one-time per batch",
+  "shift_hours_per_day": 8,
+  "shift_hours_note": "placeholder (sample) - single 8 h shift",
+  "machine_utilization_pct": 85,
+  "machine_utilization_note": "placeholder (sample)",
+  "qc_dispatch_days": 2,
+  "qc_dispatch_note": "placeholder (sample)",
+  "stock_allowance_mm": 3,
+  "stock_allowance_note": "placeholder (sample) - added to each billet dimension for saw cut + facing",
+  "density_g_cm3": {
+    "aluminium_6061": 2.7,
+    "aluminium_6063": 2.69,
+    "aluminium_6082": 2.71,
+    "aluminium_7075": 2.81,
+    "aluminium_2024": 2.78,
+    "aluminium": 2.7
+  },
+  "density_source": "standard published alloy densities"
+}

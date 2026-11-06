@@ -1,0 +1,29 @@
+{
+  "job_id": "motor-mount-pilot",
+  "part_name": "MOTOR MOUNT",
+  "material": "aluminium_6061",
+  "status": "ONGOING_PRODUCTION",
+  "status_history": [
+    {
+      "status": "ONGOING_PRODUCTION",
+      "at": "2026-08-12T11:14:40.190279+00:00",
+      "note": "job created"
+    }
+  ],
+  "artifacts": {
+    "features": "MOTOR MOUNT_features.json",
+    "clustered": "MOTOR MOUNT_clustered.json",
+    "classified": "MOTOR MOUNT_classified.json",
+    "processes": "MOTOR MOUNT_processes.json",
+    "setups": "MOTOR MOUNT_setups.json",
+    "tools": "MOTOR MOUNT_tools.json",
+    "params": "MOTOR MOUNT_params.json",
+    "program_sheet": "MOTOR MOUNT_params_program_sheet.pdf",
+    "fixture_record": "MOTOR MOUNT_fixture_record.xlsx",
+    "actual_process": "actual_process.json",
+    "baseline_accuracy_report": "baseline_accuracy_report.json",
+    "override_log": "override_log.json"
+  },
+  "created_at": "2026-08-12T11:14:40.201542+00:00",
+  "updated_at": "2026-08-13T05:30:09.524505+00:00"
+}

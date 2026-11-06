@@ -1,0 +1,172 @@
+  holes: will be drilled BEFORE any end mill touches each face
+
+  Run folder: C:/Users/Siddhant Gupta/Documents/shiaanx_v3_standalone/database_runtime/RKSE-004-057_20261104_150313
+    part/ live_models/ pipeline/ checkpoints/ logs/
+    rapid 3500 mm/min | finishing lead-in vertical_arc | 1st-choice link on_surface below 10 mm | plunge distance 2 mm
+    tools: face milling auto | sized features free_and_features | ball nose finishing curved_surfaces | bull nose finishing matching_fillets | steel grade tools gap_fill | spot drilling deep_holes | tap threads ask
+
+  Measuring the part (PythonOCC)...
+      part volume          13181.6 mm3   (target)
+      block volume         45902.6 mm3
+      to remove            32721.0 mm3
+      block size      18.4 x 40.1 x 62.3 mm
+
+  CAPP pipeline: skipped (--no-pipeline)
+      preparing the CAD surface types in the background, while PowerMill is set up and the faces are chosen
+
+  PowerMill
+      dry run - not connecting
+
+  Model, workplanes and tools
+
+  The part is now in PowerMill - inspect it to see which face is which.
+  billet stock: XMin 2  XMax 2  YMin 2  YMax 2  ZMin 2  ZMax 2 mm
+      6 principal workplanes + full tool library (28 milling tools usable for 3D stages)
+
+  Holes
+      6 hole(s) in the CAD
+      dry run - PowerMill recognition skipped, so nothing will be drilled
+
+      CAPP FEATURES (33) - the old pipeline, stages 1-3
+
+      id   type           depth  rad    centroid                 conf      faces ranked (least hurdle first)
+      ----------------------------------------------------------------------------------------------------
+      0    counterbore    6.49   6.0    -183.36,-26.59,-25.1     high      +Y:0  -Y:0  -Z:2  -X:3
+      1    through_hole   2.0    3.2    -185.4,-24.49,0.0        high      +Y:0  -Y:0  -X:3  +X:8
+      2    counterbore    6.49   6.0    -183.36,-26.59,15.06     high      -Y:0  +Y:4  -X:8  +X:9
+      3    through_hole   8.0    3.2    -184.41,-47.59,19.1      high      +Z:0  -Z:0  -X:4  +X:6
+      4    blind_hole     4.0    3.2    -173.8,-47.59,-1.1       low       +X:0  +Y:0  +Z:0  -X:0
+      5    boss           8.38   2.0    -175.8,-45.84,-17.1      high      -Z:2  +X:2  -X:11  -Y:16
+      6    boss           8.38   2.0    -175.8,-63.34,17.1       high      +X:0  +Y:0  +Z:0  -X:0
+      7    chamfer        0.0    -      -191.91,-27.59,-19.1     high      +Y:0  +Z:0  -X:0  -Y:0
+      8    chamfer        0.0    -      -177.96,-27.59,-27.71    high      +X:0  -X:0  -Y:0  -Z:0
+      9    chamfer        0.0    -      -173.8,-27.59,19.1       high      +X:0  +Y:0  +Z:0  -Y:0
+      10   chamfer        0.0    -      -189.01,-27.59,27.14     high      +X:0  +Y:0  +Z:0  -X:0
+      15   chamfer        0.0    -      -177.96,-23.09,-27.71    high      +X:0  +Y:0  -Z:0  -Y:4
+      16   chamfer        0.0    -      -173.8,-23.09,-19.1      high      +X:0  +Y:0  +Z:0  -Y:0
+      17   chamfer        0.0    -      -177.8,-62.09,-15.1      high      -Y:0  -Z:4  +X:4  -X:14
+      18   chamfer        0.0    -      -173.8,-23.09,19.1       high      +X:0  +Y:0  +Z:0  -Y:0
+      19   chamfer        0.0    -      -191.91,-23.09,-19.1     high      +Y:0  +Z:0  -X:0  -Y:0
+      20   chamfer        0.0    -      -191.91,-23.09,-15.1     high      +Y:0  +Z:0  -X:0  -Y:0
+      21   chamfer        0.0    -      -173.8,-62.09,-19.1      high      +X:0  +Y:0  +Z:0  -X:0
+      22   chamfer        0.0    -      -189.01,-23.09,27.14     high      +Y:0  +Z:0  -X:0  -Y:0
+      23   chamfer        0.0    -      -158.73,-27.59,-13.18    high      +X:0  +Y:0  +Z:0  -X:0
+      24   chamfer        0.0    -      -204.56,-27.59,-17.45    high      +X:0  +Y:0  +Z:0  -X:0
+      25   chamfer        0.0    -      -191.41,-62.59,15.1      high      +X:0  +Z:0  -X:0  -Y:0
+      26   chamfer        0.0    -      -191.41,-62.59,-19.1     high      +X:0  +Z:0  -X:0  -Y:0
+      27   chamfer        0.0    -      -177.8,-62.09,15.1       high      -X:0  -Y:0  +X:4  +Z:4
+      28   chamfer        0.0    -      -173.8,-62.09,-19.1      high      +X:0  +Y:0  +Z:0  -X:0
+      29   chamfer        0.0    -      -191.91,-27.59,18.6      high      +Y:0  +Z:0  -X:0  -Y:0
+      30   chamfer        0.0    -      -191.91,-27.59,-15.6     high      +Y:0  +Z:0  -X:0  -Y:0
+      31   chamfer        0.0    -      -191.91,-62.09,19.1      high      +Y:0  +Z:0  -X:0  -Y:0
+      32   chamfer        0.0    -      -191.91,-62.09,-15.1     high      +Y:0  +Z:0  -X:0  -Y:0
+      33   chamfer        0.0    -      -188.54,-27.59,-26.97    high      +X:0  -X:0  -Y:0  -Z:0
+      34   chamfer        0.0    -      -178.41,-27.59,-27.5     high      +X:0  -X:0  -Y:0  -Z:0
+      36   slot           8.62   1.0    -178.8,-61.84,0.0        high      -X:0  -Y:0  +X:4  +Z:4
+      37   slot           3.87   1.0    -183.36,-28.59,0.0       high      +Y:0  -X:0  -Y:0  +X:4
+      -> C:/Users/Siddhant Gupta/Documents/shiaanx_v3_standalone/database_runtime/RKSE-004-057_20261104_150313/logs/feature_table.json
+
+      faces to machine: -Y, +Y
+      -Y: end mill only - NOTHING in this run recognised any holes, so this is a fact about the run, not about the face
+      -Y: free (from --faces)
+
+      hold     machining YMIN_WP, jaws on X (the shorter side) 6.0 mm deep, seated on YMax
+      jaws     close to 22.38 mm, measured from billet
+      reach    38.09 mm of depth available (44.1 mm tall minus the 6.0 mm held)
+      vise     nothing cut below the jaw top, toolpaths 2.0 mm clear of it
+      CAD surface types: 71 faces on the planning grid, from the cache (0.0 s here)
+
+      TOOL ROLES on -Y - which tool is asked to do which job
+        surfaces (from the CAD faces): floor 1,545 mm2 | wall 5,274 mm2 | taper 264 mm2 | curved 244 mm2
+        face mill   FACEMILL_63MM, FACEMILL_50MM, FACEMILL_40MM: the layer above the top - FACEMILL_63MM would face the top in 0.3 min + change, but the end mills take the layer for less here (202 against 208 min)
+        sizing      SLOT_8MM, SLOT_6MM, SLOT_4MM: slots and bores to width - feature 0 12.00 mm with EM_2FL_10MM (rough + finish); feature 6 4.00 mm with EM_2FL_4MM
+        chamfer     CHAM_90_10MM, CHAM_90_8MM, CHAM_90_6MM, CHAM_4FL_STEEL_6MM_41DEG: CHAM_90_10MM 152 mm2
+        ball nose   BALL_4FL_STEEL_10MM, BALL_4FL_STEEL_6MM, BALL_3FL_STEEL_3MM: not in the plan - none of its faces here is within its reach, or worth its change
+        bull nose   BN_5FL_STEEL_12MM_R0.75, BN_5FL_STEEL_8MM_R0.5, BN_5FL_STEEL_5MM_R0.25: not in the plan - none of its faces here is within its reach, or worth its change
+        steel grade EM_5FL_STEEL_12MM, CHAM_4FL_STEEL_6MM_41DEG, EM_4FL_STEEL_5MM, EM_4FL_STEEL_1.5MM: diameters the aluminium set lacks, on their mild-steel data - EM_5FL_STEEL_12MM in the plan
+
+      PLAN - drills into holes, rough what is thick, finish everything, in minutes
+      (no facing: FACEMILL_63MM would face the top in 0.3 min + change, but the end mills take the layer for less here (202 against 208 min))
+      EM_2FL_10MM    to size: feature 0 is 12.00 mm wide, 4,812 mm3, roughed leaving 0.10/wall then finished by the same tool    17.4   + change
+      EM_2FL_4MM     to size: feature 6 is 4.00 mm wide, 51 mm3, one full-width pass    15.2   + change
+      where to start, and what to leave out (the whole search re-run per option): any 109 min <-   <=12mm 167 min   <=10mm 167 min   <=4mm 238 min   no EM4 126 min   no EM12 108 min   no EM16 139 min
+      tool            thick rough mm3    rough finish mm2   finish    total
+      --------------------------------------------------------------------------
+      EM_2FL_16MM     5.31    35,718     5.2      3361     6.9    27.1
+      EM_5FL_STEEL_12MM  1.03       715     2.5       548     5.9    23.4
+      EM_2FL_4MM      1.50       908     3.7         7     1.8     5.5  [loaded]
+      CHAM_90_10MM    0.00         0     -         152     5.2    20.2   <- finish only: CAD tapers at 45 deg
+      --------------------------------------------------------------------------
+      5 tool change(s) = 75 min; total 109 min; leaves 13,975 mm3 no tool here reaches
+      79 mm2 of surface left unfinished - the tool(s) that could reach it were not worth their change (140 mm2 allowed)
+      (a tool is dropped when what only it reaches is under 1229 mm3 / 140 mm2 - the job's residual allowance)
+      EM_2FL_4MM roughs to size: 527 mm2 of walls and floors are finished by that pass itself, not by a second one
+      ! EM_2FL_4MM finishes 7 mm2 at 4 mm2/min - 2 min
+      ! EM_5FL_STEEL_12MM: the 276 mm2 of FLOOR is priced at offset-flat, which has never been measured. If it declines the raster runs instead and that part alone is 8 min, not 6
+      (time model is ~2x; re-costed after every cut from the measured stock and PowerMill's own times)
+
+      PLAN - drills into holes, rough what is thick, finish everything, in minutes
+      (no facing: FACEMILL_63MM would face the top in 0.3 min + change, but the end mills take the layer for less here (202 against 208 min))
+      EM_2FL_10MM    to size: feature 0 is 12.00 mm wide, 4,812 mm3, roughed leaving 0.10/wall then finished by the same tool    17.4   + change
+      EM_2FL_4MM     to size: feature 6 is 4.00 mm wide, 51 mm3, one full-width pass    15.2   + change
+      where to start, and what to leave out (the whole search re-run per option): any 109 min <-   <=12mm 167 min   <=10mm 167 min   <=4mm 238 min   no EM4 126 min   no EM12 108 min   no EM16 139 min
+      tool            thick rough mm3    rough finish mm2   finish    total
+      --------------------------------------------------------------------------
+      EM_2FL_16MM     5.31    35,718     5.2      3361     6.9    27.1
+      EM_5FL_STEEL_12MM  1.03       715     2.5       548     5.9    23.4
+      EM_2FL_4MM      1.50       908     3.7         7     1.8     5.5  [loaded]
+      CHAM_90_10MM    0.00         0     -         152     5.2    20.2   <- finish only: CAD tapers at 45 deg
+      --------------------------------------------------------------------------
+      5 tool change(s) = 75 min; total 109 min; leaves 13,975 mm3 no tool here reaches
+      79 mm2 of surface left unfinished - the tool(s) that could reach it were not worth their change (140 mm2 allowed)
+      (a tool is dropped when what only it reaches is under 1229 mm3 / 140 mm2 - the job's residual allowance)
+      EM_2FL_4MM roughs to size: 527 mm2 of walls and floors are finished by that pass itself, not by a second one
+      ! EM_2FL_4MM finishes 7 mm2 at 4 mm2/min - 2 min
+      ! EM_5FL_STEEL_12MM: the 276 mm2 of FLOOR is priced at offset-flat, which has never been measured. If it declines the raster runs instead and that part alone is 8 min, not 6
+      (time model is ~2x; re-costed after every cut from the measured stock and PowerMill's own times)
+      +Y: end mill only - NOTHING in this run recognised any holes, so this is a fact about the run, not about the face
+      +Y: free (from --faces)
+
+      hold     machining YMAX_WP, jaws on X (the shorter side) 6.0 mm deep, seated on YMin
+      jaws     close to 22.38 mm, measured from billet
+      reach    38.09 mm of depth available (44.1 mm tall minus the 6.0 mm held)
+      vise     nothing cut below the jaw top, toolpaths 2.0 mm clear of it
+
+      TOOL ROLES on +Y - which tool is asked to do which job
+        surfaces (from the CAD faces): floor 1,545 mm2 | wall 5,274 mm2 | taper 264 mm2 | curved 244 mm2
+        face mill   FACEMILL_63MM, FACEMILL_50MM, FACEMILL_40MM: the layer above the top - IN THE PLAN
+        sizing      SLOT_8MM, SLOT_6MM, SLOT_4MM: slots and bores to width - no feature to size here
+        chamfer     CHAM_90_10MM, CHAM_90_8MM, CHAM_90_6MM, CHAM_4FL_STEEL_6MM_41DEG: CHAM_90_10MM 71 mm2
+        ball nose   BALL_4FL_STEEL_10MM, BALL_4FL_STEEL_6MM, BALL_3FL_STEEL_3MM: not in the plan - none of its faces here is within its reach, or worth its change
+        bull nose   BN_5FL_STEEL_12MM_R0.75, BN_5FL_STEEL_8MM_R0.5, BN_5FL_STEEL_5MM_R0.25: not in the plan - none of its faces here is within its reach, or worth its change
+        steel grade EM_5FL_STEEL_12MM, CHAM_4FL_STEEL_6MM_41DEG, EM_4FL_STEEL_5MM, EM_4FL_STEEL_1.5MM: diameters the aluminium set lacks, on their mild-steel data
+
+      PLAN - drills into holes, rough what is thick, finish everything, in minutes
+      FACEMILL_63MM  face the top: 2.00 mm in 1 level(s) x 1 pass(es), 3,741 mm3, top face 860 mm2 finished  15.3   + change
+      where to start, and what to leave out (the whole search re-run per option): any 61 min <-   <=4mm 61 min <-   no EM4 62 min
+      tool            thick rough mm3    rough finish mm2   finish    total
+      --------------------------------------------------------------------------
+      EM_2FL_4MM      3.25     2,746    11.2         8     2.1    28.3
+      CHAM_90_10MM    0.00       292     -          71     2.4    17.4   <- finish only: CAD tapers at 45 deg
+      --------------------------------------------------------------------------
+      3 tool change(s) = 45 min; total 61 min; leaves 563 mm3 no tool here reaches
+      -5 mm2 of surface left unfinished - the tool(s) that could reach it were not worth their change (26 mm2 allowed)
+      (a tool is dropped when what only it reaches is under 69 mm3 / 26 mm2 - the job's residual allowance)
+      EM_2FL_4MM roughs to size: 806 mm2 of walls and floors are finished by that pass itself, not by a second one
+      ! EM_2FL_4MM finishes 8 mm2 at 4 mm2/min - 2 min
+      (time model is ~2x; re-costed after every cut from the measured stock and PowerMill's own times)
+
+      PLAN - drills into holes, rough what is thick, finish everything, in minutes
+      FACEMILL_63MM  face the top: 2.00 mm in 1 level(s) x 1 pass(es), 3,741 mm3, top face 860 mm2 finished  15.3   + change
+      where to start, and what to leave out (the whole search re-run per option): any 61 min <-   <=4mm 61 min <-   no EM4 62 min
+      tool            thick rough mm3    rough finish mm2   finish    total
+      --------------------------------------------------------------------------
+      EM_2FL_4MM      3.25     2,746    11.2         8     2.1    28.3
+      CHAM_90_10MM    0.00       292     -          71     2.4    17.4   <- finish only: CAD tapers at 45 deg
+      --------------------------------------------------------------------------
+      3 tool change(s) = 45 min; total 61 min; leaves 563 mm3 no tool here reaches
+      -5 mm2 of surface left unfinished - the tool(s) that could reach it were not worth their change (26 mm2 allowed)
+      (a tool is dropped when what only it reaches is under 69 mm3 / 26 mm2 - the job's residual allowance)
+      EM_2FL_4MM roughs to size: 806 mm2 of walls and floors are finished by that pass itself, not by a second one
+      ! EM_2FL_4MM finishes 8 mm2 at 4 mm2/min - 2 min
+      (time model is ~2x; re-costed after every cut from the measured stock and PowerMill's own times)

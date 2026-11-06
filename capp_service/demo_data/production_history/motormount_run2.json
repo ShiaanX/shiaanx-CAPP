@@ -1,0 +1,1311 @@
+{
+ "id": "run2",
+ "label": "Batch 2: Sinumerik 828D program, TS machine, 4 setups",
+ "machine": "TS (Sinumerik 828D)",
+ "program_type": "Sinumerik 828D .MPF",
+ "setups": 4,
+ "parts_made": 9,
+ "parts": [
+  "P1",
+  "P2",
+  "P3",
+  "P4",
+  "P5",
+  "P6",
+  "P7",
+  "P8",
+  "P9"
+ ],
+ "program": {
+  "ops": [
+   {
+    "op": "10 ENDMILL DYNAMIC-1 RF",
+    "tool": "T1 Ø10 mm END MILL",
+    "rpm": 4461.0,
+    "feed_mm_min": 1764.0,
+    "minutes": 9.72,
+    "setup": 1,
+    "nc_file": "MOTOR_MOUNT_1_SETUP..MPF"
+   },
+   {
+    "op": "10 ENDMILL STEP-1 BOTTOM FINISH-",
+    "tool": "T1 Ø10 mm END MILL",
+    "rpm": 2800.0,
+    "feed_mm_min": 800.0,
+    "minutes": 2.05,
+    "setup": 1,
+    "nc_file": "MOTOR_MOUNT_1_SETUP..MPF"
+   },
+   {
+    "op": "10 ENDMILL OUTER-PROFILE FINISH",
+    "tool": "T1 Ø10 mm END MILL",
+    "rpm": 2200.0,
+    "feed_mm_min": 300.0,
+    "minutes": 1.42,
+    "setup": 1,
+    "nc_file": "MOTOR_MOUNT_1_SETUP..MPF"
+   },
+   {
+    "op": "10 ENDMILL STEP-1 FINISH",
+    "tool": "T1 Ø10 mm END MILL",
+    "rpm": 2200.0,
+    "feed_mm_min": 300.0,
+    "minutes": 1.2,
+    "setup": 1,
+    "nc_file": "MOTOR_MOUNT_1_SETUP..MPF"
+   },
+   {
+    "op": "CENTER DRILL-BS2",
+    "tool": "T2 Ø2 mm CENTER DRILL",
+    "rpm": 1000.0,
+    "feed_mm_min": null,
+    "minutes": 0.97,
+    "setup": 1,
+    "nc_file": "MOTOR_MOUNT_1_SETUP..MPF"
+   },
+   {
+    "op": "2.5 DRILL-",
+    "tool": "T3 Ø2.5 mm DRILL",
+    "rpm": 1500.0,
+    "feed_mm_min": null,
+    "minutes": 2.1,
+    "setup": 1,
+    "nc_file": "MOTOR_MOUNT_1_SETUP..MPF"
+   },
+   {
+    "op": "3.2 DRILL-",
+    "tool": "T4 Ø3.2 mm DRILL",
+    "rpm": 1200.0,
+    "feed_mm_min": null,
+    "minutes": 1.35,
+    "setup": 1,
+    "nc_file": "MOTOR_MOUNT_1_SETUP..MPF"
+   },
+   {
+    "op": "8 ENDMILL Q11 RF",
+    "tool": "T5 Ø8 mm END MILL",
+    "rpm": 2200.0,
+    "feed_mm_min": 500.0,
+    "minutes": 0.48,
+    "setup": 1,
+    "nc_file": "MOTOR_MOUNT_1_SETUP..MPF"
+   },
+   {
+    "op": "8 ENDMILL SP RF",
+    "tool": "T5 Ø8 mm END MILL",
+    "rpm": 2200.0,
+    "feed_mm_min": 500.0,
+    "minutes": 1.3,
+    "setup": 1,
+    "nc_file": "MOTOR_MOUNT_1_SETUP..MPF"
+   },
+   {
+    "op": "8 ENDMILL Q11 FINISH",
+    "tool": "T5 Ø8 mm END MILL",
+    "rpm": 2200.0,
+    "feed_mm_min": 500.0,
+    "minutes": 0.3,
+    "setup": 1,
+    "nc_file": "MOTOR_MOUNT_1_SETUP..MPF"
+   },
+   {
+    "op": "8 ENDMILL SMALL-POCKET FINISH-",
+    "tool": "T5 Ø8 mm END MILL",
+    "rpm": 2200.0,
+    "feed_mm_min": 200.0,
+    "minutes": 0.33,
+    "setup": 1,
+    "nc_file": "MOTOR_MOUNT_1_SETUP..MPF"
+   },
+   {
+    "op": "3 ENDMILL CAVITY-- RF",
+    "tool": "T6 Ø3 mm END MILL",
+    "rpm": 3000.0,
+    "feed_mm_min": 800.0,
+    "minutes": 3.18,
+    "setup": 1,
+    "nc_file": "MOTOR_MOUNT_1_SETUP..MPF"
+   },
+   {
+    "op": "3 ENDMILL CAVITY- FINISH",
+    "tool": "T6 Ø3 mm END MILL",
+    "rpm": 2200.0,
+    "feed_mm_min": 250.0,
+    "minutes": 0.8,
+    "setup": 1,
+    "nc_file": "MOTOR_MOUNT_1_SETUP..MPF"
+   },
+   {
+    "op": "3 ENDMILL SMALL-POCKET CORNER",
+    "tool": "T6 Ø3 mm END MILL",
+    "rpm": 3000.0,
+    "feed_mm_min": 800.0,
+    "minutes": 1.47,
+    "setup": 1,
+    "nc_file": "MOTOR_MOUNT_1_SETUP..MPF"
+   },
+   {
+    "op": "4 ENDMILL OUTER-PROFILE CORNER",
+    "tool": "T7 Ø4 mm END MILL",
+    "rpm": 2200.0,
+    "feed_mm_min": 500.0,
+    "minutes": 1.52,
+    "setup": 1,
+    "nc_file": "MOTOR_MOUNT_1_SETUP..MPF"
+   },
+   {
+    "op": "8R1 ENDMILL-TOP R FINISH",
+    "tool": "T8 Ø8 mm BULL NOSE MILL",
+    "rpm": 4500.0,
+    "feed_mm_min": 1500.0,
+    "minutes": 2.97,
+    "setup": 1,
+    "nc_file": "MOTOR_MOUNT_1_SETUP..MPF"
+   },
+   {
+    "op": "5 BALLNOSE STEP BOTTOM FINISH",
+    "tool": "T9 Ø5 mm BALL NOSE",
+    "rpm": 2500.0,
+    "feed_mm_min": 200.0,
+    "minutes": 0.8,
+    "setup": 1,
+    "nc_file": "MOTOR_MOUNT_1_SETUP..MPF"
+   },
+   {
+    "op": "CHAMFER CUTTER 10 X 45",
+    "tool": "T10 Ø10 mm CHAMFER MILL",
+    "rpm": 900.0,
+    "feed_mm_min": null,
+    "minutes": 0.85,
+    "setup": 1,
+    "nc_file": "MOTOR_MOUNT_1_SETUP..MPF"
+   },
+   {
+    "op": "CHAMFER CUTTER 10 X 45-",
+    "tool": "T10 Ø10 mm CHAMFER MILL",
+    "rpm": 4500.0,
+    "feed_mm_min": 700.0,
+    "minutes": 1.05,
+    "setup": 1,
+    "nc_file": "MOTOR_MOUNT_1_SETUP..MPF"
+   },
+   {
+    "op": "10 ENDMILL DYAMNIC-2RF",
+    "tool": "T1 Ø10 mm END MILL",
+    "rpm": 4557.0,
+    "feed_mm_min": 10000.0,
+    "minutes": 14.02,
+    "setup": 2,
+    "nc_file": "MOTOR_MOUNT_2_SETUP..MPF"
+   },
+   {
+    "op": "10 ENDMILL STEP-2 FINISH",
+    "tool": "T1 Ø10 mm END MILL",
+    "rpm": 2200.0,
+    "feed_mm_min": 300.0,
+    "minutes": 0.75,
+    "setup": 2,
+    "nc_file": "MOTOR_MOUNT_2_SETUP..MPF"
+   },
+   {
+    "op": "10 ENDMILL LENGHT FINISH CUT",
+    "tool": "T1 Ø10 mm END MILL",
+    "rpm": 2200.0,
+    "feed_mm_min": 300.0,
+    "minutes": 0.4,
+    "setup": 2,
+    "nc_file": "MOTOR_MOUNT_2_SETUP..MPF"
+   },
+   {
+    "op": "10 ENDMILL STEP BOTTOM FINISH",
+    "tool": "T1 Ø10 mm END MILL",
+    "rpm": 2800.0,
+    "feed_mm_min": 800.0,
+    "minutes": 2.65,
+    "setup": 2,
+    "nc_file": "MOTOR_MOUNT_2_SETUP..MPF"
+   },
+   {
+    "op": "3 DRILL",
+    "tool": "T11 Ø3 mm DRILL",
+    "rpm": 1200.0,
+    "feed_mm_min": null,
+    "minutes": 0.52,
+    "setup": 2,
+    "nc_file": "MOTOR_MOUNT_2_SETUP..MPF"
+   },
+   {
+    "op": "4 ENDMILL STEP POCKET FINISH",
+    "tool": "T7 Ø4 mm END MILL",
+    "rpm": 2200.0,
+    "feed_mm_min": 500.0,
+    "minutes": 0.6,
+    "setup": 2,
+    "nc_file": "MOTOR_MOUNT_2_SETUP..MPF"
+   },
+   {
+    "op": "4 ENDMILL STEP-2 FINISH",
+    "tool": "T7 Ø4 mm END MILL",
+    "rpm": 2200.0,
+    "feed_mm_min": 250.0,
+    "minutes": 0.63,
+    "setup": 2,
+    "nc_file": "MOTOR_MOUNT_2_SETUP..MPF"
+   },
+   {
+    "op": "8R1 ENDMILL",
+    "tool": "T8 Ø8 mm BULL NOSE MILL",
+    "rpm": 4500.0,
+    "feed_mm_min": 1500.0,
+    "minutes": 1.88,
+    "setup": 2,
+    "nc_file": "MOTOR_MOUNT_2_SETUP..MPF"
+   },
+   {
+    "op": "5 BALLNOSE STEP-2 BOTTOM R FINISH",
+    "tool": "T9 Ø5 mm BALL NOSE",
+    "rpm": 2500.0,
+    "feed_mm_min": 200.0,
+    "minutes": 0.75,
+    "setup": 2,
+    "nc_file": "MOTOR_MOUNT_2_SETUP..MPF"
+   },
+   {
+    "op": "3 BALLNOSE-1",
+    "tool": "T12 Ø3 mm BALL NOSE",
+    "rpm": 4500.0,
+    "feed_mm_min": 1000.0,
+    "minutes": 1.57,
+    "setup": 2,
+    "nc_file": "MOTOR_MOUNT_2_SETUP..MPF"
+   },
+   {
+    "op": "3 BALLNOSE",
+    "tool": "T12 Ø3 mm BALL NOSE",
+    "rpm": 4500.0,
+    "feed_mm_min": 1000.0,
+    "minutes": 2.38,
+    "setup": 2,
+    "nc_file": "MOTOR_MOUNT_2_SETUP..MPF"
+   },
+   {
+    "op": "10 ENDMILL STEP-1-1 BOTTOM FINISH",
+    "tool": "T1 Ø10 mm END MILL",
+    "rpm": 2800.0,
+    "feed_mm_min": 800.0,
+    "minutes": 2.05,
+    "setup": 3,
+    "nc_file": "MOTOR_MOUNT_3_FINISH_SETUP..MPF"
+   },
+   {
+    "op": "10 ENDMILL STEP-1 FINISH-1",
+    "tool": "T1 Ø10 mm END MILL",
+    "rpm": 2200.0,
+    "feed_mm_min": 300.0,
+    "minutes": 0.68,
+    "setup": 3,
+    "nc_file": "MOTOR_MOUNT_3_FINISH_SETUP..MPF"
+   },
+   {
+    "op": "5 BALLNOSE STEP BOTTOM FINISH-",
+    "tool": "T9 Ø5 mm BALL NOSE",
+    "rpm": 2500.0,
+    "feed_mm_min": 200.0,
+    "minutes": 0.8,
+    "setup": 3,
+    "nc_file": "MOTOR_MOUNT_3_FINISH_SETUP..MPF"
+   },
+   {
+    "op": "10 ENDMILL PROFILE BORE 16.1 RF",
+    "tool": "T13 Ø10 mm END MILL",
+    "rpm": 2500.0,
+    "feed_mm_min": 800.0,
+    "minutes": 3.13,
+    "setup": 4,
+    "nc_file": "MOTOR_MOUNT_4_SETUP..MPF"
+   },
+   {
+    "op": "10 ENDMILL PROFILE BORE 16.1 FINISH",
+    "tool": "T13 Ø10 mm END MILL",
+    "rpm": 2500.0,
+    "feed_mm_min": 800.0,
+    "minutes": 0.32,
+    "setup": 4,
+    "nc_file": "MOTOR_MOUNT_4_SETUP..MPF"
+   },
+   {
+    "op": "CHAMFER CUTTER 10 X 45-BORE OUTER",
+    "tool": "T10 Ø10 mm CHAMFER MILL",
+    "rpm": 900.0,
+    "feed_mm_min": 500.0,
+    "minutes": 0.7,
+    "setup": 4,
+    "nc_file": "MOTOR_MOUNT_4_SETUP..MPF"
+   },
+   {
+    "op": "3 ENDMILL LONG POCKET RF",
+    "tool": "T14 Ø3 mm END MILL",
+    "rpm": 2800.0,
+    "feed_mm_min": 500.0,
+    "minutes": 1.93,
+    "setup": 4,
+    "nc_file": "MOTOR_MOUNT_4_SETUP..MPF"
+   }
+  ],
+  "by_setup": [
+   {
+    "setup": 1,
+    "file": "MOTOR_MOUNT_1_SETUP..MPF",
+    "minutes": 33.93
+   },
+   {
+    "setup": 2,
+    "file": "MOTOR_MOUNT_2_SETUP..MPF",
+    "minutes": 26.2
+   },
+   {
+    "setup": 3,
+    "file": "MOTOR_MOUNT_3_FINISH_SETUP..MPF",
+    "minutes": 3.55
+   },
+   {
+    "setup": 4,
+    "file": "MOTOR_MOUNT_4_SETUP..MPF",
+    "minutes": 6.1
+   }
+  ],
+  "total_minutes": 69.8,
+  "ops_minutes_sum": 69.6,
+  "minutes_basis": "programmer's CAM-estimated times: total = sum of the ';time =' tool-list header lines across the setup programs; op minutes = each MSG(\"<op> = h:mm:ss\"). Load/unload and setup changeovers excluded."
+ },
+ "qc": {
+  "dimensions": 12,
+  "in_tol": 8,
+  "close": 0,
+  "out": 4,
+  "checked_only": 3,
+  "grading": "each reading vs nominal ± tol: outside = out; >= 80% of the band = close; else in. A dimension takes its worst reading. Visual / un-toleranced rows = checked (not counted).",
+  "per_dimension": [
+   {
+    "dim": "Ø16.1",
+    "sl": 1,
+    "nominal": 16.1,
+    "tol": [
+     -0.2,
+     0.2
+    ],
+    "readings": [
+     16.08,
+     16.09,
+     16.08,
+     16.09,
+     16.04,
+     16.05,
+     16.07,
+     16.08,
+     16.07,
+     16.08,
+     16.06,
+     16.08,
+     16.09,
+     16.1,
+     16.11,
+     16.12,
+     16.11,
+     16.12
+    ],
+    "readings_by_part": {
+     "P1": [
+      16.08,
+      16.09
+     ],
+     "P2": [
+      16.08,
+      16.09
+     ],
+     "P3": [
+      16.04,
+      16.05
+     ],
+     "P4": [
+      16.07,
+      16.08
+     ],
+     "P5": [
+      16.07,
+      16.08
+     ],
+     "P6": [
+      16.06,
+      16.08
+     ],
+     "P7": [
+      16.09,
+      16.1
+     ],
+     "P8": [
+      16.11,
+      16.12
+     ],
+     "P9": [
+      16.11,
+      16.12
+     ]
+    },
+    "notes": null,
+    "instrument": "Digital Vernier Caliper",
+    "remark": "OK",
+    "verdict": "in"
+   },
+   {
+    "dim": "46.1",
+    "sl": 2,
+    "nominal": 46.1,
+    "tol": [
+     -0.2,
+     0.2
+    ],
+    "readings": [
+     46.15,
+     46.17,
+     46.16,
+     46.17,
+     46.18,
+     46.19,
+     46.16,
+     46.17,
+     46.16,
+     46.17,
+     46.11,
+     46.12,
+     46.15,
+     46.17,
+     46.16,
+     46.17,
+     46.15,
+     46.16
+    ],
+    "readings_by_part": {
+     "P1": [
+      46.15,
+      46.17
+     ],
+     "P2": [
+      46.16,
+      46.17
+     ],
+     "P3": [
+      46.18,
+      46.19
+     ],
+     "P4": [
+      46.16,
+      46.17
+     ],
+     "P5": [
+      46.16,
+      46.17
+     ],
+     "P6": [
+      46.11,
+      46.12
+     ],
+     "P7": [
+      46.15,
+      46.17
+     ],
+     "P8": [
+      46.16,
+      46.17
+     ],
+     "P9": [
+      46.15,
+      46.16
+     ]
+    },
+    "notes": null,
+    "instrument": "Digital Vernier Caliper",
+    "remark": "OK",
+    "verdict": "in"
+   },
+   {
+    "dim": "104.78",
+    "sl": 3,
+    "nominal": 104.78,
+    "tol": [
+     -0.3,
+     0.3
+    ],
+    "readings": [
+     104.8,
+     104.82,
+     104.79,
+     104.8,
+     104.78,
+     104.79,
+     104.79,
+     104.8,
+     104.79,
+     104.8,
+     104.78,
+     104.79,
+     104.78,
+     104.79,
+     104.81,
+     104.82,
+     104.78,
+     104.79
+    ],
+    "readings_by_part": {
+     "P1": [
+      104.8,
+      104.82
+     ],
+     "P2": [
+      104.79,
+      104.8
+     ],
+     "P3": [
+      104.78,
+      104.79
+     ],
+     "P4": [
+      104.79,
+      104.8
+     ],
+     "P5": [
+      104.79,
+      104.8
+     ],
+     "P6": [
+      104.78,
+      104.79
+     ],
+     "P7": [
+      104.78,
+      104.79
+     ],
+     "P8": [
+      104.81,
+      104.82
+     ],
+     "P9": [
+      104.78,
+      104.79
+     ]
+    },
+    "notes": null,
+    "instrument": "Digital Vernier Caliper",
+    "remark": "OK",
+    "verdict": "in"
+   },
+   {
+    "dim": "Ø3.2",
+    "sl": 4,
+    "nominal": 3.2,
+    "tol": [
+     -0.1,
+     0.1
+    ],
+    "readings": [
+     3.17,
+     3.19,
+     3.16,
+     3.17,
+     3.16,
+     3.17,
+     3.18,
+     3.2,
+     3.16,
+     3.18,
+     3.17,
+     3.2,
+     3.16,
+     3.18,
+     3.15,
+     3.16,
+     3.17,
+     3.19
+    ],
+    "readings_by_part": {
+     "P1": [
+      3.17,
+      3.19
+     ],
+     "P2": [
+      3.16,
+      3.17
+     ],
+     "P3": [
+      3.16,
+      3.17
+     ],
+     "P4": [
+      3.18,
+      3.2
+     ],
+     "P5": [
+      3.16,
+      3.18
+     ],
+     "P6": [
+      3.17,
+      3.2
+     ],
+     "P7": [
+      3.16,
+      3.18
+     ],
+     "P8": [
+      3.15,
+      3.16
+     ],
+     "P9": [
+      3.17,
+      3.19
+     ]
+    },
+    "notes": null,
+    "instrument": "Digital Vernier Caliper",
+    "remark": "OK",
+    "verdict": "in"
+   },
+   {
+    "dim": "Ø3.2",
+    "sl": 5,
+    "nominal": 3.2,
+    "tol": [
+     -0.1,
+     0.1
+    ],
+    "readings": [
+     3.17,
+     3.18,
+     3.17,
+     3.18,
+     3.16,
+     3.17,
+     3.18,
+     3.19,
+     3.18,
+     3.19,
+     3.17,
+     3.19,
+     3.17,
+     3.18,
+     3.18,
+     3.19,
+     3.18,
+     3.19
+    ],
+    "readings_by_part": {
+     "P1": [
+      3.17,
+      3.18
+     ],
+     "P2": [
+      3.17,
+      3.18
+     ],
+     "P3": [
+      3.16,
+      3.17
+     ],
+     "P4": [
+      3.18,
+      3.19
+     ],
+     "P5": [
+      3.18,
+      3.19
+     ],
+     "P6": [
+      3.17,
+      3.19
+     ],
+     "P7": [
+      3.17,
+      3.18
+     ],
+     "P8": [
+      3.18,
+      3.19
+     ],
+     "P9": [
+      3.18,
+      3.19
+     ]
+    },
+    "notes": null,
+    "instrument": "Digital Vernier Caliper",
+    "remark": "OK",
+    "verdict": "in"
+   },
+   {
+    "dim": "Ø2.5",
+    "sl": 6,
+    "nominal": 2.5,
+    "tol": [
+     -0.1,
+     0.1
+    ],
+    "readings": [],
+    "readings_by_part": {},
+    "notes": {
+     "P1": "tapping",
+     "P2": "tapping",
+     "P3": "tapping",
+     "P4": "tapping",
+     "P5": "tapping",
+     "P6": "tapping",
+     "P7": "tapping",
+     "P8": "tapping",
+     "P9": "tapping"
+    },
+    "instrument": "Digital Vernier Caliper",
+    "remark": "OK",
+    "verdict": "checked"
+   },
+   {
+    "dim": "12",
+    "sl": 7,
+    "nominal": 12.0,
+    "tol": [
+     -0.2,
+     0.2
+    ],
+    "readings": [
+     11.96,
+     11.97,
+     11.98,
+     11.99,
+     11.96,
+     11.97,
+     11.95,
+     11.96,
+     11.97,
+     11.98,
+     11.95,
+     11.96,
+     11.97,
+     11.98,
+     11.98,
+     11.99,
+     11.95,
+     11.96
+    ],
+    "readings_by_part": {
+     "P1": [
+      11.96,
+      11.97
+     ],
+     "P2": [
+      11.98,
+      11.99
+     ],
+     "P3": [
+      11.96,
+      11.97
+     ],
+     "P4": [
+      11.95,
+      11.96
+     ],
+     "P5": [
+      11.97,
+      11.98
+     ],
+     "P6": [
+      11.95,
+      11.96
+     ],
+     "P7": [
+      11.97,
+      11.98
+     ],
+     "P8": [
+      11.98,
+      11.99
+     ],
+     "P9": [
+      11.95,
+      11.96
+     ]
+    },
+    "notes": null,
+    "instrument": "Digital Vernier Caliper",
+    "remark": "OK",
+    "verdict": "in"
+   },
+   {
+    "dim": "Ø3.00",
+    "sl": 8,
+    "nominal": 3.0,
+    "tol": [
+     -0.1,
+     0.1
+    ],
+    "readings": [
+     3.07,
+     3.08,
+     3.1,
+     3.12,
+     3.1,
+     3.12,
+     3.05,
+     3.08,
+     3.1,
+     3.11,
+     3.09,
+     3.1,
+     3.09,
+     3.1,
+     3.08,
+     3.09,
+     3.08,
+     3.11
+    ],
+    "readings_by_part": {
+     "P1": [
+      3.07,
+      3.08
+     ],
+     "P2": [
+      3.1,
+      3.12
+     ],
+     "P3": [
+      3.1,
+      3.12
+     ],
+     "P4": [
+      3.05,
+      3.08
+     ],
+     "P5": [
+      3.1,
+      3.11
+     ],
+     "P6": [
+      3.09,
+      3.1
+     ],
+     "P7": [
+      3.09,
+      3.1
+     ],
+     "P8": [
+      3.08,
+      3.09
+     ],
+     "P9": [
+      3.08,
+      3.11
+     ]
+    },
+    "notes": null,
+    "instrument": "Digital Vernier Caliper",
+    "remark": "OK",
+    "verdict": "out"
+   },
+   {
+    "dim": "18",
+    "sl": 9,
+    "nominal": 18.0,
+    "tol": [
+     -0.2,
+     0.2
+    ],
+    "readings": [
+     17.99,
+     18.0,
+     17.97,
+     17.98,
+     18.0,
+     18.01,
+     17.97,
+     17.98,
+     17.97,
+     17.98,
+     17.98,
+     17.99,
+     17.97,
+     17.99,
+     17.97,
+     17.98,
+     17.98,
+     18.01
+    ],
+    "readings_by_part": {
+     "P1": [
+      17.99,
+      18.0
+     ],
+     "P2": [
+      17.97,
+      17.98
+     ],
+     "P3": [
+      18.0,
+      18.01
+     ],
+     "P4": [
+      17.97,
+      17.98
+     ],
+     "P5": [
+      17.97,
+      17.98
+     ],
+     "P6": [
+      17.98,
+      17.99
+     ],
+     "P7": [
+      17.97,
+      17.99
+     ],
+     "P8": [
+      17.97,
+      17.98
+     ],
+     "P9": [
+      17.98,
+      18.01
+     ]
+    },
+    "notes": null,
+    "instrument": "Digital Vernier Caliper",
+    "remark": "OK",
+    "verdict": "in"
+   },
+   {
+    "dim": "22",
+    "sl": 10,
+    "nominal": 22.0,
+    "tol": [
+     -0.2,
+     0.2
+    ],
+    "readings": [
+     21.88,
+     21.9,
+     21.76,
+     21.77,
+     21.83,
+     21.85,
+     21.95,
+     21.97,
+     21.88,
+     21.92,
+     21.94,
+     21.96,
+     21.68,
+     21.75,
+     21.98,
+     21.99,
+     21.92,
+     21.94
+    ],
+    "readings_by_part": {
+     "P1": [
+      21.88,
+      21.9
+     ],
+     "P2": [
+      21.76,
+      21.77
+     ],
+     "P3": [
+      21.83,
+      21.85
+     ],
+     "P4": [
+      21.95,
+      21.97
+     ],
+     "P5": [
+      21.88,
+      21.92
+     ],
+     "P6": [
+      21.94,
+      21.96
+     ],
+     "P7": [
+      21.68,
+      21.75
+     ],
+     "P8": [
+      21.98,
+      21.99
+     ],
+     "P9": [
+      21.92,
+      21.94
+     ]
+    },
+    "notes": null,
+    "instrument": "Digital Vernier Caliper",
+    "remark": "OK",
+    "verdict": "out"
+   },
+   {
+    "dim": "3.5",
+    "sl": 11,
+    "nominal": 3.5,
+    "tol": [
+     -0.1,
+     0.1
+    ],
+    "readings": [
+     3.5,
+     3.52,
+     3.48,
+     3.65,
+     3.49,
+     3.5,
+     3.53,
+     3.56,
+     3.48,
+     3.56,
+     3.52,
+     3.59,
+     3.5,
+     3.58,
+     3.5,
+     3.53,
+     3.49,
+     3.53
+    ],
+    "readings_by_part": {
+     "P1": [
+      3.5,
+      3.52
+     ],
+     "P2": [
+      3.48,
+      3.65
+     ],
+     "P3": [
+      3.49,
+      3.5
+     ],
+     "P4": [
+      3.53,
+      3.56
+     ],
+     "P5": [
+      3.48,
+      3.56
+     ],
+     "P6": [
+      3.52,
+      3.59
+     ],
+     "P7": [
+      3.5,
+      3.58
+     ],
+     "P8": [
+      3.5,
+      3.53
+     ],
+     "P9": [
+      3.49,
+      3.53
+     ]
+    },
+    "notes": null,
+    "instrument": "Digital Vernier Caliper",
+    "remark": "OK",
+    "verdict": "out"
+   },
+   {
+    "dim": "2",
+    "sl": 12,
+    "nominal": 2.0,
+    "tol": [
+     -0.1,
+     0.1
+    ],
+    "readings": [
+     1.99,
+     2.0,
+     1.99,
+     2.01,
+     1.98,
+     1.99,
+     1.97,
+     1.98,
+     1.97,
+     1.99,
+     1.99,
+     2.0,
+     1.97,
+     1.98,
+     1.98,
+     1.99,
+     1.98,
+     1.99
+    ],
+    "readings_by_part": {
+     "P1": [
+      1.99,
+      2.0
+     ],
+     "P2": [
+      1.99,
+      2.01
+     ],
+     "P3": [
+      1.98,
+      1.99
+     ],
+     "P4": [
+      1.97,
+      1.98
+     ],
+     "P5": [
+      1.97,
+      1.99
+     ],
+     "P6": [
+      1.99,
+      2.0
+     ],
+     "P7": [
+      1.97,
+      1.98
+     ],
+     "P8": [
+      1.98,
+      1.99
+     ],
+     "P9": [
+      1.98,
+      1.99
+     ]
+    },
+    "notes": null,
+    "instrument": "Digital Vernier Caliper",
+    "remark": "OK",
+    "verdict": "in"
+   },
+   {
+    "dim": "5",
+    "sl": 13,
+    "nominal": 5.0,
+    "tol": [
+     -0.1,
+     0.1
+    ],
+    "readings": [
+     4.96,
+     5.01,
+     4.88,
+     5.03,
+     4.87,
+     5.02,
+     4.96,
+     5.02,
+     4.92,
+     5.03,
+     4.89,
+     4.95,
+     4.9,
+     4.96,
+     4.94,
+     5.0,
+     4.92,
+     5.02
+    ],
+    "readings_by_part": {
+     "P1": [
+      4.96,
+      5.01
+     ],
+     "P2": [
+      4.88,
+      5.03
+     ],
+     "P3": [
+      4.87,
+      5.02
+     ],
+     "P4": [
+      4.96,
+      5.02
+     ],
+     "P5": [
+      4.92,
+      5.03
+     ],
+     "P6": [
+      4.89,
+      4.95
+     ],
+     "P7": [
+      4.9,
+      4.96
+     ],
+     "P8": [
+      4.94,
+      5.0
+     ],
+     "P9": [
+      4.92,
+      5.02
+     ]
+    },
+    "notes": null,
+    "instrument": "Digital Vernier Caliper",
+    "remark": "Not OK",
+    "verdict": "out"
+   },
+   {
+    "dim": "Dents",
+    "sl": 14,
+    "nominal": null,
+    "tol": null,
+    "readings": [],
+    "readings_by_part": {},
+    "notes": {
+     "P1": "Not Found",
+     "P6": "Not Found",
+     "P7": "Not Found",
+     "P8": "Not Found",
+     "P9": "Not Found"
+    },
+    "instrument": "Visual",
+    "remark": "OK",
+    "verdict": "checked"
+   },
+   {
+    "dim": "Surface Finish",
+    "sl": 15,
+    "nominal": null,
+    "tol": null,
+    "readings": [],
+    "readings_by_part": {},
+    "notes": {
+     "P1": "Machined",
+     "P6": "Machined",
+     "P7": "Machined",
+     "P8": "Machined",
+     "P9": "Machined"
+    },
+    "instrument": "Visual",
+    "remark": "OK",
+    "verdict": "checked"
+   }
+  ]
+ },
+ "defects_link": "/proto/closed-loop?view=defects&batch=run2",
+ "sources": [
+  "G:/My Drive/Closed Loop/Clean Data/Motor Mount_TS/CAM files_TS/ (MOTOR_MOUNT_1_SETUP..MPF, MOTOR_MOUNT_2_SETUP..MPF, MOTOR_MOUNT_3_FINISH_SETUP..MPF, MOTOR_MOUNT_4_SETUP..MPF)",
+  "G:/My Drive/Closed Loop/Clean Data/Motor Mount_TS/Inspection Report_TS/Inspection Report_motor mount.xlsx"
+ ],
+ "snapshot": false,
+ "snapshot_written_at": "2026-11-05T10:51:07+00:00"
+}

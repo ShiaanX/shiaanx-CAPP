@@ -2,3 +2,6 @@ fastapi==0.111.0
 uvicorn==0.29.0
 python-multipart==0.0.9
 aiofiles==23.2.1
+requests>=2.31
+openpyxl>=3.1
+# pythonocc-core comes from the conda env (environment.yml) - needed by demo_modules/step_geometry.py (/cmm)

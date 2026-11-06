@@ -1,0 +1,29 @@
+{
+ "schema": 1,
+ "entries": [
+  {
+   "sha256": "b3c29632c4844e705d9197c8141a7c60e810c16e6491df4b90d31eddc41529c4",
+   "faces": "",
+   "file": "v3_7ae61628d6207c1871d8.json",
+   "part": "MOTOR MOUNT"
+  },
+  {
+   "sha256": "b3c29632c4844e705d9197c8141a7c60e810c16e6491df4b90d31eddc41529c4",
+   "faces": "+Z,-Z,-Y",
+   "file": "v3_3172981023197a183c87.json",
+   "part": "MOTOR MOUNT"
+  },
+  {
+   "sha256": "49b5de88c91dada2c855645d65b11a35260ab25cd8c3287009104123e65c5a7e",
+   "faces": "",
+   "file": "v3_4c457b3cd69489e6f873.json",
+   "part": "RKSE-004-057"
+  },
+  {
+   "sha256": "7ab7fa87c5e5861b9617ad8c5b6faf3b7c98ee213ee7b1974a5a7db5b985f7b7",
+   "faces": "",
+   "file": "v3_b2dd4bade6e882033a2d.json",
+   "part": "3b71db95-f4b4-4ed7-ac49-f19b082a9a04"
+  }
+ ]
+}

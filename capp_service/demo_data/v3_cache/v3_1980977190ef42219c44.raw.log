@@ -1,0 +1,60 @@
+  holes: will be drilled BEFORE any end mill touches each face
+
+  Run folder: C:/Users/Siddhant Gupta/Documents/shiaanx_v3_standalone/database_runtime/40449aeb-729f-427e-a284-4a2eabd37b6f_20261105_183441
+    part/ live_models/ pipeline/ checkpoints/ logs/
+    rapid 3500 mm/min | finishing lead-in vertical_arc | 1st-choice link on_surface below 10 mm | plunge distance 2 mm
+    tools: face milling auto | sized features free_and_features | ball nose finishing curved_surfaces | bull nose finishing matching_fillets | steel grade tools gap_fill | spot drilling deep_holes | tap threads ask
+
+  Measuring the part (PythonOCC)...
+      part volume          35959.9 mm3   (target)
+      block volume         37000.0 mm3
+      to remove             1040.1 mm3
+      block size      100.0 x 185.0 x 2.0 mm
+
+  CAPP pipeline: skipped (--no-pipeline)
+      preparing the CAD surface types in the background, while PowerMill is set up and the faces are chosen
+
+  PowerMill
+      dry run - not connecting
+
+  Model, workplanes and tools
+
+  The part is now in PowerMill - inspect it to see which face is which.
+  billet stock: XMin 2  XMax 2  YMin 2  YMax 2  ZMin 2  ZMax 2 mm
+      6 principal workplanes + full tool library (28 milling tools usable for 3D stages)
+
+  Holes
+      4 hole(s) in the CAD
+      dry run - PowerMill recognition skipped, so nothing will be drilled
+
+      CAPP FEATURES (26) - the old pipeline, stages 1-3
+
+      id   type           depth  rad    centroid                 conf      faces ranked (least hurdle first)
+      ----------------------------------------------------------------------------------------------------
+      0    boss           0.5    10.0   -40.0,-82.5,0.0          high      +X:0  +Y:0  -X:0  -Y:0
+      1    boss           0.5    10.0   -40.0,82.5,0.0           high      +X:0  +Y:0  -X:0  -Y:0
+      2    boss           0.5    10.0   40.0,82.5,0.0            high      +X:0  +Y:0  -X:0  -Y:0
+      3    boss           0.5    10.0   40.0,-82.5,0.0           high      +X:0  +Y:0  -X:0  -Y:0
+      4    pocket         0.0    -      -50.0,-92.5,0.0          medium    +X:0  +Y:0  +Z:0  -X:0
+      5    pocket         0.0    -      50.0,92.5,0.0            medium    +X:0  +Y:0  +Z:0  -X:0
+      6    pocket         0.0    -      39.0,25.2,0.0            high      +X:0  +Y:0  -X:0  -Y:0
+      7    pocket         0.0    -      35.0,50.2,0.0            high      +X:0  +Y:0  -X:0  -Y:0
+      8    pocket         0.0    -      -39.0,50.2,0.0           high      +X:0  +Y:0  -X:0  -Y:0
+      9    pocket         0.0    -      -35.0,25.2,0.0           high      +X:0  +Y:0  -X:0  -Y:0
+      10   pocket         0.0    -      -35.0,-50.2,0.0          high      +X:0  +Y:0  +Z:0  -X:0
+      11   pocket         0.0    -      -39.0,-25.2,0.0          high      +X:0  +Y:0  -X:0  -Y:0
+      12   pocket         0.0    -      39.0,-50.2,0.0           high      +X:0  +Y:0  +Z:0  -X:0
+      13   pocket         0.0    -      35.0,-25.2,0.0           high      +X:0  +Y:0  -X:0  -Y:0
+      14   pocket         0.0    -      35.0,25.2,0.0            high      +X:0  +Y:0  -X:0  -Y:0
+      15   pocket         0.0    -      39.0,50.2,0.0            high      +X:0  +Y:0  +Z:0  -X:0
+      16   pocket         0.0    -      -35.0,50.2,0.0           high      +X:0  +Y:0  +Z:0  -X:0
+      17   pocket         0.0    -      -39.0,25.2,0.0           high      +X:0  +Y:0  -X:0  -Y:0
+      18   pocket         0.0    -      -39.0,-50.2,0.0          high      +X:0  +Y:0  -X:0  -Y:0
+      19   pocket         0.0    -      -35.0,-25.2,0.0          high      +X:0  +Y:0  -X:0  -Y:0
+      20   pocket         0.0    -      39.0,-25.2,0.0           high      +X:0  +Y:0  -X:0  -Y:0
+      21   pocket         0.0    -      35.0,-50.2,0.0           high      +X:0  +Y:0  -X:0  -Y:0
+      22   pocket         0.0    -      50.0,-92.5,0.0           medium    +X:0  +Y:0  +Z:0  -X:0
+      23   pocket         0.0    -      -50.0,92.5,0.0           medium    +X:0  +Y:0  +Z:0  -X:0
+      25   slot           2.0    1.65   0.0,0.0,0.0              high      +X:0  +Y:0  -X:0  -Y:0
+      26   slot           2.0    1.65   0.0,0.0,0.0              high      +X:0  +Y:0  -X:0  -Y:0
+      -> C:/Users/Siddhant Gupta/Documents/shiaanx_v3_standalone/database_runtime/40449aeb-729f-427e-a284-4a2eabd37b6f_20261105_183441/logs/feature_table.json
