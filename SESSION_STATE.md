@@ -1781,3 +1781,9 @@ Live 10-min demo of the founder's flow, all screens in `/proto` (shiaanx-fronten
 ## Dev deploy 2026-11-05 (about 22:50 IST)
 
 Demo build deployed to dev.shiaanx.com (working tree, branch demo/investor-nov, uncommitted). capp now ships demo_modules, saved v3 analyses (Motor Mount, Rekise, Heat Sink D1), a Motor Mount/Rekise data pack, V3_DISABLED=1; nginx route /capp/ behind the session cookie; frontend built with REACT_APP_CAPP_API_URL=/capp. Verified: server-layout simulation 16/16, nginx -t, compose config, unit tests, prod build, post-deploy health (capp healthy, /capp/* = 401 without login). Rollback + Gemini-key steps: demo_backup/DEV_ROLLBACK.md. Open: Gemini key on server (founder), RIB1 analysis still running, commit both repos.
+
+## 2026-11-06: everything on GitHub
+All three repos on branch demo/investor-nov pushed to the ShiaanX org (CAPP 71d3be3d0, frontend a2e8e8c44, backend d9a2cb070). Previously uncommitted files that dev ran (job_manifest/closed_loop/pml_project, QC app pages, pipeline stages 2/2a/3, telemetry frontend) are committed. deploy.sh gained --from-git / --check-git; check reports "pushed code matches the working tree". Next: PRs into main for team review.
+
+## 2026-11-06 housekeeping
+QC 3D view auto-builds from the order QC sheet (enquiry 7 on dev has no sheet yet); local launcher demo_backup/start_local_demo.ps1; earlier-results routes removed; run sheet beats 6-7 rewritten. Local commits pending push: CAPP + frontend.
