@@ -1076,7 +1076,7 @@ async def seed_dimensions(job_id: str, file: UploadFile) -> dict[str, Any]:
     await file.close()
     if len(data) > 20 * 1024 * 1024:
         raise HTTPException(status_code=413, detail="QC sheet exceeds the 20 MB limit.")
-    from .qc_sheet import parse_qc_sheet
+    from .qc_sheet import apply_face_links, parse_face_links, parse_qc_sheet
 
     try:
         rows = parse_qc_sheet(data)
@@ -1086,7 +1086,23 @@ async def seed_dimensions(job_id: str, file: UploadFile) -> dict[str, Any]:
         raise HTTPException(status_code=400, detail="Could not read that file as an Excel workbook.") from None
     if not rows:
         raise HTTPException(status_code=422, detail="No numbered rows found under an 'SL No.' header.")
-    return {"dimensions": rows}
+    response: dict[str, Any] = {"dimensions": rows}
+    # Optional 'Face links' sheet: pre-made balloon -> CAD face links (additive; plain sheets are unaffected).
+    try:
+        links = parse_face_links(data)
+    except Exception:
+        links = {"links": {}}
+    if links["links"]:
+        import hashlib
+
+        step = Path(labeling_jobs[job_id]["job_dir"]) / "input.step"
+        job_sha = hashlib.sha256(step.read_bytes()).hexdigest() if step.is_file() else None
+        try:
+            job_faces = labeling_face_count(labeling_jobs[job_id])
+        except HTTPException:
+            job_faces = None
+        response["face_links"] = apply_face_links(rows, links, job_sha256=job_sha, job_faces=job_faces)
+    return response
 
 
 @app.get("/api/labeling-jobs/{job_id}/dimensions/download")

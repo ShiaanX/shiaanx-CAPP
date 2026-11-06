@@ -101,6 +101,88 @@ def parse_qc_sheet(data: bytes) -> list[dict[str, Any]]:
     return sorted(rows, key=lambda row: row["balloon"])
 
 
+LINKS_SHEET = "Face links"
+
+
+def _int_list(value: Any) -> list[int]:
+    out: list[int] = []
+    for part in re.split(r"[\s,;/|]+", str(value or "").strip()):
+        if part.isdigit():
+            out.append(int(part))
+    return sorted(set(out))
+
+
+def parse_face_links(data: bytes) -> dict[str, Any]:
+    """Read the optional 'Face links' sheet: pre-made balloon -> CAD face links.
+
+    Columns (header row, case-insensitive prefixes): Balloon | Faces A | Faces B | Dim type | Notes.
+    Rows may be preceded by 'STEP sha256:' / 'Total faces:' metadata lines (col A label, col B value)
+    that let the service apply the links only to the CAD file they were made for.
+    Returns {"sha256": str|None, "total_faces": int|None, "links": {balloon: {...}}}; empty if no such sheet.
+    """
+    result: dict[str, Any] = {"sha256": None, "total_faces": None, "links": {}}
+    workbook = _open_workbook(data)
+    if LINKS_SHEET not in workbook.sheetnames:
+        return result
+    in_table = False
+    cols = {"faces_a": 1, "faces_b": 2, "dim_type": 3, "notes": 4}
+    for cells in workbook[LINKS_SHEET].iter_rows(values_only=True):
+        first = cells[0] if cells else None
+        if isinstance(first, str):
+            label = first.strip().lower()
+            if label.startswith("step sha256"):
+                result["sha256"] = str(_cell(cells, 1) or "").strip().lower() or None
+                continue
+            if label.startswith("total faces"):
+                number = _number(_cell(cells, 1))
+                result["total_faces"] = int(number) if number is not None else None
+                continue
+            if label.startswith("balloon"):
+                in_table = True
+                for key, prefix in (("faces_a", "faces a"), ("faces_b", "faces b"), ("dim_type", "dim"), ("notes", "note")):
+                    cols[key] = _header_column(cells, prefix, cols[key])
+                continue
+        if not in_table:
+            continue
+        number = _number(first)
+        if number is None or number != int(number) or number < 1:
+            continue
+        result["links"][int(number)] = {
+            "faces_a": _int_list(_cell(cells, cols["faces_a"])),
+            "faces_b": _int_list(_cell(cells, cols["faces_b"])),
+            "dim_type": str(_cell(cells, cols["dim_type"]) or "").strip(),
+            "notes": str(_cell(cells, cols["notes"]) or "").strip(),
+        }
+    return result
+
+
+def apply_face_links(rows: list[dict[str, Any]], links: dict[str, Any], *, job_sha256: str | None, job_faces: int | None) -> dict[str, Any]:
+    """Merge pre-made links into seeded rows in place. Returns {"applied": n, "skipped_reason": str|None}."""
+    if not links["links"]:
+        return {"applied": 0, "skipped_reason": None}
+    sha = links.get("sha256")
+    same_file = bool(sha and job_sha256 and sha == job_sha256)
+    same_count = links.get("total_faces") is not None and links["total_faces"] == job_faces
+    if sha and not same_file and not same_count:
+        return {"applied": 0, "skipped_reason": "face links were made for a different CAD file"}
+    if not sha and links.get("total_faces") is not None and not same_count:
+        return {"applied": 0, "skipped_reason": "face links were made for a different CAD file"}
+    applied = 0
+    for row in rows:
+        link = links["links"].get(row["balloon"])
+        if not link:
+            continue
+        if job_faces is not None and any(i >= job_faces for i in link["faces_a"] + link["faces_b"]):
+            continue
+        row["faces_a"], row["faces_b"] = link["faces_a"], link["faces_b"]
+        if link["dim_type"]:
+            row["dim_type"] = link["dim_type"]
+        if link["notes"]:
+            row["notes"] = link["notes"]
+        applied += 1
+    return {"applied": applied, "skipped_reason": None, "matched_by": "sha256" if same_file else "face_count"}
+
+
 def _readings(cells: tuple[Any, ...], start: int, stop: int) -> list[float]:
     values: list[float] = []
     for cell in cells[start:stop]:
