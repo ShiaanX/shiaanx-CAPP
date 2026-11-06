@@ -33,6 +33,13 @@ def build_face_graph(json_data):
             G.nodes[i]['surface_type']  -> 'Cylinder' or 'Plane'
             G.nodes[i]['area']          -> float
             G.nodes[i]['orientation']   -> 'Forward' or 'Reversed'
+                                           (Reversed = bore/hole wall, Forward =
+                                           boss/external wall -- see the
+                                           orientation guard in
+                                           "2. cluster_features.py"::grow_cluster,
+                                           which relies on this distinction to
+                                           avoid merging a boss into a collinear
+                                           bore's cluster and vice versa)
             G.nodes[i]['cylinder']      -> dict (only if surface_type == 'Cylinder')
             G.nodes[i]['plane']         -> dict (only if surface_type == 'Plane')
         Edges carry no attributes — presence of an edge means shared BRep edge.

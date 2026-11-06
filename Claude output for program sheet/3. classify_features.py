@@ -49,8 +49,24 @@ Pocket family:
                         internal_corner_radius = smallest adjacent cylinder radius.
 
 Boss family:
-    boss                Cylinder protruding outward from the part surface.
-                        Requires turning or milling.
+    boss                Cylinder protruding outward from the part surface,
+                        with a closing cap plane (has_cap_plane=True) -- a
+                        real standalone feature with a free end. Requires
+                        turning or milling.
+    round               Convex/external edge blend (Forward cylinder) with NO
+                        closing cap plane -- a bare bridging surface between
+                        two other faces, not a standalone feature. The convex
+                        counterpart of 'fillet' (concave/internal blend, see
+                        below): fillet fills in a corner, round eases an edge.
+                        Added 2026-09-14 (GAP-01) -- previously every convex
+                        blend was classified 'boss' regardless of size or
+                        whether it had a free end.
+
+Fillet family:
+    fillet              Concave/internal corner blend (Reversed cylinder or
+                        torus bridge). Below FILLET_MIN_RADIUS_MM is treated
+                        as an as-machined edge with no dedicated tool pass
+                        (-> background) rather than a real fillet.
 
 Planar family:
     planar_face         Flat face identified as a datum, flange, or step.
@@ -319,6 +335,27 @@ def classify_cluster(cluster: Dict) -> Tuple[str, str]:
     # Boss clusters
     # ------------------------------------------------------------------
     if seed_type == 'boss':
+        # GAP-01 fix (2026-09-14): a Forward (convex) cylinder with no closing
+        # cap plane is a corner/edge round -- a convex blend bridging two other
+        # faces with no free end -- not a real boss. A true boss has a cap
+        # (has_cap_plane=True, set in cluster_features.py from a validated
+        # plane_closes_cylinder() match). This is the convex counterpart of
+        # the existing concave fillet check below: fillet = concave/internal
+        # corner blend, round = convex/external edge blend (Siddhant,
+        # 2026-09-14). Confirmed against real parts: Top Plate's four
+        # "Radius"-labeled faces are all bare, capless Forward cylinders that
+        # were previously classified as 'boss' unconditionally.
+        has_cap = cluster.get('has_cap_plane', True)  # default True: don't
+                                                        # reclassify a real
+                                                        # boss if the flag is
+                                                        # missing (e.g. older
+                                                        # cached cluster data)
+        if not has_cap:
+            round_r = max(radii) if radii else 0.0
+            if round_r < FILLET_MIN_RADIUS_MM:
+                return 'background', 'high'  # edge blend too small to machine
+            return ('round_angled' if is_principal is False else 'round'), 'medium'
+
         feature_type = 'boss'
         confidence   = 'high'
         # Angled boss (e.g. a peg on an inclined face)
@@ -404,10 +441,19 @@ def classify_cluster(cluster: Dict) -> Tuple[str, str]:
 
                 elif (ddr is not None
                         and ddr > BORE_WALL_FILLET_DDR_MIN
-                        and not cluster.get('has_perpendicular_walls', False)):
-                    # Deep single-face cylinder with no floor/cap and no perp walls
-                    # = pocket-corner fillet. DDR >> 1 because fillet is narrow
-                    # (r = blend radius) but tall (depth = pocket depth).
+                        and cluster.get('adjacent_wall_plane', False)):
+                    # Deep single-face cylinder that's actually adjacent to a
+                    # real wall (a neighbouring Plane whose normal is
+                    # perpendicular to this cylinder's axis) = pocket-corner
+                    # fillet blending into that wall. DDR >> 1 because fillet
+                    # is narrow (r = blend radius) but tall (depth = pocket
+                    # depth). GAP-05 fix (2026-09-14): this used to key off
+                    # 'has_perpendicular_walls', a field that is hardcoded
+                    # False for every bore cluster (only ever computed for
+                    # plane clusters) -- making the old condition vacuously
+                    # true for ALL deep single-face bores, fillet or not.
+                    # 'adjacent_wall_plane' (cluster_features.py) is the real
+                    # geometric check this was supposed to be.
                     if radius < FILLET_MIN_RADIUS_MM:
                         feature_type = 'background'  # too small to machine
                         confidence   = 'high'
@@ -415,8 +461,23 @@ def classify_cluster(cluster: Dict) -> Tuple[str, str]:
                         feature_type = 'fillet'
                         confidence   = 'low'
 
+                elif ddr is not None and ddr > BORE_WALL_FILLET_DDR_MIN:
+                    # Deep relative to diameter but with no adjacent wall to
+                    # blend into -- not a fillet. No cap face was found either
+                    # (single face), which is the ordinary representation for
+                    # a straightforward drilled hole cut clean through a flat
+                    # region (nothing closes either end). Most likely a
+                    # genuine through-hole, just deeper relative to its own
+                    # diameter than SINGLE_FACE_THROUGH_HOLE_DDR_MAX assumed.
+                    # Confirmed against real parts (GAP-05, 2026-09-14): 4
+                    # genuine 'Through hole' instances (DDR=1.125) were
+                    # falling into the fillet branch before this fix.
+                    feature_type = 'through_hole'
+                    confidence   = 'medium'
+
                 else:
-                    # Deeper relative to diameter = likely a true blind hole.
+                    # DDR in the gap between SINGLE_FACE_THROUGH_HOLE_DDR_MAX
+                    # and BORE_WALL_FILLET_DDR_MIN = likely a true blind hole.
                     feature_type = 'blind_hole'
                     confidence   = 'low'      # no cap face — flag for review
 

@@ -63,6 +63,51 @@ def _vec(v):
     return [float(x) for x in v]
 
 
+def _has_adjacent_wall_plane(face_indices, axis, G, perp_tol=0.17):
+    """
+    True if any Plane face neighbouring this cylinder cluster has a normal
+    roughly PERPENDICULAR to the cluster's own axis (within ~10 deg,
+    cos(80deg)~=0.17 -- same tolerance already used in _analyse_plane_cluster).
+
+    Distinguishes a pocket-corner fillet (blends into an adjacent wall running
+    parallel to its own axis, so the wall's normal is perpendicular to that
+    axis) from a genuine hole (its only Plane neighbours are the entry/exit
+    surfaces, whose normal is parallel/anti-parallel to the axis, not
+    perpendicular). Confirmed against real parts (2026-09-14, GAP-05): a
+    genuine 'Semi cylindrical profile' fillet has perpendicular-normal Plane
+    neighbours (the floor it blends into); genuine 'Through hole' faces have
+    only parallel-normal Plane neighbours (the top/bottom entry surfaces).
+    """
+    if axis is None:
+        return False
+    ax = _vec(axis)
+    an = _norm(ax)
+    if an < 1e-10:
+        return False
+
+    face_set = set(face_indices)
+    for idx in face_set:
+        if idx not in G.nodes:
+            continue
+        for nb in G.neighbors(idx):
+            if nb in face_set:
+                continue
+            nb_data = G.nodes[nb]
+            if nb_data.get('surface_type') != 'Plane':
+                continue
+            nb_normal_raw = nb_data.get('plane', {}).get('normal')
+            if not nb_normal_raw:
+                continue
+            nb_vec = _vec(nb_normal_raw)
+            nn = _norm(nb_vec)
+            if nn < 1e-10:
+                continue
+            cos_a = abs(_dot(ax, nb_vec)) / (an * nn)
+            if cos_a < perp_tol:
+                return True
+    return False
+
+
 def _axes_parallel(axis1, axis2, tol=1e-4):
     """
     True if two axis direction vectors are parallel (same or opposite direction).
@@ -131,9 +176,10 @@ def find_seeds(G: nx.Graph, config: ClusteringConfig) -> List[Dict]:
         from both sides. Deduplicated by axis collinearity check — only the
         first one found per axis is kept as a seed.
 
-    Rule 2 — Forward cylinder not collinear with any bore seed:
-        A Forward cylinder (normal outward) that stands alone on its axis
-        is a boss or peg. Deduplicated the same way — one seed per unique axis.
+    Rule 2 — Forward cylinder, one seed per unique axis:
+        A Forward cylinder (normal outward) is a boss or peg. Deduplicated
+        against other boss seeds only — a bore sharing the same axis (a hole
+        drilled through the boss) is a separate feature, not a duplicate.
 
     Returns list of seed dicts:
         {
@@ -171,17 +217,29 @@ def find_seeds(G: nx.Graph, config: ClusteringConfig) -> List[Dict]:
                 'geometry': data
             })
 
-    # Rule 2: Forward cylinders — one seed per unique axis not covered by a bore
+    # Rule 2: Forward cylinders — one seed per unique axis, deduped against
+    # other boss seeds only.
+    #
+    # A Forward cylinder collinear with an existing BORE seed is not a
+    # duplicate of that bore -- it's a boss with a hole drilled through it,
+    # a genuinely separate feature (material added vs. material removed).
+    # This rule used to dedupe against bore seeds too ("not covered by a
+    # bore" in the old docstring), which meant a real boss silently got NO
+    # seed at all whenever it happened to share an axis with a bore -- its
+    # faces then had nothing to grow into and fell into the 'background'
+    # cluster instead of becoming their own boss feature. Confirmed against
+    # real manual-labeled parts (2026-09-14): Bottom Plate's "Cylindrical
+    # Boss" (face 53) is collinear with a through-hole and was disappearing
+    # into background until this was scoped to boss-vs-boss only.
     for node, data in G.nodes(data=True):
         if data['surface_type'] != 'Cylinder':
             continue
         if data['orientation'] != 'Forward':
             continue
 
-        # Check against all existing seeds (bore and boss)
         already_seeded = False
         for existing in seeds:
-            if existing['seed_type'] in ('bore', 'boss'):
+            if existing['seed_type'] == 'boss':
                 if axes_are_collinear(
                     existing['geometry']['cylinder'],
                     data['cylinder'],
@@ -343,7 +401,20 @@ def grow_cluster(G: nx.Graph, seed: Dict, config: ClusteringConfig) -> List[int]
             # --- Cylinder seed: grow to adjacent cylinders on same axis ---
             if seed_data['surface_type'] == 'Cylinder':
                 if neighbour_data['surface_type'] == 'Cylinder':
-                    if axes_are_collinear(
+                    # Orientation guard: 'Reversed' = bore/hole wall (material
+                    # removed), 'Forward' = boss/external wall (material added).
+                    # Two collinear cylinders of OPPOSITE orientation are a bore
+                    # passing through a boss on the same axis -- physically two
+                    # different features (one drilled, one contour-milled), not
+                    # one. Without this check a through-hole seed swallows any
+                    # collinear boss (and vice versa) purely because they share
+                    # an axis. Confirmed against real manual-labeled parts
+                    # (2026-09-14): Bottom Plate cluster 0 merged a Reversed bore
+                    # (face 4) with a Forward boss (face 53) this way.
+                    same_orientation = (
+                        neighbour_data.get('orientation') == seed_data.get('orientation')
+                    )
+                    if same_orientation and axes_are_collinear(
                         seed_data['cylinder'],
                         neighbour_data['cylinder'],
                         direction_tol=config.axis_direction_tol,
@@ -400,6 +471,12 @@ def grow_cluster(G: nx.Graph, seed: Dict, config: ClusteringConfig) -> List[int]
             if node in cluster:
                 continue
             if data['surface_type'] != 'Cylinder':
+                continue
+            # Same orientation guard as the BFS branch above -- a non-adjacent
+            # collinear cylinder is still only the same feature if it's the
+            # same kind of wall (bore-with-bore or boss-with-boss), not a
+            # bore and a boss that happen to share an axis.
+            if data.get('orientation') != seed_data.get('orientation'):
                 continue
             if axes_are_collinear(
                 seed_data['cylinder'],
@@ -586,7 +663,40 @@ def _analyse_plane_cluster(cluster, G):
     }
 
 
-def detect_slots(clusters, config):
+def _cluster_connecting_faces(faces_a, faces_b, G, max_connector_area):
+    """
+    Faces that plausibly form the side walls of a slot between two bore
+    clusters: adjacent to (or directly touching) both face sets, and small
+    enough to be a real wall rather than a big background/stock face two
+    unrelated holes both happen to sit next to.
+
+    Returns the set of qualifying connector face indices (empty if none —
+    i.e. the two clusters aren't really connected to each other at all).
+    """
+    def neighbors_of(face_set):
+        nbrs = set()
+        for idx in face_set:
+            if idx in G.nodes:
+                nbrs.update(G.neighbors(idx))
+        return nbrs - face_set
+
+    if faces_a & faces_b:
+        return faces_a & faces_b  # shouldn't happen (overlap resolved earlier), but trivially connected
+
+    nbrs_a = neighbors_of(faces_a)
+    nbrs_b = neighbors_of(faces_b)
+
+    # Direct adjacency: a face of A touching a face of B.
+    if nbrs_a & faces_b or nbrs_b & faces_a:
+        return (nbrs_a & faces_b) | (nbrs_b & faces_a)
+
+    # One hop apart via a shared wall face — must be small enough to be a
+    # real wall, not the large background face both clusters happen to abut.
+    shared = nbrs_a & nbrs_b
+    return {f for f in shared if G.nodes[f].get('area', float('inf')) < max_connector_area}
+
+
+def detect_slots(clusters, config, G=None):
     """
     Find pairs of bore clusters that together form a slot (keyway, channel, etc.).
 
@@ -596,6 +706,18 @@ def detect_slots(clusters, config):
                           separate bore clusters with parallel axes are guaranteed
                           non-collinear -- i.e. truly offset = a slot pair)
         - Equal depth    (within 0.5 mm)
+        - Actually connected (GAP-04 fix, 2026-09-14): the two clusters must
+          be adjacent, or share a small connecting wall face, not just match
+          numerically. Without this, any two unrelated same-size same-depth
+          holes/rounds anywhere in the part -- a very ordinary coincidence,
+          since parts reuse the same corner-break dimensions everywhere --
+          get welded into a fake slot. Confirmed on Bottom Plate SE-004-052:
+          two independent convex corner-rounds (faces 21, 23) share no wall
+          of their own, only a distant shared neighbor -- the part's whole
+          7837mm^2 background face -- and were being merged purely on
+          matching numbers. If G is not supplied, the connectivity check is
+          skipped (backward compatible, but re-enables the old false-merge
+          behaviour -- always pass G from cluster_features()).
 
     Matching pairs are merged into a new cluster with seed_type='slot'.
     internal_corner_radius is set to the arc radius (half the slot width).
@@ -651,6 +773,18 @@ def detect_slots(clusters, config):
             # Depth match
             if abs(depth_a - depth_b) > DEPTH_TOL_MM:
                 continue
+
+            # Connectivity (GAP-04): matching numbers alone aren't enough --
+            # require the two clusters to actually be adjacent or share a
+            # real (small) connecting wall face, not just a distant shared
+            # background face.
+            if G is not None:
+                connectors = _cluster_connecting_faces(
+                    set(ca['face_indices']), set(cb['face_indices']), G,
+                    max_connector_area=config.large_face_area_threshold,
+                )
+                if not connectors:
+                    continue
 
             # Build merged slot cluster
             merged_faces = sorted(set(ca['face_indices']) | set(cb['face_indices']))
@@ -715,6 +849,18 @@ def cluster_features(json_data: Dict,
           'perp_wall_count'        : int,                # plane clusters only
           'internal_corner_radius' : float or None,      # slot and pocket clusters
           'face_area'              : float or None,      # plane clusters only
+          'has_cap_plane'          : bool,                # bore/boss clusters only --
+                                                           # True if a validated closing
+                                                           # cap plane was found (real
+                                                           # boss/bore), False if the
+                                                           # cluster is a bare cylindrical
+                                                           # bridge (convex/concave edge
+                                                           # blend, no free end)
+          'adjacent_wall_plane'    : bool,                # bore clusters only -- True if
+                                                           # a neighbouring Plane's normal
+                                                           # is perpendicular to the axis
+                                                           # (a real wall to blend into,
+                                                           # i.e. a pocket-corner fillet)
         }
     """
     if config is None:
@@ -758,16 +904,42 @@ def cluster_features(json_data: Dict,
         else:
             principal = None
 
+        # A Plane only ever enters a Cylinder-seeded cluster's face_indices via
+        # the validated plane_closes_cylinder() cap check in grow_cluster(), so
+        # its mere presence here means a real closing cap was found -- the
+        # cylinder has a free end (a true boss/peg, or a bore's floor/entry).
+        # Its absence means every face in the cluster is a bare Cylinder/Cone/
+        # Torus bridging surface with nothing closing either end -- a corner
+        # blend riding between two other faces, not a standalone feature.
+        # Used by classify_features.py to tell a real boss apart from a convex
+        # edge round (GAP-01/GAP-02, confirmed against real parts 2026-09-14).
+        has_cap_plane = (
+            seed['seed_type'] in ('bore', 'boss')
+            and any(faces[i].get('surface_type') == 'Plane' for i in face_indices)
+        )
+
+        # GAP-05 (2026-09-14): does this bore cluster sit next to a real wall
+        # it's blending into (a pocket-corner fillet), as opposed to a bare
+        # hole whose only Plane neighbours are its own entry/exit surfaces?
+        # Only meaningful for single-face bore clusters (the ambiguous case
+        # in classify_features.py); computed generally here since it's cheap.
+        adjacent_wall_plane = (
+            seed['seed_type'] == 'bore'
+            and _has_adjacent_wall_plane(face_indices, axis, G)
+        )
+
         raw_clusters.append({
-            'cluster_id'        : cluster_id,
-            'seed_face_index'   : seed['seed_face_index'],
-            'seed_type'         : seed['seed_type'],
-            'face_indices'      : face_indices,
-            'face_count'        : len(face_indices),
-            'feature_axis'      : axis,
-            'depth'             : get_feature_depth(cluster_faces),
-            'radii'             : get_radii_sorted(cluster_faces),
-            'is_principal_axis' : principal,
+            'cluster_id'          : cluster_id,
+            'seed_face_index'     : seed['seed_face_index'],
+            'seed_type'           : seed['seed_type'],
+            'face_indices'        : face_indices,
+            'face_count'          : len(face_indices),
+            'feature_axis'        : axis,
+            'depth'               : get_feature_depth(cluster_faces),
+            'radii'               : get_radii_sorted(cluster_faces),
+            'is_principal_axis'   : principal,
+            'has_cap_plane'       : has_cap_plane,
+            'adjacent_wall_plane' : adjacent_wall_plane,
         })
 
     if verbose:
@@ -780,7 +952,7 @@ def cluster_features(json_data: Dict,
     clusters = resolve_overlaps(raw_clusters, all_face_indices, G)
 
     # --- Phase 5: Detect slots (pairs of bore clusters that form a slot) ---
-    clusters = detect_slots(clusters, config)
+    clusters = detect_slots(clusters, config, G)
 
     # --- Phase 6: Enrich plane clusters with pocket-detection fields ---
     for c in clusters:
