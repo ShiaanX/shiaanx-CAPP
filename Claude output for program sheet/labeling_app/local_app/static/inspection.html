@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script>
+    if (window.location.protocol === 'file:') {
+      const destination = new URL('http://127.0.0.1:8780/inspection');
+      destination.search = window.location.search;
+      window.location.replace(destination.toString());
+    }
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part Inspection Result</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #18211d;
+      --muted: #617069;
+      --line: #d7ded9;
+      --paper: #f4f6f3;
+      --accent: #156b4f;
+      --accent-strong: #0c4f39;
+      --error: #a42d2d;
+      --viewer: #111614;
+      --pass: #22c55e;
+      --near: #f59e0b;
+      --fail: #ef4444;
+      --pending: #94a3b8;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-width: 320px; background: var(--paper); color: var(--ink);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0; }
+    button, input, select { font: inherit; letter-spacing: 0; }
+    button:focus-visible, select:focus-visible, a:focus-visible { outline: 3px solid rgba(21, 107, 79, .25); outline-offset: 2px; }
+    .app { height: 100vh; overflow: hidden; display: grid; grid-template-rows: 58px minmax(0, 1fr); }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 22px;
+      border-bottom: 1px solid var(--line); background: white; }
+    .brand { font-size: 16px; font-weight: 780; white-space: nowrap; }
+    .brand small { margin-left: 10px; color: var(--muted); font-size: 12px; font-weight: 500; }
+    .nav-links { display: flex; gap: 16px; align-items: center; }
+    .nav-link { color: var(--accent-strong); font-size: 12px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+    .nav-button { border: 0; background: none; padding: 0; cursor: pointer; }
+    .workspace { min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 440px; overflow: hidden; }
+    .viewer-wrap { min-height: 0; position: relative; background: var(--viewer); }
+    #viewer { width: 100%; height: 100%; border: 0; display: block; }
+    .viewer-empty { position: absolute; inset: 0; display: grid; place-items: center; color: #87918c; font-size: 13px;
+      text-align: center; line-height: 1.6; pointer-events: none; }
+    .tip { position: absolute; z-index: 5; max-width: 320px; padding: 10px 12px; border-radius: 6px; pointer-events: none;
+      background: rgba(12, 17, 15, .94); color: #eef3f0; font-size: 12px; line-height: 1.45; box-shadow: 0 6px 24px rgba(0,0,0,.35);
+      display: none; }
+    .tip .tip-row + .tip-row { margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,.12); }
+    .tip strong { font-size: 13px; }
+    .tip .ok { color: #86efac; } .tip .near { color: #fcd34d; } .tip .bad { color: #fca5a5; } .tip .dim { color: #a7b3ad; }
+    .overlay-legend { position: absolute; left: 50%; transform: translateX(-50%); bottom: 16px; display: flex; white-space: nowrap; gap: 14px; padding: 8px 12px; border-radius: 6px;
+      background: rgba(12, 17, 15, .82); color: #dfe7e3; font-size: 12px; pointer-events: none; }
+    .overlay-legend i { display: inline-block; width: 11px; height: 11px; margin-right: 6px; vertical-align: -1px; border-radius: 2px; }
+
+    .panel { min-height: 0; background: white; border-left: 1px solid var(--line); display: grid;
+      grid-template-rows: auto auto minmax(0, 1fr); overflow: hidden; }
+    .setup { padding: 12px 16px; border-bottom: 1px solid var(--line); background: #f9fbf9; }
+    .setup.hidden { display: none; }
+    .setup-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+    .setup select { width: 100%; height: 34px; border: 1px solid #b8c2bc; border-radius: 3px; padding: 0 8px; background: white; }
+    .secondary { min-height: 34px; border: 1px solid #aebbb4; border-radius: 3px; background: white; color: var(--ink);
+      padding: 0 12px; font-size: 11px; font-weight: 720; cursor: pointer; white-space: nowrap; }
+    .secondary:disabled { opacity: .45; cursor: not-allowed; }
+    #qcInput { position: absolute; opacity: 0; pointer-events: none; }
+    .setup-note { margin-top: 7px; min-height: 14px; color: var(--muted); font-size: 11px; }
+    .setup-note.error { color: var(--error); }
+
+    .summary { padding: 18px 18px 16px; border-bottom: 1px solid var(--line); }
+    .part-name { color: var(--muted); font-size: 12px; font-weight: 650; }
+    .headline { margin-top: 6px; font-size: 26px; font-weight: 800; line-height: 1.2; }
+    .headline span { color: var(--accent-strong); }
+    .subline { margin-top: 5px; color: var(--muted); font-size: 13px; }
+    .bar { display: flex; height: 12px; margin-top: 14px; border-radius: 6px; overflow: hidden; background: #e2e7e4; }
+    .bar div { height: 100%; }
+    .counts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
+    .count { padding: 9px 10px; border: 1px solid var(--line); border-radius: 6px; }
+    .count strong { display: block; font-size: 22px; line-height: 1.1; }
+    .count span { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; }
+    .count.pass strong { color: #15803d; } .count.near strong { color: #b45309; } .count.fail strong { color: #b91c1c; }
+
+    .list { min-height: 0; overflow: auto; }
+    .list-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-bottom: 1px solid var(--line);
+      color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; position: sticky; top: 0; background: white; z-index: 1; }
+    .list-head button { border: 0; background: none; color: var(--accent-strong); font-size: 11px; font-weight: 700; cursor: pointer; text-transform: none; }
+    .head-actions { display: flex; gap: 14px; }
+    .empty { padding: 34px 20px; color: var(--muted); text-align: center; font-size: 13px; line-height: 1.6; }
+    .card { width: 100%; display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; gap: 12px; align-items: center;
+      padding: 11px 16px; border: 0; border-bottom: 1px solid #e6ebe8; border-left: 5px solid transparent; background: white;
+      text-align: left; cursor: pointer; }
+    .card:hover { background: #f6f8f7; }
+    .card.active { background: #eef6f1; }
+    .card.pass { border-left-color: var(--pass); } .card.near_limit { border-left-color: var(--near); }
+    .card.fail { border-left-color: var(--fail); } .card.pending, .card.unknown { border-left-color: var(--pending); }
+    .balloon { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; color: white; font-size: 12px; font-weight: 800; }
+    .pass .balloon { background: var(--pass); } .near_limit .balloon { background: var(--near); }
+    .fail .balloon { background: var(--fail); } .pending .balloon, .unknown .balloon { background: var(--pending); }
+    .card-title { font-size: 14px; font-weight: 750; }
+    .card-title em { margin-left: 6px; color: var(--muted); font-size: 11px; font-style: normal; font-weight: 500; }
+    .card-meta { margin-top: 3px; color: var(--muted); font-size: 12px; line-height: 1.4; }
+    .card-note { margin-top: 3px; color: #92400e; font-size: 11px; }
+    .verdict { font-size: 11px; font-weight: 800; text-transform: uppercase; white-space: nowrap; }
+    .pass .verdict { color: #15803d; } .near_limit .verdict { color: #b45309; } .fail .verdict { color: #b91c1c; }
+    .pending .verdict, .unknown .verdict { color: var(--muted); }
+
+    @media (max-width: 980px) { .workspace { grid-template-columns: minmax(0, 1fr) 360px; } .headline { font-size: 22px; } }
+    @media (max-width: 760px) {
+      .app { display: block; height: auto; min-height: 100vh; overflow: visible; }
+      .topbar { padding: 12px 16px; flex-wrap: wrap; }
+      .workspace { display: block; overflow: visible; }
+      .viewer-wrap, #viewer { height: 60vh; min-height: 380px; }
+      .panel { border-left: 0; border-top: 1px solid var(--line); }
+      .list { max-height: none; }
+    }
+    body.embed .topbar, body.embed #setup { display: none; }
+    body.embed .app { grid-template-rows: minmax(0, 1fr); }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">Part Inspection Result<small id="brandPart"></small></div>
+      <nav class="nav-links">
+        <button class="nav-link nav-button" id="setupToggle" type="button">Hide setup</button>
+        <a class="nav-link" href="/dimensions" id="tagLink">Dimension tagging</a>
+      </nav>
+    </header>
+    <main class="workspace">
+      <section class="viewer-wrap" id="viewerWrap">
+        <iframe id="viewer" title="Inspected part, 3D view"></iframe>
+        <div class="viewer-empty" id="viewerEmpty">No part loaded.<br>Pick a tagged part on the right.</div>
+        <div class="overlay-legend" id="overlayLegend" style="display:none">
+          <span><i style="background:var(--pass)"></i>Within tolerance</span>
+          <span><i style="background:var(--near)"></i>Close to the limit</span>
+          <span><i style="background:var(--fail)"></i>Out of tolerance</span>
+        </div>
+        <div class="tip" id="tip"></div>
+      </section>
+
+      <aside class="panel">
+        <section class="setup" id="setup">
+          <div class="setup-row">
+            <select id="jobSelect" aria-label="Tagged part"><option value="">Loading tagged parts…</option></select>
+            <button class="secondary" id="qcButton" type="button" disabled>Load QC report</button>
+          </div>
+          <input id="qcInput" type="file" accept=".xlsx">
+          <div class="setup-note" id="setupNote"></div>
+        </section>
+
+        <section class="summary" id="summary">
+          <div class="part-name" id="partName">&nbsp;</div>
+          <div class="headline" id="headline">Waiting for data</div>
+          <div class="subline" id="subline">Load the QC report for this part to see the result.</div>
+          <div class="bar" id="bar"></div>
+          <div class="counts" id="counts" style="display:none">
+            <div class="count pass"><strong id="nPass">0</strong><span>Within tolerance</span></div>
+            <div class="count near"><strong id="nNear">0</strong><span>Close to limit</span></div>
+            <div class="count fail"><strong id="nFail">0</strong><span>Out of tolerance</span></div>
+          </div>
+        </section>
+
+        <section class="list">
+          <div class="list-head"><span>Dimensions checked</span>
+            <span class="head-actions"><button type="button" id="tourButton">Pause tour</button><button type="button" id="showAll">Show whole part</button></span></div>
+          <div id="cards"><div class="empty">No dimensions yet.</div></div>
+        </section>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    // Scroll a row into view inside its own list only. scrollIntoView() also scrolls every
+    // ancestor, which drags the host page around when this page is embedded in another app.
+    function scrollWithin(el) {
+      if (!el) return;
+      let box = el.parentElement;
+      while (box && box !== document.body && getComputedStyle(box).overflowY === 'visible') box = box.parentElement;
+      if (!box || box === document.body) return;
+      const r = el.getBoundingClientRect(), b = box.getBoundingClientRect();
+      if (r.top < b.top) box.scrollTop -= b.top - r.top;
+      else if (r.bottom > b.bottom) box.scrollTop += r.bottom - b.bottom;
+    }
+    // ?embed=1: shown inside the admin app for one specific part, which supplies the part, the QC
+    // sheet and the drawing itself — so this page's own header, part picker and upload controls go.
+    const EMBED = new URLSearchParams(location.search).get('embed') === '1';
+    if (EMBED) document.body.classList.add('embed');
+
+    const COLORS = {pass: '#22c55e', near_limit: '#f59e0b', fail: '#ef4444', pending: '#94a3b8', unknown: '#94a3b8'};
+    const NEUTRAL = '#c3ccd1';
+    const RANK ={fail: 4, near_limit: 3, pass: 2, pending: 1, unknown: 1};
+    const VERDICT_TEXT = {pass: 'Within tolerance', near_limit: 'Close to limit', fail: 'Out of tolerance', pending: 'Not measured', unknown: 'No tolerance'};
+    const TYPE_TEXT = {
+      diameter: 'Hole / bore diameter', radius: 'Radius', linear: 'Distance', center_distance: 'Hole-to-hole distance',
+      depth: 'Depth', thickness: 'Thickness', thread: 'Thread', angle: 'Angle', other: 'Dimension'
+    };
+    const $ = id => document.getElementById(id);
+    const viewer = $('viewer'), tip = $('tip'), viewerWrap = $('viewerWrap');
+
+    let jobId = null, totalFaces = 0, view = null, activeBalloon = null, faceDims = new Map(), viewerReady = false;
+
+    // Idle behaviour: step through every measured dimension on a loop; any click pauses, a minute of quiet resumes.
+    const TOUR_STEP_MS = 3000, TOUR_RESUME_MS = 60000;
+    let touring = true, tourTimer = null, resumeTimer = null;
+
+    function tourCandidates() { return view ? view.results.filter(r => r.readings.length) : []; }
+    function tourStep() {
+      const list = tourCandidates();
+      if (!list.length || !viewerReady) return;
+      const at = list.findIndex(r => r.balloon === activeBalloon);
+      select(list[(at + 1) % list.length].balloon);
+    }
+    function startTour() {
+      touring = true;
+      clearTimeout(resumeTimer);
+      clearInterval(tourTimer);
+      $('tourButton').textContent = 'Pause tour';
+      tourStep();
+      tourTimer = setInterval(tourStep, TOUR_STEP_MS);
+    }
+    function pauseTour(autoResume = true) {
+      touring = false;
+      clearInterval(tourTimer);
+      clearTimeout(resumeTimer);
+      $('tourButton').textContent = 'Play tour';
+      if (autoResume) resumeTimer = setTimeout(startTour, TOUR_RESUME_MS);
+    }
+
+    const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+    function num(n) {
+      if (!Number.isFinite(n)) return '?';
+      const fixed = n.toFixed(3).replace(/0+$/, '');
+      const [whole, frac = ''] = fixed.split('.');
+      return `${whole}.${frac.padEnd(2, '0')}`;
+    }
+    function plain(n) { return Number.isFinite(n) ? String(Math.round(n * 1e4) / 1e4) : '?'; }
+    function nominalText(r) {
+      const prefix = {diameter: 'Ø', radius: 'R', thread: 'M'}[r.dim_type] || '';
+      const unit = r.unit === 'deg' ? '°' : ' mm';
+      const p = r.tol_plus, m = r.tol_minus;
+      let tol = '';
+      if (p !== null || m !== null) tol = p === m ? ` ±${plain(p)}` : ` +${plain(p ?? 0)} / −${plain(m ?? 0)}`;
+      return `${prefix}${plain(r.nominal)}${tol}${unit}`;
+    }
+    function requiredText(r) {
+      if (r.lower === null || r.upper === null) return 'Required: ' + nominalText(r);
+      return `Required ${num(r.lower)} – ${num(r.upper)}`;
+    }
+    function measuredText(r) { return r.readings.length ? `measured ${r.readings.map(num).join(' / ')}` : 'not measured yet'; }
+    function title(r) { return TYPE_TEXT[r.dim_type] + (r.notes ? ` · ${r.notes}` : ''); }
+
+    function paint() {
+      if (!view || !viewerReady) return;
+      const colors = {};
+      let label = null;
+      const r = activeBalloon !== null ? view.results.find(x => x.balloon === activeBalloon) : null;
+      for (let i = 0; i < totalFaces; i++) colors[i] = NEUTRAL;
+      if (r) {
+        [...r.faces_a, ...r.faces_b].forEach(face => { colors[face] = COLORS[r.verdict]; });
+        label = `Balloon ${r.balloon} · ${VERDICT_TEXT[r.verdict]}`;
+      }
+      viewer.contentWindow?.postMessage({type: 'setFeatureColors', colors, label}, '*');
+    }
+
+    function focusFaces(faces) {
+      if (faces.length) viewer.contentWindow?.postMessage({type: 'focusFaces', faceIndices: faces}, '*');
+    }
+
+    function renderSummary() {
+      const s = view.summary;
+      $('partName').textContent = view.part_name || '';
+      $('brandPart').textContent = view.part_name || '';
+      if (!view.has_qc) {
+        $('headline').textContent = `${s.total} dimensions mapped`;
+        $('subline').textContent = 'Load the QC report for this part to see the result.';
+        $('counts').style.display = 'none';
+        $('bar').innerHTML = '';
+        return;
+      }
+      const ok = s.within_tolerance;
+      $('headline').innerHTML = `<span>${ok} of ${s.measured}</span> dimensions within tolerance`;
+      const bits = [];
+      if (s.out_of_tolerance) bits.push(`${s.out_of_tolerance} out of tolerance`);
+      if (s.near_limit) bits.push(`${s.near_limit} close to the limit`);
+      if (s.not_measured) bits.push(`${s.not_measured} not measured`);
+      $('subline').textContent = bits.length ? bits.join(' · ') : 'Every checked dimension is comfortably inside its tolerance.';
+      $('counts').style.display = '';
+      $('nPass').textContent = ok - s.near_limit;
+      $('nNear').textContent = s.near_limit;
+      $('nFail').textContent = s.out_of_tolerance;
+      const total = Math.max(1, s.total);
+      const segments = [['pass', ok - s.near_limit], ['near_limit', s.near_limit], ['fail', s.out_of_tolerance], ['pending', s.not_measured]];
+      $('bar').innerHTML = segments.filter(([, n]) => n).map(([k, n]) => `<div style="width:${n / total * 100}%;background:${COLORS[k]}"></div>`).join('');
+    }
+
+    function renderCards() {
+      const box = $('cards');
+      if (!view.results.length) {
+        box.innerHTML = '<div class="empty">This part has no tagged dimensions yet.<br>Tag them on the Dimension tagging page first.</div>';
+        return;
+      }
+      box.innerHTML = '';
+      view.results.forEach(r => {
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = `card ${r.verdict}${r.balloon === activeBalloon ? ' active' : ''}`;
+        const note = r.remark_disagrees ? `<div class="card-note">Inspection sheet remark: “${escapeHtml(r.sheet_remark)}”</div>` : '';
+        card.innerHTML = `<span class="balloon">${r.balloon}</span>
+          <span><div class="card-title">${escapeHtml(nominalText(r))}<em>${escapeHtml(title(r))}</em></div>
+          <div class="card-meta">${escapeHtml(requiredText(r))}, ${escapeHtml(measuredText(r))}</div>${note}</span>
+          <span class="verdict">${escapeHtml(VERDICT_TEXT[r.verdict])}</span>`;
+        card.addEventListener('click', () => {
+          const wasTouring = touring;
+          pauseTour();
+          select(r.balloon === activeBalloon && !wasTouring ? null : r.balloon);
+        });
+        box.appendChild(card);
+      });
+      scrollWithin(box.querySelector('.card.active'));
+    }
+
+    function select(balloon) {
+      activeBalloon = balloon;
+      renderCards();
+      paint();
+      const r = view?.results.find(x => x.balloon === balloon);
+      if (!r) { viewer.contentWindow?.postMessage({type: 'clearDimension', frame: true}, '*'); return; }
+      const mark = {pass: ' ✓', near_limit: ' ✓', fail: ' ✗'}[r.verdict] || '';
+      const lines = [
+        {text: (r.readings.length ? `Measured ${r.readings.map(num).join(' / ')}` : 'Not measured') + mark, color: COLORS[r.verdict]},
+        {text: requiredText(r), color: '#e6ece9'},
+        {text: `Balloon ${r.balloon} · ${VERDICT_TEXT[r.verdict]}`, color: '#a7b3ad'},
+      ];
+      viewer.contentWindow?.postMessage({
+        type: 'showDimension', kind: r.dim_type, facesA: r.faces_a, facesB: r.faces_b, color: COLORS[r.verdict], lines
+      }, '*');
+    }
+
+    function applyView(payload) {
+      view = payload;
+      faceDims = new Map();
+      view.results.forEach(r => [...r.faces_a, ...r.faces_b].forEach(face => {
+        if (!faceDims.has(face)) faceDims.set(face, []);
+        if (!faceDims.get(face).includes(r.balloon)) faceDims.get(face).push(r.balloon);
+      }));
+      if (activeBalloon !== null && !view.results.some(r => r.balloon === activeBalloon)) activeBalloon = null;
+      renderSummary();
+      renderCards();
+      paint();
+      if (touring && viewerReady && view.has_qc) startTour();
+      $('setupNote').textContent = view.has_qc ? `QC report: ${view.qc_source || 'loaded'}` : 'No QC report loaded for this part yet.';
+      $('setupNote').classList.remove('error');
+    }
+
+    function tipHtml(face) {
+      const balloons = faceDims.get(face);
+      if (!balloons) return null;
+      return balloons.map(b => view.results.find(r => r.balloon === b)).filter(Boolean)
+        .sort((a, b) => RANK[b.verdict] - RANK[a.verdict] || a.balloon - b.balloon)
+        .map(r => {
+          const cls = {pass: 'ok', near_limit: 'near', fail: 'bad'}[r.verdict] || 'dim';
+          const mark = {pass: '✓', near_limit: '✓ close to limit', fail: '✗ out of tolerance'}[r.verdict] || '';
+          return `<div class="tip-row"><strong>Balloon ${r.balloon} · ${escapeHtml(nominalText(r))}</strong>
+            <div class="dim">${escapeHtml(title(r))}</div>
+            <div>${escapeHtml(requiredText(r))}</div>
+            <div class="${cls}">${escapeHtml(measuredText(r))} ${mark}</div></div>`;
+        }).join('');
+    }
+
+    function showTip(face, x, y) {
+      const html = view && face >= 0 ? tipHtml(face) : null;
+      if (!html) { tip.style.display = 'none'; return; }
+      tip.innerHTML = html;
+      tip.style.display = 'block';
+      const frame = viewer.getBoundingClientRect(), wrap = viewerWrap.getBoundingClientRect();
+      let left = x + (frame.left - wrap.left) + 16, top = y + (frame.top - wrap.top) + 16;
+      if (left + tip.offsetWidth > wrap.width - 8) left = Math.max(8, left - tip.offsetWidth - 32);
+      if (top + tip.offsetHeight > wrap.height - 8) top = Math.max(8, top - tip.offsetHeight - 32);
+      tip.style.left = `${left}px`;
+      tip.style.top = `${top}px`;
+    }
+
+    async function api(url, options) {
+      const response = await fetch(url, options);
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(payload.detail || `Request failed (${response.status})`);
+      return payload;
+    }
+
+    async function openJob(id) {
+      clearInterval(tourTimer);
+      jobId = id;
+      activeBalloon = null;
+      viewerReady = false;
+      tip.style.display = 'none';
+      $('qcButton').disabled = !id;
+      $('tagLink').href = id ? `/dimensions?job=${encodeURIComponent(id)}` : '/dimensions';
+      if (!id) return;
+      history.replaceState(null, '', `/inspection?job=${encodeURIComponent(id)}`);
+      try {
+        const job = await api(`/api/labeling-jobs/${encodeURIComponent(id)}`);
+        totalFaces = Number(job.result?.face_count || 0);
+        viewer.src = job.result.viewer_url + (job.result.viewer_url.includes('?') ? '&' : '?') + 'demo=1';
+        $('viewerEmpty').style.display = 'none';
+        applyView(await api(`/api/labeling-jobs/${encodeURIComponent(id)}/qc-results`));
+      } catch (error) {
+        $('setupNote').textContent = error.message;
+        $('setupNote').classList.add('error');
+      }
+    }
+
+    async function loadJobList(preferred) {
+      const select = $('jobSelect');
+      try {
+        const {jobs} = await api('/api/dimension-jobs');
+        if (preferred && !jobs.some(j => j.job_id === preferred)) jobs.unshift({job_id: preferred, original_name: `Job ${preferred}`, tagged_count: '?', dimension_count: '?'});
+        if (!jobs.length) {
+          select.innerHTML = '<option value="">No tagged parts yet</option>';
+          $('setupNote').textContent = 'Tag a part on the Dimension tagging page first.';
+          return;
+        }
+        select.innerHTML = jobs.map(j => {
+          return `<option value="${escapeHtml(j.job_id)}">${escapeHtml(j.original_name)} · ${j.tagged_count}/${j.dimension_count} tagged</option>`;
+        }).join('');
+        const chosen = preferred || jobs[0].job_id;
+        select.value = chosen;
+        await openJob(chosen);
+      } catch (error) {
+        select.innerHTML = '<option value="">Could not load parts</option>';
+        $('setupNote').textContent = error.message;
+        $('setupNote').classList.add('error');
+      }
+    }
+
+    $('jobSelect').addEventListener('change', e => openJob(e.target.value));
+    $('qcButton').addEventListener('click', () => $('qcInput').click());
+    $('qcInput').addEventListener('change', async () => {
+      const file = $('qcInput').files[0];
+      $('qcInput').value = '';
+      if (!file || !jobId) return;
+      $('setupNote').textContent = 'Reading QC report…';
+      $('setupNote').classList.remove('error');
+      const form = new FormData();
+      form.append('file', file);
+      try {
+        applyView(await api(`/api/labeling-jobs/${encodeURIComponent(jobId)}/qc-results`, {method: 'POST', body: form}));
+      } catch (error) {
+        $('setupNote').textContent = error.message;
+        $('setupNote').classList.add('error');
+      }
+    });
+    $('showAll').addEventListener('click', () => { pauseTour(); select(null); });
+    $('tourButton').addEventListener('click', () => (touring ? pauseTour(false) : startTour()));
+    $('setupToggle').addEventListener('click', () => {
+      const hidden = $('setup').classList.toggle('hidden');
+      $('setupToggle').textContent = hidden ? 'Show setup' : 'Hide setup';
+    });
+
+    window.addEventListener('message', event => {
+      if (event.source !== viewer.contentWindow || !event.data) return;
+      const data = event.data;
+      if (data.type === 'viewerReady') {
+        viewerReady = true;
+        viewer.contentWindow.postMessage({type: 'setInteractionMode', mode: 'select'}, '*');
+        viewer.contentWindow.postMessage({type: 'setHoverReporting', enabled: true}, '*');
+        $('overlayLegend').style.display = '';
+        if (Number(data.faceCount) !== totalFaces) {
+          $('setupNote').textContent = `Warning: viewer shows ${data.faceCount} faces but the tags were made on ${totalFaces}. Colours may be misplaced.`;
+          $('setupNote').classList.add('error');
+        }
+        paint();
+        if (touring && view?.has_qc) setTimeout(startTour, 1200);
+      } else if (data.type === 'faceHovered') {
+        showTip(Number(data.faceIndex), Number(data.clientX), Number(data.clientY));
+      } else if (data.type === 'faceClicked') {
+        const balloons = faceDims.get(Number(data.faceIndex));
+        pauseTour();
+        if (!balloons) { select(null); return; }
+        const current = balloons.indexOf(activeBalloon);
+        select(balloons[(current + 1) % balloons.length]);
+      }
+    });
+
+    loadJobList(new URLSearchParams(location.search).get('job'));
+  </script>
+</body>
+</html>

@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script>
+    if (window.location.protocol === 'file:') {
+      const destination = new URL('http://127.0.0.1:8780/dimensions');
+      destination.search = window.location.search;
+      window.location.replace(destination.toString());
+    }
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>STEP Dimension Tagging</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #18211d;
+      --muted: #617069;
+      --line: #d7ded9;
+      --paper: #f4f6f3;
+      --accent: #156b4f;
+      --accent-strong: #0c4f39;
+      --error: #a42d2d;
+      --viewer: #111614;
+      --col-a: #f97316;
+      --col-b: #a855f7;
+      --col-sel: #facc15;
+      --col-tagged: #2fae60;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-width: 320px; background: var(--paper); color: var(--ink);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0; }
+    button, input, textarea, select { font: inherit; letter-spacing: 0; }
+    button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, a:focus-visible {
+      outline: 3px solid rgba(21, 107, 79, .25); outline-offset: 2px; }
+    .app { height: 100vh; overflow: hidden; display: grid; grid-template-rows: 58px minmax(0, 1fr); }
+    .topbar { display: flex; align-items: center; justify-content: space-between; padding: 0 22px;
+      border-bottom: 1px solid var(--line); background: white; }
+    .brand { font-size: 16px; font-weight: 780; }
+    .nav-links { display: flex; gap: 16px; }
+    .nav-link { color: var(--accent-strong); font-size: 12px; font-weight: 700; text-decoration: none; }
+    .workspace { min-height: 0; display: grid; grid-template-columns: 280px minmax(0, 1fr) 420px; overflow: hidden; }
+    .part-panel, .dim-panel { min-height: 0; background: white; overflow: auto; }
+    .part-panel { border-right: 1px solid var(--line); padding: 18px; }
+    .dim-panel { border-left: 1px solid var(--line); display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; }
+    h1 { margin: 0 0 5px; font-size: 20px; line-height: 1.25; }
+    .subtitle { margin: 0 0 16px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+    .dropzone { min-height: 120px; display: grid; place-items: center; border: 1px dashed #93a39a;
+      background: #f9fbf9; padding: 18px; text-align: center; cursor: pointer; }
+    .dropzone.dragging { border-color: var(--accent); background: #edf6f1; }
+    .dropzone strong { display: block; font-size: 13px; }
+    .dropzone span { display: block; margin-top: 5px; color: var(--muted); font-size: 11px; }
+    #fileInput, #qcInput, #drawingInput { position: absolute; opacity: 0; pointer-events: none; }
+    .selected-file { min-height: 38px; padding: 9px 0; color: var(--muted); font-size: 11px; overflow-wrap: anywhere; }
+    .primary, .secondary, .mode-button { min-height: 36px; border-radius: 3px; font-weight: 720; font-size: 11px; cursor: pointer; }
+    .primary { width: 100%; border: 1px solid var(--accent); background: var(--accent); color: white; }
+    .primary:hover { background: var(--accent-strong); }
+    .primary:disabled, .secondary:disabled { cursor: not-allowed; opacity: .45; }
+    .secondary, .mode-button { border: 1px solid #aebbb4; background: white; color: var(--ink); padding: 0 12px; }
+    .mode-button.active { border-color: var(--accent); background: #e8f3ed; color: var(--accent-strong); }
+    .status-block { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); }
+    .status-title { font-size: 12px; font-weight: 750; }
+    .status-detail { min-height: 32px; margin-top: 4px; color: var(--muted); font-size: 10px; line-height: 1.4; }
+    .progress-track { height: 5px; margin-top: 9px; background: #e0e5e2; overflow: hidden; }
+    .progress-bar { width: 0; height: 100%; background: var(--accent); transition: width .2s; }
+    .part-summary { display: grid; grid-template-columns: 1fr 1fr; margin-top: 14px; border: 1px solid var(--line); }
+    .part-summary div { padding: 10px; border-right: 1px solid var(--line); }
+    .part-summary div:last-child { border-right: 0; }
+    .part-summary span { display: block; color: var(--muted); font-size: 9px; text-transform: uppercase; }
+    .part-summary strong { display: block; margin-top: 4px; font-size: 17px; }
+    .legend { margin-top: 16px; font-size: 10px; color: var(--muted); line-height: 1.9; }
+    .legend i { display: inline-block; width: 10px; height: 10px; margin-right: 7px; vertical-align: -1px; border-radius: 2px; }
+    .viewer-wrap { min-height: 0; position: relative; background: var(--viewer); }
+    #viewer { width: 100%; height: 100%; border: 0; display: block; }
+    .viewer-empty { position: absolute; inset: 0; display: grid; place-items: center; color: #87918c; font-size: 12px; pointer-events: none; }
+    .dim-header { padding: 14px; border-bottom: 1px solid var(--line); }
+    .dim-header h2 { margin: 0; font-size: 14px; }
+    .map-state { margin-top: 5px; color: var(--muted); font-size: 10px; }
+    .map-state.ok { color: var(--accent-strong); }
+    .map-state.error { color: var(--error); }
+    .header-tools { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 10px; }
+    .editor { padding: 12px 14px; border-bottom: 1px solid var(--line); }
+    .editor.disabled { opacity: .45; pointer-events: none; }
+    .editor-title { display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 750; }
+    .field-label { display: block; margin: 9px 0 4px; color: var(--muted); font-size: 9px; font-weight: 750; text-transform: uppercase; }
+    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7px; }
+    .editor input, .editor select, .editor textarea { width: 100%; border: 1px solid #b8c2bc; border-radius: 3px; background: white; color: var(--ink); }
+    .editor input, .editor select { height: 34px; padding: 0 8px; }
+    .editor textarea { min-height: 40px; padding: 7px 8px; resize: vertical; }
+    .selection-tools { display: grid; grid-template-columns: 1fr auto; gap: 7px; margin-top: 12px; }
+    .selection-line { display: flex; justify-content: space-between; align-items: baseline; margin: 9px 0 7px; color: var(--muted); font-size: 10px; }
+    .selection-line strong { color: var(--ink); font-size: 15px; }
+    .assign { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+    .assign button { min-height: 38px; color: white; border: 0; border-radius: 3px; font-weight: 720; font-size: 11px; cursor: pointer; }
+    .assign button:disabled { opacity: .35; cursor: not-allowed; }
+    #assignA { background: var(--col-a); }
+    #assignB { background: var(--col-b); }
+    .group-info { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 6px; font-size: 10px; color: var(--muted); }
+    .group-info button { border: 0; background: none; color: var(--accent-strong); font-size: 10px; font-weight: 700; cursor: pointer; padding: 0; margin-left: 4px; }
+    .message { min-height: 15px; margin-top: 7px; color: var(--muted); font-size: 10px; }
+    .message.error { color: var(--error); }
+    .list-area { min-height: 0; display: grid; grid-template-rows: auto minmax(0, 1fr); overflow: hidden; }
+    .coverage { padding: 10px 14px; border-bottom: 1px solid var(--line); }
+    .coverage-line { display: flex; justify-content: space-between; color: var(--muted); font-size: 10px; }
+    .coverage-line strong { color: var(--ink); }
+    .coverage-track { height: 5px; margin-top: 7px; background: #e2e7e4; overflow: hidden; }
+    .coverage-bar { width: 0; height: 100%; background: var(--accent); }
+    .dim-list { min-height: 0; overflow: auto; }
+    .empty-list { padding: 30px 18px; color: var(--muted); text-align: center; font-size: 11px; line-height: 1.5; }
+    .dim-row { min-height: 46px; display: grid; grid-template-columns: minmax(0, 1fr) 34px; border-bottom: 1px solid #e6ebe8; }
+    .dim-row.active { background: #fff4ea; }
+    .dim-main { border: 0; background: transparent; padding: 7px 14px; text-align: left; cursor: pointer;
+      display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; align-items: center; gap: 10px; }
+    .balloon { width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--ink); display: grid; place-items: center; font-size: 11px; font-weight: 750; background: white; }
+    .dim-row.done .balloon { background: var(--col-tagged); border-color: var(--col-tagged); color: white; }
+    .dim-name { font-size: 12px; font-weight: 750; overflow-wrap: anywhere; }
+    .dim-meta { display: block; margin-top: 2px; color: var(--muted); font-size: 10px; font-weight: 400; }
+    .dim-state { font-size: 10px; font-weight: 700; color: var(--muted); }
+    .dim-row.done .dim-state { color: var(--accent-strong); }
+    .delete-button { border: 0; background: transparent; color: var(--muted); font-size: 20px; cursor: pointer; }
+    .delete-button:hover { color: var(--error); }
+    .actions { display: grid; grid-template-columns: 1fr auto; gap: 6px; padding: 10px 14px; border-top: 1px solid var(--line); }
+    .export-link { width: 56px; min-height: 36px; display: grid; place-items: center; border: 1px solid #aebbb4; border-radius: 3px;
+      color: var(--accent-strong); font-size: 10px; font-weight: 750; text-decoration: none; }
+    .export-link[aria-disabled="true"] { pointer-events: none; opacity: .4; }
+    @media (max-width: 1100px) { .workspace { grid-template-columns: 250px minmax(0, 1fr) 380px; } }
+    @media (max-width: 820px) {
+      .app { display: block; height: auto; min-height: 100vh; overflow: visible; }
+      .workspace { display: block; overflow: visible; }
+      .part-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+      .viewer-wrap, #viewer { height: 58vh; min-height: 430px; }
+      .dim-panel { min-height: 720px; border-left: 0; border-top: 1px solid var(--line); }
+    }
+    body.embed .topbar, body.embed .part-panel, body.embed #importButton, body.embed #drawingButton { display: none; }
+    body.embed .app { grid-template-rows: minmax(0, 1fr); }
+    body.embed .workspace { grid-template-columns: minmax(0, 1fr) 420px; }
+    body.embed .header-tools { grid-template-columns: 1fr; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">STEP Dimension Tagging</div>
+      <nav class="nav-links">
+        <a class="nav-link" href="/inspection" id="inspectionLink">Inspection result</a>
+        <a class="nav-link" href="/label">Manual labeling</a>
+        <a class="nav-link" href="/">Recognition workspace</a>
+      </nav>
+    </header>
+    <main class="workspace">
+      <aside class="part-panel">
+        <h1>Tag part dimensions</h1>
+        <p class="subtitle">Link each ballooned drawing dimension to the B-Rep faces it measures.</p>
+        <label class="dropzone" id="dropzone" for="fileInput">
+          <div><strong>Select STEP file</strong><span>.step or .stp, up to 500 MB</span></div>
+        </label>
+        <input id="fileInput" type="file" accept=".step,.stp">
+        <div class="selected-file" id="selectedFile">No file selected</div>
+        <button class="primary" id="extractButton" type="button" disabled>Prepare face map</button>
+        <section class="status-block">
+          <div class="status-title" id="statusTitle">Ready</div>
+          <div class="status-detail" id="statusDetail">No job loaded.</div>
+          <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+        </section>
+        <div class="part-summary">
+          <div><span>Dimensions</span><strong id="dimTotal">0</strong></div>
+          <div><span>Tagged</span><strong id="dimTagged">0</strong></div>
+        </div>
+        <div class="legend">
+          <div><i style="background:var(--col-sel)"></i>Current selection</div>
+          <div><i style="background:var(--col-a)"></i>Active dimension, faces A</div>
+          <div><i style="background:var(--col-b)"></i>Active dimension, faces B</div>
+          <div><i style="background:var(--col-tagged)"></i>Tagged for another dimension</div>
+        </div>
+      </aside>
+
+      <section class="viewer-wrap">
+        <iframe id="viewer" title="STEP face selection viewer"></iframe>
+        <div class="viewer-empty" id="viewerEmpty">No STEP geometry loaded</div>
+      </section>
+
+      <aside class="dim-panel">
+        <header class="dim-header">
+          <h2>Ballooned dimensions</h2>
+          <div class="map-state" id="mapState">Waiting for face map</div>
+          <div class="header-tools">
+            <button class="secondary" id="importButton" type="button" disabled>Import from QC sheet</button>
+            <button class="secondary" id="addButton" type="button" disabled>Add dimension</button>
+            <button class="secondary" id="drawingButton" type="button" style="grid-column:1 / -1">Open ballooned drawing (PDF) in new tab</button>
+          </div>
+          <input id="qcInput" type="file" accept=".xlsx">
+          <input id="drawingInput" type="file" accept=".pdf,application/pdf">
+        </header>
+
+        <section class="editor disabled" id="editor">
+          <div class="editor-title"><span class="balloon" id="editorBalloon">-</span><span id="editorTitle">Select a dimension</span></div>
+          <label class="field-label" for="dimType">Type</label>
+          <select id="dimType">
+            <option value="diameter">Diameter</option>
+            <option value="radius">Radius</option>
+            <option value="linear">Distance between two faces</option>
+            <option value="center_distance">Center distance between two features</option>
+            <option value="depth">Depth (two faces)</option>
+            <option value="thickness">Thickness (two faces)</option>
+            <option value="thread">Thread</option>
+            <option value="angle">Angle (two faces)</option>
+            <option value="other">Other</option>
+          </select>
+          <div class="row3">
+            <div><label class="field-label" for="dimNominal">Nominal</label><input id="dimNominal" type="number" step="any"></div>
+            <div><label class="field-label" for="dimTolPlus">Tol +</label><input id="dimTolPlus" type="number" step="any" min="0"></div>
+            <div><label class="field-label" for="dimTolMinus">Tol −</label><input id="dimTolMinus" type="number" step="any" min="0"></div>
+          </div>
+          <label class="field-label" for="dimNotes">Notes</label>
+          <textarea id="dimNotes" maxlength="2000" placeholder="Optional"></textarea>
+          <div class="selection-tools">
+            <button class="mode-button active" id="selectModeButton" type="button">Select faces</button>
+            <button class="secondary" id="clearButton" type="button">Clear</button>
+          </div>
+          <div class="selection-line"><span>Currently selected</span><strong><span id="selectionCount">0</span> faces</strong></div>
+          <div class="assign">
+            <button id="assignA" type="button" disabled>Set faces A</button>
+            <button id="assignB" type="button" disabled>Set faces B</button>
+          </div>
+          <div class="group-info">
+            <div>A: <span id="countA">0</span> faces<button type="button" id="editA">edit</button></div>
+            <div>B: <span id="countB">0</span> faces<button type="button" id="editB">edit</button></div>
+          </div>
+          <div class="message" id="message" aria-live="polite"></div>
+        </section>
+
+        <section class="list-area">
+          <div class="coverage">
+            <div class="coverage-line"><span>Dimensions tagged</span><strong id="coverageText">0 / 0</strong></div>
+            <div class="coverage-track"><div class="coverage-bar" id="coverageBar"></div></div>
+          </div>
+          <div class="dim-list" id="dimList"></div>
+        </section>
+        <footer class="actions">
+          <button class="primary" id="saveButton" type="button" disabled>Save dimension tags</button>
+          <a class="export-link" id="jsonExport" aria-disabled="true" title="Download JSON">JSON</a>
+        </footer>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    // Scroll a row into view inside its own list only. scrollIntoView() also scrolls every
+    // ancestor, which drags the host page around when this page is embedded in another app.
+    function scrollWithin(el) {
+      if (!el) return;
+      let box = el.parentElement;
+      while (box && box !== document.body && getComputedStyle(box).overflowY === 'visible') box = box.parentElement;
+      if (!box || box === document.body) return;
+      const r = el.getBoundingClientRect(), b = box.getBoundingClientRect();
+      if (r.top < b.top) box.scrollTop -= b.top - r.top;
+      else if (r.bottom > b.bottom) box.scrollTop += r.bottom - b.bottom;
+    }
+    // ?embed=1: shown inside the admin app for one specific part, which supplies the part, the QC
+    // sheet and the drawing itself — so this page's own header, part picker and upload controls go.
+    const EMBED = new URLSearchParams(location.search).get('embed') === '1';
+    if (EMBED) document.body.classList.add('embed');
+
+    const COL_A = '#f97316', COL_B = '#a855f7', COL_SEL = '#facc15', COL_TAGGED = '#2fae60';
+    const NEEDS_B = new Set(['linear', 'center_distance', 'depth', 'thickness', 'angle']);
+    const $ = id => document.getElementById(id);
+    const fileInput = $('fileInput'), dropzone = $('dropzone'), selectedFile = $('selectedFile');
+    const extractButton = $('extractButton'), statusTitle = $('statusTitle'), statusDetail = $('statusDetail');
+    const progressBar = $('progressBar'), viewer = $('viewer'), viewerEmpty = $('viewerEmpty'), mapState = $('mapState');
+    const dimTotal = $('dimTotal'), dimTagged = $('dimTagged');
+    const importButton = $('importButton'), addButton = $('addButton'), qcInput = $('qcInput');
+    const editor = $('editor'), editorBalloon = $('editorBalloon'), editorTitle = $('editorTitle');
+    const dimType = $('dimType'), dimNominal = $('dimNominal'), dimTolPlus = $('dimTolPlus'), dimTolMinus = $('dimTolMinus'), dimNotes = $('dimNotes');
+    const selectModeButton = $('selectModeButton'), clearButton = $('clearButton'), selectionCount = $('selectionCount');
+    const assignA = $('assignA'), assignB = $('assignB'), countA = $('countA'), countB = $('countB');
+    const message = $('message'), coverageText = $('coverageText'), coverageBar = $('coverageBar');
+    const dimList = $('dimList'), saveButton = $('saveButton'), jsonExport = $('jsonExport');
+
+    let selectedFileValue = null, currentJobId = null, totalFaces = 0, pollTimer = null;
+    let dims = [], activeBalloon = null, selectedFaces = new Set(), dirty = false;
+
+    const escapeHtml = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+    const activeDim = () => dims.find(d => d.balloon === activeBalloon) || null;
+    const needsB = d => NEEDS_B.has(d.dim_type);
+    const isTagged = d => d.faces_a.length > 0 && (!needsB(d) || d.faces_b.length > 0);
+
+    function fmt(n) { return Number.isFinite(n) ? String(Math.round(n * 1e4) / 1e4) : '?'; }
+    function dimLabel(d) {
+      const prefix = {diameter: 'Ø', radius: 'R', thread: 'M'}[d.dim_type] || '';
+      const unit = d.dim_type === 'angle' ? '°' : '';
+      const nominal = d.nominal === null ? '?' : fmt(d.nominal) + unit;
+      const p = d.tol_plus, m = d.tol_minus;
+      let tol = '';
+      if (p !== null || m !== null) {
+        if (p !== null && m !== null && p === m) tol = ` ±${fmt(p)}`;
+        else tol = ` +${fmt(p ?? 0)}/−${fmt(m ?? 0)}`;
+      }
+      return prefix + nominal + tol;
+    }
+    function setMessage(text, error = false) { message.textContent = text; message.classList.toggle('error', error); }
+    function setSelectedFile(file) {
+      selectedFileValue = file || null;
+      selectedFile.textContent = file ? `${file.name} · ${(file.size / 1024 / 1024).toFixed(2)} MB` : 'No file selected';
+      extractButton.disabled = !file;
+    }
+    function markDirty() { dirty = true; saveButton.disabled = !currentJobId; }
+
+    function postColors() {
+      const colors = {};
+      dims.forEach(d => [...d.faces_a, ...d.faces_b].forEach(i => { colors[i] = COL_TAGGED; }));
+      const a = activeDim();
+      if (a) {
+        a.faces_a.forEach(i => { colors[i] = COL_A; });
+        a.faces_b.forEach(i => { colors[i] = COL_B; });
+      }
+      selectedFaces.forEach(i => { colors[i] = COL_SEL; });
+      let label = null;
+      if (selectedFaces.size) label = `Selection · ${selectedFaces.size} face${selectedFaces.size === 1 ? '' : 's'}`;
+      else if (a) label = `Balloon ${a.balloon} · ${dimLabel(a)}`;
+      viewer.contentWindow?.postMessage({type: 'setFeatureColors', colors, label}, '*');
+    }
+    function focus(indices) {
+      if (indices.length) viewer.contentWindow?.postMessage({type: 'focusFaces', faceIndices: indices}, '*');
+    }
+
+    function renderEditor() {
+      const d = activeDim();
+      selectionCount.textContent = selectedFaces.size;
+      editor.classList.toggle('disabled', !d);
+      if (!d) {
+        editorBalloon.textContent = '-'; editorTitle.textContent = 'Select a dimension';
+        countA.textContent = countB.textContent = '0';
+        assignA.disabled = assignB.disabled = true;
+        return;
+      }
+      editorBalloon.textContent = d.balloon;
+      editorTitle.textContent = dimLabel(d);
+      if (document.activeElement !== dimType) dimType.value = d.dim_type;
+      if (document.activeElement !== dimNominal) dimNominal.value = d.nominal ?? '';
+      if (document.activeElement !== dimTolPlus) dimTolPlus.value = d.tol_plus ?? '';
+      if (document.activeElement !== dimTolMinus) dimTolMinus.value = d.tol_minus ?? '';
+      if (document.activeElement !== dimNotes) dimNotes.value = d.notes || '';
+      countA.textContent = d.faces_a.length;
+      countB.textContent = needsB(d) ? d.faces_b.length : '–';
+      assignA.textContent = needsB(d) ? 'Set faces A' : 'Set faces';
+      assignA.disabled = !selectedFaces.size;
+      assignB.disabled = !selectedFaces.size || !needsB(d);
+      assignB.style.visibility = needsB(d) ? 'visible' : 'hidden';
+      $('editB').style.visibility = needsB(d) ? 'visible' : 'hidden';
+    }
+
+    function renderList() {
+      const tagged = dims.filter(isTagged).length;
+      dimTotal.textContent = dims.length;
+      dimTagged.textContent = tagged;
+      coverageText.textContent = `${tagged} / ${dims.length}`;
+      coverageBar.style.width = dims.length ? `${tagged / dims.length * 100}%` : '0%';
+      saveButton.disabled = !dirty || !currentJobId;
+      if (!dims.length) {
+        dimList.innerHTML = '<div class="empty-list">No dimensions yet.<br>Import the QC sheet to load the balloon numbers, or add them one at a time.</div>';
+        return;
+      }
+      dimList.innerHTML = '';
+      dims.forEach(d => {
+        const row = document.createElement('div');
+        row.className = `dim-row${d.balloon === activeBalloon ? ' active' : ''}${isTagged(d) ? ' done' : ''}`;
+        const main = document.createElement('button');
+        main.type = 'button';
+        main.className = 'dim-main';
+        const groups = needsB(d) ? `A ${d.faces_a.length} · B ${d.faces_b.length}` : `${d.faces_a.length} face${d.faces_a.length === 1 ? '' : 's'}`;
+        main.innerHTML = `<span class="balloon">${d.balloon}</span>
+          <span class="dim-name">${escapeHtml(dimLabel(d))}<span class="dim-meta">${escapeHtml(d.dim_type)} · ${groups}</span></span>
+          <span class="dim-state">${isTagged(d) ? 'tagged' : 'to do'}</span>`;
+        main.addEventListener('click', () => activate(d.balloon));
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.className = 'delete-button';
+        remove.textContent = '×';
+        remove.title = `Delete balloon ${d.balloon}`;
+        remove.setAttribute('aria-label', `Delete balloon ${d.balloon}`);
+        remove.addEventListener('click', () => {
+          dims = dims.filter(item => item.balloon !== d.balloon);
+          if (activeBalloon === d.balloon) { activeBalloon = null; selectedFaces = new Set(); }
+          markDirty(); setMessage(`Balloon ${d.balloon} removed. Save to persist.`); refresh();
+        });
+        row.append(main, remove);
+        dimList.appendChild(row);
+      });
+      scrollWithin(dimList.querySelector('.dim-row.active'));
+    }
+
+    function refresh() { renderList(); renderEditor(); postColors(); }
+
+    function activate(balloon) {
+      activeBalloon = balloon;
+      selectedFaces = new Set();
+      const d = activeDim();
+      setMessage(d && isTagged(d) ? 'Already tagged. Select new faces and assign to replace them.' : 'Click faces on the model, then assign them.');
+      refresh();
+      if (d) focus([...d.faces_a, ...d.faces_b]);
+    }
+
+    function nextUntagged(after) {
+      const later = dims.find(d => d.balloon > after && !isTagged(d));
+      return later || dims.find(d => !isTagged(d)) || null;
+    }
+
+    function assign(group) {
+      const d = activeDim();
+      if (!d || !selectedFaces.size) return;
+      const faces = [...selectedFaces].sort((a, b) => a - b);
+      const other = group === 'a' ? 'faces_b' : 'faces_a';
+      d[group === 'a' ? 'faces_a' : 'faces_b'] = faces;
+      d[other] = d[other].filter(i => !selectedFaces.has(i));
+      selectedFaces = new Set();
+      markDirty();
+      if (isTagged(d)) {
+        const next = nextUntagged(d.balloon);
+        if (next) { activate(next.balloon); setMessage(`Balloon ${d.balloon} tagged. Now balloon ${next.balloon}.`); return; }
+        setMessage('All dimensions tagged. Save to persist.');
+      } else {
+        setMessage(needsB(d) && !d.faces_b.length ? 'Faces A set. Now select faces B.' : 'Faces B set. Now select faces A.');
+      }
+      refresh();
+    }
+
+    function loadGroup(group) {
+      const d = activeDim();
+      if (!d) return;
+      const faces = group === 'a' ? d.faces_a : d.faces_b;
+      selectedFaces = new Set(faces);
+      setMessage(`Faces ${group.toUpperCase()} loaded into the selection. Change it and assign again.`);
+      refresh(); focus(faces);
+    }
+
+    function addDimension() {
+      const balloon = dims.reduce((m, d) => Math.max(m, d.balloon), 0) + 1;
+      dims.push({balloon, dim_type: 'linear', description_raw: '', nominal: null, tol_plus: null, tol_minus: null,
+        faces_a: [], faces_b: [], notes: ''});
+      markDirty(); activate(balloon);
+    }
+
+    function numberOrNull(input) { return input.value === '' ? null : Number(input.value); }
+    function editField(apply) {
+      const d = activeDim();
+      if (!d) return;
+      apply(d); markDirty();
+      renderList(); renderEditor(); postColors();
+    }
+    dimType.addEventListener('change', () => editField(d => { d.dim_type = dimType.value; if (!NEEDS_B.has(d.dim_type)) d.faces_b = []; }));
+    dimNominal.addEventListener('input', () => editField(d => { d.nominal = numberOrNull(dimNominal); }));
+    dimTolPlus.addEventListener('input', () => editField(d => { d.tol_plus = numberOrNull(dimTolPlus); }));
+    dimTolMinus.addEventListener('input', () => editField(d => { d.tol_minus = numberOrNull(dimTolMinus); }));
+    dimNotes.addEventListener('input', () => editField(d => { d.notes = dimNotes.value; }));
+
+    function setExportLinks(payload) {
+      const ready = Boolean(payload?.saved && payload?.downloads);
+      jsonExport.setAttribute('aria-disabled', String(!ready));
+      if (ready) jsonExport.href = payload.downloads.json; else jsonExport.removeAttribute('href');
+    }
+
+    function hydrate(list) {
+      return (list || []).map(d => ({
+        balloon: d.balloon, dim_type: d.dim_type || 'other', description_raw: d.description_raw || '',
+        nominal: d.nominal ?? null, tol_plus: d.tol_plus ?? null, tol_minus: d.tol_minus ?? null,
+        faces_a: d.faces_a || [], faces_b: d.faces_b || [], notes: d.notes || ''
+      }));
+    }
+
+    async function saveDimensions() {
+      if (!currentJobId) return;
+      saveButton.disabled = true;
+      setMessage('Saving…');
+      try {
+        const response = await fetch(`/api/labeling-jobs/${currentJobId}/dimensions`, {
+          method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({dimensions: dims})
+        });
+        const payload = await response.json();
+        if (!response.ok) throw new Error(payload.detail || 'Could not save');
+        dims = hydrate(payload.dimensions);
+        dirty = false;
+        setExportLinks(payload);
+        setMessage(`Saved ${payload.tagged_count} of ${payload.dimension_count} dimensions tagged.`);
+        refresh();
+      } catch (error) {
+        setMessage(error.message, true);
+        saveButton.disabled = false;
+      }
+    }
+
+    async function loadDimensions() {
+      dims = []; dirty = false; activeBalloon = null; selectedFaces = new Set();
+      const response = await fetch(`/api/labeling-jobs/${currentJobId}/dimensions`);
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.detail || 'Could not load dimension tags');
+      dims = hydrate(payload.dimensions);
+      setExportLinks(payload);
+      importButton.disabled = false; addButton.disabled = false;
+      refresh();
+    }
+
+    async function importQc(file) {
+      if (!file || !currentJobId) return;
+      const form = new FormData();
+      form.append('file', file);
+      setMessage('Reading QC sheet…');
+      try {
+        const response = await fetch(`/api/labeling-jobs/${currentJobId}/dimensions/seed`, {method: 'POST', body: form});
+        const payload = await response.json();
+        if (!response.ok) throw new Error(payload.detail || 'Could not read the QC sheet');
+        const known = new Set(dims.map(d => d.balloon));
+        const fresh = hydrate(payload.dimensions).filter(d => !known.has(d.balloon));
+        dims = [...dims, ...fresh].sort((a, b) => a.balloon - b.balloon);
+        if (fresh.length) markDirty();
+        setMessage(`Imported ${fresh.length} new balloon${fresh.length === 1 ? '' : 's'}` +
+          (payload.dimensions.length - fresh.length ? `; ${payload.dimensions.length - fresh.length} already existed and were left unchanged.` : '.') +
+          ' Review the types, then start tagging.');
+        const first = dims.find(d => !isTagged(d));
+        if (first) activate(first.balloon); else refresh();
+      } catch (error) {
+        setMessage(error.message, true);
+      } finally {
+        qcInput.value = '';
+      }
+    }
+
+    async function showJob(job) {
+      currentJobId = job.job_id;
+      $('inspectionLink').href = `/inspection?job=${encodeURIComponent(job.job_id)}`;
+      totalFaces = Number(job.result.face_count || 0);
+      viewer.src = job.result.viewer_url + (EMBED ? (job.result.viewer_url.includes('?') ? '&' : '?') + 'demo=1' : '');
+      viewerEmpty.style.display = 'none';
+      statusTitle.textContent = 'Ready for tagging';
+      statusDetail.textContent = `${job.original_name} · ${totalFaces} B-Rep faces`;
+      progressBar.style.width = '100%';
+      await loadDimensions();
+    }
+
+    async function poll(jobId) {
+      try {
+        const response = await fetch(`/api/labeling-jobs/${jobId}`);
+        const job = await response.json();
+        if (!response.ok) throw new Error(job.detail || 'Could not read job');
+        statusTitle.textContent = job.phase;
+        statusDetail.textContent = job.original_name;
+        progressBar.style.width = `${job.progress || 0}%`;
+        if (job.status === 'completed') { await showJob(job); return; }
+        if (job.status === 'failed') throw new Error(job.error || 'Face extraction failed');
+        pollTimer = setTimeout(() => poll(jobId), 1000);
+      } catch (error) {
+        statusTitle.textContent = 'Failed';
+        statusDetail.textContent = error.message;
+      }
+    }
+
+    fileInput.addEventListener('change', () => setSelectedFile(fileInput.files[0]));
+    ['dragenter', 'dragover'].forEach(n => dropzone.addEventListener(n, e => { e.preventDefault(); dropzone.classList.add('dragging'); }));
+    ['dragleave', 'drop'].forEach(n => dropzone.addEventListener(n, e => { e.preventDefault(); dropzone.classList.remove('dragging'); }));
+    dropzone.addEventListener('drop', e => setSelectedFile(e.dataTransfer.files[0]));
+    extractButton.addEventListener('click', async () => {
+      if (!selectedFileValue) return;
+      clearTimeout(pollTimer);
+      extractButton.disabled = true;
+      statusTitle.textContent = 'Uploading';
+      statusDetail.textContent = selectedFileValue.name;
+      progressBar.style.width = '3%';
+      const form = new FormData();
+      form.append('file', selectedFileValue);
+      try {
+        const response = await fetch('/api/labeling-jobs', {method: 'POST', body: form});
+        const job = await response.json();
+        if (!response.ok) throw new Error(job.detail || 'Upload failed');
+        history.replaceState(null, '', `/dimensions?job=${encodeURIComponent(job.job_id)}`);
+        poll(job.job_id);
+      } catch (error) {
+        statusTitle.textContent = 'Failed';
+        statusDetail.textContent = error.message;
+      } finally {
+        extractButton.disabled = !selectedFileValue;
+      }
+    });
+    importButton.addEventListener('click', () => qcInput.click());
+    qcInput.addEventListener('change', () => importQc(qcInput.files[0]));
+    addButton.addEventListener('click', addDimension);
+    $('drawingButton').addEventListener('click', () => $('drawingInput').click());
+    $('drawingInput').addEventListener('change', () => {
+      const file = $('drawingInput').files[0];
+      if (file) window.open(URL.createObjectURL(file), '_blank');
+      $('drawingInput').value = '';
+    });
+    selectModeButton.addEventListener('click', () => {
+      const enabled = !selectModeButton.classList.contains('active');
+      selectModeButton.classList.toggle('active', enabled);
+      selectModeButton.textContent = enabled ? 'Select faces' : 'Rotate only';
+      viewer.contentWindow?.postMessage({type: 'setInteractionMode', mode: enabled ? 'select' : 'orbit'}, '*');
+    });
+    clearButton.addEventListener('click', () => { selectedFaces = new Set(); setMessage(''); renderEditor(); postColors(); });
+    assignA.addEventListener('click', () => assign('a'));
+    assignB.addEventListener('click', () => assign('b'));
+    $('editA').addEventListener('click', () => loadGroup('a'));
+    $('editB').addEventListener('click', () => loadGroup('b'));
+    saveButton.addEventListener('click', saveDimensions);
+    window.addEventListener('beforeunload', e => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
+
+    window.addEventListener('message', event => {
+      if (event.source !== viewer.contentWindow || !event.data) return;
+      const data = event.data;
+      if (data.type === 'viewerReady') {
+        const actual = Number(data.faceCount);
+        mapState.textContent = actual === totalFaces
+          ? `Face map aligned · ${actual} / ${totalFaces}`
+          : `Face map mismatch · viewer ${actual}, extractor ${totalFaces}`;
+        mapState.className = `map-state ${actual === totalFaces ? 'ok' : 'error'}`;
+        viewer.contentWindow.postMessage({type: 'setInteractionMode', mode: 'select'}, '*');
+        postColors();
+      } else if (data.type === 'faceClicked' && selectModeButton.classList.contains('active')) {
+        const index = Number(data.faceIndex);
+        if (!Number.isInteger(index) || index < 0 || index >= totalFaces) return;
+        if (selectedFaces.has(index)) selectedFaces.delete(index); else selectedFaces.add(index);
+        renderEditor(); postColors();
+      } else if (data.type === 'facesBoxSelected' && selectModeButton.classList.contains('active')) {
+        (data.faceIndices || []).map(Number).filter(i => Number.isInteger(i) && i >= 0 && i < totalFaces)
+          .forEach(i => selectedFaces.add(i));
+        renderEditor(); postColors();
+      }
+    });
+
+    refresh();
+    const initialJobId = new URLSearchParams(location.search).get('job');
+    if (initialJobId) poll(initialJobId);
+  </script>
+</body>
+</html>

@@ -344,6 +344,7 @@
     pointer-events: none;
     z-index: 0;
   }
+  body.demo #toolbar, body.demo #controls-panel, body.demo #header-file-info, body.demo #open-btn { display: none !important; }
 </style>
 </head>
 <body>
@@ -602,10 +603,10 @@ function boxSelectFaces(rect) {
   }
 }
 
-function pickFace(clientX, clientY) {
-  if (!currentMeshes.length) return;
+function faceIndexAt(clientX, clientY) {
+  if (!currentMeshes.length) return -1;
   const rect = canvas.getBoundingClientRect();
-  if (clientX < rect.left || clientX > rect.right || clientY < rect.top || clientY > rect.bottom) return;
+  if (clientX < rect.left || clientX > rect.right || clientY < rect.top || clientY > rect.bottom) return -1;
   pointerNdc.x = ((clientX - rect.left) / rect.width) * 2 - 1;
   pointerNdc.y = -((clientY - rect.top) / rect.height) * 2 + 1;
   raycaster.setFromCamera(pointerNdc, camera);
@@ -617,12 +618,29 @@ function pickFace(clientX, clientY) {
       triangleIndex >= face.firstTriangle &&
       triangleIndex <= face.lastTriangle
     );
-    if (faceIndex >= 0) {
-      window.parent.postMessage({ type: 'faceClicked', faceIndex }, '*');
-      return;
-    }
+    if (faceIndex >= 0) return faceIndex;
   }
+  return -1;
 }
+
+function pickFace(clientX, clientY) {
+  const faceIndex = faceIndexAt(clientX, clientY);
+  if (faceIndex >= 0) window.parent.postMessage({ type: 'faceClicked', faceIndex }, '*');
+}
+
+// Opt-in: the embedding page sends {type:'setHoverReporting', enabled:true} to receive faceHovered messages.
+let hoverReporting = false;
+let lastHoverPost = 0;
+canvas.addEventListener('mousemove', e => {
+  if (!hoverReporting || isDragging || boxSelectStart) return;
+  const now = performance.now();
+  if (now - lastHoverPost < 40) return;
+  lastHoverPost = now;
+  window.parent.postMessage({ type: 'faceHovered', faceIndex: faceIndexAt(e.clientX, e.clientY), clientX: e.clientX, clientY: e.clientY }, '*');
+});
+canvas.addEventListener('mouseleave', () => {
+  if (hoverReporting) window.parent.postMessage({ type: 'faceHovered', faceIndex: -1 }, '*');
+});
 
 canvas.addEventListener('wheel', e => {
   e.preventDefault();
@@ -725,6 +743,7 @@ function drawGizmo() {
 
 function animate() {
   requestAnimationFrame(animate);
+  if (typeof stepCameraTween === 'function') stepCameraTween();
   renderer.render(scene, camera);
   drawGizmo();
 }
@@ -1080,6 +1099,13 @@ window.addEventListener('message', (e) => {
   } else if (e.data.type === 'setInteractionMode') {
     interactionMode = e.data.mode === 'select' ? 'select' : 'orbit';
     document.body.classList.toggle('face-select-mode', interactionMode === 'select');
+  } else if (e.data.type === 'showDimension') {
+    showDimension(e.data);
+  } else if (e.data.type === 'clearDimension') {
+    clearDimension();
+    if (e.data.frame) frameWholePart();
+  } else if (e.data.type === 'setHoverReporting') {
+    hoverReporting = !!e.data.enabled;
   } else if (e.data.type === 'focusFaces') {
     focusFaces(new Set((e.data.faceIndices || []).map(Number)));
   } else if (e.data.type === 'setFeatureColors') {
@@ -1113,8 +1139,337 @@ window.addEventListener('message', (e) => {
   }
 });
 
+// ─── Dimension annotations (drawing-style arrows between tagged faces) ──────────
+const dimGroup = new THREE.Group();
+
+function groupTriangles(faceIndices) {
+  const tris = [];
+  const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3();
+  faceIndices.forEach(fi => {
+    const face = currentFaces[fi];
+    if (!face || !face.mesh) return;
+    const geom = face.mesh.geometry, pos = geom.getAttribute('position'), idx = geom.index.array;
+    for (let t = face.firstTriangle; t <= face.lastTriangle; t++) {
+      a.fromBufferAttribute(pos, idx[t * 3]); b.fromBufferAttribute(pos, idx[t * 3 + 1]); c.fromBufferAttribute(pos, idx[t * 3 + 2]);
+      const cross = new THREE.Vector3().subVectors(b, a).cross(new THREE.Vector3().subVectors(c, a));
+      const area = cross.length() / 2;
+      if (area < 1e-12) continue;
+      tris.push({ a: a.clone(), b: b.clone(), c: c.clone(), n: cross.normalize(), area });
+    }
+  });
+  return tris;
+}
+
+// Returns {type:'plane', point, normal} or {type:'cyl', center, axis, radius, tMin, tMax}.
+function analyseGroup(faceIndices) {
+  const tris = groupTriangles(faceIndices);
+  if (!tris.length) return null;
+  const centroid = new THREE.Vector3(), nSum = new THREE.Vector3();
+  let areaSum = 0;
+  tris.forEach(t => {
+    const mid = new THREE.Vector3().add(t.a).add(t.b).add(t.c).multiplyScalar(1 / 3);
+    centroid.addScaledVector(mid, t.area);
+    nSum.addScaledVector(t.n, t.area);
+    areaSum += t.area;
+  });
+  centroid.multiplyScalar(1 / areaSum);
+  if (nSum.length() / areaSum > 0.98) return { type: 'plane', point: centroid, normal: nSum.normalize() };
+
+  // Cylinder: the axis is perpendicular to every surface normal.
+  const n0 = tris[0].n;
+  let best = null, bestLen = 0;
+  tris.forEach(t => { const cr = new THREE.Vector3().crossVectors(n0, t.n); if (cr.length() > bestLen) { bestLen = cr.length(); best = cr; } });
+  if (!best || bestLen < 0.05) return { type: 'plane', point: centroid, normal: nSum.normalize() };
+  const axis = best.normalize();
+  const u = new THREE.Vector3().crossVectors(axis, Math.abs(axis.x) < 0.9 ? new THREE.Vector3(1, 0, 0) : new THREE.Vector3(0, 1, 0)).normalize();
+  const v = new THREE.Vector3().crossVectors(axis, u);
+  // Kasa least-squares circle fit in the plane perpendicular to the axis.
+  let sxx = 0, sxy = 0, syy = 0, sx = 0, sy = 0, sn = 0, sxz = 0, syz = 0, sz = 0, tMin = Infinity, tMax = -Infinity;
+  tris.forEach(t => [t.a, t.b, t.c].forEach(p => {
+    const x = p.dot(u), y = p.dot(v), z = x * x + y * y, ta = p.dot(axis);
+    sxx += x * x; sxy += x * y; syy += y * y; sx += x; sy += y; sn += 1; sxz += x * z; syz += y * z; sz += z;
+    tMin = Math.min(tMin, ta); tMax = Math.max(tMax, ta);
+  }));
+  const M = [[sxx, sxy, sx], [sxy, syy, sy], [sx, sy, sn]], r = [-sxz, -syz, -sz];
+  const det = m => m[0][0] * (m[1][1] * m[2][2] - m[1][2] * m[2][1]) - m[0][1] * (m[1][0] * m[2][2] - m[1][2] * m[2][0]) + m[0][2] * (m[1][0] * m[2][1] - m[1][1] * m[2][0]);
+  const D0 = det(M);
+  if (Math.abs(D0) < 1e-12) return { type: 'plane', point: centroid, normal: nSum.normalize() };
+  const solve = col => det(M.map((row, i) => row.map((val, j) => (j === col ? r[i] : val)))) / D0;
+  const D = solve(0), E = solve(1), F = solve(2);
+  const cx = -D / 2, cy = -E / 2, radius = Math.sqrt(Math.max(cx * cx + cy * cy - F, 0));
+  const tMid = (tMin + tMax) / 2;
+  const center = new THREE.Vector3().addScaledVector(u, cx).addScaledVector(v, cy).addScaledVector(axis, tMid);
+  return { type: 'cyl', center, axis, radius, tMin: tMin - tMid, tMax: tMax - tMid };
+}
+
+function annotationMaterial(color) {
+  return new THREE.MeshBasicMaterial({ color, depthTest: false, depthWrite: false, transparent: true });
+}
+
+function addRod(a, b, radius, color) {
+  const len = a.distanceTo(b);
+  if (len < 1e-6) return;
+  const rod = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, len, 8), annotationMaterial(color));
+  rod.position.copy(a).add(b).multiplyScalar(0.5);
+  rod.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3().subVectors(b, a).normalize());
+  rod.renderOrder = 999;
+  dimGroup.add(rod);
+}
+
+function addArrowHead(tip, dir, length, color) {
+  const cone = new THREE.Mesh(new THREE.ConeGeometry(length * 0.28, length, 16), annotationMaterial(color));
+  const d = dir.clone().normalize();
+  cone.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d);
+  cone.position.copy(tip).addScaledVector(d, -length / 2);
+  cone.renderOrder = 1000;
+  dimGroup.add(cone);
+}
+
+// Anchor the label on the side facing away from the geometry so it never covers the arrow.
+function labelAnchor(at, dir) {
+  camera.updateMatrixWorld();
+  const a =at.clone().project(camera), b = at.clone().add(dir).project(camera);
+  const dx = b.x - a.x, dy = b.y - a.y;
+  if (Math.abs(dx) > Math.abs(dy)) return dx > 0 ? new THREE.Vector2(0, 0.5) : new THREE.Vector2(1, 0.5);
+  return dy > 0 ? new THREE.Vector2(0.5, 0) : new THREE.Vector2(0.5, 1);
+}
+
+function addLabel(position, lines, dir) {
+  const scale = 2, pad = 14 * scale, lineH = 30 * scale;
+  const cv = document.createElement('canvas');
+  const ctx = cv.getContext('2d');
+  const fontFor = i => `${i === 0 ? 700 : 500} ${(i === 0 ? 24 : 18) * scale}px Inter, "Segoe UI", sans-serif`;
+  let width = 0;
+  lines.forEach((line, i) => { ctx.font = fontFor(i); width = Math.max(width, ctx.measureText(line.text).width); });
+  cv.width = Math.ceil(width + pad * 2);
+  cv.height = Math.ceil(lines.length * lineH + pad * 1.4);
+  ctx.fillStyle = 'rgba(12,17,15,0.92)';
+  ctx.strokeStyle = lines[0]?.color || '#ffffff';
+  ctx.lineWidth = 3 * scale;
+  ctx.beginPath();
+  if (ctx.roundRect) ctx.roundRect(2, 2, cv.width - 4, cv.height - 4, 10 * scale); else ctx.rect(2, 2, cv.width - 4, cv.height - 4);
+  ctx.fill(); ctx.stroke();
+  ctx.textBaseline = 'middle';
+  lines.forEach((line, i) => {
+    ctx.font = fontFor(i);
+    ctx.fillStyle = line.color || '#e6ece9';
+    ctx.fillText(line.text, pad, pad * 0.7 + lineH * (i + 0.5));
+  });
+  const texture = new THREE.CanvasTexture(cv);
+  texture.minFilter = THREE.LinearFilter;
+  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, depthTest: false, depthWrite: false, sizeAttenuation: false }));
+  const h = 0.03 * lines.length + 0.012;
+  sprite.scale.set(h * cv.width / cv.height, h, 1);
+  sprite.position.copy(position);
+  if (dir) sprite.center.copy(labelAnchor(position, dir));
+  sprite.renderOrder = 1001;
+  dimGroup.add(sprite);
+}
+
+function clearDimension() {
+  dimGroup.children.slice().forEach(child => {
+    dimGroup.remove(child);
+    child.geometry?.dispose();
+    child.material?.map?.dispose();
+    child.material?.dispose();
+  });
+}
+
+// Distance from p to the model bounding box boundary travelling along unit direction o.
+function exitDistance(p, o) {
+  let t = Infinity;
+  ['x', 'y', 'z'].forEach(k => {
+    if (Math.abs(o[k]) < 1e-6) return;
+    const limit = o[k] > 0 ? modelBounds.max[k] : modelBounds.min[k];
+    t = Math.min(t, (limit - p[k]) / o[k]);
+  });
+  return Math.max(t, 0);
+}
+
+// Smooth camera moves between annotations.
+let cameraTween = null;
+function snapshotCamera() {
+  return { theta: spherical.theta, phi: spherical.phi, radius: spherical.radius, pan: panOffset.clone() };
+}
+function applyCameraState(s) {
+  spherical.theta = s.theta; spherical.phi = s.phi; spherical.radius = s.radius; panOffset.copy(s.pan);
+  updateCamera();
+}
+function tweenCamera(from, to, ms) {
+  let dTheta = (to.theta - from.theta) % (Math.PI * 2);
+  if (dTheta > Math.PI) dTheta -= Math.PI * 2;
+  if (dTheta < -Math.PI) dTheta += Math.PI * 2;
+  cameraTween = { from, to: { ...to, theta: from.theta + dTheta }, start: performance.now(), ms };
+}
+function stepCameraTween() {
+  if (!cameraTween) return;
+  const { from, to, start, ms } = cameraTween;
+  const k = Math.min((performance.now() - start) / ms, 1), e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+  applyCameraState({
+    theta: from.theta + (to.theta - from.theta) * e,
+    phi: from.phi + (to.phi - from.phi) * e,
+    radius: from.radius + (to.radius - from.radius) * e,
+    pan: from.pan.clone().lerp(to.pan, e),
+  });
+  if (k >= 1) cameraTween = null;
+}
+canvas.addEventListener('mousedown', () => { cameraTween = null; });
+canvas.addEventListener('wheel', () => { cameraTween = null; }, { passive: true });
+
+function showDimension(msg) {
+  const before = snapshotCamera();
+  cameraTween = null;
+  drawDimension(msg);
+  const after = snapshotCamera();
+  applyCameraState(before);
+  tweenCamera(before, after, 900);
+}
+
+function frameWholePart() {
+  if (!modelBounds) return;
+  const before = snapshotCamera();
+  cameraTween = null;
+  panOffset.copy(modelBounds.getCenter(new THREE.Vector3()));
+  spherical.radius = modelBounds.getSize(new THREE.Vector3()).length() * 1.5;
+  const after = snapshotCamera();
+  applyCameraState(before);
+  tweenCamera(before, after, 900);
+}
+
+function drawDimension(msg) {
+  clearDimension();
+  if (!modelBounds || !currentFaces.length) return;
+  const S = modelBounds.getSize(new THREE.Vector3()).length();
+  const color = new THREE.Color(msg.color || '#ffffff');
+  const rodR = S * 0.0014, arrowLen = S * 0.022;
+  const lines = msg.lines || [];
+  const camDir = camera.getWorldDirection(new THREE.Vector3());
+  const gA = analyseGroup(msg.facesA || []);
+  const gB = (msg.facesB || []).length ? analyseGroup(msg.facesB) : null;
+  if (!gA) return;
+  const anchor = g => (g.type === 'plane' ? g.point : g.center);
+
+  if (gB && ['linear', 'center_distance', 'depth', 'thickness'].includes(msg.kind)) {
+    const pa = anchor(gA), pb = anchor(gB);
+    let n;
+    if (gA.type === 'plane') n = gA.normal.clone();
+    else if (gB.type === 'plane') n = gB.normal.clone();
+    else {
+      n = new THREE.Vector3().subVectors(pb, pa);
+      n.addScaledVector(gA.axis, -n.dot(gA.axis));
+      if (n.length() < 1e-9) n = new THREE.Vector3().subVectors(pb, pa);
+      n.normalize();
+    }
+    let dist = new THREE.Vector3().subVectors(pb, pa).dot(n);
+    if (dist < 0) { n.negate(); dist = -dist; }
+    const q = pa.clone().add(pb).multiplyScalar(0.5);
+    const s = q.clone().addScaledVector(n, -dist / 2), e = q.clone().addScaledVector(n, dist / 2);
+
+    // Push the dimension line outside the part, along whichever perpendicular exits soonest and faces the camera.
+    let bestO = null, bestScore = Infinity;
+    [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]].forEach(arr => {
+      const o = new THREE.Vector3(...arr);
+      o.addScaledVector(n, -o.dot(n));
+      if (o.length() < 0.3) return;
+      o.normalize();
+      // Offsets along the line of sight do not separate the arrow from the part on screen.
+      const score = exitDistance(q, o) + S * Math.abs(o.dot(camDir)) * 2;
+      if (score < bestScore) { bestScore = score; bestO = o; }
+    });
+    const o = bestO || new THREE.Vector3().crossVectors(n, camDir).normalize();
+
+    // A dimension pointing at the camera collapses to a dot: turn to a side view, as a drawing would.
+    if (Math.abs(n.dot(camDir)) > 0.45 || Math.abs(o.dot(camDir)) > 0.6) {
+      const v = new THREE.Vector3().crossVectors(n, o).normalize();
+      if (v.dot(new THREE.Vector3().subVectors(camera.position, panOffset)) < 0) v.negate();
+      const d = v.addScaledVector(o, 0.4).normalize();
+      spherical.phi = Math.max(0.05, Math.min(Math.PI - 0.05, Math.acos(d.y)));
+      spherical.theta = Math.atan2(d.x, d.z);
+      updateCamera();
+    }
+
+    // Start the extension lines at the edge of each face nearest the dimension line, not at its middle.
+    const edgePoint = faces => {
+      let best = null, bestDot = -Infinity;
+      groupTriangles(faces).forEach(t => [t.a, t.b, t.c].forEach(p => { const d = p.dot(o); if (d > bestDot + 1e-6) { bestDot = d; best = p; } }));
+      return best;
+    };
+    const vA = edgePoint(msg.facesA) || pa, vB = edgePoint(msg.facesB) || pb;
+    const base = vA.clone().add(vB).multiplyScalar(0.5);
+    s.copy(base).addScaledVector(n, pa.dot(n) - base.dot(n));
+    e.copy(s).addScaledVector(n, dist);
+    const outer = Math.max(vA.dot(o), vB.dot(o));
+    const off = outer - s.dot(o) + S * 0.06;
+    const s2 = s.clone().addScaledVector(o, off), e2 = e.clone().addScaledVector(o, off);
+    addRod(s.clone().addScaledVector(o, vA.dot(o) - s.dot(o)), s2.clone().addScaledVector(o, S * 0.015), rodR * 0.6, 0xdfe7e3);
+    addRod(e.clone().addScaledVector(o, vB.dot(o) - e.dot(o)), e2.clone().addScaledVector(o, S * 0.015), rodR * 0.6, 0xdfe7e3);
+    const head = Math.min(arrowLen, dist * 0.25);
+    if (dist > arrowLen * 1.5) {
+      addRod(s2, e2, rodR, color);
+      addArrowHead(s2, new THREE.Vector3().subVectors(s2, e2), head, color);
+      addArrowHead(e2, new THREE.Vector3().subVectors(e2, s2), head, color);
+    } else {
+      // Small gap: arrows sit outside, pointing in, like a drawing.
+      addRod(s2.clone().addScaledVector(n, -arrowLen * 2), e2.clone().addScaledVector(n, arrowLen * 2), rodR, color);
+      addArrowHead(s2, n.clone(), arrowLen, color);
+      addArrowHead(e2, n.clone().negate(), arrowLen, color);
+    }
+    addLabel(s2.clone().add(e2).multiplyScalar(0.5).addScaledVector(o, S * 0.02), lines, o);
+  } else if (gA.type === 'cyl' && (msg.kind === 'diameter' || msg.kind === 'radius')) {
+    // Look into the hole (slightly tilted) so the circle reads as a circle, not a sliver.
+    if (msg.kind === 'diameter' && Math.abs(gA.axis.dot(camDir)) < 0.6) {
+      const ax = gA.axis.clone();
+      if (ax.dot(new THREE.Vector3().subVectors(camera.position, gA.center)) < 0) ax.negate();
+      const side = new THREE.Vector3().crossVectors(ax, Math.abs(ax.y) < 0.9 ? new THREE.Vector3(0, 1, 0) : new THREE.Vector3(1, 0, 0)).normalize();
+      const d = ax.addScaledVector(side, 0.45).addScaledVector(new THREE.Vector3(0, 1, 0), 0.25).normalize();
+      spherical.phi = Math.max(0.05, Math.min(Math.PI - 0.05, Math.acos(d.y)));
+      spherical.theta = Math.atan2(d.x, d.z);
+      updateCamera();
+      camDir.copy(camera.getWorldDirection(new THREE.Vector3()));
+    }
+    let w = new THREE.Vector3().crossVectors(gA.axis, camDir);
+    if (w.length() < 0.2) w = new THREE.Vector3().crossVectors(gA.axis, camera.up);
+    w.normalize();
+    // Draw at the end of the hole nearest the camera so it is not buried inside the part.
+    const endT = gA.center.clone().addScaledVector(gA.axis, gA.tMax).distanceTo(camera.position) <
+      gA.center.clone().addScaledVector(gA.axis, gA.tMin).distanceTo(camera.position) ? gA.tMax : gA.tMin;
+    const c = gA.center.clone().addScaledVector(gA.axis, endT);
+    const r = gA.radius, head = Math.min(arrowLen, r * 0.6);
+    const rim = c.clone().addScaledVector(w, r);
+    const labelAt = c.clone().addScaledVector(w, r + S * 0.08);
+    if (msg.kind === 'diameter') {
+      const rim2 = c.clone().addScaledVector(w, -r);
+      addRod(rim2, labelAt, rodR, color);
+      addArrowHead(rim, w.clone(), head, color);
+      addArrowHead(rim2, w.clone().negate(), head, color);
+    } else {
+      addRod(c, labelAt, rodR, color);
+      addArrowHead(rim, w.clone(), head, color);
+    }
+    addLabel(labelAt.clone().addScaledVector(w, S * 0.01), lines, w);
+  } else {
+    const p = anchor(gA);
+    const dir = gA.type === 'plane' ? gA.normal.clone() : new THREE.Vector3().subVectors(p, modelBounds.getCenter(new THREE.Vector3())).normalize();
+    const labelAt = p.clone().addScaledVector(dir, S * 0.12);
+    addRod(p, labelAt, rodR, color);
+    addLabel(labelAt.clone().addScaledVector(dir, S * 0.01), lines, dir);
+  }
+
+  // Frame the arrows themselves, so a 1 mm step is zoomed in on rather than lost in the whole part.
+  dimGroup.updateMatrixWorld(true);
+  const box = new THREE.Box3();
+  dimGroup.children.forEach(child => { if (!child.isSprite) box.expandByObject(child); });
+  if (!box.isEmpty()) {
+    panOffset.copy(box.getCenter(new THREE.Vector3()));
+    spherical.radius = Math.max(box.getSize(new THREE.Vector3()).length() * 1.6, S * 0.6);
+    updateCamera();
+  }
+}
+
 // ─── Boot ─────────────────────────────────────────────────────────────────────
+if (new URLSearchParams(window.location.search).get('demo') === '1') document.body.classList.add('demo');
 initThree();
+scene.add(dimGroup);
 updateCamera();
 initOcct();
 </script>

@@ -15,6 +15,7 @@ from urllib.parse import quote
 from uuid import uuid4
 
 from fastapi import BackgroundTasks, FastAPI, HTTPException, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 
 
@@ -75,6 +76,19 @@ MODEL_BENCHMARK = {
 }
 
 app = FastAPI(title="MFCAD++ STEP Feature Recognition", version="1.0.0")
+
+# Cross-origin access for the admin app's inspection view, which creates the job for a part,
+# sends its QC sheet and embeds /dimensions and /inspection.
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+
+
+@app.middleware("http")
+async def no_stale_pages(request, call_next):
+    """HTML pages are revalidated on every load, so an edit to one shows up without a cache clear."""
+    response = await call_next(request)
+    if response.headers.get("content-type", "").startswith("text/html"):
+        response.headers["Cache-Control"] = "no-cache"
+    return response
 jobs: dict[str, dict[str, Any]] = {}
 labeling_jobs: dict[str, dict[str, Any]] = {}
 jobs_lock = threading.Lock()
@@ -491,6 +505,110 @@ def write_open_annotation_csv(path: Path, payload: dict[str, Any]) -> None:
             writer.writerow({**row, "surface_count": group["surface_count"], "notes": group["notes"]})
 
 
+DIMENSION_TYPES = {"diameter", "radius", "linear", "center_distance", "depth", "thickness", "thread", "angle", "other"}
+DIMENSION_TYPES_NEEDING_B = {"linear", "center_distance", "depth", "thickness", "angle"}
+
+
+def _optional_number(value: Any, field: str, position: int, *, minimum: float | None = None) -> float | None:
+    if value is None or value == "":
+        return None
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        raise HTTPException(status_code=400, detail=f"Dimension {position}: {field} must be a number.") from None
+    if number != number or number in (float("inf"), float("-inf")):
+        raise HTTPException(status_code=400, detail=f"Dimension {position}: {field} must be finite.")
+    if minimum is not None and number < minimum:
+        raise HTTPException(status_code=400, detail=f"Dimension {position}: {field} must be at least {minimum}.")
+    return number
+
+
+def _face_list(raw: Any, field: str, position: int, total_faces: int) -> list[int]:
+    if raw is None:
+        return []
+    if not isinstance(raw, list):
+        raise HTTPException(status_code=400, detail=f"Dimension {position}: {field} must be a list.")
+    try:
+        faces = sorted({int(value) for value in raw})
+    except (TypeError, ValueError):
+        raise HTTPException(status_code=400, detail=f"Dimension {position}: {field} has an invalid face index.") from None
+    for face_index in faces:
+        if face_index < 0 or face_index >= total_faces:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Dimension {position}: face {face_index} is outside the valid range 0-{max(total_faces - 1, 0)}.",
+            )
+    return faces
+
+
+def normalize_dimensions(job: dict[str, Any], raw: dict[str, Any]) -> dict[str, Any]:
+    """Validate balloon-keyed dimension tags. Unlike labels, one face may serve several dimensions."""
+    total_faces = labeling_face_count(job)
+    raw_items = raw.get("dimensions", [])
+    if not isinstance(raw_items, list):
+        raise HTTPException(status_code=400, detail="dimensions must be a list.")
+
+    seen: set[int] = set()
+    dimensions: list[dict[str, Any]] = []
+    for position, item in enumerate(raw_items, start=1):
+        if not isinstance(item, dict):
+            raise HTTPException(status_code=400, detail=f"Dimension {position} must be an object.")
+        try:
+            balloon = int(item.get("balloon"))
+        except (TypeError, ValueError):
+            raise HTTPException(status_code=400, detail=f"Dimension {position} needs an integer balloon number.") from None
+        if balloon < 1:
+            raise HTTPException(status_code=400, detail=f"Dimension {position}: balloon must be 1 or higher.")
+        if balloon in seen:
+            raise HTTPException(status_code=400, detail=f"Balloon {balloon} appears more than once.")
+        seen.add(balloon)
+
+        dim_type = str(item.get("dim_type", "other"))
+        if dim_type not in DIMENSION_TYPES:
+            raise HTTPException(status_code=400, detail=f"Balloon {balloon}: unknown dimension type '{dim_type}'.")
+        faces_a = _face_list(item.get("faces_a"), "faces_a", position, total_faces)
+        faces_b = _face_list(item.get("faces_b"), "faces_b", position, total_faces)
+        if dim_type not in DIMENSION_TYPES_NEEDING_B:
+            faces_b = []
+        if set(faces_a) & set(faces_b):
+            raise HTTPException(status_code=400, detail=f"Balloon {balloon}: faces A and B must not overlap.")
+
+        needs_b = dim_type in DIMENSION_TYPES_NEEDING_B
+        dimensions.append(
+            {
+                "balloon": balloon,
+                "dim_type": dim_type,
+                "description_raw": str(item.get("description_raw", ""))[:120],
+                "nominal": _optional_number(item.get("nominal"), "nominal", position),
+                "tol_plus": _optional_number(item.get("tol_plus"), "tol_plus", position, minimum=0),
+                "tol_minus": _optional_number(item.get("tol_minus"), "tol_minus", position, minimum=0),
+                "unit": "deg" if dim_type == "angle" else "mm",
+                "faces_a": faces_a,
+                "faces_b": faces_b,
+                "notes": str(item.get("notes", "")).strip()[:2000],
+                "tagged": bool(faces_a) and (bool(faces_b) or not needs_b),
+            }
+        )
+
+    dimensions.sort(key=lambda entry: entry["balloon"])
+    return {
+        "schema_version": "1.0",
+        "job_id": job["job_id"],
+        "part_name": job["original_name"],
+        "source_step": "input.step",
+        "annotation_unit": "dimension",
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+        "total_faces": total_faces,
+        "dimension_count": len(dimensions),
+        "tagged_count": sum(1 for entry in dimensions if entry["tagged"]),
+        "dimensions": dimensions,
+    }
+
+
+def dimension_downloads(job_id: str) -> dict[str, str]:
+    return {"json": f"/api/labeling-jobs/{job_id}/dimensions/download"}
+
+
 def process_job(job_id: str) -> None:
     job = jobs[job_id]
     job_dir = Path(job["job_dir"])
@@ -674,6 +792,11 @@ def index() -> FileResponse:
 @app.get("/label")
 def label_workspace() -> FileResponse:
     return FileResponse(STATIC_ROOT / "label.html")
+
+
+@app.get("/dimensions")
+def dimension_workspace() -> FileResponse:
+    return FileResponse(STATIC_ROOT / "dimensions.html")
 
 
 @app.get("/viewer/step-viewer.html")
@@ -912,6 +1035,196 @@ def save_open_annotations(job_id: str, payload: dict[str, Any]) -> dict[str, Any
 @app.get("/api/custom-labels")
 def get_custom_labels() -> dict[str, Any]:
     return {"labels": load_custom_labels()}
+
+
+@app.get("/api/labeling-jobs/{job_id}/dimensions")
+def get_dimensions(job_id: str) -> dict[str, Any]:
+    job = labeling_jobs.get(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="Labeling job not found.")
+    path = Path(job["job_dir"]) / "dimension_tags.json"
+    if path.exists():
+        payload = json.loads(path.read_text())
+        payload["saved"] = True
+        payload["downloads"] = dimension_downloads(job_id)
+        return payload
+    payload = normalize_dimensions(job, {"dimensions": []})
+    payload["saved"] = False
+    return payload
+
+
+@app.put("/api/labeling-jobs/{job_id}/dimensions")
+def save_dimensions(job_id: str, payload: dict[str, Any]) -> dict[str, Any]:
+    job = labeling_jobs.get(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="Labeling job not found.")
+    normalized = normalize_dimensions(job, payload)
+    (Path(job["job_dir"]) / "dimension_tags.json").write_text(json.dumps(normalized, indent=2) + "\n")
+    normalized["downloads"] = dimension_downloads(job_id)
+    normalized["saved"] = True
+    return normalized
+
+
+@app.post("/api/labeling-jobs/{job_id}/dimensions/seed")
+async def seed_dimensions(job_id: str, file: UploadFile) -> dict[str, Any]:
+    """Read balloon numbers, nominals and tolerances from a QC inspection .xlsx (nothing is saved)."""
+    if job_id not in labeling_jobs:
+        raise HTTPException(status_code=404, detail="Labeling job not found.")
+    if Path(file.filename or "").suffix.lower() != ".xlsx":
+        raise HTTPException(status_code=400, detail="Upload the QC inspection report as an .xlsx file.")
+    data = await file.read(20 * 1024 * 1024 + 1)
+    await file.close()
+    if len(data) > 20 * 1024 * 1024:
+        raise HTTPException(status_code=413, detail="QC sheet exceeds the 20 MB limit.")
+    from .qc_sheet import parse_qc_sheet
+
+    try:
+        rows = parse_qc_sheet(data)
+    except RuntimeError as exc:
+        raise HTTPException(status_code=501, detail=str(exc)) from None
+    except Exception:
+        raise HTTPException(status_code=400, detail="Could not read that file as an Excel workbook.") from None
+    if not rows:
+        raise HTTPException(status_code=422, detail="No numbered rows found under an 'SL No.' header.")
+    return {"dimensions": rows}
+
+
+@app.get("/api/labeling-jobs/{job_id}/dimensions/download")
+def download_dimensions(job_id: str) -> FileResponse:
+    job = labeling_jobs.get(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="Labeling job not found.")
+    path = Path(job["job_dir"]) / "dimension_tags.json"
+    if not path.is_file():
+        raise HTTPException(status_code=404, detail="Save the dimension tags first.")
+    stem = re.sub(r"[^A-Za-z0-9_.-]+", "_", Path(job["original_name"]).stem) or "part"
+    return FileResponse(path, filename=f"{stem}_dimension_tags.json", media_type="application/json")
+
+
+def build_inspection_view(job: dict[str, Any]) -> dict[str, Any]:
+    """Join a job's dimension tags with its saved QC readings and compute a verdict per balloon."""
+    from .qc_sheet import evaluate_dimension
+
+    job_dir = Path(job["job_dir"])
+    tags_path = job_dir / "dimension_tags.json"
+    tags = json.loads(tags_path.read_text()) if tags_path.exists() else {"dimensions": []}
+    qc_path = job_dir / "qc_results.json"
+    qc = json.loads(qc_path.read_text()) if qc_path.exists() else {"rows": []}
+    qc_by_balloon = {row["balloon"]: row for row in qc["rows"]}
+
+    results = []
+    for dim in tags["dimensions"]:
+        if not dim.get("tagged"):
+            continue
+        row = qc_by_balloon.get(dim["balloon"], {})
+        nominal = dim.get("nominal") if dim.get("nominal") is not None else row.get("nominal")
+        tol_plus = dim.get("tol_plus") if dim.get("tol_plus") is not None else row.get("tol_plus")
+        tol_minus = dim.get("tol_minus") if dim.get("tol_minus") is not None else row.get("tol_minus")
+        readings = row.get("readings", [])
+        verdict = evaluate_dimension(nominal, tol_plus, tol_minus, readings)
+        remark = row.get("sheet_remark", "")
+        disagrees = (
+            (verdict["verdict"] == "fail" and remark.strip().lower() in {"ok", "pass", "accepted"})
+            or (verdict["verdict"] in {"pass", "near_limit"} and remark.strip().lower() in {"nok", "not ok", "fail", "rejected"})
+        )
+        results.append({
+            "balloon": dim["balloon"],
+            "dim_type": dim["dim_type"],
+            "description_raw": dim.get("description_raw", ""),
+            "notes": dim.get("notes", ""),
+            "nominal": nominal,
+            "tol_plus": tol_plus,
+            "tol_minus": tol_minus,
+            "unit": dim.get("unit", "mm"),
+            "faces_a": dim["faces_a"],
+            "faces_b": dim.get("faces_b", []),
+            "readings": readings,
+            "instrument": row.get("instrument", ""),
+            "sheet_remark": remark,
+            "remark_disagrees": disagrees,
+            **verdict,
+        })
+
+    counts = {name: sum(1 for r in results if r["verdict"] == name) for name in ("pass", "near_limit", "fail", "pending", "unknown")}
+    measured = counts["pass"] + counts["near_limit"] + counts["fail"]
+    return {
+        "job_id": job["job_id"],
+        "part_name": tags.get("part_name") or job.get("original_name"),
+        "has_qc": bool(qc["rows"]),
+        "qc_source": qc.get("source_name"),
+        "summary": {
+            "total": len(results),
+            "measured": measured,
+            "within_tolerance": counts["pass"] + counts["near_limit"],
+            "near_limit": counts["near_limit"],
+            "out_of_tolerance": counts["fail"],
+            "not_measured": counts["pending"] + counts["unknown"],
+            "remark_disagreements": sum(1 for r in results if r["remark_disagrees"]),
+        },
+        "results": results,
+    }
+
+
+@app.get("/inspection")
+def inspection_page() -> FileResponse:
+    return FileResponse(STATIC_ROOT / "inspection.html")
+
+
+@app.get("/api/dimension-jobs")
+def list_dimension_jobs() -> dict[str, Any]:
+    """Jobs that already have saved dimension tags, newest first."""
+    found = []
+    for job in labeling_jobs.values():
+        path = Path(job["job_dir"]) / "dimension_tags.json"
+        if not path.is_file():
+            continue
+        payload = json.loads(path.read_text())
+        if not payload.get("tagged_count"):
+            continue
+        found.append({
+            "job_id": job["job_id"],
+            "original_name": job.get("original_name"),
+            "tagged_count": payload["tagged_count"],
+            "dimension_count": payload["dimension_count"],
+            "updated_at": payload.get("updated_at", ""),
+        })
+    found.sort(key=lambda item: item["updated_at"], reverse=True)
+    return {"jobs": found}
+
+
+@app.get("/api/labeling-jobs/{job_id}/qc-results")
+def get_qc_results(job_id: str) -> dict[str, Any]:
+    job = labeling_jobs.get(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="Labeling job not found.")
+    return build_inspection_view(job)
+
+
+@app.post("/api/labeling-jobs/{job_id}/qc-results")
+async def upload_qc_results(job_id: str, file: UploadFile) -> dict[str, Any]:
+    """Read measured values from a QC inspection .xlsx, save them with the job, return the verdicts."""
+    job = labeling_jobs.get(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="Labeling job not found.")
+    if Path(file.filename or "").suffix.lower() != ".xlsx":
+        raise HTTPException(status_code=400, detail="Upload the QC inspection report as an .xlsx file.")
+    data = await file.read(20 * 1024 * 1024 + 1)
+    await file.close()
+    if len(data) > 20 * 1024 * 1024:
+        raise HTTPException(status_code=413, detail="QC sheet exceeds the 20 MB limit.")
+    from .qc_sheet import parse_qc_results
+
+    try:
+        rows = parse_qc_results(data)
+    except RuntimeError as exc:
+        raise HTTPException(status_code=501, detail=str(exc)) from None
+    except Exception:
+        raise HTTPException(status_code=400, detail="Could not read that file as an Excel workbook.") from None
+    if not rows:
+        raise HTTPException(status_code=422, detail="No numbered rows found under an 'SL No.' header.")
+    payload = {"source_name": file.filename, "uploaded_at": datetime.now(timezone.utc).isoformat(), "rows": rows}
+    (Path(job["job_dir"]) / "qc_results.json").write_text(json.dumps(payload, indent=2) + "\n")
+    return build_inspection_view(job)
 
 
 @app.get("/api/jobs/{job_id}/files/{filename:path}")

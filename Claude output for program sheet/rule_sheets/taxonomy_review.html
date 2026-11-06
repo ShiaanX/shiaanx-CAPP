@@ -1,0 +1,480 @@
+<title>Taxonomy Review</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --bg: #eef0ee;
+    --surface: #ffffff;
+    --surface-2: #e4e7e3;
+    --ink: #1c2422;
+    --ink-muted: #566059;
+    --ink-faint: #838f87;
+    --rule: #d3d8d1;
+    --accent: #0f6e63;
+    --accent-ink: #ffffff;
+    --accent-tint: #e2f0ec;
+    --ok: #3f7d4f;
+    --ok-tint: #e6f0e6;
+    --warn: #a8671f;
+    --warn-tint: #f6ecdc;
+    --crit: #a5423b;
+    --crit-tint: #f6e5e2;
+    --shadow: 0 1px 2px rgba(20, 30, 26, 0.06), 0 6px 20px rgba(20, 30, 26, 0.05);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141917;
+      --surface: #1b2220;
+      --surface-2: #242d2a;
+      --ink: #e9ede9;
+      --ink-muted: #a6b1a9;
+      --ink-faint: #74807a;
+      --rule: #313c37;
+      --accent: #4fc4b3;
+      --accent-ink: #0c1615;
+      --accent-tint: #1c332e;
+      --ok: #7cc98c;
+      --ok-tint: #1e2f22;
+      --warn: #e0a659;
+      --warn-tint: #362a18;
+      --crit: #e2857e;
+      --crit-tint: #3a201d;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141917;
+    --surface: #1b2220;
+    --surface-2: #242d2a;
+    --ink: #e9ede9;
+    --ink-muted: #a6b1a9;
+    --ink-faint: #74807a;
+    --rule: #313c37;
+    --accent: #4fc4b3;
+    --accent-ink: #0c1615;
+    --accent-tint: #1c332e;
+    --ok: #7cc98c;
+    --ok-tint: #1e2f22;
+    --warn: #e0a659;
+    --warn-tint: #362a18;
+    --crit: #e2857e;
+    --crit-tint: #3a201d;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-size: 15.5px;
+    line-height: 1.55;
+  }
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 56px 28px 96px;
+  }
+  h1, h2, h3 {
+    font-family: 'IBM Plex Sans Condensed', 'IBM Plex Sans', sans-serif;
+    text-wrap: balance;
+    letter-spacing: 0.01em;
+  }
+  code, .mono {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+  a { color: var(--accent); }
+
+  /* ---- header ---- */
+  header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 32px;
+  }
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  h1 {
+    font-size: 34px;
+    font-weight: 700;
+    margin: 2px 0 0;
+    color: var(--ink);
+  }
+  .dek {
+    color: var(--ink-muted);
+    font-size: 16px;
+    max-width: 62ch;
+  }
+  .parts-line {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-faint);
+    margin-top: 6px;
+  }
+  .parts-line b { color: var(--ink-muted); font-weight: 600; }
+
+  /* ---- stat strip ---- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 36px;
+    box-shadow: var(--shadow);
+  }
+  .stat {
+    background: var(--surface);
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .stat .n {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 26px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat .n.ok { color: var(--ok); }
+  .stat .n.warn { color: var(--warn); }
+  .stat .n.crit { color: var(--crit); }
+  .stat .label {
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--ink-faint);
+  }
+
+  /* ---- section headers ---- */
+  section { margin-bottom: 40px; }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+  }
+  .section-count {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--ink-faint);
+  }
+  .section-note {
+    color: var(--ink-muted);
+    font-size: 14px;
+    max-width: 68ch;
+    margin: 0 0 18px;
+  }
+
+  /* ---- headline finding ---- */
+  .finding {
+    background: var(--crit-tint);
+    border: 1px solid color-mix(in srgb, var(--crit) 35%, var(--rule));
+    border-radius: 12px;
+    padding: 22px 24px;
+    display: flex;
+    gap: 18px;
+    margin-bottom: 40px;
+    box-shadow: var(--shadow);
+  }
+  .finding .mark {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--crit);
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding-top: 3px;
+  }
+  .finding h3 {
+    font-size: 17px;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+  .finding p { margin: 0 0 10px; color: var(--ink); font-size: 14.5px; }
+  .finding p:last-child { margin-bottom: 0; }
+  .finding .evidence {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--ink-muted);
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 7px;
+    padding: 10px 12px;
+    margin-top: 10px;
+    line-height: 1.7;
+  }
+
+  /* ---- label rows ---- */
+  .rows { display: flex; flex-direction: column; }
+  .row {
+    display: grid;
+    grid-template-columns: 200px 34px 160px 90px 1fr;
+    gap: 14px;
+    align-items: start;
+    padding: 16px 4px;
+    border-top: 1px solid var(--rule);
+  }
+  .rows.rows-compact .row {
+    grid-template-columns: 200px 34px 160px 90px 1fr;
+    padding: 11px 4px;
+  }
+  .row:last-child { border-bottom: 1px solid var(--rule); }
+  .lbl {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .lbl .name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 13.5px;
+  }
+  .src {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+  }
+  .arrow { color: var(--ink-faint); padding-top: 3px; text-align: center; }
+  .capp {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13.5px;
+    font-weight: 600;
+    padding-top: 2px;
+  }
+  .capp.unmapped { color: var(--ink-faint); font-weight: 400; font-style: italic; }
+  .counts {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-muted);
+    padding-top: 3px;
+    font-variant-numeric: tabular-nums;
+  }
+  .counts .n { color: var(--ink); font-weight: 600; }
+  .note { font-size: 13.5px; color: var(--ink-muted); }
+  .note .tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 5px;
+    margin-right: 8px;
+    vertical-align: 1px;
+  }
+  .tag.ok { background: var(--ok-tint); color: var(--ok); }
+  .tag.warn { background: var(--warn-tint); color: var(--warn); }
+  .tag.crit { background: var(--crit-tint); color: var(--crit); }
+  .row-head {
+    display: grid;
+    grid-template-columns: 200px 34px 160px 90px 1fr;
+    gap: 14px;
+    padding: 0 4px 8px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--ink-faint);
+  }
+
+  /* ---- checklist ---- */
+  .checklist {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 22px 26px;
+    box-shadow: var(--shadow);
+  }
+  .checklist ol { margin: 0; padding-left: 22px; }
+  .checklist li { margin-bottom: 10px; font-size: 14.5px; }
+  .checklist li:last-child { margin-bottom: 0; }
+  .checklist code {
+    background: var(--surface-2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 12.5px;
+  }
+
+  footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    font-size: 12.5px;
+    color: var(--ink-faint);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  @media (max-width: 640px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .row, .row-head { grid-template-columns: 1fr; gap: 4px; }
+    .arrow { display: none; }
+  }
+</style>
+
+<div class="page">
+
+  <header>
+    <span class="eyebrow">Baseline CAM Accuracy &middot; Step 1 prerequisite</span>
+    <h1>Manual Label &rarr; CAPP Type Review</h1>
+    <p class="dek">Every distinct manual feature label that actually appears on the two labeled parts, matched against what CAPP predicted for the same faces. Ten labels total &mdash; not the full 46&#8209;label app vocabulary, just what's really in play.</p>
+    <p class="parts-line"><b>SE&#8209;004&#8209;052</b> &ldquo;Bottom Plate&rdquo; &middot; 76 faces &middot; 46 CAPP clusters / 39 manual features &nbsp;&nbsp;|&nbsp;&nbsp; <b>RKSE&#8209;004&#8209;053</b> &ldquo;Top Plate&rdquo; &middot; 44 faces &middot; 30 CAPP clusters / 35 manual features</p>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><span class="n">10</span><span class="label">Labels in use</span></div>
+    <div class="stat"><span class="n ok">4</span><span class="label">Clean, direct match</span></div>
+    <div class="stat"><span class="n warn">4</span><span class="label">Real compromise made</span></div>
+    <div class="stat"><span class="n crit">2</span><span class="label">No CAPP equivalent</span></div>
+  </div>
+
+  <div class="finding">
+    <span class="mark">Flag&nbsp;this&nbsp;first</span>
+    <div>
+      <h3>The same manual label gets two different CAPP answers &mdash; on the same part</h3>
+      <p><b>Vertical Planar Face</b> is the label behind every single clean 1:1 match on Top Plate (14 of 14), and half of Bottom Plate's (6 of 8). CAPP calls some of those clusters <code>planar_face</code> and others <code>pocket</code> &mdash; for faces the labeler described identically.</p>
+      <p>This isn't a taxonomy-wording question like the others below. It's the rule&#8209;based classifier (<code>3. classify_features.py</code>) drawing an inconsistent line between a flat wall and a pocket floor. Worth root&#8209;causing before locking in a mapping for this label at all.</p>
+      <div class="evidence">Top Plate &nbsp;&mdash;&nbsp; clusters 5,6,7,8,9,10,15&ndash;22 &rarr; predicted <b>pocket</b> &nbsp;(14 / 14 of this label)<br>Bottom Plate &mdash; clusters 5, 6 &rarr; predicted <b>planar_face</b> &nbsp;&middot;&nbsp; clusters 15&ndash;18 &rarr; predicted <b>pocket</b></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="section-head">
+      <h2>No CAPP equivalent</h2>
+      <span class="section-count">2 labels</span>
+    </div>
+    <p class="section-note">CAPP's <code>feature_type</code> enum has nothing that means this. Either teach CAPP the type, or agree these will always score as a miss for now.</p>
+    <div class="row-head"><span>Manual label</span><span></span><span>CAPP type</span><span>Occurs</span><span>Why it's stuck</span></div>
+    <div class="rows">
+      <div class="row">
+        <div class="lbl"><span class="name">Radius</span><span class="src">custom</span></div>
+        <span class="arrow">&rarr;</span>
+        <span class="capp unmapped">&mdash;</span>
+        <span class="counts">BP <span class="n">2</span> &middot; TP <span class="n">12</span></span>
+        <span class="note"><span class="tag crit">unmapped</span>Nearest candidate is <code>fillet</code>, but per the labeling taxonomy &ldquo;Fillet&rdquo; and &ldquo;Radius&rdquo; were deliberately kept as two distinct labels for genuinely different geometry. Neither part actually uses &ldquo;Fillet&rdquo;, so the collision is theoretical here &mdash; but a real call either way. Heaviest-used label on Top Plate (12 instances) &mdash; whatever this becomes moves the score a lot.</span>
+      </div>
+      <div class="row">
+        <div class="lbl"><span class="name">Semi cylindrical profile</span><span class="src">custom</span></div>
+        <span class="arrow">&rarr;</span>
+        <span class="capp unmapped">&mdash;</span>
+        <span class="counts">BP <span class="n">1</span> &middot; TP <span class="n">1</span></span>
+        <span class="note"><span class="tag crit">unmapped</span>Ambiguous alone &mdash; could be a fillet, a rib wall, or a boss wall depending on what's next to it. CAPP predicted <code>fillet</code> for the Top Plate instance and <code>slot</code> for both Bottom Plate instances &mdash; no single type is an obviously right answer to compare against.</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Real compromise made</h2>
+      <span class="section-count">4 labels</span>
+    </div>
+    <p class="section-note">I picked a CAPP type for these, but each one gives something up. Confirm the trade is acceptable before it's used to grade CAPP.</p>
+    <div class="row-head"><span>Manual label</span><span></span><span>CAPP type</span><span>Occurs</span><span>The compromise</span></div>
+    <div class="rows">
+      <div class="row">
+        <div class="lbl"><span class="name">Vertical Planar Face</span><span class="src">custom</span></div>
+        <span class="arrow">&rarr;</span>
+        <span class="capp">planar_face</span>
+        <span class="counts">BP <span class="n">10</span> &middot; TP <span class="n">16</span></span>
+        <span class="note"><span class="tag warn">flag</span>See the callout above &mdash; before this mapping means anything, the <code>pocket</code>/<code>planar_face</code> inconsistency needs a decision. Also the single most-used label across both parts (26 instances combined).</span>
+      </div>
+      <div class="row">
+        <div class="lbl"><span class="name">Planar Face</span><span class="src">custom</span></div>
+        <span class="arrow">&rarr;</span>
+        <span class="capp">planar_face</span>
+        <span class="counts">BP <span class="n">4</span> &middot; TP <span class="n">2</span></span>
+        <span class="note"><span class="tag warn">flag</span>Same CAPP type as &ldquo;Vertical Planar Face&rdquo; above &mdash; two manual labels collapse onto one CAPP type. On Top Plate this label also showed up inside merged clusters CAPP called <code>pocket</code>, not just <code>planar_face</code>.</span>
+      </div>
+      <div class="row">
+        <div class="lbl"><span class="name">Obround Through Slot</span><span class="src">custom</span></div>
+        <span class="arrow">&rarr;</span>
+        <span class="capp">slot</span>
+        <span class="counts">BP <span class="n">2</span> &middot; TP <span class="n">0</span></span>
+        <span class="note"><span class="tag warn">flag</span>CAPP's <code>slot</code> doesn't carry an obround-vs-rectangular distinction &mdash; shape detail is dropped, not the feature identity itself.</span>
+      </div>
+      <div class="row">
+        <div class="lbl"><span class="name">Chamfer</span><span class="src">MFCAD++</span></div>
+        <span class="arrow">&rarr;</span>
+        <span class="capp">chamfer</span>
+        <span class="counts">BP <span class="n">2</span> &middot; TP <span class="n">0</span></span>
+        <span class="note"><span class="tag ok">confirmed working</span>Both Bottom Plate instances are clean 1:1 matches AND CAPP predicted <code>chamfer</code> correctly for both (clusters 35, 36). Listed here only because it's sourced from the MFCAD++ suggestion list, not your custom vocabulary &mdash; worth confirming that's fine to treat the same as a custom label.</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Clean, direct match</h2>
+      <span class="section-count">4 labels</span>
+    </div>
+    <p class="section-note">Nothing to decide here &mdash; one label, one CAPP type, no ambiguity in what &ldquo;correct&rdquo; means.</p>
+    <div class="row-head"><span>Manual label</span><span></span><span>CAPP type</span><span>Occurs</span><span></span></div>
+    <div class="rows rows-compact">
+      <div class="row">
+        <div class="lbl"><span class="name">Through hole</span><span class="src">MFCAD++</span></div>
+        <span class="arrow">&rarr;</span>
+        <span class="capp">through_hole</span>
+        <span class="counts">BP <span class="n">8</span> &middot; TP <span class="n">4</span></span>
+        <span class="note">Already the production bridge used for MFCAD++ training (<code>rule_sheets/07_label_taxonomy.json</code>).</span>
+      </div>
+      <div class="row">
+        <div class="lbl"><span class="name">Counter Bore</span><span class="src">custom</span></div>
+        <span class="arrow">&rarr;</span>
+        <span class="capp">counterbore</span>
+        <span class="counts">BP <span class="n">2</span> &middot; TP <span class="n">0</span></span>
+        <span class="note">Exact name match to CAPP's enum.</span>
+      </div>
+      <div class="row">
+        <div class="lbl"><span class="name">Cylindrical Boss</span><span class="src">custom</span></div>
+        <span class="arrow">&rarr;</span>
+        <span class="capp">boss</span>
+        <span class="counts">BP <span class="n">2</span> &middot; TP <span class="n">0</span></span>
+        <span class="note">Unambiguous &mdash; CAPP has no other boss variant these could mean.</span>
+      </div>
+      <div class="row">
+        <div class="lbl"><span class="name">Freeform Blind Pocket</span><span class="src">custom</span></div>
+        <span class="arrow">&rarr;</span>
+        <span class="capp">pocket</span>
+        <span class="counts">BP <span class="n">6</span> &middot; TP <span class="n">0</span></span>
+        <span class="note">CAPP doesn't track the &ldquo;freeform&rdquo; shape qualifier, but the feature identity is unambiguous.</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>For the review session</h2></div>
+    <div class="checklist">
+      <ol>
+        <li>Decide <b>Radius</b> &mdash; 14 combined instances, the biggest open question. Map to <code>fillet</code>, leave unmapped, or ask for a dedicated CAPP type?</li>
+        <li>Root-cause the <b>Vertical Planar Face &rarr; pocket vs. planar_face</b> split before finalizing that mapping &mdash; likely a real classifier bug in <code>3. classify_features.py</code>, not a naming question.</li>
+        <li>Decide <b>Semi cylindrical profile</b> &mdash; only 2 instances, but genuinely context-dependent (fillet on one part, slot on the other in CAPP's own predictions).</li>
+        <li>Confirm <b>Obround Through Slot &rarr; slot</b> and <b>Freeform Blind Pocket &rarr; pocket</b> are fine to grade without their shape qualifiers.</li>
+        <li>Once settled, this becomes <code>rule_sheets/08_manual_label_taxonomy.json</code> and feeds the strict, no-partial-credit scorer: a cluster only counts as correct if it's a clean 1:1 boundary match <i>and</i> its predicted type equals this table's answer.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>
+    Source: feature_linkage.py output for SE&#8209;004&#8209;052 &amp; RKSE&#8209;004&#8209;053, 2026&#8209;09&#8209;14 &middot; draft rule_sheets/08_manual_label_taxonomy.json
+  </footer>
+
+</div>

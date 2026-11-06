@@ -13,7 +13,7 @@ MODULES = ("fastapi", "uvicorn", "multipart", "numpy", "h5py", "networkx", "torc
 ASSETS = (
     ROOT / "model" / "hier_v1_model.pt",
     ROOT / "viewer" / "step-viewer.html",
-    ROOT / "vendor" / "shiaanx_code" / "2. cluster_features.py",
+    ROOT.parent / "2. cluster_features.py",
     ROOT / "resources" / "MFCAD++_labels" / "feature_labels.txt",
 )
 

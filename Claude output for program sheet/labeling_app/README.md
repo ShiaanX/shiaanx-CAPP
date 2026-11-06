@@ -85,6 +85,41 @@ stable `feature_instance_id`, one label, and `surface_indices`/`face_indices`
 containing every B-Rep surface that belongs to that feature. The CSV repeats the
 same feature-instance ID on each member-surface row so the grouping is preserved.
 
+## Dimension Tagging (`/dimensions`)
+
+Links each ballooned drawing dimension to the B-Rep faces it measures, so a QC
+report can later be painted onto the 3D model.
+
+1. Open [http://127.0.0.1:8780/dimensions](http://127.0.0.1:8780/dimensions),
+   upload the STEP file and click **Prepare face map**.
+2. Click **Import from QC sheet** and pick the inspection `.xlsx` (columns
+   SL No., Description, TOL+, TOL-). Balloons already in the list are kept.
+3. Use **Open ballooned drawing (PDF) in new tab** to keep the drawing visible.
+4. For each balloon, click faces in the 3D view (Shift-drag for a box) and press
+   **Set faces A**. Distance, depth, thickness and angle dimensions also need
+   **Set faces B** (the two faces measured between).
+5. Press **Save dimension tags**. Output: `dimension_tags.json` in the job folder,
+   downloadable as `<part>_dimension_tags.json`.
+
+Unlike manual labeling, one face may be used by several dimensions.
+
+## Inspection Result (`/inspection`)
+
+Shows a tagged part coloured by its QC result, for customer and investor demos.
+
+1. Open [http://127.0.0.1:8780/inspection](http://127.0.0.1:8780/inspection). The most
+   recently tagged part loads automatically; pick another from the dropdown.
+2. Click **Load QC report** and pick the inspection `.xlsx` with the Observation
+   column filled in. The readings are saved with the part (`qc_results.json`).
+3. Faces turn green (within tolerance), amber (within tolerance but in the outer
+   15% of the band) or red (any reading outside tolerance). A face used by
+   several dimensions shows the worst one. Hover a face for required vs measured.
+4. Click a dimension in the list, or a face on the model, to isolate it.
+   **Hide setup** removes the setup controls while presenting.
+
+Verdicts are computed from the numbers, not the sheet's Remark column. Where the
+two disagree, the card shows the inspector's remark.
+
 ## Model Metric
 
 The bundled `hier_v1_model.pt` checkpoint achieved 93.82% face-classification
