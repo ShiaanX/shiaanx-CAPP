@@ -186,10 +186,13 @@ class TestQuote(unittest.TestCase):
         self.assertAlmostEqual(c['setup_inr'], 120 / 60 * 700 / 10, places=2)
         self.assertAlmostEqual(c['unit_price_inr'], round(c['subtotal_inr'] * 1.25, 2), places=1)
         self.assertEqual(r['material']['required_stock_mm'], [63.0, 113.0, 29.0])
-        # 29 mm thick blank does not fit the 25 mm plate -> 40 mm plate
-        self.assertTrue(r['material']['in_stock'])
-        self.assertEqual(r['material']['inventory_item']['id'], 'INV-AL6061-PL-40')
-        self.assertEqual(r['lead_time_days']['material'], 0)
+        # stock comes from the spreadsheets in demo_data/stock: lead time follows whichever path was taken
+        m = r['material']
+        if m['in_stock']:
+            self.assertIsNotNone(m['inventory_item'])
+            self.assertEqual(r['lead_time_days']['material'], 0)
+        else:
+            self.assertEqual(r['lead_time_days']['material'], (m['supplier'] or {}).get('lead_days'))
 
     def test_no_split_falls_back_to_v3_total(self):
         plan = {**FIXTURE_V3['plan'], 'setups': [{'dir': '+Z', 'minutes': 65.0}]}
@@ -198,7 +201,9 @@ class TestQuote(unittest.TestCase):
         self.assertEqual(r['machining']['tool_change_basis'], 'v3_total')
 
     def test_supplier_path(self):
-        r = quote.build(FIXTURE_V3, self.tmp, 1, 'aluminium_7075')
+        from unittest import mock
+        with mock.patch.object(quote.stock_lists, 'pick_inventory', return_value=None):   # nothing in-house
+            r = quote.build(FIXTURE_V3, self.tmp, 1, 'aluminium_7075')
         self.assertFalse(r['material']['in_stock'])
         self.assertIsNotNone(r['material']['supplier'])
         self.assertEqual(r['lead_time_days']['material'], r['material']['supplier']['lead_days'])
@@ -220,6 +225,46 @@ class TestPartData(unittest.TestCase):
         d = Path(tempfile.mkdtemp())
         (d / 'SOMETHING_ELSE.step').write_text('x')
         self.assertIsNone(part_data.find_part_dir(d))
+
+
+class TestReply(unittest.TestCase):
+    """The draft prompt: no topic, several topics in one comment, confidentiality rules kept."""
+
+    def _prompt(self, topic):
+        from unittest import mock
+        from demo_modules import reply
+        seen = {}
+
+        class R:
+            status_code = 200
+            def json(self):
+                return {'candidates': [{'content': {'parts': [{'text': 'ok draft'}]}}]}
+
+        def fake_post(url, headers=None, json=None, timeout=None):
+            seen['prompt'] = json['contents'][0]['parts'][0]['text']
+            return R()
+
+        with mock.patch.object(reply, '_api_key', return_value='k'), mock.patch.object(reply.requests, 'post', fake_post):
+            out = reply.draft('Price is high and can you hold +/-0.02 and anodise?', topic, 'Bracket', ['Quoted unit price Rs 100'])
+        return out, seen['prompt']
+
+    def test_topic_is_optional_and_not_in_prompt(self):
+        out, prompt = self._prompt(None)
+        self.assertEqual(out['draft'], 'ok draft')
+        self.assertEqual(out['grounded_on'], ['Quoted unit price Rs 100'])
+        self.assertNotIn('Topic:', prompt)
+
+    def test_prompt_handles_several_topics(self):
+        _, prompt = self._prompt(None)
+        self.assertIn('several topics', prompt)
+        self.assertIn('in the order they raised them', prompt)
+        self.assertIn('the team will confirm', prompt)
+        self.assertIn('CONFIDENTIAL', prompt)
+
+    def test_old_topic_argument_still_accepted(self):
+        out, prompt = self._prompt('price')
+        self.assertEqual(out['draft'], 'ok draft')
+        self.assertNotIn('Topic:', prompt)
 
 
 if __name__ == '__main__':

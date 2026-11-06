@@ -577,7 +577,8 @@ def get_quote(job_id: str, qty: int = 1, material: str = 'aluminium_6061'):
 
 class ReplyDraftRequest(BaseModel):
     client_comment: str
-    topic: Literal['price', 'lead_time', 'tolerance', 'finish']
+    # Ignored and optional: one client comment can raise several topics, the draft answers each in turn.
+    topic: Optional[str] = None
     qty: Optional[int] = None
     material: Optional[str] = 'aluminium_6061'
 
@@ -598,9 +599,6 @@ def post_reply_draft(job_id: str, body: ReplyDraftRequest):
             quote = demo_quote.build(v3, job_dir, qty, body.material or 'aluminium_6061')
     tolerances = part_data.load_inspection_characteristics(part_dir)
 
-    if body.topic in ('price', 'lead_time') and quote is None:
-        return JSONResponse(status_code=503, content={
-            'status': state, 'error': f'cannot ground a {body.topic} reply: quote not available yet (v3 analysis {state})'})
     facts = demo_reply.collect_facts(body.topic, quote, dfm, tolerances)
     if not facts:
         return JSONResponse(status_code=409, content={
@@ -711,3 +709,132 @@ def v3_console_ensure():
             'status': 'unavailable',
             'error': 'The v3 console is not available on this environment (V3_DISABLED=1).'})
     return demo_v3_console.ensure_running()
+
+
+# ── Planner console runs: read them on the planning laptop, publish one for the shared app ───────
+import re as _re
+from fastapi import Request
+from demo_modules import v3_runs as demo_v3_runs
+
+_PNA_ORIGIN = _re.compile(r'^(https://dev\.shiaanx\.com|https?://(localhost|127\.0\.0\.1)(:\d+)?)$')
+
+
+@app.middleware('http')
+async def _private_network_access(request: Request, call_next):
+    """Chrome's Private Network Access: a public https page (dev.shiaanx.com) calling this laptop
+    server preflights with Access-Control-Request-Private-Network: true and needs it echoed back.
+    CORSMiddleware does not do that, so add it for the allowed origins only."""
+    response = await call_next(request)
+    if (request.method == 'OPTIONS'
+            and request.headers.get('access-control-request-private-network', '').lower() == 'true'
+            and _PNA_ORIGIN.match(request.headers.get('origin', ''))):
+        response.headers['Access-Control-Allow-Private-Network'] = 'true'
+    return response
+
+
+def _runs_unavailable():
+    return JSONResponse(status_code=501, content={'status': 'unavailable', 'error': demo_v3_runs.UNAVAILABLE_MSG})
+
+
+@app.get('/v3/runs')
+def get_v3_runs(limit: int = 30):
+    """Recent planner console runs on this computer, newest first."""
+    if demo_v3_runs.disabled():
+        return _runs_unavailable()
+    return {'status': 'ok', 'runs': demo_v3_runs.list_runs(max(1, min(limit, 100)))}
+
+
+@app.get('/v3/runs/{name}/summary')
+def get_v3_run_summary(name: str):
+    """The program summary (live_program shape) for one planner run, read-only."""
+    if demo_v3_runs.disabled():
+        return _runs_unavailable()
+    if demo_v3_runs.run_dir(name) is None:
+        raise HTTPException(status_code=404, detail='Planner run not found')
+    live, notes = demo_v3_runs.summarize_run(name)
+    return {'status': 'ok' if live else 'empty', 'run': name, 'summary': live, 'notes': notes}
+
+
+@app.post('/jobs/{job_id}/program/publish')
+async def post_program_publish(job_id: str, request: Request):
+    """Store a planner run summary for this job's part ({summary, published_by, run_name})."""
+    job_dir = _demo_job_dir(job_id)
+    raw = await request.body()
+    if len(raw) > demo_v3_runs.MAX_PUBLISH_BYTES:
+        raise HTTPException(status_code=413, detail='Summary is larger than 2 MB')
+    try:
+        body = json.loads(raw)
+    except ValueError:
+        raise HTTPException(status_code=400, detail='Body is not valid JSON')
+    if not isinstance(body, dict):
+        raise HTTPException(status_code=400, detail='Body must be an object')
+    key = demo_program.part_key_for_job(job_dir)
+    try:
+        rec = demo_v3_runs.publish(key, body.get('summary'), body.get('run_name'), body.get('published_by'))
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    return {'status': 'ok', 'published': rec}
+
+
+@app.get('/parts/{part_key}/published-run')
+def get_part_published_run(part_key: str):
+    rec = demo_v3_runs.load_published(part_key)
+    if rec is None:
+        return {'status': 'none', 'published': None}
+    return {'status': 'ok', 'published': {k: rec.get(k) for k in ('part_key', 'run_name', 'published_by', 'published_at')},
+            'label': demo_v3_runs.source_label(rec)}
+
+
+# ── Client quote PDF (editable quote -> Finalize) ──────────────────────────────────────────────────
+from demo_modules import quote_pdf as demo_quote_pdf
+
+
+class QuoteEdits(BaseModel):
+    unit_price_inr: Optional[float] = None
+    total_inr: Optional[float] = None
+    lead_days: Optional[int] = None
+    validity_days: Optional[int] = None
+    payment_terms: Optional[str] = None
+    notes: Optional[str] = None
+
+
+class QuotePdfRequest(BaseModel):
+    customer: Optional[str] = None
+    enquiry_number: Optional[str] = None
+    part_name: Optional[str] = None
+    qty: int = 1
+    material: Optional[str] = 'aluminium_6061'
+    edits: Optional[QuoteEdits] = None
+    prepared_by: Optional[str] = None
+    dfm_snapshot_png_base64: Optional[str] = None
+
+
+@app.post('/jobs/{job_id}/quote-pdf')
+def post_quote_pdf(job_id: str, body: QuotePdfRequest):
+    from fastapi.responses import Response
+    from demo_modules import dfm_geometry
+    job_dir = _demo_job_dir(job_id)
+    if body.qty < 1 or body.qty > 100000:
+        raise HTTPException(status_code=400, detail='qty must be between 1 and 100000')
+    v3, resp = _v3_or_response(job_id, job_dir)
+    if resp is not None:
+        return JSONResponse(status_code=409, content={'status': 'not_ready', 'error': 'The part analysis is not finished yet.'})
+    if not (v3.get('plan') or {}).get('total_minutes'):
+        return JSONResponse(status_code=422, content={'status': 'incomplete', 'error': 'The part has no machining plan yet.'})
+    quote = demo_quote.build(v3, job_dir, body.qty, body.material or 'aluminium_6061')
+    geometry = None
+    steps = part_data.job_step_files(job_dir)
+    if steps:
+        try:
+            with _geometry_lock(job_id + ':dfm'):
+                geometry = dfm_geometry.load_or_extract(job_dir, steps[0])
+        except Exception:
+            geometry = None
+    dfm = demo_dfm.build(v3, geometry)
+    edits = body.edits.dict() if body.edits else {}
+    pdf = demo_quote_pdf.build_pdf(
+        customer=body.customer, enquiry_number=body.enquiry_number, part_name=body.part_name or _part_name(job_id, job_dir),
+        qty=body.qty, material=body.material, edits=edits, prepared_by=body.prepared_by, quote=quote, dfm=dfm,
+        snapshot_png=demo_quote_pdf.decode_snapshot(body.dfm_snapshot_png_base64))
+    return Response(content=pdf, media_type='application/pdf',
+                    headers={'Content-Disposition': 'attachment; filename="quotation.pdf"'})

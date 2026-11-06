@@ -36,3 +36,6 @@ printf 'GEMINI_API_KEY=%s\n' "$GEMINI_API_KEY" | ssh -i ~/.ssh/shiaanx-dev.pem u
 ## Refreshing the saved analyses later (e.g. RIB1 when it finishes)
 New analyses are produced on the planning workstation (cached under `capp_service/demo_data/v3_cache`, then
 indexed in `index.json`) and reach dev with the next deploy, because they live inside the capp image.
+
+## Rollback point before the first --from-git deploy (2026-11-06 10:52 IST)
+Source: /opt/shiaanx-dev-rollback-20261106-1052.tar.gz. Images: capp 907ec4b15203, nginx 21c9bd4c8a5e, backend 08f026b693a6, qc 9400c6e5eee6 (same restore steps as above).

@@ -1,0 +1,9 @@
+{
+  "_note": "PLACEHOLDER material prices in INR per kg, used by the quote because neither stock spreadsheet carries prices. Values come from the earlier sample data. Replace with the team's price list, then set \"sample\" to false.",
+  "sample": true,
+  "prices_inr_per_kg": {
+    "aluminium_6061": 440,
+    "aluminium_6082": 460,
+    "aluminium_7075": 1050
+  }
+}

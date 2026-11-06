@@ -17,7 +17,6 @@ import requests
 MODEL = os.environ.get('GEMINI_MODEL') or 'gemini-flash-lite-latest'
 ENDPOINT = f'https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent'
 TIMEOUT_S = 30
-TOPICS = ('price', 'lead_time', 'tolerance', 'finish')
 
 
 class ReplyError(Exception):
@@ -40,7 +39,7 @@ def _api_key() -> str | None:
         return None
 
 
-def collect_facts(topic: str, quote: dict | None, dfm: dict | None, tolerances: list[dict]) -> list[str]:
+def collect_facts(topic: str | None, quote: dict | None, dfm: dict | None, tolerances: list[dict]) -> list[str]:
     facts = []
     if quote:
         c, lt, m = quote['cost'], quote['lead_time_days'], quote['material']
@@ -73,15 +72,18 @@ def collect_facts(topic: str, quote: dict | None, dfm: dict | None, tolerances: 
     return facts
 
 
-def draft(client_comment: str, topic: str, part_name: str, facts: list[str]) -> dict:
+def draft(client_comment: str, topic: str | None, part_name: str, facts: list[str]) -> dict:
     key = _api_key()
     if not key:
         raise ReplyError(502, 'GEMINI_API_KEY is not set for the capp_service process')
     prompt = (
         'You are drafting a reply for the ShiaanX team (a precision CNC machining company in India) to send '
         'to a client. This draft is internal — a ShiaanX engineer will review and edit it before sending.\n'
-        f'Part: {part_name}\nTopic: {topic}\n'
+        f'Part: {part_name}\n'
         f'Client comment:\n"""{client_comment}"""\n\n'
+        'The comment may raise several topics at once (price, lead time, tolerance, surface finish, or anything '
+        'else). Address each topic the client raised, briefly, in the order they raised them. For anything the '
+        'facts below do not cover, say the team will confirm it.\n\n'
         'Facts you may use (computed by our system for this exact part). Use ONLY these facts for any number, '
         'date, price, tolerance or capability. If the client asks for something these facts do not cover, say '
         'the team will confirm, do not guess. Do not promise discounts or dates beyond these facts.\n'
@@ -91,8 +93,8 @@ def draft(client_comment: str, topic: str, part_name: str, facts: list[str]) -> 
         'Use them only to reason. Speak to the client in terms of the part: complexity, setups, '
         'tolerances, material, quantity and schedule.\n'
         + '\n'.join(f'- {f}' for f in facts) +
-        '\n\nWrite a concise, professional reply (80-160 words), plain text, no subject line, no placeholders '
-        'like [Name]. Explain the key cost / lead-time / tolerance driver behind our position and offer one '
+        '\n\nWrite a concise, professional reply (80-200 words), plain text, no subject line, no placeholders '
+        'like [Name]. Explain the key driver behind our position on each topic raised and offer one '
         'concrete option if the facts support one (e.g. a design change from a DFM finding, or a different qty).'
     )
     try:

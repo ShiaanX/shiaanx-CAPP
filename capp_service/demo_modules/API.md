@@ -119,7 +119,7 @@ on the first `/dfm` call.
 
 ## 2. `GET /jobs/{id}/quote?qty=1&material=aluminium_6061`
 
-`{status, machining{total_minutes, cutting_minutes, tool_change_minutes, tool_change_s, tool_change_basis:"atc"|"v3_total", v3_total_minutes, v3_tool_change_minutes, by_setup[], by_tool[], tool_changes}, setup_minutes, setups, rates{machine_inr_per_hr, margin_pct, tool_change_s, ...}, material{grade, billet_mm, required_stock_mm, density_g_cm3, blank_kg, price_inr_per_kg, inventory_item|null, in_stock, supplier|null{name, city, lead_days, price_inr_per_kg, sample}}, cost{material_inr, machining_inr, setup_inr, setup_batch_inr, subtotal_inr, margin_inr, unit_price_inr, qty, total_inr}, lead_time_days{material, machining, qc_dispatch, total, machine_hours}, assumptions[], previous_manual_quote|null, calibration_note|null, v3_origin}`
+`{status, machining{total_minutes, cutting_minutes, tool_change_minutes, tool_change_s, tool_change_basis:"atc"|"v3_total", v3_total_minutes, v3_tool_change_minutes, by_setup[], by_tool[], tool_changes}, setup_minutes, setups, rates{machine_inr_per_hr, margin_pct, tool_change_s, ...}, material{grade, billet_mm, required_stock_mm, density_g_cm3, blank_kg, price_inr_per_kg, inventory_item|null, in_stock, supplier|null{name, city, lead_days, price_inr_per_kg, sample}}, cost{material_inr, machining_inr, setup_inr, setup_batch_inr, subtotal_inr, margin_inr, unit_price_inr, qty, total_inr}, lead_time_days{material, machining, qc, dispatch, qc_dispatch (=qc+dispatch, kept for older readers), total (=material+machining+qc+dispatch; excludes the queue wait, which the app adds from the production board), machine_hours}, assumptions[], previous_manual_quote|null, calibration_note|null, v3_origin}`
 
 **Cost** (INR per unit unless a field says otherwise):
 
@@ -507,9 +507,10 @@ At qty 1 the same part is ₹5,288/unit; at qty 2, ₹4,631/unit.
   "machine_inr_per_hr": 700,
   "margin_pct": 25,
   "setup_minutes_per_setup": 30,
-  "shift_hours_per_day": 8,
+  "shift_hours_per_day": 12,
   "machine_utilization_pct": 85,
-  "qc_dispatch_days": 2,
+  "qc_days": 1,
+  "dispatch_days": 1,
   "stock_allowance_mm": 3,
   "tool_change_s": 15,
   "sample_fields": [
@@ -517,7 +518,8 @@ At qty 1 the same part is ₹5,288/unit; at qty 2, ₹4,631/unit.
    "setup_minutes_per_setup",
    "shift_hours_per_day",
    "machine_utilization_pct",
-   "qc_dispatch_days",
+   "qc_days",
+   "dispatch_days",
    "stock_allowance_mm"
   ]
  },
@@ -572,9 +574,11 @@ At qty 1 the same part is ₹5,288/unit; at qty 2, ₹4,631/unit.
  },
  "lead_time_days": {
   "material": 0,
-  "machining": 25,
+  "machining": 17,
+  "qc": 1,
+  "dispatch": 1,
   "qc_dispatch": 2,
-  "total": 27,
+  "total": 19,
   "machine_hours": 169.9
  },
  "setups": 3,
@@ -585,7 +589,7 @@ At qty 1 the same part is ₹5,288/unit; at qty 2, ₹4,631/unit.
   "Margin 25% — placeholder, edit demo_data/rates.json.",
   "Setup 30 min (placeholder) × 3 setup(s), one-time per batch, amortised over qty 40.",
   "Blank = v3 billet + 3 mm per dimension; density 2.7 g/cm³.",
-  "Lead time (placeholders): 8 h shift at 85% utilisation, QC + dispatch 2 day(s).",
+  "Lead time (placeholders): 12 h shift at 85% utilisation, QC 1 day(s) + dispatch 1 day(s); queue wait for the machine is added by the app from the live board.",
   "Inventory and supplier entries are SAMPLE data until replaced.",
   "Excludes GST, shipping, CAM programming, special inspection, surface treatment.",
   "v3: 22 CAD holes found; drilling is NOT priced offline - v3 only drills holes PowerMill's recognition agrees with, which needs the bridge. The plans leave holes to the end mills or unreached",
@@ -1249,3 +1253,16 @@ Motor Mount values, snapshot of 2026-11-05:
 | 4 | 6.1 | 7.1 (+17%) | 18 | 99% | 70–110%, 37% |
 
 To refresh, run `python -m demo_modules.telemetry_batch refresh motormount` from `capp_service/`. It uses the closed-loop repo's `krishna_metrics` and `.env`, takes about 10 s, and writes atomically. Restart the service afterwards, or wait for the file-mtime cache to pick the new file up.
+
+
+## POST /jobs/{id}/quote-pdf  (client quote PDF)
+
+Body: `{customer, enquiry_number, part_name, qty, material, edits{unit_price_inr, total_inr, lead_days, validity_days, payment_terms, notes}, prepared_by, dfm_snapshot_png_base64?}`.
+Returns `application/pdf` (A4). The route recomputes the quote and the DFM review from the job; only `edits` (price, lead time, validity, terms, notes) comes from the client. The PDF never contains margin, machine rate, cost breakdown, supplier or inventory names. Content: header + quote no., customer/part/qty/material, unit price and total (INR), lead time, validity, payment terms, notes, "Manufacturability review (DFM)" (verdict, counts, top findings, part size), the 3D snapshot if given, exclusions, footer. 409 while the analysis is still running.
+
+## Quote edits contract (stored on the part's auto-quote by the UI)
+
+`status` DRAFT|FINALIZED, `data = {_source:'capp_service', cappJobId, quote:<GET /quote response>, edits:{unit_price_inr, total_inr, lead_days, validity_days, payment_terms, notes, qty, material}, finalizedAt}`. `data.aiPlan` is preserved.
+
+## Stock lists (quote material section)
+The quote reads `demo_data/stock/inhouse_inventory.xlsx` and `supplier_directory.xlsx` directly (see `stock_lists.py` and `demo_data/stock/README.md`). `material.inventory_item` now carries `shape`, `size`, `pieces_per_item`, `items_needed`; `material.supplier` carries `supplier_id`, `shape`, `confidence`, `lead_days` (used), `lead_range` [min,max], `lead_basis` (`actual` | `planning estimate`), `verified`, `alternatives[]`. `material.price_is_sample` is true while `material_prices.json` is a placeholder.

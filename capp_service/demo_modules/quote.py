@@ -10,10 +10,10 @@ quote.py — instant quote from the v3 machining plan + shop rates + stock.
   margin     = margin_pct × subtotal
 Lead time  = material (0 if in stock, else supplier lead days)
            + machining days (setup + qty × cycle, over shift hours × utilisation)
-           + QC/dispatch days.
+           + QC days + dispatch days (queue wait is added by the app).
 
-Rates: demo_data/rates.json. Stock: demo_data/inventory.json then suppliers.json
-(both labelled sample until the team replaces them). All cost fields are INR,
+Rates: demo_data/rates.json. Stock: the two spreadsheets in demo_data/stock/ (in-house inventory first, then
+the supplier directory; see stock_lists.py and that folder's README). All cost fields are INR,
 per unit unless named *_batch_* / total_inr.
 """
 
@@ -23,7 +23,7 @@ import json
 import math
 from pathlib import Path
 
-from . import part_data
+from . import part_data, stock_lists
 
 DATA_DIR = Path(__file__).resolve().parent.parent / 'demo_data'
 
@@ -42,29 +42,11 @@ def _grade_key(material: str) -> str:
     return m
 
 
-def _fits(item, req):
-    """Does an inventory item contain the required block (sorted dims)?"""
-    r = sorted(req)
-    d = item['dims_mm']
-    if item['form'] == 'round_bar':
-        dia, length = d
-        # two smaller dims must fit inside the circle; largest along the bar
-        return math.hypot(r[0], r[1]) <= dia and r[2] <= length
-    return all(a <= b for a, b in zip(r, sorted(d)))
-
-
-def _item_volume(item):
-    d = item['dims_mm']
-    if item['form'] == 'round_bar':
-        return math.pi * (d[0] / 2) ** 2 * d[1]
-    return d[0] * d[1] * d[2]
-
-
 def _blank_volume(item, req):
-    """Volume actually consumed: for plate = required block; for round bar = cylinder slice."""
+    """Volume actually consumed: a cylinder slice for round bar stock, else the required block."""
     r = sorted(req)
-    if item and item['form'] == 'round_bar':
-        return math.pi * (item['dims_mm'][0] / 2) ** 2 * r[2]
+    if item and item.get('shape') == 'Round Bar' and item.get('w'):
+        return math.pi * (item['w'] / 2) ** 2 * r[0 if math.hypot(r[1], r[2]) <= item['w'] else 2]
     return r[0] * r[1] * r[2]
 
 
@@ -95,19 +77,20 @@ def _compute(v3, qty, grade, rates, inventory, suppliers):
     allow = rates['stock_allowance_mm']
     req = [round(float(b) + allow, 1) for b in billet] if billet else None
 
-    inv_item, supplier, price_kg, in_stock = None, None, None, False
+    # Stock: the team's in-house inventory first; otherwise the supplier directory (stock_lists.py).
+    # Neither spreadsheet carries prices, so INR/kg comes from demo_data/stock/material_prices.json.
+    inv_item, supplier, in_stock = None, None, False
+    price_kg, price_is_sample, _ = stock_lists.price_per_kg(grade)
     if req:
-        cands = [i for i in inventory['items'] if i['grade'] == grade and i.get('qty', 0) > 0 and _fits(i, req)]
-        if cands:
-            inv_item = min(cands, key=_item_volume)
-            price_kg, in_stock = inv_item['price_inr_per_kg'], True
+        inv_item = stock_lists.pick_inventory(req, grade, qty)
+        if inv_item:
+            in_stock = True
         else:
-            offers = [{'name': s['name'], 'city': s['city'], 'sample': s.get('sample', False), **s['grades'][grade]}
-                      for s in suppliers['suppliers'] if grade in s.get('grades', {})]
-            if offers:
-                best = min(offers, key=lambda o: (o['lead_days'], o['price_inr_per_kg']))
-                supplier = best
-                price_kg = best['price_inr_per_kg']
+            supplier = stock_lists.pick_supplier(grade)
+        if supplier is not None and price_kg is not None:
+            supplier['price_inr_per_kg'] = price_kg
+        if inv_item is not None and price_kg is not None:
+            inv_item['price_inr_per_kg'] = price_kg
 
     blank_mm3 = _blank_volume(inv_item, req) if req else None
     blank_kg = blank_mm3 * density / 1e6 if blank_mm3 else None
@@ -121,9 +104,9 @@ def _compute(v3, qty, grade, rates, inventory, suppliers):
 
     hours_per_day = rates['shift_hours_per_day'] * rates['machine_utilization_pct'] / 100
     machine_hours = (setup_min + qty * total_min) / 60
-    lt_mat = 0 if in_stock else (supplier['lead_days'] if supplier else None)
+    lt_mat = 0 if in_stock else (supplier.get('lead_days') if supplier else None)
     lt_mach = max(1, math.ceil(machine_hours / hours_per_day))
-    lt_qc = rates['qc_dispatch_days']
+    lt_qc, lt_disp = rates['qc_days'], rates['dispatch_days']
     return {
         'machining': {'total_minutes': round(total_min, 2),
                       'cutting_minutes': v3_cut,
@@ -140,7 +123,7 @@ def _compute(v3, qty, grade, rates, inventory, suppliers):
                   'setup_minutes_per_setup': rates['setup_minutes_per_setup'],
                   'shift_hours_per_day': rates['shift_hours_per_day'],
                   'machine_utilization_pct': rates['machine_utilization_pct'],
-                  'qc_dispatch_days': rates['qc_dispatch_days'],
+                  'qc_days': rates['qc_days'], 'dispatch_days': rates['dispatch_days'],
                   'stock_allowance_mm': rates['stock_allowance_mm'],
                   'tool_change_s': tc_s,
                   'sample_fields': rates.get('_sample_fields', [])},
@@ -151,6 +134,7 @@ def _compute(v3, qty, grade, rates, inventory, suppliers):
             'density_g_cm3': density,
             'blank_kg': round(blank_kg, 3) if blank_kg else None,
             'price_inr_per_kg': price_kg,
+            'price_is_sample': price_is_sample,
             'inventory_item': inv_item,
             'in_stock': in_stock,
             'supplier': supplier,
@@ -170,8 +154,10 @@ def _compute(v3, qty, grade, rates, inventory, suppliers):
         'lead_time_days': {
             'material': lt_mat,
             'machining': lt_mach,
-            'qc_dispatch': lt_qc,
-            'total': (lt_mat + lt_mach + lt_qc) if lt_mat is not None else None,
+            'qc': lt_qc,
+            'dispatch': lt_disp,
+            'qc_dispatch': lt_qc + lt_disp,
+            'total': (lt_mat + lt_mach + lt_qc + lt_disp) if lt_mat is not None else None,
             'machine_hours': round(machine_hours, 2),
         },
     }
@@ -179,15 +165,14 @@ def _compute(v3, qty, grade, rates, inventory, suppliers):
 
 def cycle_minutes(v3: dict) -> dict:
     """The quoted per-part cycle (v3 cutting + ATC tool changes) and v3's own total, for other endpoints."""
-    m = _compute(v3, 1, 'aluminium_6061', _load('rates.json'), {'items': []}, {'suppliers': []})['machining']
+    m = _compute(v3, 1, 'aluminium_6061', _load('rates.json'), None, None)['machining']
     return {'total_minutes': m['total_minutes'], 'v3_total_minutes': m['v3_total_minutes'],
             'basis': m['tool_change_basis']}
 
 
 def build(v3: dict, job_dir: Path, qty: int, material: str) -> dict:
     rates = _load('rates.json')
-    inventory = _load('inventory.json')
-    suppliers = _load('suppliers.json')
+    inventory = suppliers = None  # stock comes from demo_data/stock via stock_lists
     grade = _grade_key(material)
     q = _compute(v3, qty, grade, rates, inventory, suppliers)
 
@@ -203,6 +188,22 @@ def build(v3: dict, job_dir: Path, qty: int, material: str) -> dict:
         cycle_line = (f"Cycle time = v3 machining plan total ({m['total_minutes']} min/part); v3 gave no "
                       'cutting/tool-change split, so its own tool-change pricing is used.')
         v3_line = None
+    inv_item, sup = q['material']['inventory_item'], q['material']['supplier']
+    stock_notes = []
+    if inv_item:
+        stock_notes.append(
+            f"Material from in-house stock {inv_item['id']} ({inv_item['shape']} {inv_item['size']}, "
+            f"{inv_item['items_needed']} of {int(inv_item['qty'])} on hand)"
+            + (' — the inventory file is dummy data until the real stock is entered.' if inv_item.get('sample') else '.'))
+    elif sup:
+        lo, hi = sup['lead_range']
+        stock_notes.append(
+            f"Not in stock: {sup['name']} ({sup['city'] or 'city not stated'}), {sup['confidence']}-confidence listing, "
+            + (f"lead time {lo:g}–{hi:g} days ({sup['lead_basis']}; the upper end is used)." if sup['lead_basis'] != 'actual'
+               else f"actual lead time {lo:g} days.")
+            + ('' if sup.get('verified') else ' Supplier not yet verified by ShiaanX.'))
+    if q['material'].get('price_is_sample'):
+        stock_notes.append('Material price per kg is a placeholder (demo_data/stock/material_prices.json) until the real price list is added.')
     assumptions = [
         cycle_line,
         *([v3_line] if v3_line else []),
@@ -213,8 +214,9 @@ def build(v3: dict, job_dir: Path, qty: int, material: str) -> dict:
         f"Blank = v3 billet + {rates['stock_allowance_mm']} mm per dimension; density "
         f"{q['material']['density_g_cm3']} g/cm³.",
         f"Lead time (placeholders): {rates['shift_hours_per_day']} h shift at {rates['machine_utilization_pct']}% utilisation, "
-        f"QC + dispatch {rates['qc_dispatch_days']} day(s).",
-        'Inventory and supplier entries are SAMPLE data until replaced.',
+        f"QC {rates['qc_days']} day(s) + dispatch {rates['dispatch_days']} day(s); "
+        'queue wait for the machine is added by the app from the live board.',
+        *stock_notes,
         'Excludes GST, shipping, CAM programming, special inspection, surface treatment.',
     ]
     if q['material']['price_inr_per_kg'] is None:
