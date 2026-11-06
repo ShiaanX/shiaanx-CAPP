@@ -1,0 +1,288 @@
+{
+ "source": "v3",
+ "part": "Battery_Plate_v1",
+ "run_dir": "C:/Users/Siddhant Gupta/Documents/shiaanx_v3_standalone/database_runtime/Battery_Plate_v1_20261106_145244",
+ "billet_mm": [
+  104.0,
+  189.0,
+  6.0
+ ],
+ "billet_box": {
+  "XMin": -52.0,
+  "XMax": 52.0,
+  "YMin": -94.5,
+  "YMax": 94.5,
+  "ZMin": -2.0,
+  "ZMax": 4.0
+ },
+ "allowance_mm": {
+  "+X": 2.0,
+  "-X": 2.0,
+  "+Y": 2.0,
+  "-Y": 2.0,
+  "+Z": 2.0,
+  "-Z": 2.0
+ },
+ "part_bbox_mm": [
+  100.0,
+  185.0,
+  2.0
+ ],
+ "part_volume_mm3": 35959.895,
+ "removal_volume_mm3": 81976.1,
+ "unreachable_mm3": 8.0,
+ "setups_needed": 3,
+ "setup_plan": [
+  {
+   "setup": 1,
+   "direction": "+X",
+   "gain_mm3": 73026.0,
+   "cumulative_pct": 89.1
+  },
+  {
+   "setup": 2,
+   "direction": "-X",
+   "gain_mm3": 8086.0,
+   "cumulative_pct": 98.9
+  },
+  {
+   "setup": 3,
+   "direction": "+Z",
+   "gain_mm3": 862.0,
+   "cumulative_pct": 100.0
+  }
+ ],
+ "setup_plan_residual_mm3": 8.0,
+ "greedy_order": [
+  "+X",
+  "-X",
+  "+Z"
+ ],
+ "face_order_source": "greedy cover",
+ "directions": [
+  {
+   "dir": "+X",
+   "workplane": "XMAX_WP",
+   "machinable_mm3": 73026.0,
+   "machinable_mm3_reach_analysis": null,
+   "clamp_area_mm2": 1134.0,
+   "jaw_reach_mm": 98.0,
+   "best_tool": "EM_2FL_20MM",
+   "recommended": true,
+   "setup_order": 1
+  },
+  {
+   "dir": "-X",
+   "workplane": "XMIN_WP",
+   "machinable_mm3": 73026.0,
+   "machinable_mm3_reach_analysis": null,
+   "clamp_area_mm2": 1134.0,
+   "jaw_reach_mm": 98.0,
+   "best_tool": "EM_2FL_20MM",
+   "recommended": false,
+   "setup_order": 2
+  },
+  {
+   "dir": "+Y",
+   "workplane": "YMAX_WP",
+   "machinable_mm3": 40556.0,
+   "machinable_mm3_reach_analysis": null,
+   "clamp_area_mm2": 624.0,
+   "jaw_reach_mm": 183.0,
+   "best_tool": "EM_2FL_20MM",
+   "recommended": false,
+   "setup_order": null
+  },
+  {
+   "dir": "-Y",
+   "workplane": "YMIN_WP",
+   "machinable_mm3": 40556.0,
+   "machinable_mm3_reach_analysis": null,
+   "clamp_area_mm2": 624.0,
+   "jaw_reach_mm": 183.0,
+   "best_tool": "EM_2FL_20MM",
+   "recommended": false,
+   "setup_order": null
+  },
+  {
+   "dir": "+Z",
+   "workplane": "ZMAX_WP",
+   "machinable_mm3": 46000.0,
+   "machinable_mm3_reach_analysis": null,
+   "clamp_area_mm2": 1134.0,
+   "jaw_reach_mm": 0.0,
+   "best_tool": "EM_2FL_2MM",
+   "recommended": false,
+   "setup_order": 3
+  },
+  {
+   "dir": "-Z",
+   "workplane": "ZMIN_WP",
+   "machinable_mm3": 46000.0,
+   "machinable_mm3_reach_analysis": null,
+   "clamp_area_mm2": 1134.0,
+   "jaw_reach_mm": 0.0,
+   "best_tool": "EM_2FL_2MM",
+   "recommended": false,
+   "setup_order": null
+  }
+ ],
+ "holes": [
+  {
+   "dia_mm": 3.3,
+   "depth_mm": 2.0,
+   "dir": "-Z",
+   "drill": "DRILL_3.0MM",
+   "through": true,
+   "notes": [
+    "UNDERSIZE by 0.30 mm: hole Dia 3.30 drilled with Dia 3.00 - leaves 0.150 mm on radius to open out later"
+   ]
+  },
+  {
+   "dia_mm": 3.3,
+   "depth_mm": 2.0,
+   "dir": "-Z",
+   "drill": "DRILL_3.0MM",
+   "through": true,
+   "notes": [
+    "UNDERSIZE by 0.30 mm: hole Dia 3.30 drilled with Dia 3.00 - leaves 0.150 mm on radius to open out later"
+   ]
+  },
+  {
+   "dia_mm": 3.3,
+   "depth_mm": 2.0,
+   "dir": "-Z",
+   "drill": "DRILL_3.0MM",
+   "through": true,
+   "notes": [
+    "UNDERSIZE by 0.30 mm: hole Dia 3.30 drilled with Dia 3.00 - leaves 0.150 mm on radius to open out later"
+   ]
+  },
+  {
+   "dia_mm": 3.3,
+   "depth_mm": 2.0,
+   "dir": "-Z",
+   "drill": "DRILL_3.0MM",
+   "through": true,
+   "notes": [
+    "UNDERSIZE by 0.30 mm: hole Dia 3.30 drilled with Dia 3.00 - leaves 0.150 mm on radius to open out later"
+   ]
+  }
+ ],
+ "plan": {
+  "tools": [
+   {
+    "tool": "EM_2FL_20MM",
+    "dia_mm": 20.0,
+    "minutes": 4.0,
+    "role": "rough",
+    "setup": "+X",
+    "mm3": 23869.2
+   },
+   {
+    "tool": "EM_2FL_20MM",
+    "dia_mm": 20.0,
+    "minutes": 283.1,
+    "role": "finish",
+    "setup": "+X",
+    "mm2": 33982
+   },
+   {
+    "tool": "EM_2FL_16MM",
+    "dia_mm": 16.0,
+    "minutes": 0.5,
+    "role": "restrough",
+    "setup": "-X",
+    "mm3": 3208.1
+   },
+   {
+    "tool": "EM_2FL_16MM",
+    "dia_mm": 16.0,
+    "minutes": 14.5,
+    "role": "finish",
+    "setup": "-X",
+    "mm2": 3408
+   },
+   {
+    "tool": "EM_2FL_3MM",
+    "dia_mm": 3.0,
+    "minutes": 2.3,
+    "role": "restrough",
+    "setup": "+Z",
+    "mm3": 418.8
+   }
+  ],
+  "setups": [
+   {
+    "dir": "+X",
+    "workplane": "XMAX_WP",
+    "minutes": 302.0,
+    "cutting_minutes": 287.0,
+    "tool_change_minutes": 15.0,
+    "tool_changes": 1,
+    "left_mm3": 62091.0,
+    "unfinished_mm2": 58.0,
+    "jaw_reach_mm": 98.0,
+    "stock": "raw billet",
+    "plan_s": 52.8
+   },
+   {
+    "dir": "-X",
+    "workplane": "XMIN_WP",
+    "minutes": 30.0,
+    "cutting_minutes": 15.0,
+    "tool_change_minutes": 15.0,
+    "tool_changes": 1,
+    "left_mm3": 5980.0,
+    "unfinished_mm2": 52.0,
+    "jaw_reach_mm": 98.0,
+    "stock": "v3-predicted stock after the previous setup(s)",
+    "plan_s": 35.7
+   },
+   {
+    "dir": "+Z",
+    "workplane": "ZMAX_WP",
+    "minutes": 17.3,
+    "cutting_minutes": 2.3,
+    "tool_change_minutes": 15.0,
+    "tool_changes": 1,
+    "left_mm3": 52.0,
+    "unfinished_mm2": 0.0,
+    "jaw_reach_mm": 0.0,
+    "stock": "v3-predicted stock after the previous setup(s)",
+    "plan_s": 116.1
+   }
+  ],
+  "total_minutes": 349.3,
+  "cutting_minutes": 304.3,
+  "tool_change_minutes": 45.0,
+  "tool_change_min_each": 15.0,
+  "tool_changes": 3
+ },
+ "forced_small_tools": [
+  {
+   "tool": "EM_2FL_3MM",
+   "reason": "+Z: only this 3 mm cutter reaches 419 mm3 of stock / 0 mm2 of surface that no larger tool in the plan reaches (2.3 min)"
+  }
+ ],
+ "timings": {
+  "prepare_s": 11.8,
+  "reach_s": 71.0,
+  "setup_plan_s": 60.7
+ },
+ "warnings": [
+  "setup order = greedy cover of the planner's own jaw-capped sweep masks (stop when a face adds < 410 mm3, 0.5% of the stock to remove); v3 itself leaves the face order to the operator",
+  "clamp_area_mm2 is the vise-jaw contact band from v3's hold plan (grip depth x held length on the billet), not a flat-face area",
+  "4 CAD holes found; drilling is NOT priced offline - v3 only drills holes PowerMill's recognition agrees with, which needs the bridge. The plans below leave holes to the end mills or unreached",
+  "+X: 67 mm2 of curved surface no ball nose in the plan finishes - a flat cutter steps it",
+  "-X: 53 mm2 of curved surface no ball nose in the plan finishes - a flat cutter steps it",
+  "setups after the first are costed against v3's PREDICTED stock (billet minus the swept reach of the tools chosen before), not PowerMill's measured live stock - a live run re-plans after every cut",
+  "v3's own time model is ~2x (planner.py docstring); each tool change is priced at 15 min"
+ ],
+ "runtime_s": 353.5,
+ "log": "C:\\Users\\Siddhant Gupta\\Documents\\ShiaanX\\capp_service\\demo_data\\v3_cache\\v3_1980977190ef42219c44.raw.log",
+ "v3_commit": "54092b7",
+ "v3_root": "C:\\Users\\Siddhant Gupta\\Documents\\shiaanx_v3_standalone",
+ "material": "aluminium",
+ "cached": false
+}

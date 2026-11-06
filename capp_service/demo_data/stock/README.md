@@ -10,7 +10,7 @@ commit, push, and redeploy. There is no conversion step: the backend reads the `
 | `material_prices.json` | Placeholder INR/kg per grade (neither spreadsheet has prices) | Material cost = billet weight x price. Replace with the real price list. |
 
 ## Rules worth knowing
-- **Dummy data:** while the inventory `Notes` sheet says "dummy" or "demo data", every in-house item is flagged **sample** (the quote shows a sample-data badge). Replace the quantities with real stock and edit that note line, and the flag clears by itself.
+- **Dummy data:** while the inventory `Notes` sheet contains the word "dummy" or "demo data" anywhere (the title line "(DEMO DATA)" counts), every in-house item is flagged **sample** and the quote shows a sample-data badge. Replace the quantities with real stock, then remove "(DEMO DATA)" from the title and any "dummy values" line, and the flag clears by itself.
 - **Supplier lead times are planning estimates** (the file says so). Once you fill **Actual Lead Time (days)** for a supplier, the quote uses it instead of the estimate. Otherwise it uses the upper end of the range (conservative). `ShiaanX Verified` marks suppliers you have contacted.
 - **Grade and shape names must match exactly between the two files** (for example `6061-T6`, `Plate`, `Round Bar`).
 - **Quote grades supported:** 6061-T6, 6082-T6, 7075-T651 (the quote's material list). Add more in `demo_modules/stock_lists.py` (`GRADES`).

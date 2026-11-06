@@ -24,6 +24,12 @@
    "faces": "",
    "file": "v3_b2dd4bade6e882033a2d.json",
    "part": "3b71db95-f4b4-4ed7-ac49-f19b082a9a04"
+  },
+  {
+   "sha256": "46db044963da1ee3f23ce6fbadbadea78cabfff1778a04f7991ce264515e3f22",
+   "faces": "",
+   "file": "v3_1980977190ef42219c44.json",
+   "part": "Battery_Plate_v1"
   }
  ]
 }

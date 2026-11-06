@@ -838,3 +838,71 @@ def post_quote_pdf(job_id: str, body: QuotePdfRequest):
         snapshot_png=demo_quote_pdf.decode_snapshot(body.dfm_snapshot_png_base64))
     return Response(content=pdf, media_type='application/pdf',
                     headers={'Content-Disposition': 'attachment; filename="quotation.pdf"'})
+
+
+# ── Prepared QC sheet for a part (one-click "Use earlier results" on the order page) ───────────────
+from demo_modules import qc_sheet as demo_qc_sheet
+
+
+@app.get('/parts/{part_key}/has-qc-sheet')
+def get_part_has_qc_sheet(part_key: str):
+    p = demo_qc_sheet.find(part_key)
+    return {'available': p is not None, 'file_name': p.name if p else None}
+
+
+@app.get('/parts/{part_key}/qc-sheet')
+def get_part_qc_sheet(part_key: str):
+    p = demo_qc_sheet.find(part_key)
+    if p is None:
+        return JSONResponse(status_code=404, content={'status': 'none', 'error': 'No QC sheet is prepared for this part.'})
+    return FileResponse(str(p), filename=p.name,
+                        media_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+
+
+# ── Open the generated program in PowerMill (planning laptop only) ───────────────────────────────
+from demo_modules import powermill_ctl as demo_powermill
+
+
+def _pm_call(fn, *args, **kwargs):
+    if demo_v3_runs.disabled():
+        return JSONResponse(status_code=501, content={
+            'ok': False, 'status': 'unavailable', 'error': 'PowerMill is only available on the planning laptop.'})
+    try:
+        return fn(*args, **kwargs)
+    except demo_powermill.PmError as e:
+        return JSONResponse(status_code=e.http, content=e.payload())
+    except Exception as e:   # never leak a traceback to the page
+        return JSONResponse(status_code=500, content={'ok': False, 'status': 'error', 'error': f'{type(e).__name__}: {str(e)[:200]}'})
+
+
+class PowerMillOpen(BaseModel):
+    run_name: Optional[str] = None
+
+
+class PowerMillToolpath(BaseModel):
+    name: str
+
+
+@app.get('/v3/powermill/status')
+def get_powermill_status():
+    return _pm_call(demo_powermill.status)
+
+
+@app.get('/v3/powermill/toolpaths')
+def get_powermill_toolpaths():
+    return _pm_call(demo_powermill.list_toolpaths)
+
+
+@app.post('/v3/powermill/open-program')
+def post_powermill_open(body: Optional[PowerMillOpen] = None):
+    return _pm_call(demo_powermill.open_program, body.run_name if body else None)
+
+
+@app.post('/v3/powermill/show-toolpath')
+def post_powermill_show(body: PowerMillToolpath):
+    return _pm_call(demo_powermill.show_toolpath, body.name)
+
+
+@app.post('/v3/powermill/recalculate')
+def post_powermill_recalculate(body: PowerMillToolpath):
+    return _pm_call(demo_powermill.recalculate, body.name)

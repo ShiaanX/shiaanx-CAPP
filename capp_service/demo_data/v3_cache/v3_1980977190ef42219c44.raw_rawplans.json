@@ -1,0 +1,194 @@
+[
+ {
+  "dir": "+X",
+  "plan": {
+   "rows": [
+    {
+     "tool": "EM_2FL_20MM",
+     "diameter_mm": 20.0,
+     "rough_mm3": 23869.2,
+     "thickness_mm": 0.53,
+     "roughed": true,
+     "rough_min": 4.0,
+     "steep_mm2": 33638.0,
+     "shallow_mm2": 344.0,
+     "sloped_mm2": 0.0,
+     "flat_mm2": 330.0,
+     "round_frac": 0.0,
+     "round_radius_mm": 0.0,
+     "finish_min": 283.1,
+     "to_size_mm2": 0.0,
+     "flat_fallback_min": 18.9,
+     "finish_coverage": 0.9,
+     "patches": [],
+     "minutes": 287.0,
+     "change_min": 15.0,
+     "loaded": false,
+     "mm2_per_min": 120.0
+    }
+   ],
+   "minutes": 302.0,
+   "changes": 1,
+   "left_mm3": 62091.0,
+   "surface_mm2": 37566.0,
+   "finished_mm2": 33982.0,
+   "uncovered_cones": [],
+   "uncovered_curved_mm2": 67.0,
+   "unfinished_mm2": 58.0,
+   "tolerance": {
+    "mm3": 722.0,
+    "mm2": 1019.0,
+    "feature_floor_mm3": null
+   },
+   "start_options": [
+    {
+     "largest_mm": null,
+     "minutes": 302.0
+    },
+    {
+     "without": "EM_2FL_20MM",
+     "minutes": 114.2
+    }
+   ],
+   "drills": [],
+   "sized": [],
+   "facing": [],
+   "face_note": "FACEMILL_63MM would face the top in 0.3 min + change, but the end mills take the layer for less here (364 against 366 min)",
+   "face_compare": {
+    "with_min": 366.5,
+    "without_min": 364.5,
+    "taken": false
+   },
+   "drill_min": 0,
+   "mill_holes": []
+  }
+ },
+ {
+  "dir": "-X",
+  "plan": {
+   "rows": [
+    {
+     "tool": "EM_2FL_16MM",
+     "diameter_mm": 16.0,
+     "rough_mm3": 3208.1,
+     "thickness_mm": 0.63,
+     "roughed": true,
+     "rough_min": 0.5,
+     "steep_mm2": 3064.0,
+     "shallow_mm2": 344.0,
+     "sloped_mm2": 0.0,
+     "flat_mm2": 330.0,
+     "round_frac": 0.0,
+     "round_radius_mm": 0.0,
+     "finish_min": 14.5,
+     "to_size_mm2": 0.0,
+     "flat_fallback_min": 6.8,
+     "finish_coverage": 0.84,
+     "patches": [],
+     "minutes": 15.0,
+     "change_min": 15.0,
+     "loaded": false,
+     "mm2_per_min": 234.0
+    }
+   ],
+   "minutes": 30.0,
+   "changes": 1,
+   "left_mm3": 5980.0,
+   "surface_mm2": 4076.0,
+   "finished_mm2": 3408.0,
+   "uncovered_cones": [],
+   "uncovered_curved_mm2": 53.0,
+   "unfinished_mm2": 52.0,
+   "tolerance": {
+    "mm3": 98.0,
+    "mm2": 102.0,
+    "feature_floor_mm3": null
+   },
+   "start_options": [
+    {
+     "largest_mm": null,
+     "minutes": 54.9
+    },
+    {
+     "without": "EM_2FL_20MM",
+     "minutes": 30.0
+    },
+    {
+     "without": "EM_2FL_16MM",
+     "minutes": 45.2
+    }
+   ],
+   "drills": [],
+   "sized": [],
+   "facing": [],
+   "face_note": "FACEMILL_63MM would face the top in 0.3 min + change, but the end mills take the layer for less here (86 against 88 min)",
+   "face_compare": {
+    "with_min": 87.5,
+    "without_min": 85.5,
+    "taken": false
+   },
+   "drill_min": 0,
+   "mill_holes": []
+  }
+ },
+ {
+  "dir": "+Z",
+  "plan": {
+   "rows": [
+    {
+     "tool": "EM_2FL_3MM",
+     "diameter_mm": 3.0,
+     "rough_mm3": 418.8,
+     "thickness_mm": 1.89,
+     "roughed": true,
+     "rough_min": 2.3,
+     "steep_mm2": 0.0,
+     "shallow_mm2": 0.0,
+     "sloped_mm2": 0.0,
+     "flat_mm2": 0.0,
+     "round_frac": 0.13,
+     "round_radius_mm": 2.2,
+     "finish_min": 0.0,
+     "to_size_mm2": 564.0,
+     "flat_fallback_min": null,
+     "finish_coverage": 0.69,
+     "patches": [],
+     "minutes": 2.3,
+     "change_min": 15.0,
+     "loaded": false,
+     "mm2_per_min": null
+    }
+   ],
+   "minutes": 17.3,
+   "changes": 1,
+   "left_mm3": 52.0,
+   "surface_mm2": 820.0,
+   "finished_mm2": 564.0,
+   "uncovered_cones": [],
+   "uncovered_curved_mm2": 0.0,
+   "unfinished_mm2": 0.0,
+   "tolerance": {
+    "mm3": 50.0,
+    "mm2": 25.0,
+    "feature_floor_mm3": null
+   },
+   "start_options": [
+    {
+     "largest_mm": null,
+     "minutes": 17.3
+    },
+    {
+     "without": "EM_2FL_3MM",
+     "minutes": 35.8
+    }
+   ],
+   "drills": [],
+   "sized": [],
+   "facing": [],
+   "face_note": "no allowance above the top",
+   "face_compare": null,
+   "drill_min": 0,
+   "mill_holes": []
+  }
+ }
+]
