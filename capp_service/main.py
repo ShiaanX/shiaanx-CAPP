@@ -840,25 +840,6 @@ def post_quote_pdf(job_id: str, body: QuotePdfRequest):
                     headers={'Content-Disposition': 'attachment; filename="quotation.pdf"'})
 
 
-# ── Prepared QC sheet for a part (one-click "Use earlier results" on the order page) ───────────────
-from demo_modules import qc_sheet as demo_qc_sheet
-
-
-@app.get('/parts/{part_key}/has-qc-sheet')
-def get_part_has_qc_sheet(part_key: str):
-    p = demo_qc_sheet.find(part_key)
-    return {'available': p is not None, 'file_name': p.name if p else None}
-
-
-@app.get('/parts/{part_key}/qc-sheet')
-def get_part_qc_sheet(part_key: str):
-    p = demo_qc_sheet.find(part_key)
-    if p is None:
-        return JSONResponse(status_code=404, content={'status': 'none', 'error': 'No QC sheet is prepared for this part.'})
-    return FileResponse(str(p), filename=p.name,
-                        media_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-
-
 # ── Open the generated program in PowerMill (planning laptop only) ───────────────────────────────
 from demo_modules import powermill_ctl as demo_powermill
 

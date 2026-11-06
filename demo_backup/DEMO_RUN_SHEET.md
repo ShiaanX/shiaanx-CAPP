@@ -9,6 +9,9 @@ Backup part: `...\Al extrusion mount (Rekise)\RKSE-004-057.stp`
 
 ## Pre-call checklist (start 45 min before)
 
+### 0. Local rehearsal in one step
+`demo_backup\start_local_demo.ps1` starts the local database check, flow backend (8080), part-analysis service (8001), QC 3D service (8780) and the frontend (3000), skipping whatever is already running. Docker Desktop must be open (not needed when demoing on dev only).
+
 ### 1. Start the services, in this order
 
 | # | What | How | Ready when |
@@ -124,19 +127,16 @@ At http://localhost:3000/admin/#/proto, log in with **your dev.shiaanx.com accou
 - **The gate:** dropping a part with no plan and no cycle time into Scheduled or Production (or clicking those stages on the order page) first shows "has no process plan yet" with **Open order to generate the plan** / **Move anyway** / **Cancel**. Battery Plate v1 (00006) is the example: it is carbon fibre, which the aluminium-only planner doesn't cover, so it has no estimate and shows "no estimate yet". If asked: "Parts outside the planner's scope get a manual estimate (not built yet)."
 - **Never delete these orders.** The queue is the team's real orders.
 
-### Beat 6: Tracking and previous production (6:45–7:45)
-- **Where:** the order page, card **"Program vs what the machine did"**, then **"Previous production of this part"** below it.
-- **On screen:** the card "Program vs what the machine did" covers batch 1's PowerMill program (20 operations; it still reads "No machine data" because batch 1 ran before collection). The real machine data is in **Previous production → Batch 2 (TS machine)**: a compact **"Machine data (controller log)"** block with 4 headline lines and a per-setup table (programmed vs real minutes, spindle, feed override, and a thin running / hold / idle bar). Real machine time was **73 min per part against 66 programmed (+10%)** for setups 1, 2 and 4; the spindle held the programmed RPM 97-99% of the time; the operator moved the feed knob between 70% and 110%. Setup 3 (finish) shows "not recorded". The two batches are listed side by side with their QC strips:
-  - **Batch 1:** PowerMill program, 3 settings, 496.5 min (computed from the .tap feed moves), with its QC strip from the final-inspection report.
-  - **Batch 2:** Sinumerik 828D program on the TS machine, 69.8 min (the programmer's own times), with its QC strip.
-  - Each batch has **Why the defects happened →**, which opens the closed-loop defects view (Beat 8).
-- **Say:** "Here is every time we've made this part before: which program, which machine, what QC found. And this is what the machine actually did, second by second: it ran 10% longer than the programmer planned, and the operator was riding the feed knob. That gap is exactly what the next plan learns from."
-- **Fallback:** if the G: drive is not mounted, batch 2 is served from a saved snapshot and says so.
+### Beat 6: Earlier production (6:45–7:30)
+- **Where:** enquiry **SX/26-27/00007** (Motor Mount, qty 40, at QC / Dispatch), order page, card **"Earlier production of this part"**. It is batch 2 only (the Sinumerik program on the TS machine, 9 parts).
+- **On screen:** the headline "73 min per part against 66 planned (+10%)", then one row per setup with **cycle time** (programmed -> real), **spindle speed** (programmed -> real) and the **feed override** range. Setup 3 reads "not recorded". Nothing else: no QC strip, no batches, no sources.
+- **Say:** "We made this part before. This is what the machine actually did against what the programmer planned: it ran 10% longer, and the operator was riding the feed knob. That gap is exactly what the next plan learns from."
 
-### Beat 7: Inspection + CMM program (7:45–8:45)
-- **Where:** tab 5, the Inspection page, card **"CMM program"**.
-- **On screen:** 13 features, all 13 matched to CAD, 80 touch points. Datums A · B · C (auto 3-2-1), tolerances from the drawing (QC report). A per-feature probe strategy, and a "CAD ≠ drawing" flag on the 45.75 pitch. Then the DMIS-like program text with a **Download** button.
-- **Say:** "The inspection program writes itself from the geometry and the drawing tolerances. It even caught that the drawing and the CAD disagree on one dimension."
+### Beat 7: QC in 3D + CMM program (7:30–9:00)
+- **Where:** the same order page, bottom section **"QC - 3D view"** (the Inspection report line's **View** button scrolls down to it), then the Inspection page card **"CMM program"**.
+- **Set up once, before the call:** upload `demo_backup\qc\Motor Mount QC sheet.xlsx` on enquiry 7's **Inspection report** line (Upload). The 3D view then builds itself in about a minute. It needs the QC service: locally `demo_backup\start_local_demo.ps1` starts it; on dev the QC container must be redeployed with this round's code first.
+- **On screen:** all 13 measurements on the 3D part, coloured by result; click a balloon to see its readings. Dimensions where the readings contradict the shop's own "OK" remark are flagged. Then the CMM program: 13 / 13 features matched, 80 touch points, the 45.75 drawing-vs-CAD flag.
+- **Say:** "Every measurement the inspector recorded sits on the part itself, so you can see where it is, not read a table. And the CMM program writes itself from the geometry and the drawing tolerances."
 
 ### Beat 8: Closed loop, defects and why (8:45–9:45)
 - **Where:** tab 6 (`#/proto/closed-loop?view=defects`).

@@ -1,5 +1,5 @@
 import requests, time, json, sys
-B = "http://127.0.0.1:8790"
+B = sys.argv[2] if len(sys.argv) > 2 else "http://127.0.0.1:8780"   # QC service; pass another base URL as the 2nd argument
 step = r"C:\Users\Siddhant Gupta\Documents\ShiaanX\Claude output for program sheet\Manufactured parts\Motor Mount\MOTOR MOUNT.step"
 sheet = sys.argv[1]
 j = requests.post(B + "/api/labeling-jobs", files={"file": ("MOTOR MOUNT.step", open(step, "rb"))}).json()

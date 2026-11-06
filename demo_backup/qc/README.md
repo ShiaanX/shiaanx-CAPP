@@ -2,7 +2,7 @@
 
 Files here:
 - `Motor Mount QC sheet.xlsx` - upload this on the Motor Mount order, "Inspection report" line.
-- `verify_flow.py` - replays the exact calls the Inspection page makes (`python verify_flow.py "Motor Mount QC sheet.xlsx"`, QC service on 127.0.0.1:8790).
+- `verify_flow.py` - replays the exact calls the Inspection page makes (`python verify_flow.py "Motor Mount QC sheet.xlsx" [QC base URL, default http://127.0.0.1:8780]`).
 - Rebuild: `inspection/build_qc_sheet.py` (repo root), see the header of that file.
 
 No ballooned drawing is needed. The view only offers it as an optional reference ("Open ballooned drawing"); it is never read by the QC service. The customer drawing is `Manufactured parts/Motor Mount/motor mount.pdf` and can be uploaded unballooned or left out.
