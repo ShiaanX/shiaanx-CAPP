@@ -11,7 +11,10 @@ import os
 
 import requests
 
-MODEL = 'gemini-2.5-flash-lite'
+# Google retires pinned models for newer accounts (gemini-2.5-flash-lite already answers 404 "no longer
+# available to new users" for new keys). The "-latest" alias keeps drafting working; pin a model with
+# the GEMINI_MODEL environment variable if you want a fixed one.
+MODEL = os.environ.get('GEMINI_MODEL') or 'gemini-flash-lite-latest'
 ENDPOINT = f'https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent'
 TIMEOUT_S = 30
 TOPICS = ('price', 'lead_time', 'tolerance', 'finish')
