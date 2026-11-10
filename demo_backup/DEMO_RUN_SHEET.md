@@ -134,8 +134,9 @@ At http://localhost:3000/admin/#/proto, log in with **your dev.shiaanx.com accou
 
 ### Beat 7: QC in 3D + CMM program (7:30–9:00)
 - **Where:** the same order page, bottom section **"QC - 3D view"** (the Inspection report line's **View** button scrolls down to it), then the Inspection page card **"CMM program"**.
-- **Set up once, before the call:** upload `demo_backup\qc\Motor Mount QC sheet.xlsx` on enquiry 7's **Inspection report** line (Upload). The 3D view then builds itself in about a minute. It needs the QC service: locally `demo_backup\start_local_demo.ps1` starts it; on dev the QC container must be redeployed with this round's code first.
-- **On screen:** all 13 measurements on the 3D part, coloured by result; click a balloon to see its readings. Dimensions where the readings contradict the shop's own "OK" remark are flagged. Then the CMM program: 13 / 13 features matched, 80 touch points, the 45.75 drawing-vs-CAD flag.
+- **Set up once, before the call:** upload `demo_backup\qc\Motor Mount QC - batch 1.xlsx` on enquiry 7's **Inspection report** line (Upload). The batch switch loads batch 2 from the server by itself. The 3D view then builds itself in about a minute. It needs the QC service: locally `demo_backup\start_local_demo.ps1` starts it; on dev the QC container must be redeployed with this round's code first.
+- **On screen:** the 3D part opens on **Batch 1 (as first made)**: balloons 4 and 5 (the Ø3.2 holes) are red at 3.02. Scroll to **Why defects happen**, open #4: Ø2 end mill, 10 mm long, F1000 against the auto-plan's F90, deflection, **Rule R-02**. Switch to **Batch 2 (after the change)**: 4 and 5 go green (3.15-3.20, now drilled with a Ø3.2 drill) and the **Fixed since batch 1** block shows R-02 confirmed. Batch 2 still has real reds (8, 10, 11, 13) with their own causes. Then the CMM program: 13 / 13 features matched, 80 touch points.
+- **Be exact:** the feed was NOT lowered; the shop changed the method (end mill to drill). Say the AI recommends bringing the feed back toward the auto-plan or drilling.
 - **Say:** "Every measurement the inspector recorded sits on the part itself, so you can see where it is, not read a table. And the CMM program writes itself from the geometry and the drawing tolerances."
 
 ### Beat 8: Closed loop, defects and why (8:45–9:45)

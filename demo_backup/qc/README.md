@@ -1,6 +1,7 @@
 # Motor Mount QC sheet for the 3D QC view
 
 Files here:
+- `Motor Mount QC - batch 1.xlsx` / `Motor Mount QC - batch 2.xlsx` - the real readings of each production batch (batch 1: 2 parts, PowerMill program; batch 2: 9 parts, Sinumerik). Upload batch 1 on the order; the 3D view's batch switch loads either one (served by capp_service at `/qc-batches/motor-mount/{1,2}`). Built with `inspection/build_qc_sheet.py`: batch 1 = local report only, batch 2 = the TS report only; 13/13 balloons linked to CAD faces in both. The pooled sheet below is kept for reference only.
 - `Motor Mount QC sheet.xlsx` - upload this on the Motor Mount order, "Inspection report" line.
 - `verify_flow.py` - replays the exact calls the Inspection page makes (`python verify_flow.py "Motor Mount QC sheet.xlsx" [QC base URL, default http://127.0.0.1:8780]`).
 - Rebuild: `inspection/build_qc_sheet.py` (repo root), see the header of that file.

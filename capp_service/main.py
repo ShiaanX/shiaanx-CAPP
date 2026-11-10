@@ -840,6 +840,20 @@ def post_quote_pdf(job_id: str, body: QuotePdfRequest):
                     headers={'Content-Disposition': 'attachment; filename="quotation.pdf"'})
 
 
+# ── Motor Mount QC sheets, one per production batch (the 3D QC view's batch selector) ───────────
+_QC_BATCH_DIR = Path(__file__).parent / 'demo_data' / 'parts' / 'Motor Mount' / 'qc'
+
+
+@app.get('/qc-batches/motor-mount/{batch}')
+def get_motor_mount_qc_batch(batch: int):
+    """The real inspection readings of one Motor Mount production batch, as a QC sheet (.xlsx)."""
+    path = _QC_BATCH_DIR / f'Motor Mount QC - batch {batch}.xlsx'
+    if batch not in (1, 2) or not path.is_file():
+        raise HTTPException(status_code=404, detail='No such batch')
+    return FileResponse(path, filename=path.name,
+                        media_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+
+
 # ── Open the generated program in PowerMill (planning laptop only) ───────────────────────────────
 from demo_modules import powermill_ctl as demo_powermill
 

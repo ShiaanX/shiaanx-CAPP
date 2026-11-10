@@ -122,3 +122,106 @@
       jaws     close to 93.07 mm, measured from billet
       reach    13.69 mm of depth available (19.7 mm tall minus the 6.0 mm held)
       vise     nothing cut below the jaw top, toolpaths 2.0 mm clear of it
+
+      TOOL ROLES on +Z - which tool is asked to do which job
+        surfaces (from the CAD faces): floor 73,167 mm2 | wall 7,494 mm2 | taper 446 mm2 | curved 15,010 mm2
+        face mill   FACEMILL_63MM, FACEMILL_50MM, FACEMILL_40MM: the layer above the top - FACEMILL_63MM would face the top in 0.9 min + change, but the end mills take the layer for less here (726 against 806 min)
+        sizing      SLOT_8MM, SLOT_6MM, SLOT_4MM: slots and bores to width - feature 0 10.00 mm with EM_2FL_10MM; feature 1 20.00 mm with EM_2FL_20MM; feature 4 10.50 mm with EM_2FL_10MM (rough + finish); feature 28 20.00 mm with EM_2FL_20MM; feature 29 20.00 mm with EM_2FL_20MM; feature 31 6.00 mm with EM_2FL_6MM
+        chamfer     CHAM_90_10MM, CHAM_90_8MM, CHAM_90_6MM, CHAM_4FL_STEEL_6MM_41DEG: not in the plan - none of its faces here is within its reach, or worth its change
+        ball nose   BALL_4FL_STEEL_10MM, BALL_4FL_STEEL_6MM, BALL_3FL_STEEL_3MM: BALL_4FL_STEEL_10MM 4,299 mm2; BALL_4FL_STEEL_6MM 1,286 mm2
+        bull nose   BN_5FL_STEEL_12MM_R0.75, BN_5FL_STEEL_8MM_R0.5, BN_5FL_STEEL_5MM_R0.25: not in the plan - none of its faces here is within its reach, or worth its change
+        steel grade EM_5FL_STEEL_12MM, CHAM_4FL_STEEL_6MM_41DEG, EM_4FL_STEEL_5MM, EM_4FL_STEEL_1.5MM: diameters the aluminium set lacks, on their mild-steel data
+
+      PLAN - drills into holes, rough what is thick, finish everything, in minutes
+      (no facing: FACEMILL_63MM would face the top in 0.9 min + change, but the end mills take the layer for less here (726 against 806 min))
+      EM_2FL_10MM    to size: feature 0 is 10.00 mm wide, 902 mm3, one full-width pass    15.3   + change
+      EM_2FL_20MM    to size: feature 1 is 20.00 mm wide, 3,660 mm3, one full-width pass    15.6   + change
+      EM_2FL_10MM    to size: feature 4 is 10.50 mm wide, 758 mm3, roughed leaving 0.10/wall then finished by the same tool     0.4   [loaded]
+      EM_2FL_20MM    to size: feature 28 is 20.00 mm wide, 4,658 mm3, one full-width pass     0.7   [loaded]
+      EM_2FL_20MM    to size: feature 29 is 20.00 mm wide, 5,293 mm3, one full-width pass     0.8   [loaded]
+      EM_2FL_6MM     to size: feature 31 is 6.00 mm wide, 1,242 mm3, one full-width pass    16.9   + change
+      where to start, and what to leave out (the whole search re-run per option): any 464 min   <=12mm 602 min   <=10mm 645 min   <=8mm 656 min   no EM12 454 min <-   no EM8 471 min   no EM10 445 min   no EM6 469 min   no EM16 523 min
+      tool            thick rough mm3    rough finish mm2   finish    total
+      --------------------------------------------------------------------------
+      EM_2FL_16MM    14.41   154,311    23.6      4684    36.8    75.4
+      EM_2FL_10MM     4.86    12,194     4.0      1502    37.8    41.8  [loaded]
+      EM_2FL_8MM     10.10     2,836     3.9      1988    16.5    35.4
+      EM_2FL_6MM     19.98     4,730     7.8       598    39.3    47.1  [loaded]
+      BALL_4FL_STEEL_10MM  0.00     5,970     -        4299   118.4   133.4  [1 fence]   <- finish only: CAD curved faces and unmatched tapers
+      BALL_4FL_STEEL_6MM  0.00        18     -        1286    56.1    71.1  [1 fence]   <- finish only: CAD curved faces and unmatched tapers
+      --------------------------------------------------------------------------
+      7 tool change(s) = 105 min; total 454 min; leaves 62,762 mm3 no tool here reaches
+      827 mm2 of surface left unfinished - the tool(s) that could reach it were not worth their change (455 mm2 allowed)
+      (a tool is dropped when what only it reaches is under 5946 mm3 / 455 mm2 - the job's residual allowance)
+      ! 30 mm2 of surface at 66 degrees - no tool in the library is ground to that angle; a flat cutter will step it
+      ! 1896 mm2 of CURVED surface (fillets, rounds, freeform) that no ball nose in the plan finishes - out of every ball's reach, or not worth its change: a flat cutter will step it
+      ! EM_2FL_6MM finishes 598 mm2 at 15 mm2/min - 39 min
+      ! EM_2FL_16MM: the 2105 mm2 of FLOOR is priced at offset-flat, which has never been measured. If it declines the raster runs instead and that part alone is 44 min, not 37
+      (time model is ~2x; re-costed after every cut from the measured stock and PowerMill's own times)
+
+      PLAN - drills into holes, rough what is thick, finish everything, in minutes
+      (no facing: FACEMILL_63MM would face the top in 0.9 min + change, but the end mills take the layer for less here (726 against 806 min))
+      EM_2FL_10MM    to size: feature 0 is 10.00 mm wide, 902 mm3, one full-width pass    15.3   + change
+      EM_2FL_20MM    to size: feature 1 is 20.00 mm wide, 3,660 mm3, one full-width pass    15.6   + change
+      EM_2FL_10MM    to size: feature 4 is 10.50 mm wide, 758 mm3, roughed leaving 0.10/wall then finished by the same tool     0.4   [loaded]
+      EM_2FL_20MM    to size: feature 28 is 20.00 mm wide, 4,658 mm3, one full-width pass     0.7   [loaded]
+      EM_2FL_20MM    to size: feature 29 is 20.00 mm wide, 5,293 mm3, one full-width pass     0.8   [loaded]
+      EM_2FL_6MM     to size: feature 31 is 6.00 mm wide, 1,242 mm3, one full-width pass    16.9   + change
+      where to start, and what to leave out (the whole search re-run per option): any 464 min   <=12mm 602 min   <=10mm 645 min   <=8mm 656 min   no EM12 454 min <-   no EM8 471 min   no EM10 445 min   no EM6 469 min   no EM16 523 min
+      tool            thick rough mm3    rough finish mm2   finish    total
+      --------------------------------------------------------------------------
+      EM_2FL_16MM    14.41   154,311    23.6      4684    36.8    75.4
+      EM_2FL_10MM     4.86    12,194     4.0      1502    37.8    41.8  [loaded]
+      EM_2FL_8MM     10.10     2,836     3.9      1988    16.5    35.4
+      EM_2FL_6MM     19.98     4,730     7.8       598    39.3    47.1  [loaded]
+      BALL_4FL_STEEL_10MM  0.00     5,970     -        4299   118.4   133.4  [1 fence]   <- finish only: CAD curved faces and unmatched tapers
+      BALL_4FL_STEEL_6MM  0.00        18     -        1286    56.1    71.1  [1 fence]   <- finish only: CAD curved faces and unmatched tapers
+      --------------------------------------------------------------------------
+      7 tool change(s) = 105 min; total 454 min; leaves 62,762 mm3 no tool here reaches
+      827 mm2 of surface left unfinished - the tool(s) that could reach it were not worth their change (455 mm2 allowed)
+      (a tool is dropped when what only it reaches is under 5946 mm3 / 455 mm2 - the job's residual allowance)
+      ! 30 mm2 of surface at 66 degrees - no tool in the library is ground to that angle; a flat cutter will step it
+      ! 1896 mm2 of CURVED surface (fillets, rounds, freeform) that no ball nose in the plan finishes - out of every ball's reach, or not worth its change: a flat cutter will step it
+      ! EM_2FL_6MM finishes 598 mm2 at 15 mm2/min - 39 min
+      ! EM_2FL_16MM: the 2105 mm2 of FLOOR is priced at offset-flat, which has never been measured. If it declines the raster runs instead and that part alone is 44 min, not 37
+      (time model is ~2x; re-costed after every cut from the measured stock and PowerMill's own times)
+      -Z: end mill only - NOTHING in this run recognised any holes, so this is a fact about the run, not about the face
+      -Z: free (from --faces)
+
+      hold     machining ZMIN_WP, jaws on Y (the shorter side) 6.0 mm deep, seated on ZMax
+      jaws     close to 93.07 mm, measured from billet
+      reach    13.69 mm of depth available (19.7 mm tall minus the 6.0 mm held)
+      vise     nothing cut below the jaw top, toolpaths 2.0 mm clear of it
+
+      TOOL ROLES on -Z - which tool is asked to do which job
+        surfaces (from the CAD faces): floor 73,167 mm2 | wall 7,494 mm2 | taper 446 mm2 | curved 15,010 mm2
+        face mill   FACEMILL_63MM, FACEMILL_50MM, FACEMILL_40MM: the layer above the top - IN THE PLAN
+        sizing      SLOT_8MM, SLOT_6MM, SLOT_4MM: slots and bores to width - feature 0 10.00 mm with EM_2FL_10MM; feature 1 20.00 mm with EM_2FL_20MM; feature 4 10.50 mm with EM_2FL_10MM (rough + finish); feature 28 20.00 mm with EM_2FL_20MM; feature 29 20.00 mm with EM_2FL_20MM; feature 31 6.00 mm with EM_2FL_6MM
+        chamfer     CHAM_90_10MM, CHAM_90_8MM, CHAM_90_6MM, CHAM_4FL_STEEL_6MM_41DEG: not in the plan - none of its faces here is within its reach, or worth its change
+        ball nose   BALL_4FL_STEEL_10MM, BALL_4FL_STEEL_6MM, BALL_3FL_STEEL_3MM: BALL_4FL_STEEL_10MM 1,442 mm2
+        bull nose   BN_5FL_STEEL_12MM_R0.75, BN_5FL_STEEL_8MM_R0.5, BN_5FL_STEEL_5MM_R0.25: not in the plan - none of its faces here is within its reach, or worth its change
+        steel grade EM_5FL_STEEL_12MM, CHAM_4FL_STEEL_6MM_41DEG, EM_4FL_STEEL_5MM, EM_4FL_STEEL_1.5MM: diameters the aluminium set lacks, on their mild-steel data
+
+      PLAN - drills into holes, rough what is thick, finish everything, in minutes
+      FACEMILL_63MM  face the top: 2.00 mm in 1 level(s) x 1 pass(es), 31,000 mm3, top face 824 mm2 finished  15.9   + change
+      EM_2FL_10MM    to size: feature 0 is 10.00 mm wide, 47 mm3, one full-width pass    15.0   + change
+      EM_2FL_20MM    to size: feature 1 is 20.00 mm wide, 193 mm3, one full-width pass    15.0   + change
+      EM_2FL_10MM    to size: feature 4 is 10.50 mm wide, 40 mm3, roughed leaving 0.10/wall then finished by the same tool     0.2   [loaded]
+      EM_2FL_20MM    to size: feature 28 is 20.00 mm wide, 276 mm3, one full-width pass     0.0   [loaded]
+      EM_2FL_20MM    to size: feature 29 is 20.00 mm wide, 315 mm3, one full-width pass     0.1   [loaded]
+      EM_2FL_6MM     to size: feature 31 is 6.00 mm wide, 277 mm3, one full-width pass    15.4   + change
+      where to start, and what to leave out (the whole search re-run per option): any 186 min <-   <=10mm 198 min   <=8mm 198 min   <=6mm 320 min   no EM8 199 min   no EM16 193 min   no EM6 316 min
+      tool            thick rough mm3    rough finish mm2   finish    total
+      --------------------------------------------------------------------------
+      EM_2FL_16MM    12.90    15,782     2.4      1048    11.2    28.6
+      EM_2FL_8MM      3.90       391     0.5       642     5.1    20.7
+      EM_2FL_6MM     20.82       223     0.4       323    20.5    20.9  [loaded]
+      BALL_4FL_STEEL_10MM  0.00     1,748     -        1442    39.7    54.7  [1 fence]   <- finish only: CAD curved faces and unmatched tapers
+      --------------------------------------------------------------------------
+      7 tool change(s) = 105 min; total 186 min; leaves 1,140 mm3 no tool here reaches
+      83 mm2 of surface left unfinished - the tool(s) that could reach it were not worth their change (104 mm2 allowed)
+      (a tool is dropped when what only it reaches is under 596 mm3 / 104 mm2 - the job's residual allowance)
+      ! 116 mm2 of CURVED surface (fillets, rounds, freeform) that no ball nose in the plan finishes - out of every ball's reach, or not worth its change: a flat cutter will step it
+      ! EM_2FL_6MM finishes 323 mm2 at 16 mm2/min - 20 min
+      ! EM_2FL_16MM: the 761 mm2 of FLOOR is priced at offset-flat, which has never been measured. If it declines the raster runs instead and that part alone is 16 min, not 11
+      (time model is ~2x; re-costed after every cut from the measured stock and PowerMill's own times)
