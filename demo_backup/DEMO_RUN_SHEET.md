@@ -130,7 +130,7 @@ At http://localhost:3000/admin/#/proto, log in with **your dev.shiaanx.com accou
 ### Beat 6: Earlier production (6:45–7:30)
 - **Where:** enquiry **SX/26-27/00007** (Motor Mount, qty 40, at QC / Dispatch), order page, card **"Earlier production of this part"**. It is batch 2 only (the Sinumerik program on the TS machine, 9 parts).
 - **On screen:** the headline "73 min per part against 66 planned (+10%)", then one row per setup with **cycle time** (programmed -> real), **spindle speed** (programmed -> real) and the **feed override** range. Setup 3 reads "not recorded". Nothing else: no QC strip, no batches, no sources.
-- **Batch switch on the card:** it opens on batch 2. Click **Batch 1 - as first made** to show the programmer ran the feed 2.8x to 11x the auto-plan's (the Ø2 tool: 90 -> 1000 mm/min) and the spindle at 7,500 against 4,500. The column on batch 2 is the operator's feed *override* knob, not the programmed feed.
+- **Batch switch on the card:** it opens on **Batch 1 - as first made**, which shows the programmer ran the feed 2.8x to 11x the auto-plan's (the Ø2 tool: 90 -> 1000 mm/min) and the spindle at 7,500 against 4,500. The column on batch 2 is the operator's feed *override* knob, not the programmed feed.
 - **Say:** "We made this part before. This is what the machine actually did against what the programmer planned: it ran 10% longer, and the operator was riding the feed knob. That gap is exactly what the next plan learns from."
 
 ### Beat 7: QC in 3D + CMM program (7:30–9:00)
