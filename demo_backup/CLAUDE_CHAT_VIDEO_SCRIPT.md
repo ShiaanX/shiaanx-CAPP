@@ -23,7 +23,7 @@ No tool-reduction question in this video: building the program from a prompt alr
 
 ## Prompt for step 3 (dictated or typed)
 
-> Hi Claude. I want to machine the Motor Mount in PowerMill. Build the plan we just generated: use MOTOR_MOUNT.step from the parts folder, the Aluminium tools library, 2 mm of stock on every side, and the faces in the order +Z, then -Z, then -Y. Decide the holding so every face can be reached, and answer the plan prompts yourself.
+> Hi Claude. I want to machine the Motor Mount in PowerMill. Build the plan we just generated: use parts/MOTOR_MOUNT.step, the Aluminium tools library, 2 mm of stock on every side, and the faces in the order +Z, then -Z, then -Y. Decide the holding so every face can be reached, and answer the plan prompts yourself. Do not stage a custom program: start the job and let the planner plan each face.
 
 The plan has the same three setups, so the PowerMill tree (ZMAX, ZMIN, YMIN setups) reads as the plan being carried out, not a second plan.
 
@@ -41,6 +41,16 @@ Optional, as Rohit did: "Let's start with -Z first instead." Claude stops, asks 
 - **Tool-change cost.** The console's cost model charges 15 MINUTES per change; our machine's changer is about 15 SECONDS.
   If a console total appears on screen, do not quote it as a cycle time.
 - **If Claude offers to change tools or passes**, say "keep the plan as it is".
+
+## Found in the first rehearsal (10 Nov)
+
+- **Console must be started with conda on its PATH.** The job runs `conda run -n occ_env python job.py`. A console started without conda on the PATH
+  opens the part and sets the stock, then fails with `FileNotFoundError: WinError 2` when it launches the job (and PowerMill gets closed).
+  Start it with `demo_backup\start_v3_console.bat` or the **Open v3 console** button (both set the PATH). Not with a bare `python ui\server.py`.
+- **Claude may stage a custom program instead of letting the planner plan.** In the rehearsal it staged a 5-tool program (331 min) before starting.
+  The video wants the planner to plan each face, so add to the prompt: "do not stage a custom program; start the job and let the planner plan each face".
+- `open_part` rejected `MOTOR_MOUNT.step` and `MOTOR_MOUNT`; only `parts/MOTOR_MOUNT.step` worked. Claude recovers on its own, but say the path in the prompt: "parts/MOTOR_MOUNT.step".
+- The Aluminium_tools PowerMill project is not on this laptop, so the run loads its own 28 tools. That is fine for the video.
 
 ## Before recording
 
