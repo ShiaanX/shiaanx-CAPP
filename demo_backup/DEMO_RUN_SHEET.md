@@ -114,7 +114,7 @@ At http://localhost:3000/admin/#/proto, log in with **your dev.shiaanx.com accou
 - **Fallback:** if the live run misbehaves, click **stop** in the console and open the finished project in PowerMill: `demo_backup\v3_motor_mount\pm_project_final_all_3_setups` (27 toolpaths). A read-only copy is in `pm_project_final_PRISTINE_copy`. A lighter one is `pm_project_after_ZMAX` (18 toolpaths). If PowerMill will not start, stay in **View program** ("this is the same program, toolpath by toolpath"). If Approve errors, the card says so; the board then falls back to the programmer time, which is still a real number.
 - **After each rehearsal:** 00019 ends approved and in Scheduling. Reset it before the call (see founder to-dos).
 
-### Beat 4b: Ask Claude about the program (optional, about 45 s, inside Beat 4)
+### Beat 4b: Claude builds the plan in PowerMill (optional recorded clip, inside Beat 4; see CLAUDE_CHAT_VIDEO_SCRIPT.md)
 Claude desktop app (Chat tab) with Rohit's ShiaanX plugin: a chat that reads the same console and the finished run. Installed from `demo_backup\claude_plugin_dist\shiaanx-plugin.zip` (Settings, Plugins, Add, Upload plugin), plus the `plan-toolpaths` skill. It runs on this laptop only, never on dev.
 - **Before the call:** console running (http://localhost:8765, started from the Program card or `start_v3_console.bat`); Claude app open on a **new chat** with the plugin on; paste the first prompt but don't send it. Do the prompts once in rehearsal, because replies vary.
 - **Prompts, read-only (tools that only read, nothing changes in PowerMill):**
