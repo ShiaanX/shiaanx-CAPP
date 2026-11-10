@@ -114,6 +114,18 @@ At http://localhost:3000/admin/#/proto, log in with **your dev.shiaanx.com accou
 - **Fallback:** if the live run misbehaves, click **stop** in the console and open the finished project in PowerMill: `demo_backup\v3_motor_mount\pm_project_final_all_3_setups` (27 toolpaths). A read-only copy is in `pm_project_final_PRISTINE_copy`. A lighter one is `pm_project_after_ZMAX` (18 toolpaths). If PowerMill will not start, stay in **View program** ("this is the same program, toolpath by toolpath"). If Approve errors, the card says so; the board then falls back to the programmer time, which is still a real number.
 - **After each rehearsal:** 00019 ends approved and in Scheduling. Reset it before the call (see founder to-dos).
 
+### Beat 4b: Ask Claude about the program (optional, about 45 s, inside Beat 4)
+Claude desktop app (Chat tab) with Rohit's ShiaanX plugin: a chat that reads the same console and the finished run. Installed from `demo_backup\claude_plugin_dist\shiaanx-plugin.zip` (Settings, Plugins, Add, Upload plugin), plus the `plan-toolpaths` skill. It runs on this laptop only, never on dev.
+- **Before the call:** console running (http://localhost:8765, started from the Program card or `start_v3_console.bat`); Claude app open on a **new chat** with the plugin on; paste the first prompt but don't send it. Do the prompts once in rehearsal, because replies vary.
+- **Prompts, read-only (tools that only read, nothing changes in PowerMill):**
+  1. "Use shiaanx: what is the console doing?" (idle is fine).
+  2. "Use shiaanx: list the runs, then read the toolpaths of MOTOR_MOUNT_20261105_102652 and tell me which tool is used for the most minutes and why there are 3 setups."
+  3. "Could the tool count be reduced without losing much? Look at the evidence."
+- **Do not** start a run or answer PowerMill prompts from the chat in the demo: a real run takes over an hour and PowerMill must be free of dialogs. If Claude offers to re-cut or stage a program, say "not now".
+- **Known quirks:** the plugin carries the team's shared memory (`knowledge/` in Rohit's repo). It has no Motor Mount lessons yet, so "recall Motor Mount" returns nothing. And Claude may describe the repo's earlier LIGHT-FCS activity as "yours": that is Rohit's job from 9 Nov.
+- **Say:** "The same planner is also a chat. Ask it why the program is the way it is; the answer comes from the real run, the tool minutes and the evidence the planner recorded."
+- **If it misbehaves:** skip it. Nothing else in the demo depends on it.
+
 ### Beat 5: Production board after approval (6:00–6:45)
 - **Where:** the board, opened from **See it on the production board →** (or tab 3).
 - **Board layout (one machine):** the columns are **Production on machine 1** (1 place) and **Scheduled for machine 1** (2 places). Their counts read "1 / 1" and "2 / 2", and turn amber if a column is over its places. Every card shows **Start → End dates** (cards not yet scheduled show "Earliest start …" in lighter text), and a card turns red with "after deadline" if its end date is past the deadline.
