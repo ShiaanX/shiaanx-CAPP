@@ -11,7 +11,7 @@ Status: NOT yet rehearsed in the Claude app. Shot 1 was tried once and worked (s
 ## Order of the video
 
 1. **App, order page (Motor Mount, SX/26-27/00019 or the demo order):** click **Generate with AI (v3)**, then **View program**.
-   This is the planner's estimate (27 toolpaths, 291.4 PowerMill min for the approved run; plan 252.6 min with changes). No PowerMill involved.
+   This is the planner's estimate (27 toolpaths, 291.4 PowerMill min for the approved run; plan 170.1 min with changes). No PowerMill involved.
    NEEDS the planner result cached for the current v3 version: the first Generate takes about 35 min after the v3 clone was updated.
    Run it once before recording.
 2. **Claude chat, Shot 1 (read-only, optional):** where do the minutes go in the finished run, can the tool count come down.
@@ -63,6 +63,6 @@ Optional, to show a change of mind, as Rohit did: "Let's start with -Z first ins
 
 - A real run is about 80 min. Record it and speed it up; PowerMill must be free of dialogs the whole time.
 - Starting a run empties the PowerMill session.
-- The run's totals will not match the app's 252.6 / 291.4 min, which is why the video stops before **Use this run**.
+- The run's totals will not match the app's 170.1 / 291.4 min, which is why the video stops before **Use this run**.
 - The run writes a new folder under `database_runtime` in Rohit's clone and notes into its `knowledge/` folder. Do not commit those; ask me to revert, delete the run folder if unwanted.
 - Not proven on this laptop yet: the first full run through the plugin.

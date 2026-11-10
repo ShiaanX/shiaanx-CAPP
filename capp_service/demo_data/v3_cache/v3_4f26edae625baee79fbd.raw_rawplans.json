@@ -1,0 +1,715 @@
+[
+ {
+  "dir": "+Z",
+  "plan": {
+   "rows": [
+    {
+     "tool": "EM_2FL_16MM",
+     "diameter_mm": 16.0,
+     "rough_mm3": 58303.4,
+     "thickness_mm": 6.29,
+     "roughed": true,
+     "rough_min": 8.5,
+     "steep_mm2": 1761.0,
+     "shallow_mm2": 3070.0,
+     "sloped_mm2": 0.0,
+     "flat_mm2": 2892.0,
+     "round_frac": 0.0,
+     "round_radius_mm": 0.5,
+     "finish_min": 23.1,
+     "to_size_mm2": 0.0,
+     "flat_fallback_min": 29.3,
+     "finish_coverage": 0.34,
+     "patches": [],
+     "minutes": 31.5,
+     "change_min": 15.0,
+     "loaded": false,
+     "mm2_per_min": 210.0
+    },
+    {
+     "tool": "EM_2FL_8MM",
+     "diameter_mm": 8.0,
+     "rough_mm3": 2728.3,
+     "thickness_mm": 7.99,
+     "roughed": true,
+     "rough_min": 1.3,
+     "steep_mm2": 148.0,
+     "shallow_mm2": 12.0,
+     "sloped_mm2": 0.0,
+     "flat_mm2": 12.0,
+     "round_frac": 0.61,
+     "round_radius_mm": 0.5,
+     "finish_min": 5.9,
+     "to_size_mm2": 0.0,
+     "flat_fallback_min": 1.8,
+     "finish_coverage": 0.01,
+     "patches": [],
+     "minutes": 7.2,
+     "change_min": 15.0,
+     "loaded": false,
+     "mm2_per_min": 27.0
+    },
+    {
+     "tool": "EM_2FL_4MM",
+     "diameter_mm": 4.0,
+     "rough_mm3": 3604.6,
+     "thickness_mm": 8.11,
+     "roughed": true,
+     "rough_min": 10.9,
+     "steep_mm2": 150.0,
+     "shallow_mm2": 0.0,
+     "sloped_mm2": 0.0,
+     "flat_mm2": 0.0,
+     "round_frac": 0.94,
+     "round_radius_mm": 0.5,
+     "finish_min": 25.1,
+     "to_size_mm2": 70.0,
+     "flat_fallback_min": null,
+     "finish_coverage": 0.02,
+     "patches": [],
+     "minutes": 35.9,
+     "change_min": 15.0,
+     "loaded": false,
+     "mm2_per_min": 6.0
+    },
+    {
+     "tool": "BALL_4FL_STEEL_10MM",
+     "diameter_mm": 10.0,
+     "rough_mm3": 469.9,
+     "thickness_mm": 0.0,
+     "roughed": false,
+     "rough_min": 0.0,
+     "steep_mm2": 0.0,
+     "shallow_mm2": 0.0,
+     "flat_mm2": 0.0,
+     "round_frac": 0.0,
+     "round_radius_mm": 0.0,
+     "sloped_mm2": 328.0,
+     "finish_min": 21.5,
+     "finish_coverage": 0.02,
+     "patches": [
+      {
+       "box": {
+        "XMin": -26.173,
+        "XMax": 26.327,
+        "YMin": -73.108,
+        "YMax": 23.891999999999996,
+        "ZMin": 0.9920000000000009,
+        "ZMax": 15.508
+       },
+       "mm2": 281.2,
+       "steep_mm2": 0.0,
+       "shallow_mm2": 0.0,
+       "merged": true,
+       "sloped_mm2": 281.2
+      }
+     ],
+     "minutes": 21.5,
+     "change_min": 15.0,
+     "loaded": false,
+     "mm2_per_min": 15.0,
+     "ball": true,
+     "finish_only": true,
+     "band": [
+      15.0,
+      75.0
+     ],
+     "kind": "ball",
+     "territory": "CAD curved faces and unmatched tapers"
+    },
+    {
+     "tool": "BN_5FL_STEEL_8MM_R0.5",
+     "diameter_mm": 8.0,
+     "rough_mm3": 0.0,
+     "thickness_mm": 0.0,
+     "roughed": false,
+     "rough_min": 0.0,
+     "steep_mm2": 0.0,
+     "shallow_mm2": 0.0,
+     "flat_mm2": 0.0,
+     "round_frac": 0.0,
+     "round_radius_mm": 0.0,
+     "sloped_mm2": 130.0,
+     "finish_min": 4.6,
+     "finish_coverage": 0.01,
+     "patches": [
+      {
+       "box": {
+        "XMin": -28.173,
+        "XMax": 27.827,
+        "YMin": -59.608000000000004,
+        "YMax": 22.891999999999996,
+        "ZMin": 2.992000000000001,
+        "ZMax": 15.508
+       },
+       "mm2": 127.0,
+       "steep_mm2": 0.0,
+       "shallow_mm2": 0.0,
+       "merged": true,
+       "sloped_mm2": 127.0
+      }
+     ],
+     "minutes": 4.6,
+     "change_min": 15.0,
+     "loaded": false,
+     "mm2_per_min": 29.0,
+     "ball": true,
+     "finish_only": true,
+     "band": [
+      15.0,
+      75.0
+     ],
+     "kind": "bull",
+     "territory": "CAD fillets R0.5"
+    }
+   ],
+   "minutes": 191.4,
+   "changes": 6,
+   "left_mm3": 69102.6,
+   "surface_mm2": 14223.0,
+   "finished_mm2": 5668.0,
+   "uncovered_cones": [],
+   "uncovered_curved_mm2": 511.0,
+   "unfinished_mm2": 449.0,
+   "tolerance": {
+    "mm3": 2152.0,
+    "mm2": 178.0,
+    "feature_floor_mm3": null
+   },
+   "start_options": [
+    {
+     "largest_mm": null,
+     "minutes": 218.7
+    },
+    {
+     "largest_mm": 12.0,
+     "minutes": 294.9
+    },
+    {
+     "largest_mm": 10.0,
+     "minutes": 320.8
+    },
+    {
+     "largest_mm": 8.0,
+     "minutes": 377.5
+    },
+    {
+     "without": "EM_2FL_10MM",
+     "minutes": 205.0
+    },
+    {
+     "without": "EM_5FL_STEEL_12MM",
+     "minutes": 191.4
+    }
+   ],
+   "drills": [],
+   "sized": [],
+   "facing": [
+    {
+     "tool": "FACEMILL_63MM",
+     "diameter_mm": 63.0,
+     "holes": [
+      "FACE"
+     ],
+     "facing": true,
+     "minutes": 0.68,
+     "unrated": 0,
+     "mm3": 22699.2,
+     "depth_mm": 2.0,
+     "levels": 1,
+     "passes": 2,
+     "width_mm": 59.5,
+     "length_mm": 109.0,
+     "top_mm2": 697.0,
+     "change_min": 15.0,
+     "loaded": false
+    }
+   ],
+   "face_note": null,
+   "face_compare": {
+    "with_min": 567.7,
+    "without_min": 594.0,
+    "taken": true
+   },
+   "drill_min": 15.7,
+   "mill_holes": []
+  }
+ },
+ {
+  "dir": "-Z",
+  "plan": {
+   "rows": [
+    {
+     "tool": "EM_2FL_16MM",
+     "diameter_mm": 16.0,
+     "rough_mm3": 33814.8,
+     "thickness_mm": 7.26,
+     "roughed": true,
+     "rough_min": 4.9,
+     "steep_mm2": 711.0,
+     "shallow_mm2": 3277.0,
+     "sloped_mm2": 0.0,
+     "flat_mm2": 3121.0,
+     "round_frac": 0.0,
+     "round_radius_mm": 0.0,
+     "finish_min": 22.8,
+     "to_size_mm2": 0.0,
+     "flat_fallback_min": 31.6,
+     "finish_coverage": 0.46,
+     "patches": [],
+     "minutes": 27.7,
+     "change_min": 15.0,
+     "loaded": false,
+     "mm2_per_min": 175.0
+    },
+    {
+     "tool": "BALL_4FL_STEEL_10MM",
+     "diameter_mm": 10.0,
+     "rough_mm3": 519.8,
+     "thickness_mm": 0.0,
+     "roughed": false,
+     "rough_min": 0.0,
+     "steep_mm2": 0.0,
+     "shallow_mm2": 0.0,
+     "flat_mm2": 0.0,
+     "round_frac": 0.0,
+     "round_radius_mm": 0.0,
+     "sloped_mm2": 420.0,
+     "finish_min": 27.6,
+     "finish_coverage": 0.05,
+     "patches": [
+      {
+       "box": {
+        "XMin": -25.173,
+        "XMax": 24.827,
+        "YMin": -73.608,
+        "YMax": 25.391999999999996,
+        "ZMin": -10.008,
+        "ZMax": 0.4920000000000009
+       },
+       "mm2": 411.8,
+       "steep_mm2": 0.0,
+       "shallow_mm2": 0.0,
+       "merged": true,
+       "sloped_mm2": 411.8
+      }
+     ],
+     "minutes": 27.6,
+     "change_min": 15.0,
+     "loaded": false,
+     "mm2_per_min": 15.0,
+     "ball": true,
+     "finish_only": true,
+     "band": [
+      15.0,
+      75.0
+     ],
+     "kind": "ball",
+     "territory": "CAD curved faces and unmatched tapers"
+    }
+   ],
+   "minutes": 118.2,
+   "changes": 4,
+   "left_mm3": 14504.1,
+   "surface_mm2": 8593.0,
+   "finished_mm2": 4409.0,
+   "uncovered_cones": [],
+   "uncovered_curved_mm2": 361.0,
+   "unfinished_mm2": 222.0,
+   "tolerance": {
+    "mm3": 1030.0,
+    "mm2": 133.0,
+    "feature_floor_mm3": null
+   },
+   "start_options": [
+    {
+     "largest_mm": null,
+     "minutes": 231.3
+    },
+    {
+     "largest_mm": 10.0,
+     "minutes": 244.6
+    },
+    {
+     "without": "EM_2FL_20MM",
+     "minutes": 118.2
+    },
+    {
+     "without": "EM_2FL_16MM",
+     "minutes": 244.6
+    }
+   ],
+   "drills": [],
+   "sized": [
+    {
+     "tool": "EM_2FL_4MM",
+     "diameter_mm": 4.0,
+     "family": "flat",
+     "holes": [
+      "F19"
+     ],
+     "minutes": 0.53,
+     "rough_min": 0.53,
+     "finish_min": 0.0,
+     "unrated": 0,
+     "sized": true,
+     "feature": 19,
+     "width_mm": 4.0,
+     "mm3": 186.0,
+     "left_mm3": 0.0,
+     "passes": [
+      "SIZED"
+     ],
+     "wall_stock_mm": 0.0,
+     "gap_mm": 0.0,
+     "floor": true,
+     "floor_mm2": 23.2,
+     "change_min": 15.0,
+     "loaded": false,
+     "alt": {
+      "tool": "SLOT_4MM",
+      "diameter_mm": 4.0,
+      "family": "slot",
+      "holes": [
+       "F19"
+      ],
+      "minutes": 1.61,
+      "rough_min": 1.61,
+      "finish_min": 0.0,
+      "unrated": 0,
+      "sized": true,
+      "feature": 19,
+      "width_mm": 4.0,
+      "mm3": 186.0,
+      "left_mm3": 0.0,
+      "passes": [
+       "SIZED"
+      ],
+      "wall_stock_mm": 0.0,
+      "gap_mm": 0.0,
+      "floor": true,
+      "floor_mm2": 23.2,
+      "change_min": 15.0,
+      "loaded": false
+     }
+    },
+    {
+     "tool": "EM_2FL_4MM",
+     "diameter_mm": 4.0,
+     "family": "flat",
+     "holes": [
+      "F20"
+     ],
+     "minutes": 0.53,
+     "rough_min": 0.53,
+     "finish_min": 0.0,
+     "unrated": 0,
+     "sized": true,
+     "feature": 20,
+     "width_mm": 4.0,
+     "mm3": 186.0,
+     "left_mm3": 0.0,
+     "passes": [
+      "SIZED"
+     ],
+     "wall_stock_mm": 0.0,
+     "gap_mm": 0.0,
+     "floor": true,
+     "floor_mm2": 23.2,
+     "change_min": 0.0,
+     "loaded": true,
+     "alt": {
+      "tool": "SLOT_4MM",
+      "diameter_mm": 4.0,
+      "family": "slot",
+      "holes": [
+       "F20"
+      ],
+      "minutes": 1.61,
+      "rough_min": 1.61,
+      "finish_min": 0.0,
+      "unrated": 0,
+      "sized": true,
+      "feature": 20,
+      "width_mm": 4.0,
+      "mm3": 186.0,
+      "left_mm3": 0.0,
+      "passes": [
+       "SIZED"
+      ],
+      "wall_stock_mm": 0.0,
+      "gap_mm": 0.0,
+      "floor": true,
+      "floor_mm2": 23.2,
+      "change_min": 15.0,
+      "loaded": false
+     }
+    },
+    {
+     "tool": "EM_2FL_4MM",
+     "diameter_mm": 4.0,
+     "family": "flat",
+     "holes": [
+      "F28"
+     ],
+     "minutes": 0.56,
+     "rough_min": 0.56,
+     "finish_min": 0.0,
+     "unrated": 0,
+     "sized": true,
+     "feature": 28,
+     "width_mm": 4.0,
+     "mm3": 198.0,
+     "left_mm3": 0.0,
+     "passes": [
+      "SIZED"
+     ],
+     "wall_stock_mm": 0.0,
+     "gap_mm": 0.0,
+     "floor": true,
+     "floor_mm2": 24.8,
+     "change_min": 0.0,
+     "loaded": true,
+     "alt": {
+      "tool": "SLOT_4MM",
+      "diameter_mm": 4.0,
+      "family": "slot",
+      "holes": [
+       "F28"
+      ],
+      "minutes": 1.72,
+      "rough_min": 1.72,
+      "finish_min": 0.0,
+      "unrated": 0,
+      "sized": true,
+      "feature": 28,
+      "width_mm": 4.0,
+      "mm3": 198.0,
+      "left_mm3": 0.0,
+      "passes": [
+       "SIZED"
+      ],
+      "wall_stock_mm": 0.0,
+      "gap_mm": 0.0,
+      "floor": true,
+      "floor_mm2": 24.8,
+      "change_min": 15.0,
+      "loaded": false
+     }
+    },
+    {
+     "tool": "EM_2FL_4MM",
+     "diameter_mm": 4.0,
+     "family": "flat",
+     "holes": [
+      "F29"
+     ],
+     "minutes": 0.58,
+     "rough_min": 0.58,
+     "finish_min": 0.0,
+     "unrated": 0,
+     "sized": true,
+     "feature": 29,
+     "width_mm": 4.0,
+     "mm3": 206.0,
+     "left_mm3": 0.0,
+     "passes": [
+      "SIZED"
+     ],
+     "wall_stock_mm": 0.0,
+     "gap_mm": 0.0,
+     "floor": true,
+     "floor_mm2": 25.8,
+     "change_min": 0.0,
+     "loaded": true,
+     "alt": {
+      "tool": "SLOT_4MM",
+      "diameter_mm": 4.0,
+      "family": "slot",
+      "holes": [
+       "F29"
+      ],
+      "minutes": 1.79,
+      "rough_min": 1.79,
+      "finish_min": 0.0,
+      "unrated": 0,
+      "sized": true,
+      "feature": 29,
+      "width_mm": 4.0,
+      "mm3": 206.0,
+      "left_mm3": 0.0,
+      "passes": [
+       "SIZED"
+      ],
+      "wall_stock_mm": 0.0,
+      "gap_mm": 0.0,
+      "floor": true,
+      "floor_mm2": 25.8,
+      "change_min": 15.0,
+      "loaded": false
+     }
+    }
+   ],
+   "facing": [
+    {
+     "tool": "FACEMILL_63MM",
+     "diameter_mm": 63.0,
+     "holes": [
+      "FACE"
+     ],
+     "facing": true,
+     "minutes": 0.68,
+     "unrated": 0,
+     "mm3": 12971.0,
+     "depth_mm": 2.0,
+     "levels": 1,
+     "passes": 2,
+     "width_mm": 59.5,
+     "length_mm": 109.0,
+     "top_mm2": 562.0,
+     "change_min": 15.0,
+     "loaded": false
+    }
+   ],
+   "face_note": null,
+   "face_compare": {
+    "with_min": 303.3,
+    "without_min": 311.6,
+    "taken": true
+   },
+   "drill_min": 32.9,
+   "mill_holes": []
+  }
+ },
+ {
+  "dir": "-Y",
+  "plan": {
+   "rows": [
+    {
+     "tool": "EM_2FL_16MM",
+     "diameter_mm": 16.0,
+     "rough_mm3": 0.0,
+     "thickness_mm": 99.0,
+     "roughed": false,
+     "rough_min": 0.0,
+     "steep_mm2": 250.0,
+     "shallow_mm2": 37.0,
+     "sloped_mm2": 0.0,
+     "flat_mm2": 36.0,
+     "round_frac": 0.08,
+     "round_radius_mm": 0.5,
+     "finish_min": 0.6,
+     "to_size_mm2": 0.0,
+     "flat_fallback_min": 0.4,
+     "finish_coverage": 0.08,
+     "patches": [],
+     "minutes": 0.6,
+     "change_min": 0.0,
+     "loaded": true,
+     "mm2_per_min": 449.0
+    },
+    {
+     "tool": "EM_5FL_STEEL_12MM",
+     "diameter_mm": 12.0,
+     "rough_mm3": 0.0,
+     "thickness_mm": 99.0,
+     "roughed": false,
+     "rough_min": 0.0,
+     "steep_mm2": 911.0,
+     "shallow_mm2": 36.0,
+     "sloped_mm2": 0.0,
+     "flat_mm2": 36.0,
+     "round_frac": 0.08,
+     "round_radius_mm": 0.5,
+     "finish_min": 5.0,
+     "to_size_mm2": 0.0,
+     "flat_fallback_min": 1.0,
+     "finish_coverage": 0.25,
+     "patches": [],
+     "minutes": 5.0,
+     "change_min": 15.0,
+     "loaded": false,
+     "mm2_per_min": 189.0
+    }
+   ],
+   "minutes": 37.5,
+   "changes": 2,
+   "left_mm3": 1684.5,
+   "surface_mm2": 3786.0,
+   "finished_mm2": 1234.0,
+   "uncovered_cones": [],
+   "uncovered_curved_mm2": 32.0,
+   "unfinished_mm2": -3.0,
+   "tolerance": {
+    "mm3": 50.0,
+    "mm2": 37.0,
+    "feature_floor_mm3": null
+   },
+   "start_options": [
+    {
+     "largest_mm": null,
+     "minutes": 56.5
+    },
+    {
+     "largest_mm": 12.0,
+     "minutes": 58.1
+    },
+    {
+     "largest_mm": 8.0,
+     "minutes": 79.0
+    },
+    {
+     "without": "EM_2FL_16MM",
+     "minutes": 58.1
+    },
+    {
+     "without": "EM_2FL_8MM",
+     "minutes": 37.5
+    },
+    {
+     "without": "EM_2FL_16MM",
+     "minutes": 38.6
+    },
+    {
+     "without": "EM_5FL_STEEL_12MM",
+     "minutes": 46.8
+    }
+   ],
+   "drills": [],
+   "sized": [
+    {
+     "tool": "EM_2FL_16MM",
+     "diameter_mm": 16.0,
+     "family": "flat",
+     "holes": [
+      "F8"
+     ],
+     "minutes": 1.89,
+     "rough_min": 0.98,
+     "finish_min": 0.92,
+     "unrated": 0,
+     "sized": true,
+     "feature": 8,
+     "width_mm": 16.1,
+     "mm3": 7151.2,
+     "left_mm3": 0.0,
+     "passes": [
+      "SIZED",
+      "SIZEDFIN"
+     ],
+     "wall_stock_mm": 0.03,
+     "gap_mm": 0.1,
+     "floor": true,
+     "floor_mm2": 195.5,
+     "change_min": 15.0,
+     "loaded": false
+    }
+   ],
+   "facing": [],
+   "face_note": "no allowance above the top",
+   "face_compare": null,
+   "drill_min": 16.9,
+   "mill_holes": []
+  }
+ }
+]

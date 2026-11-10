@@ -73,8 +73,8 @@ At http://localhost:3000/admin/#/proto, log in with **your dev.shiaanx.com accou
 
 ### Beat 2b: Auto-quote (2:15–3:30)
 - **Clicks:** **Open auto-quote** (top right of the card).
-- **On screen, Summary:** **₹4,008/unit**, total ₹1,60,320 for 40 pcs, **27 days**. Material ₹233, machining 252.6 min at ₹700/hr = ₹2,947, setup ₹26/unit, margin 25%.
-- **Machining tab:** minutes per tool and per setup (+Z 103.3, −Z 141.3, −Y 8.0 min). The footer line reads: "249.6 min cutting + 12 tool changes × 15 s (ATC). v3's own total is 429.6 min because it assumes 15 min per manual tool change."
+- **On screen, Summary:** **₹2,808/unit**, total ₹1,12,329 for 40 pcs, **14 days**. Material ₹236, machining 170.1 min at ₹700/hr = ₹1,985, setup ₹26/unit, margin 25%.
+- **Machining tab:** minutes per tool and per setup (cutting: +Z 101.4, −Z 58.2, −Y 7.5 min). The footer line reads: "167.1 min cutting + 12 tool changes × 15 s (ATC). v3's own total is 347.1 min because it assumes 15 min per manual tool change."
 - **Material & stock tab:** 62.3 × 111.8 × 28.5 mm blank, in inventory (INV-AL6061-PL-40, **SAMPLE DATA**).
 - **Lead time tab:** 0 days material + 25 days machining + 2 days QC & dispatch.
 - **Live change:** set **Material** to *aluminium 7075*. The stock is not in inventory, so the quote switches to a supplier (Sample Supplier C, Bengaluru, 3 days, SAMPLE) and the price and lead time move. Set it back to 6061. Optionally set Qty to 2: the unit price rises to ₹4,631 because setup is spread over fewer parts.
@@ -130,8 +130,8 @@ Claude desktop app (Chat tab) with Rohit's ShiaanX plugin: a chat that reads the
 - **Where:** the board, opened from **See it on the production board →** (or tab 3).
 - **Board layout (one machine):** the columns are **Production on machine 1** (1 place) and **Scheduled for machine 1** (2 places). Their counts read "1 / 1" and "2 / 2", and turn amber if a column is over its places. Every card shows **Start → End dates** (cards not yet scheduled show "Earliest start …" in lighter text), and a card turns red with "after deadline" if its end date is past the deadline.
 - **Stage it before the call:** drag the job that is cutting now (e.g. Motor Mount SX/26-27/00007) into **Production on machine 1**. Then approving 00019 lands it in **Scheduled** as the second place (2 / 2), which is the clean story. If Scheduled already holds 2, approving makes it 3 / 2 and the count turns amber: that is intended, not a bug.
-- **On screen:** click the Motor Mount card: "Where Motor Mount slots in", queued with the **AI plan (v3)** as its time source: 252.6 min per part including tool changes, approved by you, with the time. Then its start, finish and deadline status. Jobs ahead with no estimate show **"not counted"** in the hours column, never 0, and a note says the start and finish are therefore the earliest possible.
-- **Deadline at qty 40:** the 19 Nov deadline shows **"Deadline · will be missed"**. That is real: 40 × 252.6 min ≈ 168 h of cutting, about 170 h with setups, on one VMC. Two options:
+- **On screen:** click the Motor Mount card: "Where Motor Mount slots in", queued with the **AI plan (v3)** as its time source: 170.1 min per part including tool changes, approved by you, with the time. Then its start, finish and deadline status. Jobs ahead with no estimate show **"not counted"** in the hours column, never 0, and a note says the start and finish are therefore the earliest possible.
+- **Deadline at qty 40:** the 19 Nov deadline shows **"Deadline · will be missed"**. That is real: 40 × 170.1 min ≈ 113 h of cutting, about 115 h with setups, on one VMC (about 11 working days at 12 h shifts). Two options:
   - Keep it, and say: "And it tells us the truth: 40 pieces on one VMC don't make this date. Today we find that out on day 10; here we find it out before we accept the order, and we split it across machines or agree a date now."
   - Or, before the call, give the demo order a smaller qty (about 5) or a deadline after early December, so it reads "on track". This also changes the quote, so decide first.
 - **Say:** "Approve the plan and the job lands on the machine queue with its real minutes, against everything already there."
@@ -166,11 +166,11 @@ Claude desktop app (Chat tab) with Rohit's ShiaanX plugin: a chat that reads the
 
 - **Quote vs the manual quote (only if asked):** "At qty 40 the auto-quote is ₹4,008 against our engineer's ₹3,897, about 3% apart. The manual quote was for 6063, this one is 6061." It is visible in the auto-quote's "vs manual quote" tab; keep that tab off the click path. Background: before pricing the shop's 15 s tool changer, v3's default of 15 min per manual change put the quote at +69%.
 - **The two shop programs differ ~7×:** "We have two real programs for this part: one estimates 69.8 min, the other's toolpaths add up to about 500 min. Even human programs disagree 7×. That is exactly why a consistent, explainable planner matters. Our plan, about 240–290 min of cutting (offline estimate / PowerMill-measured), sits between them." Same billet: v3 236 min vs the 518-min shop program. The gap is mostly the programmer's 0.1–0.2 mm roughing layers. Do not claim per-setup agreement.
-- **v3 minutes are conservative:** v3 calls its own time model "~2×, for ranking plans, not a promise". Do not present 252.6 min as a cycle-time guarantee.
+- **v3 minutes are conservative:** v3 calls its own time model "~2×, for ranking plans, not a promise". Do not present 170.1 min as a cycle-time guarantee. It is a planner estimate (new planner version, 10 Nov); the one PowerMill-measured run on the program card shows 291 min.
 - **Machine data caveats (batch 2):** "This is the TS machine's June run. Setup 3, the finish program, isn't in the controller log. The log shows 16-18 full cycles per setup, more than the 9 parts inspected, so we read the inspection as a sample of a larger lot. Shares are of logged time, because the collector only logs while a program is loaded." State and mode codes were read from the data itself, not from Siemens documentation.
 - **Drilling is not priced offline:** "The 22 holes aren't in this quote's cycle time yet. Drilling is priced once PowerMill's hole recognition is in the loop, which needs the bridge."
 - **If the reply assistant errors on the call:** "The drafting call failed just now; you can see exactly which facts it is allowed to use, and it never makes up a number."
-- **Board vs quote cycle:** after Approve, the board uses the approved AI plan's 252.6 min/part, the same figure as the quote. Before approval it falls back to the programmer's 69.8 min/part. Saving the auto-quote again keeps the approved plan time.
+- **Board vs quote cycle:** after Approve, the board uses the approved AI plan's 170.1 min/part, the same figure as the quote. Before approval it falls back to the programmer's 69.8 min/part. Saving the auto-quote again keeps the approved plan time.
 - **SAMPLE DATA badges:** inventory and supplier entries are placeholders until the team replaces them. Margin, setup minutes and shift hours are also placeholders. The real values are ₹700/hr and the 15 s tool change.
 
 ---
