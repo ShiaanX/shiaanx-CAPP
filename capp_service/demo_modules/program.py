@@ -70,6 +70,14 @@ def plan_from_v3(v3: dict) -> dict:
         cyc = quote.cycle_minutes(v3) if p.get('total_minutes') else None
     except Exception:
         cyc = None
+    # One time basis on screen: each setup's minutes = cutting + its tool changes on the shop's automatic changer,
+    # so the setups add up to cycle_minutes_atc. v3's own figure (15 min per manual change) stays as v3_minutes.
+    if cyc and p.get('tool_changes'):
+        each = max(0.0, (cyc['total_minutes'] - (p.get('cutting_minutes') or 0)) / p['tool_changes'])
+        for s in setups:
+            s['v3_minutes'] = s['minutes']
+            if s.get('cutting_minutes') is not None:
+                s['minutes'] = round(s['cutting_minutes'] + (s.get('tool_changes') or 0) * each, 1)
     return {
         'setups': setups,
         'tools': p.get('tools') or [],
@@ -259,9 +267,7 @@ def build(job_dir: Path, v3_state: str, v3: dict | None) -> dict:
     live, live_notes = live_program(key)
     notes += live_notes
     if plan and live:
-        notes.append(f"v3 plan (before PowerMill): {plan['total_minutes']} min with 15-min manual tool changes, "
-                     f"{plan['cycle_minutes_atc']} min quoted with ATC. PowerMill's computed time for the real "
-                     f"program: {live['powermill_cutting_minutes_total']} min (incl. link moves, excl. tool changes).")
+        notes.append(f"Cycle time {plan['cycle_minutes_atc']} min per part, including tool changes on the shop's automatic changer.")
     return {
         'status': 'ok' if plan else v3_state,
         'part': pd.name if pd else None,
